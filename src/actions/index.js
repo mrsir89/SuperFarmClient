@@ -21,7 +21,7 @@ const getClientToken = () => {
     }
   });
 };
-
+// 확인 
 const signup = (signupModel) => {
   console.log(signupModel, ' 여기는 signup 안쪽')
   return ({
