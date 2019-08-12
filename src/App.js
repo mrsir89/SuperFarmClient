@@ -1,5 +1,5 @@
 // ver4  8/11 Ref
-
+// dev_ki  의 App.js
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
@@ -31,7 +31,7 @@ import ProductList from './component/board/ProductList';
 
 /////////////////////////// stateFul
 // findPassword 추가 8/12
-class App extends React.Component {
+class App extends Component {
   render() { // 화면에 html 뷰를 생성.
     return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
       <div className="container">
