@@ -21,7 +21,7 @@ const getClientToken = () => {
     }
   });
 };
-
+// 주석
 const signup = (signupModel) => {
   console.log(signupModel, ' 여기는 signup 안쪽')
   return ({
