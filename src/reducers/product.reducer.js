@@ -1,6 +1,10 @@
 import { ActionTypes } from '../contants';
 
 // ProductList에서 보여주는 상품들 (items)와 Cart에서 보여주는 장바구니에 추가된 상품들(cart) 
+// orders : {
+//     items : [],
+//     shipping : {배송지, 배송방법, 배송비, 수취인, 수취인 전화번호, 배송 메세지}, 
+// }
 const initialStateProduct = {
     items: [],
     cart: []
