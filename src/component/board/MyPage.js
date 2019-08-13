@@ -9,9 +9,12 @@ class MyPage extends  React.Component{
 
     render(){
         const { auth } = this.props;
+        const {userDetails} = auth;
         return(
             <div>
-                {auth}
+                <p>이름 : {userDetails.customerName}</p>
+                <p>주소 : {userDetails.contact.customerAddress}</p>
+                <p>전화번호 : {userDetails.contact.customerPhone}</p>
             </div>
         )
     }

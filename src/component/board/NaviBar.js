@@ -26,7 +26,7 @@ function NaviBar() {
             <li><Link  to="/review/all">Notice</Link></li>
             <li><Link  to="/review/all">Contact</Link></li>
             <li><Link  to="/cart">장바구니</Link></li>
-            <li><Link  to="/cart">장바구니</Link></li>
+            <li><Link  to="/mypage">마이페이지</Link></li>
           </ul>
         <br></br>
             <br></br>
