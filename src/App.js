@@ -1,5 +1,10 @@
 // ver4  8/11 Ref
+// <<<<<<< HEAD
 // dev_ki  의 App.js
+// =======
+// merge Test from Sujin
+
+// >>>>>>> 37d6b5276a83994faa18f6be538dec5bf558d50e
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
@@ -11,6 +16,7 @@ import './App.css';
 import Cart from './component/board/Cart';
 import ProductDetail from './component/board/ProductDetail';
 import ProductList from './component/board/ProductList';
+import MyPage from './component/board/MyPage';
 
 // REACT는 라이브러리, View를 Rendering 하는 것이 주 기능이며 나머지 기타 기능들(router, ajax등등)은 서드파티 라이브러리를 추가적으로 사용해야 한다.
 // React랑 React+Redux의 결정적 차이
@@ -31,7 +37,7 @@ import ProductList from './component/board/ProductList';
 
 /////////////////////////// stateFul
 // findPassword 추가 8/12
-class App extends Component {
+class App extends React.Component {
   render() { // 화면에 html 뷰를 생성.
     return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
       <div className="container">
@@ -42,7 +48,11 @@ class App extends Component {
           <Route path="/qnaboard" component={qnaboard} />
           <Route path="/cart" component={Cart} />
           <Route path="/product/:id" component={ProductDetail} />
+{/* <<<<<<< HEAD */}
           <Route path="/findPassword" component={ProductDetail} />
+{/* ======= */}
+          <Route path="/mypage" component={MyPage} />
+{/* >>>>>>> 37d6b5276a83994faa18f6be538dec5bf558d50e */}
         </Switch>
       </div>
     );
