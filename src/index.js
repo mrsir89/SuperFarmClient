@@ -12,6 +12,7 @@ import axios from 'axios'; // 추가사항
 import axiosMiddleware from 'redux-axios-middleware'; // 추가사항
 import { StateLoader, interceptors, onErrorHandler } from './util';
 import App from './App';
+import NaviBar from './component/board/NaviBar';
 // import * as serviceWorker from './serviceWorker';
 
 // 여기서만 선언 endpoint가 oauth가 아니면 override 할거
@@ -63,6 +64,7 @@ store.subscribe(() => {
 ReactDOM.render(
   <Provider store={store}>
     <Router>
+      <NaviBar />
       <App />
     </Router>
   </Provider>,
