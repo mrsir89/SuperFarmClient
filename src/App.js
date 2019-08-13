@@ -1,4 +1,5 @@
 // ver4  8/11 Ref
+// ver4  8/12 merge testing
 
 import React from 'react';
 import { connect } from 'react-redux';
