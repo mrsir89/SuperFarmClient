@@ -69,22 +69,22 @@ class ProductDetail extends React.Component {
                   </div>
 
                   <form>
-                  <div class="form-row">
-                     <div class="form-group col-md-6">
-                        <label for="exampleFormControlSelect1">옵션1 선택</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                           <option>{product.product.productOption1}</option>
-                           <option>없음</option>
-                        </select>
+                     <div class="form-row">
+                        <div class="form-group col-md-6">
+                           <label for="exampleFormControlSelect1">옵션1 선택</label>
+                           <select class="form-control" id="exampleFormControlSelect1">
+                              <option>{product.product.productOption1}</option>
+                              <option>없음</option>
+                           </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                           <label for="exampleFormControlSelect1">옵션2 선택</label>
+                           <select class="form-control" id="exampleFormControlSelect1">
+                              <option>{product.product.productOption2}</option>
+                              <option>없음</option>
+                           </select>
+                        </div>
                      </div>
-                     <div class="form-group col-md-6">
-                        <label for="exampleFormControlSelect1">옵션2 선택</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                           <option>{product.product.productOption2}</option>
-                           <option>없음</option>
-                        </select>
-                     </div>
-                  </div>
                   </form>
 
                   <div className="btn-prd">

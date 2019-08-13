@@ -1,6 +1,7 @@
 // ver4  8/11 Ref
-// merge Test from Sujin
+// merge test 2
 
+// >>>>>>> 37d6b5276a83994faa18f6be538dec5bf558d50e
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
@@ -33,6 +34,7 @@ import NaviBar from './component/board/NaviBar';
 */
 
 /////////////////////////// stateFul
+// findPassword 추가 8/12
 class App extends React.Component {
   render() { // 화면에 html 뷰를 생성.
     return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
@@ -45,7 +47,11 @@ class App extends React.Component {
           <Route path="/qnaboard" component={qnaboard} />
           <Route path="/cart" component={Cart} />
           <Route path="/product/:id" component={ProductDetail} />
+{/* <<<<<<< HEAD */}
+          <Route path="/findPassword" component={ProductDetail} />
+{/* ======= */}
           <Route path="/mypage" component={MyPage} />
+{/* >>>>>>> 37d6b5276a83994faa18f6be538dec5bf558d50e */}
         </Switch>
       </div>
     );

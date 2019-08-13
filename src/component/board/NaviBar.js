@@ -5,7 +5,6 @@ import './NaviBar.css';
 // upper, lower 카테고리 가져와서 보여줘야함. 
 
 
-
 function NaviBar() {
 
   // 진행 중..
@@ -17,6 +16,7 @@ function NaviBar() {
 
   // <button className="badge badge-danger" onClick={e => logoutHandler(e)}>로그아웃</button>
   return (
+
 
     <div className="container">  
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -39,12 +39,13 @@ function NaviBar() {
             
           </ul>
         <br></br>
+
             <br></br>
             <p><strong>우리는 수퍼팜~.</strong></p>
-      </div>
-      </div>
-      </nav>  
-    </div>     
+          </div>
+        </div>
+      </nav>
+    </div>
   );
 }
 
