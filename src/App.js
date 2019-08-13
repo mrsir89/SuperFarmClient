@@ -35,7 +35,7 @@ class App extends React.Component {
     return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
       <div className="container">
         <Switch>
-          <Route exact path="/" component={ProductList} />
+          <Route exact path="/product" component={ProductList} />
           <Route path="/signup" component={signup} />
           <Route path="/login" component={login} />
           <Route path="/qnaboard" component={qnaboard} />

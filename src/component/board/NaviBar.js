@@ -9,16 +9,20 @@ import './NaviBar.css';
 
 function NaviBar() {
   return (
+
     <div className="container">  
-    
-        <div className="list-group list-group-horizontal-md" >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <div className="list-group list-group-horizontal-md" >
           {/* <Product/> */}
           <ul class = "navbar">
             <li><Link className="active" to="/product">Home</Link></li>
             <li><Link  to="/review/all">About</Link></li>
+
             <li><Link  to="/review/all">SusanMul</Link></li>
             <li><Link  to="/review/all">NongSanMul</Link></li>
             <li><Link  to="/review/all">ChukSanMul</Link></li>
+            
             <li><Link  to="/review/all">Notice</Link></li>
             <li><Link  to="/review/all">Contact</Link></li>
             <li><Link  to="/cart">장바구니</Link></li>
@@ -26,8 +30,10 @@ function NaviBar() {
         <br></br>
             <br></br>
             <p><strong>우리는 수퍼팜~.</strong></p>
-    </div>
-</div>     
+      </div>
+      </div>
+      </nav>  
+    </div>     
   );
 }
 

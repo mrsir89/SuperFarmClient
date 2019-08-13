@@ -22,13 +22,12 @@ class Cart extends React.Component {
         return <ProductItem key={item.productBoardNum} item={item} />
       })
     }
-    console.log("this.state ?????", this.state);
-    console.log("this.props ?????", this.props);
+
     return cartList
   }
 
   render() {
-    console.log("cart state? >> ", this.state.cartItems)
+
     return (
       <div>
         {this._showCartItems()}
