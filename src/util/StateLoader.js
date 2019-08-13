@@ -22,6 +22,8 @@ class StateLoader {
         }
     }
 
+    // 여기 auth에 장바구니, 구매한 목록 추가 
+    // product에 카테고리 추가 (upper: [], lower: [])
     initialState() {
         return {
             auth: {

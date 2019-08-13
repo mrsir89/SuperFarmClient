@@ -1,13 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './NaviBar.css';
+// import { StateLoader } from '../util';
+// upper, lower 카테고리 가져와서 보여줘야함. 
 
-
-
-// cates: Navibarj.cates= 더미
 
 
 function NaviBar() {
+
+  // 진행 중..
+  // const logoutHandler = (e) => {
+  //   const stateLoader = new StateLoader();
+  //   stateLoader.initialState();
+  // }
+
+
+  // <button className="badge badge-danger" onClick={e => logoutHandler(e)}>로그아웃</button>
   return (
 
     <div className="container">  
@@ -15,6 +23,7 @@ function NaviBar() {
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <div className="list-group list-group-horizontal-md" >
           {/* <Product/> */}
+          
           <ul class = "navbar">
             <li><Link className="active" to="/product">Home</Link></li>
             <li><Link  to="/review/all">About</Link></li>
@@ -27,6 +36,7 @@ function NaviBar() {
             <li><Link  to="/review/all">Contact</Link></li>
             <li><Link  to="/cart">장바구니</Link></li>
             <li><Link  to="/mypage">마이페이지</Link></li>
+            
           </ul>
         <br></br>
             <br></br>
