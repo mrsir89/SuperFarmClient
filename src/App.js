@@ -1,8 +1,5 @@
 // ver4  8/11 Ref
-// <<<<<<< HEAD
-// dev_ki  의 App.js
-// =======
-// merge Test from Sujin
+// merge test 2
 
 // >>>>>>> 37d6b5276a83994faa18f6be538dec5bf558d50e
 import React from 'react';
