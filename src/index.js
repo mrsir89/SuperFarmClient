@@ -1,4 +1,4 @@
-// 8/11 Ref
+// 8/13 주석 merging test 중
 
 import React from 'react';
 import ReactDOM from 'react-dom';
