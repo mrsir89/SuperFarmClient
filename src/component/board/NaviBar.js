@@ -22,9 +22,10 @@ function NaviBar() {
             <li><Link  to="/review/all">SusanMul</Link></li>
             <li><Link  to="/review/all">NongSanMul</Link></li>
             <li><Link  to="/review/all">ChukSanMul</Link></li>
-            
+
             <li><Link  to="/review/all">Notice</Link></li>
             <li><Link  to="/review/all">Contact</Link></li>
+            <li><Link  to="/cart">장바구니</Link></li>
             <li><Link  to="/cart">장바구니</Link></li>
           </ul>
         <br></br>
