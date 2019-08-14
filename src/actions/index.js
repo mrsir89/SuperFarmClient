@@ -73,14 +73,6 @@ const logout = () => ({
   type: ActionTypes.LOGOUT
 })
 
-const writeQnABoard = () => ({
-  type: ActionTypes.QNABOARD_WRITE
-})
-
-const getQnABoard = () => ({
-  type: ActionTypes.QNABOARD
-})
-
 
 // 0810 장바구니 추가 action (local storage에 저장, db에는 저장 안함)
 const addCart = (item) => ({
@@ -111,6 +103,21 @@ const loadProductList = () => {
   })
 };
 
+// DB에 페이지를 요청한다
+const questionByProduct = (productNum, page) => {
+  console.log('questionByProduct')
+  return ({
+    type: ActionTypes.QUESTION_BY_PRODUCT,
+    payload: {
+      request: {
+        page,
+        productNum,
+        method: 'GET',
+        url: `/product/${productNum}`
+      }
+    }
+  })
+};
 
 export const Actions = {
   login,
@@ -118,9 +125,8 @@ export const Actions = {
   getClientToken,
   logout,
   getUserMe,
-  getQnABoard,
-  writeQnABoard,
   addCart,
-  loadProductList
+  loadProductList,
+  questionByProduct
 
 };

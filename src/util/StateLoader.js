@@ -33,6 +33,11 @@ class StateLoader {
             product: {
                 items: [],
                 cart: []
+            },
+            // 각 페이지 마다 questionBoard들, 현재의 페이지 저장
+            questionBoard: {
+                page:1,
+                questionBoard:[]
             }
         };
     }

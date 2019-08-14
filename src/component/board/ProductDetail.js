@@ -75,7 +75,7 @@ class ProductDetail extends React.Component {
                   </div>
                </div>
             </div>
-            <ProductView />
+            <ProductView key = {product.productBoardNum} product ={product} />
          </div>
       );
    }

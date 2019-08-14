@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import signup from './component/signup/Signup';
 import login from './component/login/Login';
-import qnaboard from './component/board/QnABoard';
 import { Actions } from './actions';
 import './App.css';
 import Cart from './component/board/Cart';
 import ProductDetail from './component/board/ProductDetail';
 import ProductList from './component/board/ProductList';
+import QuestionBoard from './component/board/QuestionBoard';
 
 // REACT는 라이브러리, View를 Rendering 하는 것이 주 기능이며 나머지 기타 기능들(router, ajax등등)은 서드파티 라이브러리를 추가적으로 사용해야 한다.
 // React랑 React+Redux의 결정적 차이
@@ -38,7 +38,6 @@ class App extends React.Component {
           <Route exact path="/" component={ProductList} />
           <Route path="/signup" component={signup} />
           <Route path="/login" component={login} />
-          <Route path="/qnaboard" component={qnaboard} />
           <Route path="/cart" component={Cart} />
           <Route path="/product/:id" component={ProductDetail} />
         </Switch>
