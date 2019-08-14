@@ -83,12 +83,21 @@ const getQnABoard = () => ({
 
 
 // 0810 장바구니 추가 action (local storage에 저장, db에는 저장 안함)
-const addCart = (item) => ({
-  type: ActionTypes.ADD_CART,
-  item
-});
+// const addCart = (item) => ({
+//   type: ActionTypes.ADD_CART,
+//   item
+// });
 
 // 0814 장바구니 추가 (user)
+const addCart = (item) => ({
+  type: ActionTypes.ADD_CART,
+  payload: {
+    request: {
+      method : 'POST',
+      url: `/cart/add`,
+    }
+  }
+});
 
 // 0814 장바구니 불러오기 (user)
 const getCartByUser = (userNum)=> {
@@ -98,10 +107,6 @@ const getCartByUser = (userNum)=> {
       request: {
         method : 'POST',
         url: `/cart?userNum=${userNum}`,
-        headers: { 
-          'Content-Type': 'application/json; charset: utf-8'
-        },
-        data: userNum
       }
     }
   })

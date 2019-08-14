@@ -33,7 +33,7 @@ class StateLoader {
                 signupModel: null
             },
             product: {
-                items: [],
+                productBoard: [],
                 cart: [],
                 category: []
             }
