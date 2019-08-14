@@ -34,7 +34,8 @@ class StateLoader {
             },
             product: {
                 items: [],
-                cart: []
+                cart: [],
+                category: []
             }
         };
     }
