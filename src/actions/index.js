@@ -22,8 +22,8 @@ const getClientToken = () => {
   });
 };
 // 확인 
-const signup = (signupModel) => {
-  console.log(signupModel, ' 여기는 signup 안쪽')
+const signup = (signupCustomer) => {
+  console.log(signupCustomer, ' 여기는 signup 안쪽')
   return ({
     type: ActionTypes.SIGNUP,
     payload: {
@@ -33,7 +33,7 @@ const signup = (signupModel) => {
         headers: {
           'Content-Type': 'application/json; charset: utf-8'
         },
-        data: JSON.stringify(signupModel)
+        data: JSON.stringify(signupCustomer)
       }
     }
   }
