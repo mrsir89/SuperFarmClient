@@ -69,8 +69,7 @@ class Main extends React.Component {
         </nav>
       </div>
     );
-  }
-  
+  }  
 }
 
 function mapStateToProps(state) {
