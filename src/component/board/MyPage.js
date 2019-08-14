@@ -4,13 +4,12 @@ import { connect } from 'react-redux';
 class MyPage extends React.Component {
     constructor(props) {    // props 굳이 안써줘도 넘어 옴
         super(props)
-
     }
 
     render() {
         const { auth } = this.props;
         const { userDetails } = auth;
-        const {position} = userDetails;
+        const { position } = userDetails;
         return (
             <div>
                 <p>이름 : {userDetails.username}</p>
@@ -19,8 +18,6 @@ class MyPage extends React.Component {
             </div>
         )
     }
-
-
 }
 
 function mapStateToProps(state) {
