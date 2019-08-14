@@ -88,11 +88,26 @@ const addCart = (item) => ({
   item
 });
 
-// 0810 DB에 있는 상품 데이터 가져오는 action
-// const loadProductList = (items) => ({
-//   type: 'LOAD_PRODUCTLIST',
-//   items
-// });
+// 0814 장바구니 추가 (user)
+
+// 0814 장바구니 불러오기 (user)
+const getCartByUser = (userNum)=> {
+  return ({
+    type: ActionTypes.GET_CART,
+    payload: {
+      request: {
+        method : 'POST',
+        url: `/cart?userNum=${userNum}`,
+        headers: { 
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: userNum
+      }
+    }
+  })
+}
+
+
 
 // 0810 DB에 있는 상품 데이터 가져오는 action => axios 타입 action으로 변경 
 const loadProductList = () => {
@@ -103,13 +118,25 @@ const loadProductList = () => {
       request: {
         method: 'POST',
         url: `/product/all`
-        // headers: [
-        //   ['Accept', 'application/json']
-        // ]
       }
     }
   })
 };
+
+
+// 카테고리 DB에서 가져오는 action 추가 
+const getCategories = ()=> {
+  return ({
+    type: ActionTypes.GET_CATEGORIES,
+    payload: {
+      request: {
+        method : 'POST',
+        url: '/category'
+      }
+    }
+  })
+}
+
 
 
 export const Actions = {
@@ -121,6 +148,8 @@ export const Actions = {
   getQnABoard,
   writeQnABoard,
   addCart,
-  loadProductList
+  loadProductList,
+  getCategories,
+  getCartByUser
 
 };

@@ -7,7 +7,8 @@ import { ActionTypes } from '../contants';
 // }
 const initialStateProduct = {
     items: [],
-    cart: []
+    cart: [],
+    category: []
 };
 
 
@@ -40,6 +41,32 @@ const productReducer = (state = initialStateProduct, action) => {
                     item
                 ]
             }
+
+        // 카테고리 불러오기 
+        case ActionTypes.GET_CATEGORIES_SUCCESS:
+            if (payload !== undefined && payload !== null) {
+                const { data } = payload;
+                if (data !== undefined && data !== null) {
+                    return {
+                        ...state,
+                        category: data
+                    };
+                }
+            }
+            return state;
+
+        // user의 장바구니 불러오기
+        case ActionTypes.GET_CART_SUCCESS:
+            if (payload !== undefined && payload !== null) {
+                const { data } = payload;
+                if (data !== undefined && data !== null) {
+                    return {
+                        ...state,
+                        cart: data
+                    };
+                }
+            }
+            return state;
 
         default:
             return state;
