@@ -1,7 +1,8 @@
 // ver4  8/11 Ref
-// merge test 2
+// merge ki from sj
 
-// >>>>>>> 37d6b5276a83994faa18f6be538dec5bf558d50e
+
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
