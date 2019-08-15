@@ -5,7 +5,6 @@ import { ActionTypes } from '../contants';
 // 2)_ Store의 문지기(Reducer)가 Action의 발생을 감지하면, 새로운 State가 생성된다.
 
 
-
 // type: "액션의 종류를 한번에 식별할 수 있는 문자열 혹은 심볼"
 // payload: "액션의 실행에 필요한 임의의 데이터"
 const getClientToken = () => {
