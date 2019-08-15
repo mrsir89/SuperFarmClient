@@ -4,6 +4,8 @@ import { ActionTypes } from '../contants';
 // 1)_ Store에 대해 뭔가 하고 싶은 경우엔 Action 을 발행한다.
 // 2)_ Store의 문지기(Reducer)가 Action의 발생을 감지하면, 새로운 State가 생성된다.
 
+
+
 // type: "액션의 종류를 한번에 식별할 수 있는 문자열 혹은 심볼"
 // payload: "액션의 실행에 필요한 임의의 데이터"
 const getClientToken = () => {
@@ -83,12 +85,21 @@ const getQnABoard = () => ({
 
 
 // 0810 장바구니 추가 action (local storage에 저장, db에는 저장 안함)
-const addCart = (item) => ({
-  type: ActionTypes.ADD_CART,
-  item
-});
+// const addCart = (item) => ({
+//   type: ActionTypes.ADD_CART,
+//   item
+// });
 
 // 0814 장바구니 추가 (user)
+const addCart = (item) => ({
+  type: ActionTypes.ADD_CART,
+  payload: {
+    request: {
+      method : 'POST',
+      url: `/cart/add`,
+    }
+  }
+});
 
 // 0814 장바구니 불러오기 (user)
 const getCartByUser = (userNum)=> {
@@ -98,16 +109,10 @@ const getCartByUser = (userNum)=> {
       request: {
         method : 'POST',
         url: `/cart?userNum=${userNum}`,
-        headers: { 
-          'Content-Type': 'application/json; charset: utf-8'
-        },
-        data: userNum
       }
     }
   })
 }
-
-
 
 // 0810 DB에 있는 상품 데이터 가져오는 action => axios 타입 action으로 변경 
 const loadProductList = () => {
@@ -151,5 +156,5 @@ export const Actions = {
   loadProductList,
   getCategories,
   getCartByUser
-
+  // +@
 };

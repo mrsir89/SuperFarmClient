@@ -14,10 +14,10 @@ import { Actions } from '../../actions/index';
 class ProductDetail extends React.Component {
    constructor(props) {    // props 굳이 안써줘도 넘어 옴
       super(props)
-      const { items } = this.props;
+      const { productBoard } = this.props;
       this.state = {
          productId: this.props.match.params.id,
-         products: items
+         products: productBoard
       };
    }
 
@@ -106,9 +106,9 @@ class ProductDetail extends React.Component {
 // store에서 state를 복사해서 컨테이너의 props에 붙여넣기 
 function mapStateToProps(state) {
    const { product } = state;
-   const { items } = product
+   const { productBoard } = product
    return {
-      items
+      productBoard
    };
 }
 

@@ -6,7 +6,7 @@ import { ActionTypes } from '../contants';
 //     shipping : {배송지, 배송방법, 배송비, 수취인, 수취인 전화번호, 배송 메세지}, 
 // }
 const initialStateProduct = {
-    items: [],
+    productBoard: [],
     cart: [],
     category: []
 };
@@ -14,7 +14,7 @@ const initialStateProduct = {
 
 // 추후 authentication reducer와 같은 방식(axios middleware)으로 바꿀 예정
 const productReducer = (state = initialStateProduct, action) => {
-    const { items, cart } = state;
+    const { productBoard, cart } = state;
     const { payload } = action;
 
     switch (action.type) {
@@ -25,7 +25,7 @@ const productReducer = (state = initialStateProduct, action) => {
                 if (data !== undefined && data !== null) {
                     return {
                         ...state,
-                        items: data
+                        productBoard: data
                     };
                 }
             }
