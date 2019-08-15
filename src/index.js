@@ -4,7 +4,6 @@
 // 마이페이지 추가 
 // productDetail에서 옵션 기능 추가 
 
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -70,7 +69,6 @@ store.subscribe(() => {
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <NaviBar/>
       <App />
     </Router>
   </Provider>,

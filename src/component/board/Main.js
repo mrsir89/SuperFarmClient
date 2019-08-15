@@ -30,7 +30,7 @@ class Main extends React.Component {
 
     if (category !== undefined && category !== null){
         categoryArr = category.map(item => {
-          return  <li><Link  to="/review/all">{item.upperTitle}</Link></li>
+          return  (<li><Link  to="/review/all">{item.upperTitle}</Link></li>);
         })
     }
 

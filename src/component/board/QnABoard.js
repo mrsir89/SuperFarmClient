@@ -57,7 +57,6 @@ class QnABoard extends React.Component {
 
   _writeQnA() {
     const { writeQnABoard } = this.props
-
   }
 
   render() {
