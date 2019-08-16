@@ -17,7 +17,7 @@ import { bindActionCreators } from 'redux';
  constructor(props){
      super(props);
      this.state = {
-      items:[]
+      reviewBoards: []
      }
    }
 
@@ -37,8 +37,8 @@ import { bindActionCreators } from 'redux';
         var reviewItems =[];
 
         if(items !== undefined && items !== null){
-           reviewItems = items.map (item => 
-          <Accordion key = {item.reviewBoardNum} review ={item}/> 
+           reviewItems = items.map (review => 
+          <Accordion key = {review.reviewBoardNum} review ={review}/> 
         )
            }
        
@@ -56,7 +56,7 @@ import { bindActionCreators } from 'redux';
        console.log("this.props!=>>", this.props)
         return (
              <div className="content">
-              {/* {this._renderAllReviews()} */}
+             {this._renderAllReviews()} 
              </div>   
         );
       }
@@ -65,9 +65,9 @@ import { bindActionCreators } from 'redux';
      }
     
      function mapStateToProps (state){
-      const {reviews} = state;
-      const {items} = reviews
-      // const {items} = reviews;
+       const {reviews} = state;
+       const {reviewBoards} = reviews
+       const {items} = reviewBoards;
     
 
        return {

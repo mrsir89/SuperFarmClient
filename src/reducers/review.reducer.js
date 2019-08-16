@@ -1,15 +1,11 @@
 import { ActionTypes } from "../contants";
 
 const  initialStateReview = {
-    // items: [],
-    // page:1,
-    // size:14,
-    // totalCount:0
-  
+    reviewBoards:[]  
 };
 
 const reviewReducer = (state = initialStateReview, action ) =>{
-    const{items,totalCount} = state;
+    const{reviewBoards} = state;
     const { payload } = action;
 
     switch(action.type){
@@ -19,8 +15,8 @@ const reviewReducer = (state = initialStateReview, action ) =>{
         if(payload !== undefined && payload !== null){
             return {
                 ...state,
-                items: [
-                    ...items,
+                reviewBoards: [
+                    ...reviewBoards,
                     payload.data,
                 //  {
                 //     reviewBoardNum:payload.num,
@@ -34,7 +30,7 @@ const reviewReducer = (state = initialStateReview, action ) =>{
                 //     // reviewBoardStatus:null
                 // }
                 ],
-                totalCount: totalCount+1
+                // totalCount: totalCount+1
             };
         }
             return state;
@@ -46,7 +42,7 @@ const reviewReducer = (state = initialStateReview, action ) =>{
                 const {data} =payload;
                 return {
                     ...state,
-                    items: items.filter(reviewlist => reviewlist.customerId !== data.Id),
+                    reviewBoards: reviewBoards.filter(reviewlist_1 => reviewlist_1.customerId !== data.Id),
                    
                 };
             }
@@ -60,10 +56,10 @@ const reviewReducer = (state = initialStateReview, action ) =>{
                     if (data !== undefined && data !== null) {
                         return {
                             ...state,
-                            items: data,
-                            page: data.page,
-                            size: data.size,
-                            totalCount: data.totalCount
+                            reviewBoards: data,
+                            // page: data.page,
+                            // size: data.size,
+                            // totalCount: data.totalCount
                         };
                     }
                 }

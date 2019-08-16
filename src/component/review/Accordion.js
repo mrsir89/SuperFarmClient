@@ -25,8 +25,8 @@ function Accordion(props) {
   return (
     <div className="accordion__section">
       <button className={`accordion ${setActive}`} onClick={toggleAccordion}>
-      <p className="accordion__reviewBoardNum">reviewBN:{props.item.reviewBoardNum}<br></br>refPN:{props.item.productBoardNum}</p>
-        <p className="accordion__title">{props.item.reviewBoardTitle}<br></br>ID: {props.item.customerId}</p>
+      <p className="accordion__reviewBoardNum">reviewBN:{props.review.reviewBoardNum}<br></br>refPN:{props.review.productBoardNum}</p>
+        <p className="accordion__title">{props.review.reviewBoardTitle}<br></br>ID: {props.review.customerId}</p>
         <Chevron className={`${setRotate}`} width={10} fill={"#777"} />
       </button>
    
@@ -40,10 +40,10 @@ function Accordion(props) {
 
       
         <div ref={rating} style={{ maxHeight: `${setHeight}` }} className="rating">
-        <div className="accordion__text" dangerouslySetInnerHTML={{ __html: props.item.reviewBoardContent }}/>
-          별점: <div dangerouslySetInnerHTML={{ __html: props.item.reviewBoardRating }}/>
+        <div className="accordion__text" dangerouslySetInnerHTML={{ __html: props.review.reviewBoardContent }}/>
+          별점: <div dangerouslySetInnerHTML={{ __html: props.review.reviewBoardRating }}/>
           
-          <button className = "accordion__remove" onClick={_removeReviewAsync(props.item.reviewBoardNum)}>remove</button>
+          <button className = "accordion__remove" onClick={_removeReviewAsync(props.review.reviewBoardNum)}>remove</button>
  
       </div>
         {/* 내용, 별점  */}
