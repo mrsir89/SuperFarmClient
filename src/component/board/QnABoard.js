@@ -101,6 +101,7 @@ class QnABoard extends React.Component {
                       <div className="col-10">{answer.answerContent}</div>
                     </div>
                   ))}
+                  <input type="button" value="삭제"></input>
                 </details>
               </div>
               <div>
