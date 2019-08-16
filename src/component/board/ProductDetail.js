@@ -27,7 +27,7 @@ class ProductDetail extends React.Component {
 
       var newProducts = [];
       if (products !== undefined && products !== null) {
-         newProducts = this.state.products.filter((item) => (item.productBoardNum == productId));
+         newProducts = this.state.products.filter((item) => (item.productBoardNum === productId));
       }
       console.log("newProduct >>>>", newProducts)
       return newProducts[0];

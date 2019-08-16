@@ -127,6 +127,6 @@ export const Actions = {
   getUserMe,
   addCart,
   loadProductList,
-  questionByProduct
+  questionByProduct,
 
 };

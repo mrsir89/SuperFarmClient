@@ -24,3 +24,5 @@ const questionBoard = (state=initialStateQuestionPage, action) => {
             }//if
     }
 }
+
+export default questionBoard;

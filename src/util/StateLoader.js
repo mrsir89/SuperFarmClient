@@ -15,6 +15,7 @@ class StateLoader {
 
     saveState(state) {
         try {
+            console.log(state,' <--------- localStage  save')
             let json = JSON.stringify(state);
             localStorage.setItem("http://localhost:8080/state", json);
         } catch (error) {
@@ -23,6 +24,7 @@ class StateLoader {
     }
 
     initialState() {
+        
         return {
             auth: {
                 retryCount: 0,
@@ -38,6 +40,9 @@ class StateLoader {
             questionBoard: {
                 page:1,
                 questionBoard:[]
+            },
+            userEdit: {
+                userDetails:[]
             }
         };
     }
