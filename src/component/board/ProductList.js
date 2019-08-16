@@ -20,7 +20,7 @@ class ProductList extends React.Component {
 
   componentDidMount() {
     const { loadProductList } = this.props;
-    loadProductList();
+    loadProductList('lower',1);
   }
 
   _renderAllProducts = () => {
@@ -48,6 +48,7 @@ class ProductList extends React.Component {
 }
 
 function mapStateToProps(state) {
+  console.log('mapStateToProps', state)
   const { product } = state;
   const { productBoard } = product;
   return {
@@ -55,11 +56,10 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    loadProductList: bindActionCreators(Actions.loadProductList, dispatch)
-  }
-}
+const mapDispatchToProps = dispatch => ({
+    loadProductList:(type,id) => dispatch(Actions.loadProductLis(type,id))
+  })
+
 
 // const mapDispatchToProps = (dispatch) => ({
 //   loadProductList: () => dispatch(Actions.loadProductList())

@@ -17,7 +17,6 @@ class ProductDetail extends React.Component {
       const { userNum } = this.props.userDetails;
       const { productBoard } = this.props;
 
-
       this.state = {
          productInfo: {},
          userNumber: `${userNum}`,
@@ -89,12 +88,12 @@ class ProductDetail extends React.Component {
       this.setState({
          productInfo: newProducts[0],
          productBoardNum: newProducts[0].productBoardNum,
-         cartProductName: newProducts[0].product.productName,
-         cartProductPrice: newProducts[0].product.productPrice,
+         cartProductName: newProducts[0].productList.productName,
+         cartProductPrice: newProducts[0].productList.productPrice,
          cartProductCount: 1,   // 추후 변경 예정
          cartProductImg: newProducts[0].productBoardThumbnail,
-         cartProductOption1: newProducts[0].product.productOption1,
-         cartProductOption2: newProducts[0].product.productOption2
+         cartProductOption1: newProducts[0].productList.productOption1,
+         cartProductOption2: newProducts[0].productList.productOption2
       });
       return newProducts[0];
    }
@@ -128,7 +127,7 @@ class ProductDetail extends React.Component {
                               </tr>
                               <tr>
                                  <th scope="row">상품 가격(옵션에 따라 달라질 예정)</th>
-                                 <td>{productInfo.product.productTaxprice}</td>
+                                 <td>{productInfo.productList.productTaxprice}</td>
                               </tr>
                               <tr>
                                  <th scope="row">개수</th>
@@ -146,14 +145,14 @@ class ProductDetail extends React.Component {
                         <div class="form-group col-md-6">
                            <label for="exampleFormControlSelect1">옵션1 선택</label>
                            <select value={this.state.cartProductOption1} onChange={this.handleInputChange} name="cartProductOption1" >
-                              <option value={productInfo.product.productOption1}>{productInfo.product.productOption1}</option>
+                              <option value={productInfo.productList.productOption1}>{productInfo.productList.productOption1}</option>
                               <option value="옵션1 선택">옵션1 선택</option>
                            </select>
                         </div>
                         <div class="form-group col-md-6">
                            <label for="exampleFormControlSelect1">옵션2 선택</label>
                            <select value={this.state.cartProductOption2} onChange={this.handleInputChange} name="cartProductOption2"  >
-                              <option value={productInfo.product.productOption2}>{productInfo.product.productOption2}</option>
+                              <option value={productInfo.productList.productOption2}>{productInfo.productList.productOption2}</option>
                               <option value="옵션2 선택">옵션2 선택</option>
                            </select>
                         </div>
@@ -195,4 +194,3 @@ const mapDispatchToProps = dispatch => ({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
-

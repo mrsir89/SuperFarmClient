@@ -50,7 +50,7 @@ class App extends React.Component {
           <Route path="/cart" component={Cart} />
           <Route path="/mypage" component={MyPage} />
           <Route path="/product/:id" component={ProductDetail} />
-
+          <Route path="/qnaboardWrite" component={QnABoardWrite}/>
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
         </Switch>
       </div>

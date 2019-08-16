@@ -155,15 +155,25 @@ const getCartByUser = (userNum)=> {
 }
 
 // 0810 DB에 있는 상품 데이터 가져오는 action => axios 타입 action으로 변경 
-const loadProductList = () => {
+const loadProductList = (type,id) => {
+  const formData = new FormData();
+  let url = '/product/all'
+  if(type==='lower'){
+    url = '/product/lower';
+    formData.append('lower',id);
+  }else if(type==='search'){
+    url='/product/search'
+    formData.append('search',id)
+  }
   console.log('loadProductList')
   return ({
     type: ActionTypes.LOAD_PRODUCTLIST,
     payload: {
       request: {
         method: 'POST',
-        url: `/product/all`
-      }
+        url: url,
+        data:formData
+      },
     }
   })
 };
