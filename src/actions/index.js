@@ -141,7 +141,20 @@ const addCart = ( cartModel  ) => {
 
 };
 
-// 0814 장바구니 불러오기 (user)
+const removeCart = (cartNum) => {
+  return ({
+    type: ActionTypes.REMOVE_CART,
+    payload: {
+      request: {
+        method: 'DELETE',
+        url: `/cart?cartNum=${cartNum}`
+      }
+    }
+  });
+};
+
+
+// 0814 장바구니 불러오기 (By userNum)
 const getCartByUser = (userNum)=> {
   return ({
     type: ActionTypes.GET_CART,
