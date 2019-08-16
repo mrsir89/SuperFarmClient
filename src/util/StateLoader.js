@@ -2,7 +2,9 @@ class StateLoader {
 
     loadState() {
         try {
+            console.log(localStorage.getItem)
             let state = localStorage.getItem("http://localhost:8080/state");
+            console.log(' loadState 실행 ', state)
             if (state !== undefined && state !== null) {
                 return JSON.parse(state);
             }
@@ -15,6 +17,7 @@ class StateLoader {
 
     saveState(state) {
         try {
+            console.log(' saveState 실행 ', state)
             let json = JSON.stringify(state);
             localStorage.setItem("http://localhost:8080/state", json);
         } catch (error) {

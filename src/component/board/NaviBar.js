@@ -10,14 +10,6 @@ import { Actions } from '../../actions/index';
 
 class NaviBar extends React.Component {
 
-  // 1. 로그아웃 기능 구현 (진행중...)
-  // const logoutHandler = (e) => {
-  //   const stateLoader = new StateLoader();
-  //   stateLoader.initialState();
-  // }
-  // <button className="badge badge-danger" onClick={e => logoutHandler(e)}>로그아웃</button>
-
-
   // 2. 카테고리 불러오기 
   componentDidMount() {
     const { getCategories } = this.props;
@@ -63,14 +55,13 @@ class NaviBar extends React.Component {
               </ul>
               <br></br>
               <br></br>
-              <p><strong>우리는 수퍼팜~.</strong></p>
+              <p><strong>글자 수 테스트</strong></p>
             </div>
           </div>
         </nav>
       </div>
     );
   }
-
 }
 
 function mapStateToProps(state) {

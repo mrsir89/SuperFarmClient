@@ -17,21 +17,21 @@ class ProductDetail extends React.Component {
       const { userNum } = this.props.userDetails;
       const { productBoard } = this.props;
 
-
       this.state = {
-         productInfo: {},
+         productInfo: '',
          userNumber: `${userNum}`,
-         productBoardNum: {},
-         cartProductName: {},
-         cartProductOption1: {},
-         cartProductOption2: {},
-         cartProductPrice: {},
-         cartProductCount: {},
-         cartProductImg: {},
+         productBoardNum: '',
+         cartProductName: '',
+         cartProductOption1:'',
+         cartProductOption2: '',
+         cartProductPrice: '',
+         cartProductCount: '',
+         cartProductImg: '',
       };
 
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this._renderProduct= this._renderProduct.bind(this);
    }
 
    handleSubmit(e) {
@@ -58,6 +58,8 @@ class ProductDetail extends React.Component {
       const target = event.target;
       const value = target.value;
       const name = target.name;
+
+
       this.setState({
          [name]: value
       });
@@ -79,23 +81,24 @@ class ProductDetail extends React.Component {
 
       const productId = this.props.match.params.id;
       const products = this.props.productBoard;
-
+      console.log("products", products)
       var newProducts = [];
       if (products !== undefined && products !== null) {
          newProducts = products.filter((item) => (item.productBoardNum == productId));
       }
-      console.log("newProduct >>>>", newProducts[0])
+      console.log("newProduct[0] >>>>", newProducts[0])
 
       this.setState({
          productInfo: newProducts[0],
          productBoardNum: newProducts[0].productBoardNum,
-         cartProductName: newProducts[0].product.productName,
-         cartProductPrice: newProducts[0].product.productPrice,
+         cartProductName: newProducts[0].productList[0].productName,
+         cartProductPrice: newProducts[0].productList[0].productPrice,
          cartProductCount: 1,   // 추후 변경 예정
          cartProductImg: newProducts[0].productBoardThumbnail,
-         cartProductOption1: newProducts[0].product.productOption1,
-         cartProductOption2: newProducts[0].product.productOption2
+         cartProductOption1: newProducts[0].productList[0].productOption1,
+         cartProductOption2: newProducts[0].productList[0].productOption2
       });
+
       return newProducts[0];
    }
 
@@ -103,11 +106,39 @@ class ProductDetail extends React.Component {
       this._renderProduct();
    }
 
+
+   _selectOption1 = (productList) => {
+      var optionList = [];
+      if (productList !== undefined && productList !== null) {
+         optionList = productList.map(item => {
+            return (
+               <option value={item.productOption1}>{item.productOption1}</option>
+            );
+         })
+      }
+      return optionList;
+   }
+
+   _selectOption2 = (productList) => {
+      var optionList = [];
+      if (productList !== undefined && productList !== null) {
+         optionList = productList.map(item => {
+            return (
+               <option value={item.productOption2}>{item.productOption2}</option>
+            );
+         })
+      }
+      return optionList;
+   }
+
+
    // TODO : userDetails가 없을 경우 에러 처리해줘야함 
    render() {
       const { productInfo } = this.state;
-
+      const { productList } = productInfo;
       console.log("this.state >>>", this.state);
+      
+      console.log ("is State setted? >>", this.state)
       return (
          <div className="product-item">
             <div className="prod-info">
@@ -128,7 +159,7 @@ class ProductDetail extends React.Component {
                               </tr>
                               <tr>
                                  <th scope="row">상품 가격(옵션에 따라 달라질 예정)</th>
-                                 <td>{productInfo.product.productTaxprice}</td>
+                                 <td>{productList.productTaxprice}</td>
                               </tr>
                               <tr>
                                  <th scope="row">개수</th>
@@ -143,20 +174,22 @@ class ProductDetail extends React.Component {
                      </div>
 
                      <div class="form-row">
+
                         <div class="form-group col-md-6">
                            <label for="exampleFormControlSelect1">옵션1 선택</label>
                            <select value={this.state.cartProductOption1} onChange={this.handleInputChange} name="cartProductOption1" >
-                              <option value={productInfo.product.productOption1}>{productInfo.product.productOption1}</option>
-                              <option value="옵션1 선택">옵션1 선택</option>
+                              {this._selectOption1(productList)}
                            </select>
                         </div>
+
                         <div class="form-group col-md-6">
                            <label for="exampleFormControlSelect1">옵션2 선택</label>
                            <select value={this.state.cartProductOption2} onChange={this.handleInputChange} name="cartProductOption2"  >
-                              <option value={productInfo.product.productOption2}>{productInfo.product.productOption2}</option>
-                              <option value="옵션2 선택">옵션2 선택</option>
+                              {this._selectOption2(productList)}
                            </select>
                         </div>
+
+
                      </div>
 
 

@@ -2,7 +2,6 @@
 // 8/16 sj
 // (userId)를 바탕으로 장바구니 추가/ 불러오기 기능 구현
 
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -15,6 +14,7 @@ import axios from 'axios'; // 추가사항
 import axiosMiddleware from 'redux-axios-middleware'; // 추가사항
 import { StateLoader, interceptors, onErrorHandler } from './util';
 import App from './App';
+import NaviBar from './component/board/NaviBar';
 
 // import * as serviceWorker from './serviceWorker';
 
@@ -71,6 +71,5 @@ ReactDOM.render(
     </Router>
   </Provider>,
   document.getElementById('root'));
-
 
 
