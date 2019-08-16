@@ -1,6 +1,10 @@
+
+
+
 import { combineReducers } from 'redux';
 import authentication from './authentication.reducer'
 import productReducer from './product.reducer'
+import reviewReducer from './review.reducer';
 // 리듀서 = 상태를 변화하는 함수. >>> 이전 상태(old state)와 Action을 합쳐, 새로운 state를 만든다.
 // 파라미터 두 개 = 현재상태(old state), 액션객체(action)
 
@@ -9,7 +13,8 @@ import productReducer from './product.reducer'
 // 내장객체인 (combineReducers를 이용)
 const rootReducers = combineReducers({
   auth: authentication,
-  product: productReducer
+  product: productReducer,
+  reviews: reviewReducer
 });
 
 export default rootReducers;

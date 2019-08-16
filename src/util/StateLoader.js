@@ -33,7 +33,14 @@ class StateLoader {
             product: {
                 items: [],
                 cart: []
+            },
+            reviews: {
+                items: [],
+                // page:1,
+                // size:14,
+                // totalCount:0
             }
+           
         };
     }
 }

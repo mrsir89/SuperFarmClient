@@ -112,15 +112,88 @@ const loadProductList = () => {
 };
 
 
-export const Actions = {
-  login,
-  signup,
-  getClientToken,
-  logout,
-  getUserMe,
-  getQnABoard,
-  writeQnABoard,
-  addCart,
-  loadProductList
 
+const addReview = (num,pnum,title,content,rating,Id,img) => {
+  console.log('addReviewj')
+  return ({
+    type: ActionTypes.ADD_REVIEW,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/review/write',
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: JSON.stringify({ reviewBoardNum:num,productBoardNum:pnum,reviewBoardTitle:title,reviewBoardContent:content,reviewBoardRating:rating,customerId:Id,reviewBoardImg:img, completed:false})
+      }
+    }
+  });
 };
+
+
+//  const addReview = (num,pnum,title,content,rating,Id,img) => {
+//     console.log('addReview')
+//     return ({
+//     type: ActionTypes.ADD_REVIEW,
+//     num,
+//     pnum,
+//     title,
+//     content,
+//     rating,
+//     Id: null,
+//     img: null
+    
+//     });
+//  }
+ 
+
+
+ const removeReview = (num) => {
+  console.log('removieReviewsd') 
+  return ({
+    type:ActionTypes.REMOVE_REVIEW,
+    payload:{
+      request: {
+        method:'DELETE',
+        url:`/review/delete`
+      }
+    }
+   });  
+};
+
+
+
+const getReviews = () => {
+  console.log('getReviewsj')
+  return ({
+    type: ActionTypes.GET_REVIEWS,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/review/all'
+      }
+    }
+  })
+};
+ 
+//  const getReviews = (reviews) => ({
+//     type: ActionTypes.GET_REVIEWS,
+//     reviews
+// });
+
+
+export const Actions = {
+    login,
+    signup,
+    getClientToken,
+    logout,
+    getUserMe,
+    getQnABoard,
+    writeQnABoard,
+    addCart,
+    loadProductList,
+    addReview,
+    removeReview,
+    getReviews
+  
+  };
