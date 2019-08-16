@@ -21,7 +21,7 @@ const getClientToken = () => {
     }
   });
 };
-
+// 이것은 테스트를 하기위해서 
 const signup = (signupModel) => {
   console.log(signupModel, ' 여기는 signup 안쪽')
   return ({
@@ -89,15 +89,27 @@ const getQnABoard = () => ({
 // });
 
 // 0814 장바구니 추가 (user)
-const addCart = (item) => ({
-  type: ActionTypes.ADD_CART,
-  payload: {
+// userNum,
+const addCart = ( cartModel  ) => {
+  // console.log ("userNum 넘어옴?? >>>> ", userNum)
+   console.log ("cartModel 넘어옴?? >>>> ",cartModel)
+
+
+  return ({
+    type: ActionTypes.ADD_CART,
+    payload: {
     request: {
       method : 'POST',
       url: `/cart/add`,
+      headers: {
+        'Content-Type': 'application/json; charset: utf-8'
+      },
+      data: JSON.stringify(cartModel)
     }
-  }
-});
+    }
+  })
+
+};
 
 // 0814 장바구니 불러오기 (user)
 const getCartByUser = (userNum)=> {

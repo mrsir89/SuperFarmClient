@@ -68,7 +68,7 @@ class Signup extends React.Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    this.handleRadio = this.handleRa
+    // this.handleRadio = this.handleRa
 
     console.log(target, '     :target')
     console.log(value, '    :value')
@@ -82,15 +82,15 @@ class Signup extends React.Component {
     this._passwordCheck()
   }
 
-  handleRadio(event) {
-    let obj = {}
-    obj[event.target.value] = event.target.checked
-    this.setState({
-      gender: {
-        value: event.target.value
-      }
-    })
-  }
+  // handleRadio(event) {
+  //   let obj = {}
+  //   obj[event.target.value] = event.target.checked
+  //   this.setState({
+  //     gender: {
+  //       value: event.target.value
+  //     }
+  //   })
+  // }
 
   handleSubmit(e) {
     e.preventDefault();

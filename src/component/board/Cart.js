@@ -1,40 +1,44 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ProductItem from './ProductItem';
 import { bindActionCreators } from 'redux';
 import { Actions } from '../../actions/index';
+import CartView from './CartView';
 // 0810 Cart Component 추가 (장바구니 페이지)
+
+
 class Cart extends React.Component {
 
   constructor(props) {    // props 굳이 안써줘도 넘어 옴
     super(props)
-    const { cart, userDetails } = this.props;
+    const { cartlist, userDetails } = this.props;
     this.state = {
-      cartItems: cart
+      cartItems: cartlist
     };
   }
 
-  componentDidMount(){
+  componentWillMount() {
     const { getCartByUser, userDetails } = this.props;
-    // user
+
     getCartByUser(userDetails.userNum);
+
   }
 
+  // getCartByUser응답이 오고 나서 실행 되어야함
   _showCartItems = () => {
-    const { cartItems } = this.state;
-    //cartItems !== undefined && cartItems !== null
-    var cartList = [];
-    if (cartItems !== undefined && cartItems !== null) {
-      cartList = cartItems.map(item => {
-        return <ProductItem key={item.productBoardNum} item={item} />
+    const { cartlist } = this.props;
+    console.log("cartItems >>>", cartlist);
+
+    var cartItem = [];
+    if (cartlist !== undefined && cartlist !== null) {
+      cartItem = cartlist.map(item => {
+        return <CartView key={item.productBoardNum} item={item} />
       })
     }
 
-    return cartList
+    return cartItem
   }
 
   render() {
-
     return (
       <div>
         {this._showCartItems()}
@@ -44,11 +48,11 @@ class Cart extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { product, auth } = state;
-  const {userDetails} = auth;
-  const { cart } = product;
+  const { cart, auth } = state;
+  const { userDetails } = auth;
+  const { cartlist } = cart;
   return {
-    cart,  // 배열 
+    cartlist,  // 배열 
     userDetails
   };
 }
@@ -58,4 +62,6 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+
+
