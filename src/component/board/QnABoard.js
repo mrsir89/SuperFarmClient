@@ -69,7 +69,7 @@ class QnABoard extends React.Component {
 
   _onClickPopUp() {
     window.open('qnaboardWrite', 'window_name', 'width=430,height=500,location=no,status=no,scrollbars=yes');
-
+    
   }
 
   render() {
