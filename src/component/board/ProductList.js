@@ -5,7 +5,6 @@ import { Actions } from '../../actions/index';
 // import {ActionTypes} from '../../contants';
 import { connect } from 'react-redux';
 //import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 
 
@@ -15,21 +14,21 @@ class ProductList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+      productBoard: []
     }
   }
 
   componentDidMount() {
     const { loadProductList } = this.props;
-    loadProductList();
+    loadProductList('lower',1);
   }
 
   _renderAllProducts = () => {
-    const { items } = this.props;
+    const { productBoard } = this.props;
     var productItems = [];
 
-    if (items !== undefined && items !== null) {
-      productItems = items.map(item => {
+    if (productBoard !== undefined && productBoard !== null) {
+      productItems = productBoard.map(item => {
         return <Link to={`/product/${item.productBoardNum}`}>
           <ProductItem key={item.productBoardNum} item={item} />
         </Link>
@@ -49,18 +48,18 @@ class ProductList extends React.Component {
 }
 
 function mapStateToProps(state) {
+  console.log('mapStateToProps', state)
   const { product } = state;
-  const { items } = product;
+  const { productBoard } = product;
   return {
-    items
+    productBoard
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    loadProductList: bindActionCreators(Actions.loadProductList, dispatch)
-  }
-}
+const mapDispatchToProps = dispatch => ({
+    loadProductList:(type,id) => dispatch(Actions.loadProductList(type,id))
+  });
+
 
 // const mapDispatchToProps = (dispatch) => ({
 //   loadProductList: () => dispatch(Actions.loadProductList())

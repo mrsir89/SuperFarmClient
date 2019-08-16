@@ -71,8 +71,8 @@ class Login extends React.Component {
             <input type="submit" name="submit" value="Log In" />
           </form>
           <div className="bottom">
-            <a href="/findPassword">Forgot Password?</a> 
-              </div>
+            <a href="/findPassword">Forgot Password?</a>
+          </div>
         </div>
       </div>
     )

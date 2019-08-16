@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 # push할때 제외목록
 node_modules
 .DS_Store
+=======
+.DS_Store
+node_modules
+>>>>>>> 83d2836ab413d6b660b63b6094065f8743270278

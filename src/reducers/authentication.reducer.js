@@ -4,8 +4,8 @@ const initialStateAuth = {
     retryCount: 0,
     token: null,
     userDetails: null,
-    signupModel: null
-};
+    signupCustomer: null
+}
 
 const authentication = (state = initialStateAuth, action) => {
     const { payload } = action;
@@ -31,7 +31,7 @@ const authentication = (state = initialStateAuth, action) => {
         case ActionTypes.SIGNUP:
             return {
                 ...state,
-                signupModel: payload.signupModel
+                signupCustomer: payload.signupCustomer
             };
         case ActionTypes.LOGIN:
             return {
