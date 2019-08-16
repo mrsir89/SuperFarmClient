@@ -11,28 +11,21 @@ const reviewReducer = (state = initialStateReview, action ) =>{
     switch(action.type){
 
         case ActionTypes.ADD_REVIEW:
+            console.log ("addreview 성공!!!!!")
             
         if(payload !== undefined && payload !== null){
+         const {data} = payload;
+         if(data !== undefined && data !== null) {
             return {
                 ...state,
                 reviewBoards: [
                     ...reviewBoards,
-                    payload.data,
-                //  {
-                //     reviewBoardNum:payload.num,
-                //     productBoardNum: payload.pum,
-                //     customerId: payload.Id,
-                //     reviewBoardImg: payload.img,
-                //     reviewBoardTitle:payload.title,
-                //     reviewBoardContent:payload.content,
-                //     reviewBoardRating:payload.rating,
-                //     // reviewBoardRegdate:null,
-                //     // reviewBoardStatus:null
-                // }
-                ],
+                    data
+                ]
                 // totalCount: totalCount+1
-            };
+            }
         }
+    }
             return state;
 
         
