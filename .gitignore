@@ -1,0 +1,3 @@
+# push할때 제외목록
+node_modules
+.DS_Store
