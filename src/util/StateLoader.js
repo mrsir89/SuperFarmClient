@@ -17,8 +17,12 @@ class StateLoader {
 
     saveState(state) {
         try {
+<<<<<<< HEAD
             console.log(state,' <--------- localStage  save')
 
+=======
+            console.log(' saveState 실행 ', state)
+>>>>>>> dev_sw
             let json = JSON.stringify(state);
             localStorage.setItem("http://localhost:8080/state", json);
         } catch (error) {

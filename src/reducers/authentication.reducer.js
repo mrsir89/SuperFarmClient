@@ -5,8 +5,12 @@ const initialStateAuth = {
     token: null,
     userDetails: null,
     signupCustomer: null
+<<<<<<< HEAD
     
 };
+=======
+}
+>>>>>>> dev_sw
 
 const authentication = (state = initialStateAuth, action) => {
     const { payload } = action;

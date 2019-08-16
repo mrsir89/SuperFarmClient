@@ -14,7 +14,7 @@ const initialStateProduct = {
 
 // 추후 authentication reducer와 같은 방식(axios middleware)으로 바꿀 예정
 const productReducer = (state = initialStateProduct, action) => {
-    const { productBoard, cartlist } = state;
+    const { productBoard, cartlist,qnaBoard } = state;
     const { payload } = action;
 
     switch (action.type) {

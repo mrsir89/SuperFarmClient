@@ -1,6 +1,11 @@
 // ver4  8/11 Ref
+<<<<<<< HEAD
 // merge ki from sj  8/15
 // 8/15
+=======
+// ver4  8/12 merge testing
+
+>>>>>>> dev_sw
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
@@ -46,6 +51,7 @@ class App extends React.Component {
         <Switch>
           {/* <Route exact path="/" component={Main} /> */}
 
+<<<<<<< HEAD
           <Route path="/product" component={ProductList} />
           <Route path="/signup" component={signup} />
           <Route path="/login" component={login} />
@@ -55,6 +61,17 @@ class App extends React.Component {
           <Route path="/EditMe" component={EditMe}/>
           <Route path="/mypage" component={mypage}/>
           <Route path="/qnaboardWrite" component={QnABoardWrite} />
+=======
+          <Route exact path="/product" component={ProductList} />
+          <Route path="/signup" component={signup} />
+          <Route path="/login" component={login} />
+          <Route path="/qnaboard" component={qnaboard} />
+          <Route path="/qnaboardWrite" component={QnABoardWrite}/>
+          <Route path="/cart" component={Cart} />
+          <Route path="/mypage" component={MyPage} />
+          <Route path="/product/:id" component={ProductDetail} />
+          <Route path="/qnaboardWrite" component={QnABoardWrite}/>
+>>>>>>> dev_sw
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
         </Switch>
       </div>

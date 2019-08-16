@@ -46,6 +46,7 @@ class QnABoard extends React.Component {
     // this.handleClick=this.handleClick.bind(this);
     console.log('여기 실행 되나?', this.state)
   }
+<<<<<<< HEAD
 
   //   handleClick(e){
   //     const {Clickitem}=this.state;
@@ -57,6 +58,8 @@ class QnABoard extends React.Component {
   //     })
   //   }
   
+=======
+>>>>>>> dev_sw
   componentWillMount() {
     const { loadqnaboardList } = this.props;
     console.log(this.state, ' <<<<< willMount')
@@ -94,11 +97,17 @@ class QnABoard extends React.Component {
               <div className="col">{item.questionBoardStatus}</div>
               <div className="col-7">
                 <details>
-                  <summary>{item.questionBoardContent}</summary>
+                  <summary>{item.questionBoardTitle}</summary>
+                  <div>
+                    {item.questionBoardContent}
+                  </div>
                   {item.questionAnswer.map((answer) => (
                     <div className="row" hidden={item.isExpanded}>
                       <div className="col-2">{answer.answerWriter}</div>
                       <div className="col-10">{answer.answerContent}</div>
+                      <div>
+
+                      </div>
                     </div>
                   ))}
                   <input type="button" value="삭제"></input>
@@ -120,6 +129,7 @@ class QnABoard extends React.Component {
   }
 }
 
+<<<<<<< HEAD
 const mapStateToProps=(state)=> {
   console.log(state)
   const { product } = state;
@@ -128,6 +138,14 @@ const mapStateToProps=(state)=> {
   console.log(qnaBoard, '<--------- qnaBoad')
   console.log(product, ' <--------- product')
   // console.log(data, '<------------ data')
+=======
+const mapStateToProps = (state) => {
+  console.log(state)
+  const { product } = state;
+  const { qnaBoard } = product;
+  console.log(qnaBoard, '<--------- qnaBoad')
+  console.log(product, ' <--------- product')
+>>>>>>> dev_sw
   return {
     qnaBoard
   };
@@ -137,7 +155,10 @@ const mapStateToProps=(state)=> {
 
 const mapDispatchToProps = (dispatch) => ({
   loadqnaboardList: (productNum, size, page) => dispatch(Actions.loadqnaboardList(productNum, size, page))
+<<<<<<< HEAD
   //writeQnABoard: (qnaContent) => dispatch(writeQnABoard(qnaContent))
+=======
+>>>>>>> dev_sw
 });
 
 
