@@ -5,7 +5,6 @@ import { Actions } from '../../actions/index';
 // import {ActionTypes} from '../../contants';
 import { connect } from 'react-redux';
 //import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 
 

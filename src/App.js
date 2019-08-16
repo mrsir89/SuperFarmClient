@@ -6,6 +6,7 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import signup from './component/signup/Signup';
 import login from './component/login/Login';
 import qnaboard from './component/board/QnABoard';
+import QnABoardWrite from './component/board/QnABoardWrite';
 import { Actions } from './actions';
 import './App.css';
 import Cart from './component/board/Cart';
@@ -41,6 +42,7 @@ class App extends React.Component {
           <Route path="/qnaboard" component={qnaboard} />
           <Route path="/cart" component={Cart} />
           <Route path="/product/:id" component={ProductDetail} />
+          <Route path="/qnaboardWrite" component={QnABoardWrite}/>
         </Switch>
       </div>
     );
