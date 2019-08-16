@@ -22,11 +22,7 @@ const getClientToken = () => {
     }
   });
 };
-<<<<<<< HEAD
 // 확인 
-=======
-
->>>>>>> dev_ki_test
 const signup = (signupCustomer) => {
   console.log(signupCustomer, ' 여기는 signup 안쪽')
   return ({
@@ -101,7 +97,7 @@ const loadqnaboardList = (productNum, size, page) => {
   const formdata = new FormData();
   formdata.append('productNum', 5);
   formdata.append('size', '10');
-  formdata.append('page', '1');
+  formdata.append('page', '3');
   return ({
     type: ActionTypes.LOAD_QNABOARDLIST,
     payload: {

@@ -56,7 +56,7 @@ class QnABoard extends React.Component {
   //       }
   //     })
   //   }
-  
+
   componentWillMount() {
     const { loadqnaboardList } = this.props;
     console.log(this.state, ' <<<<< willMount')
@@ -94,11 +94,15 @@ class QnABoard extends React.Component {
               <div className="col">{item.questionBoardStatus}</div>
               <div className="col-7">
                 <details>
-                  <summary>{item.questionBoardContent}</summary>
+                  <summary>{item.questionBoardTitle}</summary>
+                  <div>{item.questionBoardContent}</div>
                   {item.questionAnswer.map((answer) => (
                     <div className="row" hidden={item.isExpanded}>
                       <div className="col-2">{answer.answerWriter}</div>
                       <div className="col-10">{answer.answerContent}</div>
+                      <div>
+
+                      </div>
                     </div>
                   ))}
                 </details>
@@ -119,7 +123,7 @@ class QnABoard extends React.Component {
   }
 }
 
-const mapStateToProps=(state)=> {
+const mapStateToProps = (state) => {
   console.log(state)
   const { product } = state;
   const { qnaBoard } = product;
