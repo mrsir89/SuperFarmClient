@@ -1,12 +1,13 @@
 // ver4  8/11 Ref
 // merge ki from sj  8/15
-
+// 8/15
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import signup from './component/signup/Signup';
 import login from './component/login/Login';
 import qnaboard from './component/board/QnABoard';
+import QnABoardWrite from './component/board/QnABoardWrite';
 import { Actions } from './actions';
 import './App.css';
 import Cart from './component/board/Cart';

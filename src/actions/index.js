@@ -23,8 +23,8 @@ const getClientToken = () => {
   });
 };
 
-const signup = (signupModel) => {
-  console.log(signupModel, ' 여기는 signup 안쪽')
+const signup = (signupCustomer) => {
+  console.log(signupCustomer, ' 여기는 signup 안쪽')
   return ({
     type: ActionTypes.SIGNUP,
     payload: {
@@ -34,7 +34,7 @@ const signup = (signupModel) => {
         headers: {
           'Content-Type': 'application/json; charset: utf-8'
         },
-        data: JSON.stringify(signupModel)
+        data: JSON.stringify(signupCustomer)
       }
     }
   }
@@ -46,6 +46,7 @@ const login = (customerId, password) => {
   formData.append('grant_type', 'password');
   formData.append('username', customerId);
   formData.append('password', password);
+  console.log(customerId, 'ID ', password, ' Password')
   return ({
     type: ActionTypes.LOGIN,
     payload: {
@@ -65,6 +66,7 @@ const getUserMe = () => {
       request: {
         method: 'POST',
         url: '/users/me'
+        
       }
     }
   });
@@ -74,13 +76,39 @@ const logout = () => ({
   type: ActionTypes.LOGOUT
 })
 
-const writeQnABoard = () => ({
-  type: ActionTypes.QNABOARD_WRITE
-})
+const writeQnABoard = (writeQnA) => {
+  console.log('writeQnABoard')
+  return ({
+    type: ActionTypes.WRITE_QNABOARD,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/question/write/question',
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: JSON.stringify(writeQnA)
+      }
+    }
+  })
+}
 
-const getQnABoard = () => ({
-  type: ActionTypes.QNABOARD
-})
+const loadqnaboardList = (productNum, size, page) => {
+  const formdata = new FormData();
+  formdata.append('productNum', 5);
+  formdata.append('size', '10');
+  formdata.append('page', '1');
+  return ({
+    type: ActionTypes.LOAD_QNABOARDLIST,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/question/product',
+        data: formdata
+      }
+    }
+  })
+}
 
 
 // 0810 장바구니 추가 action (local storage에 저장, db에는 저장 안함)
@@ -149,11 +177,11 @@ export const Actions = {
   getClientToken,
   logout,
   getUserMe,
-  getQnABoard,
+  loadqnaboardList,
   writeQnABoard,
   addCart,
   loadProductList,
   getCategories,
-  getCartByUser
-  // +@
+  getCartByUser,
+  writeQnABoard
 };
