@@ -39,11 +39,11 @@ class App extends React.Component {
   render() { // 화면에 html 뷰를 생성.
     return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
       <div className="container">
-        <NaviBar />
+          <NaviBar />   
         <Switch>
           {/* <Route exact path="/" component={Main} /> */}
 
-          <Route exact path="/" component={ProductList} />
+          <Route exact path="/product" component={ProductList} />
           <Route path="/signup" component={signup} />
           <Route path="/login" component={login} />
           <Route path="/qnaboard" component={qnaboard} />
@@ -51,7 +51,7 @@ class App extends React.Component {
           <Route path="/cart" component={Cart} />
           <Route path="/mypage" component={MyPage} />
           <Route path="/product/:id" component={ProductDetail} />
-
+          <Route path="/qnaboardWrite" component={QnABoardWrite}/>
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
         </Switch>
       </div>

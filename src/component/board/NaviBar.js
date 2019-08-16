@@ -42,13 +42,7 @@ class NaviBar extends React.Component {
               {/* <Product/> */}
 
               <ul class="navbar">
-
                 <li><Link className="active" to="/product">Home</Link></li>
-                <div class="dropdown">
-                  <a href="#">로 그 인</a>
-                  <a href="#">회 원 가 입</a>
-                </div>
-
                 <li><Link to="/review/all">About</Link></li>
 
                 {this._loadCategory()}
@@ -85,7 +79,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NaviBar);
-
-
-
-

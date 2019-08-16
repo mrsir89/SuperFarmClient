@@ -31,13 +31,11 @@ class QnABoardWrite extends React.Component {
     }
     _onClickAction(e) {
         e.preventDefault();
-        const{loadqnaboardList} = this.props;
         const questionBoard =this.state
         console.log(this.props)
         console.log('onSubmit 실행 되어라')
         const{ writeQnABoard }=this.props
         writeQnABoard(questionBoard);
-        loadqnaboardList(5, 10, 1)
         window.close()
         
     }
@@ -114,7 +112,6 @@ const mapStateToProps = (state) => {
     };
 }
 const mapDispatchToProps = (dispatch) => ({
-    loadqnaboardList: (productNum, size, page) => dispatch(Actions.loadqnaboardList(productNum, size, page)),
     writeQnABoard: (writeQnA) => dispatch(Actions.writeQnABoard(writeQnA))
 })
 

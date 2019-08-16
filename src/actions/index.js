@@ -25,6 +25,7 @@ const getClientToken = () => {
 // 확인 
 const signup = (signupCustomer) => {
   console.log(signupCustomer, ' 여기는 signup 안쪽')
+
   return ({
     type: ActionTypes.SIGNUP,
     payload: {
@@ -118,17 +119,42 @@ const loadqnaboardList = (productNum, size, page) => {
 // });
 
 // 0814 장바구니 추가 (user)
-const addCart = (item) => ({
-  type: ActionTypes.ADD_CART,
-  payload: {
+// userNum,
+const addCart = ( cartModel  ) => {
+  // console.log ("userNum 넘어옴?? >>>> ", userNum)
+   console.log ("cartModel 넘어옴?? >>>> ",cartModel)
+
+
+  return ({
+    type: ActionTypes.ADD_CART,
+    payload: {
     request: {
       method : 'POST',
       url: `/cart/add`,
+      headers: {
+        'Content-Type': 'application/json; charset: utf-8'
+      },
+      data: JSON.stringify(cartModel)
     }
-  }
-});
+    }
+  })
 
-// 0814 장바구니 불러오기 (user)
+};
+
+const removeCart = (cartNum) => {
+  return ({
+    type: ActionTypes.REMOVE_CART,
+    payload: {
+      request: {
+        method: 'DELETE',
+        url: `/cart?cartNum=${cartNum}`
+      }
+    }
+  });
+};
+
+
+// 0814 장바구니 불러오기 (By userNum)
 const getCartByUser = (userNum)=> {
   return ({
     type: ActionTypes.GET_CART,
@@ -142,15 +168,25 @@ const getCartByUser = (userNum)=> {
 }
 
 // 0810 DB에 있는 상품 데이터 가져오는 action => axios 타입 action으로 변경 
-const loadProductList = () => {
+const loadProductList = (type,id) => {
+  const formData = new FormData();
+  let url = '/product/all'
+  if(type==='lower'){
+    url = '/product/lower';
+    formData.append('lower',id);
+  }else if(type==='search'){
+    url='/product/search'
+    formData.append('search',id)
+  }
   console.log('loadProductList')
   return ({
     type: ActionTypes.LOAD_PRODUCTLIST,
     payload: {
       request: {
         method: 'POST',
-        url: `/product/all`
-      }
+        url: url,
+        data:formData
+      },
     }
   })
 };

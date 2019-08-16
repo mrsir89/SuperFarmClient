@@ -37,12 +37,12 @@ class StateLoader {
             },
             product: {
                 productBoard: [],
-                cart: [],
-                category: [],
-                items: [],
-                cart: []
+                category: []
             },
-            qnaBoard: null
+            cart : {
+                cartlist: [],
+            }
+            
         };
     }
 }

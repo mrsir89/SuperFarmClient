@@ -8,22 +8,13 @@ import { ActionTypes } from '../contants';
 const initialStateProduct = {
 
     productBoard: [],
-    cart: [],
-    category: [],
-
-    items: [],
-    cart: [],
-
+    category: []
 };
 
 
 // 추후 authentication reducer와 같은 방식(axios middleware)으로 바꿀 예정
 const productReducer = (state = initialStateProduct, action) => {
-
-    // const { productBoard, cart } = state;
-
-    const { items, cart, qnaBoard } = state;
-
+    const { productBoard, cartlist,qnaBoard } = state;
     const { payload } = action;
 
     switch (action.type) {
@@ -41,17 +32,17 @@ const productReducer = (state = initialStateProduct, action) => {
             return state;
 
 
-        case ActionTypes.ADD_CART:
-            const { item } = action
-            return {
-                ...state,
-                cart: [
-                    ...cart,
-                    item
-                ]
-            }
+        // case ActionTypes.ADD_CART:
+        //     const { item } = action
+        //     return {
+        //         ...state,
+        //         cart: [
+        //             ...cart,
+        //             item
+        //         ]
+        //     }
 
-
+            
         // 카테고리 불러오기 
         case ActionTypes.GET_CATEGORIES_SUCCESS:
             if (payload !== undefined && payload !== null) {
@@ -65,18 +56,6 @@ const productReducer = (state = initialStateProduct, action) => {
             }
             return state;
 
-        // user의 장바구니 불러오기
-        case ActionTypes.GET_CART_SUCCESS:
-            if (payload !== undefined && payload !== null) {
-                const { data } = payload;
-                if (data !== undefined && data !== null) {
-                    return {
-                        ...state,
-                        cart: data
-                    };
-                }
-            }
-            return state;
 
         case ActionTypes.LOAD_QNABOARDLIST_SUCCESS:
             if (payload !== undefined && payload !== null) {

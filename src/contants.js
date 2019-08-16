@@ -46,9 +46,13 @@ export const ActionTypes={
 
     // 0810 addCart
     ADD_CART : 'ADD_CART',
-    // 필요한가..??
-    // ADD_CART_FAIL: 'ADD_CART_FAIL',
-    // ADD_CART_SUCCESS: 'ADD_CART_SUCCESS'
+    ADD_CART_FAIL: 'ADD_CART_FAIL',
+    ADD_CART_SUCCESS: 'ADD_CART_SUCCESS',
+
+    // 0816 removeCart
+    REMOVE_CART : 'REMOVE_CART',
+    REMOVE_CART_FAIL: 'REMOVE_CART_FAIL',
+    REMOVE_CART_SUCCESS: 'REMOVE_CART_SUCCESS',
 
     // 0814 카테고리 불러오기
     GET_CATEGORIES : 'GET_CATEGORIES',
