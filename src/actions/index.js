@@ -57,6 +57,22 @@ const login = (customerId, password) => {
   });
 };
 
+const userEdit = (changeUserInfo) => {
+  const formData = new FormData();
+  formData.append('userEdit', changeUserInfo);
+  console.log('userEdit Actions ====> ', changeUserInfo);
+  return({
+    type: ActionTypes.USER_EDIT,
+    payload: {
+      request:{
+        method:'POST',
+        url:'/oauth/token',
+        data:formData
+      }
+    }
+  });
+};
+
 const getUserMe = () => {
   return ({
     type: ActionTypes.GET_USERME,
@@ -128,5 +144,6 @@ export const Actions = {
   addCart,
   loadProductList,
   questionByProduct,
+  userEdit
 
 };

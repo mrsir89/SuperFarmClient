@@ -26,6 +26,12 @@ export const ActionTypes={
 
     LOGOUT:'LOGOUT',
 
+    // user정보 수정
+    USER_EDIT:'USER_EDIT',
+    USER_EDIT_SUCCESS:'USER_EDIT_SUCCESS',
+    USER_EDIT_FAIL:'USER_EDIT_FAIL',
+
+
     GET_USERME:'GET_USERME',
     GET_USERME_SUCCESS:'GET_USERME_SUCCESS',
     

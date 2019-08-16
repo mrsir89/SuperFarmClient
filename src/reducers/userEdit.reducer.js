@@ -1,27 +1,29 @@
-// import { ActionTypes } from '../contants';
+import { ActionTypes } from '../contants';
 
-// const initialStateUserdetails = {
-//     userdetails: null
-// }
+const initialStateUserdetails = {
+    userdetails: []
+};
 
-// const userDetailsReducer = (state=initialStateUserdetails, action) => {
-//     const { userdetails } = state;
-//     const { payload } = action;
+const userDetailsReducer = (state=initialStateUserdetails, action) => {
+    const { userdetails } = state;
+    const { payload } = action;
 
-//     switch(action.type) {
-//         case ActionTypes.GET_USERME_SUCCESS:
-//             if( payload!==undefined && payload !== null){
-//                  const { data } = payload;
+    switch(action.type) {
+        case ActionTypes.GET_USERME:
+            if( payload!==undefined && payload !== null){
+                 const { data } = payload;
 
-//                  if(data!==undefined && data !== null){
-//                      return {
-//                          ...state,
-//                          userdetails: data
-//                      };
-//                  }
-//             }// if
-//             return state;
-//     }//switch
-// }
+                 if(data!==undefined && data !== null){
+                     return {
+                         ...state,
+                         userdetails: data
+                     }
+                 }
+            };// if
 
-// export default userDetailsReducer;
+            default:
+                return state;
+    }//switch
+};
+
+export default userDetailsReducer;

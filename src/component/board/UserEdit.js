@@ -8,8 +8,6 @@ import EditMe from './EditMe'
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 
-// 일단 이건 회원정보 수정시 다시한번 재확인하는 거임
-// 실제 수정하는 곳 EditMe.js에서
 const checkAsync = (customerId, password) => (dispatch) => {
     return dispatch(Actions.login(customerId, password))
     .then(response => {
