@@ -5,7 +5,6 @@ import { Actions } from '../../actions/index';
 // import {ActionTypes} from '../../contants';
 import { connect } from 'react-redux';
 //import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 
 
@@ -15,7 +14,7 @@ class ProductList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+      productBoard: []
     }
   }
 
@@ -25,11 +24,11 @@ class ProductList extends React.Component {
   }
 
   _renderAllProducts = () => {
-    const { items } = this.props;
+    const { productBoard } = this.props;
     var productItems = [];
 
-    if (items !== undefined && items !== null) {
-      productItems = items.map(item => {
+    if (productBoard !== undefined && productBoard !== null) {
+      productItems = productBoard.map(item => {
         return <Link to={`/product/${item.productBoardNum}`}>
           <ProductItem key={item.productBoardNum} item={item} />
         </Link>
@@ -50,9 +49,9 @@ class ProductList extends React.Component {
 
 function mapStateToProps(state) {
   const { product } = state;
-  const { items } = product;
+  const { productBoard } = product;
   return {
-    items
+    productBoard
   };
 }
 

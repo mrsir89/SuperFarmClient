@@ -5,6 +5,10 @@ const initialStateAuth = {
     token: null,
     userDetails: null,
     signupCustomer: null
+<<<<<<< HEAD
+=======
+    
+>>>>>>> dev_ki_test
 };
 
 const authentication = (state = initialStateAuth, action) => {

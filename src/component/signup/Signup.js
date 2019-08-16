@@ -69,7 +69,7 @@ class Signup extends React.Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    this.handleRadio = this.handleRa
+    this.handleRadio = this.handleRadio
 
     console.log(target, '     :target')
     console.log(value, '    :value')

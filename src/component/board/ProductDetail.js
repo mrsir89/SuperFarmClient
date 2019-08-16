@@ -10,13 +10,14 @@ import { Actions } from '../../actions/index';
 
 
 // 제품 상세 페이지
+// 옵션, 가격을 form에 담아서 submit -> 바로구매 or 장바구니
 class ProductDetail extends React.Component {
    constructor(props) {    // props 굳이 안써줘도 넘어 옴
       super(props)
-      const { items } = this.props;
+      const { productBoard } = this.props;
       this.state = {
          productId: this.props.match.params.id,
-         products: items
+         products: productBoard
       };
    }
 
@@ -60,12 +61,32 @@ class ProductDetail extends React.Component {
                               <td>{product.lowerCode}</td>
                            </tr>
                            <tr>
-                              <th scope="row">상품 가격</th>
+                              <th scope="row">상품 가격(옵션에 따라 달라질 예정)</th>
                               <td>{product.productBoardDeliveryPrice}</td>
                            </tr>
                         </tbody>
                      </table>
                   </div>
+
+                  <form>
+                     <div class="form-row">
+                        <div class="form-group col-md-6">
+                           <label for="exampleFormControlSelect1">옵션1 선택</label>
+                           <select class="form-control" id="exampleFormControlSelect1">
+                              <option>{product.product.productOption1}</option>
+                              <option>없음</option>
+                           </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                           <label for="exampleFormControlSelect1">옵션2 선택</label>
+                           <select class="form-control" id="exampleFormControlSelect1">
+                              <option>{product.product.productOption2}</option>
+                              <option>없음</option>
+                           </select>
+                        </div>
+                     </div>
+                  </form>
+
                   <div className="btn-prd">
                      <p><a href="#" className="btn-buy">구매</a></p>
                      <a href="/cart" className="btn-buy">
@@ -85,9 +106,9 @@ class ProductDetail extends React.Component {
 // store에서 state를 복사해서 컨테이너의 props에 붙여넣기 
 function mapStateToProps(state) {
    const { product } = state;
-   const { items } = product
+   const { productBoard } = product
    return {
-      items
+      productBoard
    };
 }
 
