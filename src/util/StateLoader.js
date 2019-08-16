@@ -2,7 +2,9 @@ class StateLoader {
 
     loadState() {
         try {
+            console.log(localStorage.getItem)
             let state = localStorage.getItem("http://localhost:8080/state");
+            console.log(' loadState 실행 ', state)
             if (state !== undefined && state !== null) {
                 return JSON.parse(state);
             }
@@ -15,7 +17,11 @@ class StateLoader {
 
     saveState(state) {
         try {
+<<<<<<< HEAD
             console.log(state,' <--------- localStage  save')
+=======
+            console.log(' saveState 실행 ', state)
+>>>>>>> dev_sj
             let json = JSON.stringify(state);
             localStorage.setItem("http://localhost:8080/state", json);
         } catch (error) {
@@ -23,6 +29,8 @@ class StateLoader {
         }
     }
 
+    // 여기 auth에 장바구니, 구매한 목록 추가 
+    // product에 카테고리 추가 (upper: [], lower: [])
     initialState() {
         
         return {
@@ -33,6 +41,7 @@ class StateLoader {
                 signupModel: null
             },
             product: {
+<<<<<<< HEAD
                 items: [],
                 cart: []
             },
@@ -43,7 +52,15 @@ class StateLoader {
             },
             userEdit: {
                 userDetails:[]
+=======
+                productBoard: [],
+                category: []
+            },
+            cart : {
+                cartlist: [],
+>>>>>>> dev_sj
             }
+            
         };
     }
 }

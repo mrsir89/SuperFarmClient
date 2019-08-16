@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 # git push 시 제외 목록
 node_modules
 .DS_Store
+=======
+node_modules
+>>>>>>> dev_sj
