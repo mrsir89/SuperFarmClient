@@ -1,12 +1,8 @@
 import { combineReducers } from 'redux';
 import authentication from './authentication.reducer'
 import productReducer from './product.reducer'
-<<<<<<< HEAD
 import userEditReducer from './userEdit.reducer'
-
-=======
 import cartReducer from './cart.reducer';
->>>>>>> dev_sj
 // 리듀서 = 상태를 변화하는 함수. >>> 이전 상태(old state)와 Action을 합쳐, 새로운 state를 만든다.
 // 파라미터 두 개 = 현재상태(old state), 액션객체(action)
 
@@ -16,11 +12,8 @@ import cartReducer from './cart.reducer';
 const rootReducers = combineReducers({
   auth: authentication,
   product: productReducer,
-<<<<<<< HEAD
-  userEdit:userEditReducer
-=======
+  userEdit:userEditReducer,
   cart : cartReducer
->>>>>>> dev_sj
 });
 
 export default rootReducers;

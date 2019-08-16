@@ -21,8 +21,8 @@ const userDetailsReducer = (state=initialStateUserdetails, action) => {
                  }
             };// if
 
-            default:
-                return state;
+        default:
+            return state;
     }//switch
 };
 

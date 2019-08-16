@@ -35,13 +35,12 @@ export const ActionTypes={
     GET_USERME:'GET_USERME',
     GET_USERME_SUCCESS:'GET_USERME_SUCCESS',
     
-<<<<<<< HEAD
     // question에대한 페이지 호출 응답받는 actions
     // 기존 Board action들 삭제.
     // REQUEST_QUESTION_PAGE:'REQUEST_QUESTION_PAGE',
     // RESPONSE_QUESTION_PAGE:'RESPONSE_QUESTION_PAGE',
     QUESTION_BY_PRODUCT:'QUESTION_BY_PRODUCT',
-=======
+
     //QnABoard 관련 
     LOAD_QNABOARDLIST:'LOAD_QNABOARDLIST',
     LOAD_QNABOARDLIST_SUCCESS:'LOAD_QNABOARDLIST_SUCCESS',
@@ -52,22 +51,17 @@ export const ActionTypes={
     QNABOARD_EDIT:'QNABOARD_EDIT',
     QNABOARD_FAIL:'QNABOARD_FAIL',
 
->>>>>>> dev_sj
-
     // 0810 loadProductList 
     LOAD_PRODUCTLIST : 'LOAD_PRODUCTLIST',
     LOAD_PRODUCTLIST_FAIL : 'LOAD_PRODUCTLIST_FAIL',
     LOAD_PRODUCTLIST_SUCCESS : 'LOAD_PRODUCTLIST_SUCCESS',
 
     // 0810 addCart
-<<<<<<< HEAD
-    ADD_CART : 'ADD_CART'
+    ADD_CART : 'ADD_CART',
     // 필요한가..??
     // ADD_CART_FAIL: 'ADD_CART_FAIL',
     // ADD_CART_SUCCESS: 'ADD_CART_SUCCESS'
 
-
-=======
     ADD_CART : 'ADD_CART',
     ADD_CART_FAIL: 'ADD_CART_FAIL',
     ADD_CART_SUCCESS: 'ADD_CART_SUCCESS',
@@ -81,5 +75,4 @@ export const ActionTypes={
     GET_CART : 'GET_CART',
     GET_CART_FAIL : 'GET_CART_FAIL',
     GET_CART_SUCCESS : 'GET_CART_SUCCESS'
->>>>>>> dev_sj
 }

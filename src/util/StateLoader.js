@@ -17,11 +17,8 @@ class StateLoader {
 
     saveState(state) {
         try {
-<<<<<<< HEAD
             console.log(state,' <--------- localStage  save')
-=======
-            console.log(' saveState 실행 ', state)
->>>>>>> dev_sj
+
             let json = JSON.stringify(state);
             localStorage.setItem("http://localhost:8080/state", json);
         } catch (error) {
@@ -41,7 +38,6 @@ class StateLoader {
                 signupModel: null
             },
             product: {
-<<<<<<< HEAD
                 items: [],
                 cart: []
             },
@@ -52,17 +48,12 @@ class StateLoader {
             },
             userEdit: {
                 userDetails:[]
-=======
+            },
                 productBoard: [],
                 category: []
-            },
-            cart : {
-                cartlist: [],
->>>>>>> dev_sj
             }
             
         };
-    }
 }
 
 export default StateLoader;

@@ -84,11 +84,7 @@ class ProductDetail extends React.Component {
       console.log("products", products)
       var newProducts = [];
       if (products !== undefined && products !== null) {
-<<<<<<< HEAD
-         newProducts = this.state.products.filter((item) => (item.productBoardNum === productId));
-=======
          newProducts = products.filter((item) => (item.productBoardNum == productId));
->>>>>>> dev_sj
       }
       console.log("newProduct[0] >>>>", newProducts[0])
 
@@ -207,7 +203,7 @@ class ProductDetail extends React.Component {
                   </form>
                </div>
             </div>
-            <ProductView key = {product.productBoardNum} product ={product} />
+            {/* <ProductView key = {product.productBoardNum} product ={product} /> */}
          </div>
       );
    }

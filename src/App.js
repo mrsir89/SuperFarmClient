@@ -6,26 +6,19 @@ import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import signup from './component/signup/Signup';
 import login from './component/login/Login';
-<<<<<<< HEAD
-=======
 import qnaboard from './component/board/QnABoard';
 import QnABoardWrite from './component/board/QnABoardWrite';
->>>>>>> dev_sj
 import { Actions } from './actions';
 import './App.css';
 import Cart from './component/board/Cart';
 import ProductDetail from './component/board/ProductDetail';
 import ProductList from './component/board/ProductList';
-<<<<<<< HEAD
 import UserEdit from './component/board/UserEdit';
 import QuestionBoard from './component/board/QuestionBoard';
 import EditMe from './component/board/EditMe';
 import mypage from './component/board/MyPage';
-=======
-import MyPage from './component/board/MyPage';
 import NaviBar from './component/board/NaviBar';
 // import Main from './Main';
->>>>>>> dev_sj
 
 // REACT는 라이브러리, View를 Rendering 하는 것이 주 기능이며 나머지 기타 기능들(router, ajax등등)은 서드파티 라이브러리를 추가적으로 사용해야 한다.
 // React랑 React+Redux의 결정적 차이
@@ -53,20 +46,16 @@ class App extends React.Component {
         <Switch>
           {/* <Route exact path="/" component={Main} /> */}
 
-          <Route exact path="/product" component={ProductList} />
+          <Route path="/product" component={ProductList} />
           <Route path="/signup" component={signup} />
           <Route path="/login" component={login} />
           <Route path="/cart" component={Cart} />
-          <Route path="/mypage" component={MyPage} />
           <Route path="/product/:id" component={ProductDetail} />
-<<<<<<< HEAD
           <Route path="/useredit" component={UserEdit}/>
           <Route path="/EditMe" component={EditMe}/>
           <Route path="/mypage" component={mypage}/>
-=======
           <Route path="/qnaboardWrite" component={QnABoardWrite} />
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
->>>>>>> dev_sj
         </Switch>
       </div>
     );

@@ -93,8 +93,6 @@ const logout = () => ({
   type: ActionTypes.LOGOUT
 })
 
-<<<<<<< HEAD
-=======
 const writeQnABoard = (writeQnA) => {
   console.log('writeQnABoard')
   return ({
@@ -110,7 +108,7 @@ const writeQnABoard = (writeQnA) => {
       }
     }
   })
-}
+};
 
 const loadqnaboardList = (productNum, size, page) => {
   const formdata = new FormData();
@@ -127,9 +125,7 @@ const loadqnaboardList = (productNum, size, page) => {
       }
     }
   })
-}
-
->>>>>>> dev_sj
+};
 
 // 0810 장바구니 추가 action (local storage에 저장, db에는 저장 안함)
 // const addCart = (item) => ({
@@ -224,19 +220,12 @@ export const Actions = {
   getClientToken,
   logout,
   getUserMe,
-<<<<<<< HEAD
   addCart,
   loadProductList,
   questionByProduct,
-  userEdit
-
-=======
+  userEdit,
   loadqnaboardList,
-  writeQnABoard,
-  addCart,
-  loadProductList,
   getCategories,
   getCartByUser,
   writeQnABoard
->>>>>>> dev_sj
 };
