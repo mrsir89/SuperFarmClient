@@ -97,8 +97,8 @@ const writeQnABoard = (writeQnA) => {
 const loadqnaboardList = (productNum, size, page) => {
   const formdata = new FormData();
   formdata.append('productNum', 5);
-  formdata.append('size', size);
-  formdata.append('page', page);
+  formdata.append('size', 10);
+  formdata.append('page', 1);
   return ({
     type: ActionTypes.LOAD_QNABOARDLIST,
     payload: {
@@ -106,6 +106,39 @@ const loadqnaboardList = (productNum, size, page) => {
         method: 'POST',
         url: '/question/product',
         data: formdata
+      }
+    }
+  })
+}
+
+const editQnABoard = (editQnABoard) => {
+  console.log(' edit QnABoard Action 실행')
+  return({
+    type:ActionTypes.EDIT_QNABOARD,
+    payload:{
+      request: {
+        method:'POST',
+        url: '/update/question',
+        headers: {
+          'Content-Type':'application/json; charset: utf-8'
+        },
+        data: JSON.stringify(editQnABoard)
+      }
+    }
+  })
+}
+const deleteQnABoard =(deleteQnABoard) => {
+  console.log(' delete QnABoard action 실행 ')
+  return({
+    type:ActionTypes.DELETE_QNABOARD,
+    payload:{
+      request: {
+        method:'POST',
+        url: '/delete/question',
+        headers: {
+          'Content-Type':'application/json; charset: utf-8'
+        },
+        data: JSON.stringify(deleteQnABoard)
       }
     }
   })
@@ -141,20 +174,7 @@ const addCart = ( cartModel  ) => {
 
 };
 
-const removeCart = (cartNum) => {
-  return ({
-    type: ActionTypes.REMOVE_CART,
-    payload: {
-      request: {
-        method: 'DELETE',
-        url: `/cart?cartNum=${cartNum}`
-      }
-    }
-  });
-};
-
-
-// 0814 장바구니 불러오기 (By userNum)
+// 0814 장바구니 불러오기 (user)
 const getCartByUser = (userNum)=> {
   return ({
     type: ActionTypes.GET_CART,
@@ -220,5 +240,7 @@ export const Actions = {
   loadProductList,
   getCategories,
   getCartByUser,
-  writeQnABoard
+  writeQnABoard,
+  editQnABoard,
+  deleteQnABoard
 };

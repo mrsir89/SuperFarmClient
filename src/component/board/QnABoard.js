@@ -2,6 +2,8 @@ import React from 'react';
 import { Actions } from '../../actions/index';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { qnaboardWrite} from './QnABoardWrite';
+import NewWindow from 'react-new-window';
 
 // const qnaboardList = (productNum,size,page) => dispatch => {
 //   return dispatch(Actions.getQnABoard())
@@ -39,55 +41,93 @@ class QnABoard extends React.Component {
 
   constructor(props) {
     super(props)
-    const { qnaBoard } = this.props;
-    const { data } =qnaBoard;
+    const { board } = this.props;
+    const { qnaBoard } = board;
+    console.log(qnaBoard,' constructorBoard ')
     this.state = {
-      qnaBoardList: data
+      qnaBoardList: qnaBoard
     }
     // this.handleClick=this.handleClick.bind(this);
     console.log('여기 실행 되나?', this.state)
   }
-  _loadList=(productNum,size,page)=>{
-    const {loadqnaboardList} = this.props;
-    loadqnaboardList(productNum,size,page);
+  _loadList = (productNum, size, page) => {
+    const { loadqnaboardList } = this.props;
+    loadqnaboardList(productNum, size, page);
   }
   componentWillMount() {
-    const { loadqnaboardList } = this.props;
-    const {qnaBoardList} = this.state
-    console.log(this.state, ' <<<<< willMount')
+    const { board } = this.props;
+    const { qnaBoard } = board
+    console.log(this.state, ' <<<<< willMount State')
+    console.log( this.props, 'this.props !!!!!!!!!!!!!!')
+    console.log(board,'<-------- Board')
     let productNum = 5
-    let size = qnaBoardList.size
-    let page = qnaBoardList.page
-    console.log(loadqnaboardList, ' qnaboardList 실행')
+    let size
+    let page
+    console.log(qnaBoard.size, ' qnaBoardList item Size')
+    if (qnaBoard === null || qnaBoard ===undefined) {
+      size = 10
+      page = 1
+    } else if (qnaBoard.legnth === 0) {
+      page = 1
+    } else {
+      size = qnaBoard.size
+      page = qnaBoard.page
+      console.log('WillMount size : ', size, '  WillMount page : ', page)
+    }
+
     this._loadList(productNum, size, page);
   }
 
-  _onClickPopUp() {
-    window.open('qnaboardWrite', 'window_name', 'width=430,height=500,location=no,status=no,scrollbars=yes');
+  _onClickPopUp=()=> {
+  var wind = window.open(`${<qnaboardWrite/>}`, 'QnA작성', 'width=430,height=500,location=no,status=no,scrollbars=yes');
+
   }
-  _nextPage=()=>{
-    const {qnaBoardList} = this.state
-    console.log(qnaBoardList,'  nextpage')
-    let hasNextPage =qnaBoardList.hasNexPage;
-    let page = qnaBoardList.page
-    let size = qnaBoardList.size
-    let productBoardNum = qnaBoardList.boardNum;
-    if(hasNextPage === true){
-      page = qnaBoardList.page + 1;
-      this._loadList(productBoardNum,page,size)
-    }
+  _nextPage = () => {
+    const { qnaBoard } = this.props
+    console.log(qnaBoard, '  nextpage');
+
+    let hasNextPage = qnaBoard.data.hasNext;
+    console.log(hasNextPage, ' hasNextPage');
     
+    var page = qnaBoard.data.page
+    var size = qnaBoard.data.size
+    let productBoardNum = qnaBoard.data.boardNum;
+    console.log(page, ' next 누를대 page 확인 ');
+
+    if (hasNextPage === true) {
+      page = page + 1;
+      console.log(page, ' 실제 클릭 했을 경우 값 ');
+      this._loadList(productBoardNum, size, page)
+    }
+
   }
-  _prevPage(){
+  _prevPage = () => {
+    const { qnaBoard } = this.props
+    console.log(this.props, '  prev Page')
+    var page = qnaBoard.data.page
+    console.log(page, ' preve 의  클릭 전 page 확인')
+    var size = qnaBoard.data.size
+    let productBoardNum = qnaBoard.data.boardNum;
+    if (page !== 1) {
+      page = page - '1';
+      console.log(page, ' preve 클릭후 확인 ')
+      this._loadList(productBoardNum, size, page)
+    }
+  }
+  _editQnABoard = () => {
+
+  }
+  _deleteQnABoard = () => {
 
   }
 
   render() {
-    console.log(this.props, '<----- props')
-    const { qnaBoard } = this.props;
-    const list = qnaBoard.data;
-    const { items } = list;
-    console.log(list.items, ' <------- ')
+    console.log(this.props, '<----- props!@!@!@')
+    const { board } = this.props;
+    const {qnaBoard} = board;
+    const { items } = qnaBoard;
+    console.log(qnaBoard,' props.board.qnaBoard <--------->')
+    console.log(items, ' <------- 현재 상태  ')
     return (
       <div>
         <div className="row">
@@ -106,11 +146,16 @@ class QnABoard extends React.Component {
                   <div>
                     {item.questionBoardContent}
                   </div>
+                  <div>
+                    <div><input type="button" value="수정" onClick={this._editQnABoard} /></div>
+                    <div><input type="button" value="삭제" onClick={this._deleteQnABoard} /></div>
+                  </div>
                   {item.questionAnswer.map((answer) => (
                     <div className="row" hidden={item.isExpanded}>
                       <div className="col-2">{answer.answerWriter}</div>
                       <div className="col-10">{answer.answerContent}</div>
                       <div>
+
 
                       </div>
                     </div>
@@ -126,9 +171,9 @@ class QnABoard extends React.Component {
           </div>
         ))}
         <div>
-          <input type="button" value="이전" onClick={this._prevPage}/>
-          <input type="button" value="다음" onClick={this._nextPage}/>
-          <input type="button" value="작성" onClick={this._onClickPopUp}></input>
+          <input type="button" value="이전" onClick={this._prevPage} />
+          <input type="button" value="다음" onClick={this._nextPage} />
+          <input type="button" value="작성" onClick={this._onClickPopUp} />
         </div>
       </div>
     );
@@ -136,13 +181,16 @@ class QnABoard extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
+  console.log(state,'  mapStateToProps 시작')
   const { product } = state;
-  const { qnaBoard } = product;
-  console.log(qnaBoard, '<--------- qnaBoad')
+  const { board } = state;
+  const { qnaBoard } = board;
+  console.log(board, '<--------- board')
+  console.log(qnaBoard, '<--------- qnaBoard')
   console.log(product, ' <--------- product')
   return {
-    qnaBoard
+    board,
+    product
   };
 
 }

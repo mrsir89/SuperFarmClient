@@ -36,12 +36,12 @@ class NaviBar extends React.Component {
     return (
 
       <div className="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <div className="list-group list-group-horizontal-md" >
               {/* <Product/> */}
 
-              <ul class="navbar">
+              <ul className="navbar">
                 <li><Link className="active" to="/product">Home</Link></li>
                 <li><Link to="/review/all">About</Link></li>
 

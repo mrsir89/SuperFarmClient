@@ -40,21 +40,6 @@ const cartReducer = (state = initialStateCart, action) => {
             }
             return state;
 
-        // 0816 장바구니 삭제 
-        case ActionTypes.REMOVE_CART_SUCCESS:
-            console.log("remove cart 성공")
-            if (payload !== undefined && payload !== null) {
-                const { data } = payload;
-
-                return {
-                    ...state,
-                    cartlist: cartlist.filter(item => item.id !== data.id)
-                }
-
-            }
-            return state;
-
-
         default:
             return state;
 

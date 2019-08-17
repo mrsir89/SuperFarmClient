@@ -31,12 +31,12 @@ class QnABoardWrite extends React.Component {
         return (this.state)
     }
     _onClickAction(e) {
-        e.preventDefault();
+       
         const questionBoard =this.state
         console.log(this.props)
         console.log('onSubmit 실행 되어라')
-        const{ writeQnABoard }=this.props
-        writeQnABoard(questionBoard);
+        const { writeQnABoard }=this.props
+        writeQnABoard(questionBoard)
         window.close()
         
     }

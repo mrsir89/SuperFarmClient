@@ -18,13 +18,10 @@ class Cart extends React.Component {
 
   componentWillMount() {
     const { getCartByUser, userDetails } = this.props;
-    getCartByUser(userDetails.userNum);
-  }
 
-  _removeHandler = (e, id) => {
-    e.stopPropagation();
-    this.props.removeCart(id);
-  };
+    getCartByUser(userDetails.userNum);
+
+  }
 
   // getCartByUser응답이 오고 나서 실행 되어야함
   _showCartItems = () => {
@@ -34,12 +31,7 @@ class Cart extends React.Component {
     var cartItem = [];
     if (cartlist !== undefined && cartlist !== null) {
       cartItem = cartlist.map(item => {
-        return (
-          <div>
-            <CartView key={item.productBoardNum} item={item} />
-            <button className="badge badge-danger" onClick={e => this._removeHandler(e, item.cartNum)}>remove</button>
-          </div>
-        )
+        return <CartView key={item.productBoardNum} item={item} />
       })
     }
 
@@ -64,11 +56,11 @@ function mapStateToProps(state) {
     userDetails
   };
 }
-
-const mapDispatchToProps = (dispatch) => ({
-  getCartByUser: ()=> dispatch(Actions.getCartByUser) ,
-  removeCart : (id)=> dispatch(Actions.removeCart(id))
-});
+function mapDispatchToProps(dispatch) {
+  return {
+    getCartByUser: bindActionCreators(Actions.getCartByUser, dispatch)
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
 

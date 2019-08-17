@@ -1,6 +1,8 @@
 // ver4  8/11 Ref
 // ver4  8/12 merge testing
 
+// merge ki from sj  8/15
+// 8/15
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
