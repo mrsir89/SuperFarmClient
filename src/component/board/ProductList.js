@@ -20,7 +20,7 @@ class ProductList extends React.Component {
 
   componentDidMount() {
     const { loadProductList } = this.props;
-    loadProductList('lower',1);
+    loadProductList('lower',2);
   }
 
   _renderAllProducts = () => {

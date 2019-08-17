@@ -96,7 +96,7 @@ const writeQnABoard = (writeQnA) => {
 
 const loadqnaboardList = (productNum, size, page) => {
   const formdata = new FormData();
-  formdata.append('productNum', productNum);
+  formdata.append('productNum', 5);
   formdata.append('size', size);
   formdata.append('page', page);
   return ({
@@ -172,6 +172,7 @@ const loadProductList = (type,id) => {
   const formData = new FormData();
   let url = '/product/all'
   if(type==='lower'){
+    console.log('lower 확인 ,',type,id)
     url = '/product/lower';
     formData.append('lower',id);
   }else if(type==='search'){
