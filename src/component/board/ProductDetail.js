@@ -11,6 +11,7 @@ import { Actions } from '../../actions/index';
 
 // 제품 상세 페이지
 // 옵션, 가격을 form에 담아서 submit -> 바로구매 or 장바구니
+// 테스트 
 class ProductDetail extends React.Component {
    constructor(props) {    // props 굳이 안써줘도 넘어 옴
       super(props);
