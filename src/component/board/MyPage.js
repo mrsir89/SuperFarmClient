@@ -9,12 +9,7 @@ class MyPage extends React.Component {
     render() { 
         const { auth } = this.props;
         const { userDetails } = auth;
-<<<<<<< HEAD
-        const {position} = userDetails;
-        const couponNum=userDetails.coupon.length;
-=======
         const { position } = userDetails;
->>>>>>> dev_sw
         return (
             <div>
                 <p>이름 : {userDetails.username}<a href="/UserEdit">회원 정보수정</a></p>

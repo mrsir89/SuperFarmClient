@@ -22,11 +22,7 @@ const getClientToken = () => {
     }
   });
 };
-<<<<<<< HEAD
-
-=======
 // 확인 
->>>>>>> dev_sw
 const signup = (signupCustomer) => {
   console.log(signupCustomer, ' 여기는 signup 안쪽')
 
@@ -112,9 +108,6 @@ const writeQnABoard = (writeQnA) => {
       }
     }
   })
-<<<<<<< HEAD
-};
-=======
 }
 
 const loadqnaboardList = (productNum, size, page) => {
@@ -133,24 +126,6 @@ const loadqnaboardList = (productNum, size, page) => {
     }
   })
 }
->>>>>>> dev_sw
-
-const loadqnaboardList = (productNum, size, page) => {
-  const formdata = new FormData();
-  formdata.append('productNum', 5);
-  formdata.append('size', '10');
-  formdata.append('page', '1');
-  return ({
-    type: ActionTypes.LOAD_QNABOARDLIST,
-    payload: {
-      request: {
-        method: 'POST',
-        url: '/question/product',
-        data: formdata
-      }
-    }
-  })
-};
 
 // 0810 장바구니 추가 action (local storage에 저장, db에는 저장 안함)
 // const addCart = (item) => ({
@@ -255,11 +230,7 @@ export const Actions = {
   getClientToken,
   logout,
   getUserMe,
-<<<<<<< HEAD
-=======
-  loadqnaboardList,
   writeQnABoard,
->>>>>>> dev_sw
   addCart,
   loadProductList,
   questionByProduct,
