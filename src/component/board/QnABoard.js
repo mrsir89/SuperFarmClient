@@ -40,27 +40,46 @@ class QnABoard extends React.Component {
   constructor(props) {
     super(props)
     const { qnaBoard } = this.props;
+    const { data } =qnaBoard;
     this.state = {
-      qnaBoardList: qnaBoard
+      qnaBoardList: data
     }
     // this.handleClick=this.handleClick.bind(this);
     console.log('여기 실행 되나?', this.state)
   }
+  _loadList=(productNum,size,page)=>{
+    const {loadqnaboardList} = this.props;
+    loadqnaboardList(productNum,size,page);
+  }
   componentWillMount() {
     const { loadqnaboardList } = this.props;
+    const {qnaBoardList} = this.state
     console.log(this.state, ' <<<<< willMount')
     let productNum = 5
-    let size = 10
-    let page = 1
+    let size = qnaBoardList.size
+    let page = qnaBoardList.page
     console.log(loadqnaboardList, ' qnaboardList 실행')
-    loadqnaboardList(productNum, size, page);
+    this._loadList(productNum, size, page);
   }
 
-  _writeQnA() {
-    const { writeQnABoard } = this.props
-  }
   _onClickPopUp() {
     window.open('qnaboardWrite', 'window_name', 'width=430,height=500,location=no,status=no,scrollbars=yes');
+  }
+  _nextPage=()=>{
+    const {qnaBoardList} = this.state
+    console.log(qnaBoardList,'  nextpage')
+    let hasNextPage =qnaBoardList.hasNexPage;
+    let page = qnaBoardList.page
+    let size = qnaBoardList.size
+    let productBoardNum = qnaBoardList.boardNum;
+    if(hasNextPage === true){
+      page = qnaBoardList.page + 1;
+      this._loadList(productBoardNum,page,size)
+    }
+    
+  }
+  _prevPage(){
+
   }
 
   render() {
@@ -107,6 +126,8 @@ class QnABoard extends React.Component {
           </div>
         ))}
         <div>
+          <input type="button" value="이전" onClick={this._prevPage}/>
+          <input type="button" value="다음" onClick={this._nextPage}/>
           <input type="button" value="작성" onClick={this._onClickPopUp}></input>
         </div>
       </div>

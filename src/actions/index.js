@@ -96,9 +96,9 @@ const writeQnABoard = (writeQnA) => {
 
 const loadqnaboardList = (productNum, size, page) => {
   const formdata = new FormData();
-  formdata.append('productNum', 5);
-  formdata.append('size', '10');
-  formdata.append('page', '3');
+  formdata.append('productNum', productNum);
+  formdata.append('size', size);
+  formdata.append('page', page);
   return ({
     type: ActionTypes.LOAD_QNABOARDLIST,
     payload: {

@@ -15,6 +15,7 @@ import ProductDetail from './component/board/ProductDetail';
 import ProductList from './component/board/ProductList';
 import MyPage from './component/board/MyPage';
 import NaviBar from './component/board/NaviBar';
+import postCode from './component/PostCode';
 // import Main from './Main';
 
 // REACT는 라이브러리, View를 Rendering 하는 것이 주 기능이며 나머지 기타 기능들(router, ajax등등)은 서드파티 라이브러리를 추가적으로 사용해야 한다.
@@ -52,6 +53,7 @@ class App extends React.Component {
           <Route path="/mypage" component={MyPage} />
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/qnaboardWrite" component={QnABoardWrite}/>
+          <Route path="/inputAddress" component={postCode} />
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
         </Switch>
       </div>

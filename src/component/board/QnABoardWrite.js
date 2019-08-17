@@ -3,6 +3,7 @@ import { Actions } from '../../actions/index';
 import { ActionTypes } from '../../contants';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { postCode} from '../PostCode';
 
 
 
@@ -52,6 +53,9 @@ class QnABoardWrite extends React.Component {
     }
     componentDidMount() {
         console.log('componentDidMount')
+    }
+    _onClickPostSearch(){
+        
     }
 
     render() {

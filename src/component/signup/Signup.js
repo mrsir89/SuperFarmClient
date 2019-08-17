@@ -3,7 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { Actions } from '../../actions/index';
 import { connect } from 'react-redux';
 import { ActionTypes } from '../../contants';
-import './Signup.css';
+import DaumPostcode from 'react-daum-postcode';
+//import './Signup.css';
 // Store가 가진 state를 어떻게 props에 엮을 지 정한다.
 //   (이 동작을 정의하는 함수는 mapStateToProps라고 불립니다)
 // Reducer에 action을 알리는 함수 dispatch를 어떻게 props에 엮을 지 정한다. 
@@ -137,10 +138,15 @@ class Signup extends React.Component {
       })
     }
   }
+  _onClickPopUp() {
+    window.open('postCode', 'window_name', 'width=430,height=500,location=no,status=no,scrollbars=yes');
+  }
 
 
   render() {
-
+    const handleData = data =>{
+      console.log(data);
+    }
     return (
       <div className="Signup">
         <div className="SignupForm">
@@ -148,21 +154,23 @@ class Signup extends React.Component {
             회원가입
         </div>
           <form onSubmit={this.handleSubmit}>
-            <li> ID <input type="text" name="id"
-              value={this.state.id.value}
+            <div>
+            <li> ID <input type="text" name="id" value={this.state.id.value}
               onChange={this.handleInputChange} placeholder="아이디" />
               <input type="button" value="아이디중복체크" onClick={this._idCheck}></input></li>
             <li>{this.state.signupCheckMessage.idMessage}</li>
-
+            </div>
+            <div>
             <li>Password <input type="password" name="password"
               onChange={this.handleInputChange}
               placeholder="비밀번호" /> </li>
-
+            </div>
+            <div>
             <li>Password확인 <input type="password" name="passwordCheck"
               onChange={this.handleInputChange}
               placeholder="비밀번호확인" /> </li>
             <li>{this.state.signupCheckMessage.passwordMes}</li>
-
+            </div>
             <li> 이름 <input type="text" name="name"
               value={this.state.name.value} onChange={this.handleInputChange}
               placeholder="이름" /> </li>
@@ -185,7 +193,7 @@ class Signup extends React.Component {
 
             <li>주소 <input type="text" name="address"
               value={this.state.address.value} onChange={this.handleInputChange}
-              placeholder="address" /> </li>
+              placeholder="address" /><DaumPostcode onComplete={handleData}/> <input type="button" onClick={this._onClickPopUp} value="검색"/> </li>
 
             <li> 연락처 <input type="text" name="phone"
               value={this.state.phone.value} onChange={this.handleInputChange}
