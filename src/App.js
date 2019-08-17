@@ -2,6 +2,7 @@
 import React from 'react';
 import ListReview from './component/review/ListReview';
 import AddReview from './component/review/AddReview';
+import RemoveReview from './component/review/RemoveReview';
 import Header from './component/review/Header';
 import Product from './component/review/Product';
 import { connect } from 'react-redux';
@@ -49,6 +50,7 @@ class App extends React.Component {
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/review/all" component={ListReview} />
           <Route path="/review/write" component={AddReview} />
+          <Route path="/review/delete" component={RemoveReview} />
          
         </Switch> 
         

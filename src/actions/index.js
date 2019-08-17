@@ -148,14 +148,14 @@ const addReview = (num,pnum,title,content,rating,Id,img) => {
  
 
 
- const removeReview = (num) => {
+ const removeReview = (reviewBoardNum) => {
   console.log('removieReviewsd') 
   return ({
     type:ActionTypes.REMOVE_REVIEW,
     payload:{
       request: {
         method:'DELETE',
-        url:`/review/delete`
+        url:`/review/delete${reviewBoardNum}`
       }
     }
    });  

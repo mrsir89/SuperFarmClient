@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import Chevron from "./Chevron";
-import {_removeReviewAsync} from './ListReview';
+ import removeReview from './ListReview';
 
 import "./Accordion.css";
 
@@ -43,10 +43,10 @@ function Accordion(props) {
         <div className="accordion__text" dangerouslySetInnerHTML={{ __html: props.review.reviewBoardContent }}/>
           별점: <div dangerouslySetInnerHTML={{ __html: props.review.reviewBoardRating }}/>
           
-          <button className = "accordion__remove" onClick={_removeReviewAsync(props.review.reviewBoardNum)}>remove</button>
+          {/* <button className = "accordion__remove" onClick={removeReview(props.review.reviewBoardNum)}>remove</button> */}
  
       </div>
-        {/* 내용, 별점  */}
+        내용, 별점 
         </div>
 
 

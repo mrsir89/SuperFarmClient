@@ -12,7 +12,7 @@ import { Actions} from '../../actions/index';
 // };
  
 
- class ListReview extends React.Component {
+ class RemoveReview extends React.Component {
  constructor(props){
      super(props);
      this.state = {
@@ -21,8 +21,8 @@ import { Actions} from '../../actions/index';
    }
 
    componentDidMount() {
-     const {getReviews} = this.props;
-     getReviews();
+     const {removeReview} = this.props;
+     removeReview();
      console.log("this.props>>>>>>>>>>>>>>>>>>>", this.props)
    }
 
@@ -33,7 +33,7 @@ import { Actions} from '../../actions/index';
   //   console.log("this.props>>>>>>>>remove", this.props)
   //  }
 
-     _renderAllReviews = () => {
+     _renderRemoveReview = () => {
         const {items} = this.props; 
         console.log ("reviewlist>>>> ", items)
         var reviewItems =[];
@@ -50,8 +50,8 @@ import { Actions} from '../../actions/index';
      render() {
        console.log("this.props!=>>", this.props)
         return (
-             <div className="content">
-             {this._renderAllReviews()} 
+             <div className="remove">
+             {this._renderRemoveReview()} 
              </div>   
         );
       }
@@ -79,6 +79,6 @@ import { Actions} from '../../actions/index';
        
        }
      }
-       export default connect(mapStateToProps ,mapDispatchToProps)(ListReview);
+       export default connect(mapStateToProps ,mapDispatchToProps)(RemoveReview);
     
  

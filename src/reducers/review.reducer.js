@@ -35,7 +35,7 @@ const reviewReducer = (state = initialStateReview, action ) =>{
                 const {data} =payload;
                 return {
                     ...state,
-                    reviewBoards: reviewBoards.filter(reviewlist_1 => reviewlist_1.customerId !== data.Id),
+                    reviewBoards: reviewBoards.filter(review => review.reviewBoardNum !== data.reviewBoardNum),
                    
                 };
             }

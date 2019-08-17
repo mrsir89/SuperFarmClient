@@ -42,9 +42,9 @@ class StateLoader {
             cart : {
                 cartlist: [],
             },
-            // reviewBoards: {
+             reviewBoards: {
                 
-            // }
+             }
             
         };
     }

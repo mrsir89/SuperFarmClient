@@ -28,7 +28,7 @@ import { withRouter } from 'react-router-dom';
 
 // --------------------------------------------------------------------------------------
 
-const AddReview = ({addReview}) => {
+const AddReview = ({history, addReview}) => {
     let titleInput;
     let contentInput;
     let ratingInput;
@@ -47,14 +47,16 @@ const AddReview = ({addReview}) => {
 
         
 
-        addReview(num,pnum,title,content,rating);
+        addReview(num,pnum,title,content,rating)
+        .then(()=> 
+        history.push('/review/all'));
           
           titleInput.value='';
           contentInput.value='';
           ratingInput.value='';
           numInput.value ='';
           productInput.value= '';
-      }
+      };
       
       
 
