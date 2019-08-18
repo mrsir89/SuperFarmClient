@@ -77,6 +77,9 @@ const logout = () => ({
   type: ActionTypes.LOGOUT
 })
 
+////////////////////////////////////////////////////////////////////////////////////////
+///////////// QnA Board   //////////////////////////////////////////////////////////////
+
 const writeQnABoard = (writeQnA) => {
   console.log('writeQnABoard')
   return ({
@@ -94,11 +97,15 @@ const writeQnABoard = (writeQnA) => {
   })
 }
 
-const loadqnaboardList = (productNum, size, page) => {
+const initBoardListsize = 10
+const initBoardListPage = 1
+  
+//QnABoard productBoardNum에 맞게 불러 오기
+const loadqnaboardList = (productNum, size=initBoardListsize, page=initBoardListPage) => {
   const formdata = new FormData();
   formdata.append('productNum', 5);
-  formdata.append('size', 10);
-  formdata.append('page', 1);
+  formdata.append('size', size);
+  formdata.append('page', page);
   return ({
     type: ActionTypes.LOAD_QNABOARDLIST,
     payload: {
@@ -111,6 +118,7 @@ const loadqnaboardList = (productNum, size, page) => {
   })
 }
 
+//QnABoard 내용수정
 const editQnABoard = (editQnABoard) => {
   console.log(' edit QnABoard Action 실행')
   return({
@@ -127,6 +135,7 @@ const editQnABoard = (editQnABoard) => {
     }
   })
 }
+// QnABOARD 작성
 const deleteQnABoard =(deleteQnABoard) => {
   console.log(' delete QnABoard action 실행 ')
   return({
@@ -134,11 +143,29 @@ const deleteQnABoard =(deleteQnABoard) => {
     payload:{
       request: {
         method:'POST',
-        url: '/delete/question',
+        url: '/question/delete/question',
         headers: {
           'Content-Type':'application/json; charset: utf-8'
         },
         data: JSON.stringify(deleteQnABoard)
+      }
+    }
+  })
+}
+
+// QnABOARD 댓글 작성 
+const writeAnswer =(questionAnswer) =>{
+  console.log(' writeAnswer QnABoard action 실행')
+  return({
+    type:ActionTypes.WRITE_QNABOARDANSWER,
+    payload:{
+      request:{
+        method:'POST',
+        url:'/question/write/answer',
+        headers:{
+          'Content-Type':'application/json; charset: utf-8'
+        },
+        data:JSON.stringify(questionAnswer)
       }
     }
   })
@@ -242,5 +269,6 @@ export const Actions = {
   getCartByUser,
   writeQnABoard,
   editQnABoard,
-  deleteQnABoard
+  deleteQnABoard,
+  writeAnswer
 };

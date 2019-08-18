@@ -21,6 +21,7 @@ class QnABoardWrite extends React.Component {
             questionBoardContent: ''
 
         }
+        console.log(this.props,' props 확인 넘어 오는 match 값도 확인')
         this._onChangeInput = this._onChangeInput.bind(this);
         this._onClickAction = this._onClickAction.bind(this);
     }

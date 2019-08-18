@@ -48,6 +48,17 @@ const boardReducer = (state = initialStateBoard, action) => {
                     }
                 }
             }
+        case ActionTypes.DELETE_QNABOARD_SUCCESS:
+            if(payload !== undefined && payload !== null){
+                const { data } = payload
+                console.log(data, 'ActionTypes.DELETE_QNABOARD_SUCCESS')
+            }
+        
+        case ActionTypes.WRITE_QNABOARDANSWER_SUCCESS:
+            if(payload !== undefined && payload !== null){
+                const{ data } = payload
+                console.log(data, 'ActionTypes.WRITE_QNABOARDANSWER_SUCCESS')
+            }
 
         default:
             return state;
