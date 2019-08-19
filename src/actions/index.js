@@ -7,6 +7,14 @@ import { ActionTypes } from '../contants';
 
 // type: "액션의 종류를 한번에 식별할 수 있는 문자열 혹은 심볼"
 // payload: "액션의 실행에 필요한 임의의 데이터"
+
+
+// 초기 페이지 설정 값
+
+const initBoardListsize = 10
+const initBoardListPage = 1
+
+
 const getClientToken = () => {
   const formData = new FormData();
   formData.append('grant_type', 'client_credentials');
@@ -67,7 +75,7 @@ const getUserMe = () => {
       request: {
         method: 'POST',
         url: '/users/me'
-        
+
       }
     }
   });
@@ -77,8 +85,8 @@ const logout = () => ({
   type: ActionTypes.LOGOUT
 })
 
-////////////////////////////////////////////////////////////////////////////////////////
-///////////// QnA Board   //////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////// QnA Board ///////////////////////////////////////
 
 const writeQnABoard = (writeQnA) => {
   console.log('writeQnABoard')
@@ -97,15 +105,16 @@ const writeQnABoard = (writeQnA) => {
   })
 }
 
-const initBoardListsize = 10
-const initBoardListPage = 1
-  
+
+
 //QnABoard productBoardNum에 맞게 불러 오기
-const loadqnaboardList = (productNum, size=initBoardListsize, page=initBoardListPage) => {
+const loadqnaboardList = (productNum, size, page ) => {
   const formdata = new FormData();
   formdata.append('productNum', 5);
   formdata.append('size', size);
   formdata.append('page', page);
+  console.log('Action loadQnABoard 실행')
+  console.log('size',size, ' page ', page)
   return ({
     type: ActionTypes.LOAD_QNABOARDLIST,
     payload: {
@@ -121,14 +130,14 @@ const loadqnaboardList = (productNum, size=initBoardListsize, page=initBoardList
 //QnABoard 내용수정
 const editQnABoard = (editQnABoard) => {
   console.log(' edit QnABoard Action 실행')
-  return({
-    type:ActionTypes.EDIT_QNABOARD,
-    payload:{
+  return ({
+    type: ActionTypes.EDIT_QNABOARD,
+    payload: {
       request: {
-        method:'POST',
+        method: 'POST',
         url: '/update/question',
         headers: {
-          'Content-Type':'application/json; charset: utf-8'
+          'Content-Type': 'application/json; charset: utf-8'
         },
         data: JSON.stringify(editQnABoard)
       }
@@ -136,16 +145,16 @@ const editQnABoard = (editQnABoard) => {
   })
 }
 // QnABOARD 작성
-const deleteQnABoard =(deleteQnABoard) => {
+const deleteQnABoard = (deleteQnABoard) => {
   console.log(' delete QnABoard action 실행 ')
-  return({
-    type:ActionTypes.DELETE_QNABOARD,
-    payload:{
+  return ({
+    type: ActionTypes.DELETE_QNABOARD,
+    payload: {
       request: {
-        method:'POST',
+        method: 'POST',
         url: '/question/delete/question',
         headers: {
-          'Content-Type':'application/json; charset: utf-8'
+          'Content-Type': 'application/json; charset: utf-8'
         },
         data: JSON.stringify(deleteQnABoard)
       }
@@ -154,22 +163,110 @@ const deleteQnABoard =(deleteQnABoard) => {
 }
 
 // QnABOARD 댓글 작성 
-const writeAnswer =(questionAnswer) =>{
+const writeAnswer = (questionAnswer) => {
   console.log(' writeAnswer QnABoard action 실행')
-  return({
-    type:ActionTypes.WRITE_QNABOARDANSWER,
-    payload:{
-      request:{
-        method:'POST',
-        url:'/question/write/answer',
-        headers:{
-          'Content-Type':'application/json; charset: utf-8'
+  return ({
+    type: ActionTypes.WRITE_QNABOARDANSWER,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/question/write/answer',
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
         },
-        data:JSON.stringify(questionAnswer)
+        data: JSON.stringify(questionAnswer)
       }
     }
   })
 }
+
+//QnABoard 댓글 soft삭제
+const deleteAnswer = (questionAnswer) => {
+  console.log(' deleteAnswer QnABoard action 실행')
+  return ({
+    type: ActionTypes.DELETE_QNABOARDANSWER,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/question/delete/answer',
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: JSON.stringify(questionAnswer)
+      }
+    }
+  })
+}
+
+/////////////////////////////////////////////////////////////////
+/////////// Review Board ///////////////////////////////////////
+
+const addReview = (reviewBoard) => {
+
+  console.log('Action AddReview 실행 ')
+  return ({
+    type: ActionTypes.ADD_REVIEW,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/review/write',
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: JSON.stringify(reviewBoard)
+      }
+    }
+  });
+};
+
+const removeReview = (reviewBoardNum) => {
+  console.log('removieReviewsd')
+  return ({
+    type: ActionTypes.REMOVE_REVIEW,
+    payload: {
+      request: {
+        method: 'DELETE',
+        url: `/review/delete${reviewBoardNum}`
+      }
+    }
+  });
+};
+
+const getReviews = (type,id,size=initBoardListsize,
+                            page=initBoardListPage) => {
+  const formData = new FormData();
+  type = 'productBoard'
+  var url ='/review/product';
+      formData.append('size',size)
+      formData.append('page',page)
+      formData.append('productBoardNum',5)
+      console.log('Action LOAD_REVIEWS')
+  
+      if(type=='productBoard'){
+        formData.append('productBoardNum',5)
+        url = '/review/product';
+      }
+      if(type=='user'){
+        formData.append('userId',id)
+        url='/review/userId'
+      }
+      console.log('size', size, 'page',page,'id',id)
+      return ({
+        type: ActionTypes.LOAD_REVIEWS,
+        payload: {
+          request: {
+            method: 'POST',
+            url: url,
+            data:formData,
+          },
+         
+        }
+      })
+};
+
+
+/////////////////////////////////////////////////////////////////
+///////////     Cart      ///////////////////////////////////////
 
 
 // 0810 장바구니 추가 action (local storage에 저장, db에는 저장 안함)
@@ -180,73 +277,86 @@ const writeAnswer =(questionAnswer) =>{
 
 // 0814 장바구니 추가 (user)
 // userNum,
-const addCart = ( cartModel  ) => {
+const addCart = (cartModel) => {
   // console.log ("userNum 넘어옴?? >>>> ", userNum)
-   console.log ("cartModel 넘어옴?? >>>> ",cartModel)
-
+  console.log("cartModel 넘어옴?? >>>> ", cartModel)
 
   return ({
     type: ActionTypes.ADD_CART,
     payload: {
-    request: {
-      method : 'POST',
-      url: `/cart/add`,
-      headers: {
-        'Content-Type': 'application/json; charset: utf-8'
-      },
-      data: JSON.stringify(cartModel)
-    }
+      request: {
+        method: 'POST',
+        url: `/cart/add`,
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: JSON.stringify(cartModel)
+      }
     }
   })
 
 };
 
 // 0814 장바구니 불러오기 (user)
-const getCartByUser = (userNum)=> {
+const getCartByUser = (userNum) => {
+  const formData = new FormData();
+  formData.append('userNum',userNum)
   return ({
     type: ActionTypes.GET_CART,
     payload: {
       request: {
-        method : 'POST',
-        url: `/cart?userNum=${userNum}`,
-      }
+        method: 'POST',
+        url: '/cart'
+      },
+      data: formData
     }
   })
 }
 
+/////////////////////////////////////////////////////////////////
+///////////   productBoard   ////////////////////////////////////
+
 // 0810 DB에 있는 상품 데이터 가져오는 action => axios 타입 action으로 변경 
-const loadProductList = (type,id) => {
+const loadProductList = (type, id) => {
+
   const formData = new FormData();
   let url = '/product/all'
-  if(type==='lower'){
-    console.log('lower 확인 ,',type,id)
-    url = '/product/lower';
-    formData.append('lower',id);
-  }else if(type==='search'){
-    url='/product/search'
-    formData.append('search',id)
+
+  if (type === 'lower') {
+    console.log('lower 확인 ,', type, id)
+      url = '/product/lower';
+      formData.append('lower', id);
+
+  } else if (type === 'search') {
+      url = '/product/search'
+      formData.append('search', id)
+
   }
   console.log('loadProductList')
+
   return ({
     type: ActionTypes.LOAD_PRODUCTLIST,
     payload: {
       request: {
         method: 'POST',
         url: url,
-        data:formData
+        data: formData
       },
     }
   })
 };
 
+/////////////////////////////////////////////////////////////////
+///////////   Category       ////////////////////////////////////
+
 
 // 카테고리 DB에서 가져오는 action 추가 
-const getCategories = ()=> {
+const getCategories = () => {
   return ({
     type: ActionTypes.GET_CATEGORIES,
     payload: {
       request: {
-        method : 'POST',
+        method: 'POST',
         url: '/category'
       }
     }
@@ -256,19 +366,15 @@ const getCategories = ()=> {
 
 
 export const Actions = {
-  login,
-  signup,
-  getClientToken,
-  logout,
-  getUserMe,
-  loadqnaboardList,
+
+  signup, getUserMe,
+  login, logout, getClientToken,
   writeQnABoard,
-  addCart,
+  addCart, 
   loadProductList,
-  getCategories,
-  getCartByUser,
-  writeQnABoard,
-  editQnABoard,
-  deleteQnABoard,
-  writeAnswer
+  getCategories, getCartByUser,
+  loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,
+  writeAnswer, deleteAnswer,
+  getReviews, removeReview, addReview
+
 };

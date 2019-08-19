@@ -12,10 +12,12 @@ class QnABoardWrite extends React.Component {
     constructor(props) {
         super(props)
         const { userDetails } = this.props;
-        const { data } = this.props
+        const { qnaBoard } = this.props
+        console.log(qnaBoard,'constructor qnaBoard')
+        console.log(this.props.match.params,' this.props.match.param')
         this.state = {
             userId: userDetails.userId,
-            productBoardNum: data.boardNum,
+            productBoardNum: qnaBoard.boardNum,
             questionBoardPassword: '',
             questionBoardTitle: '',
             questionBoardContent: ''
@@ -60,6 +62,7 @@ class QnABoardWrite extends React.Component {
     }
 
     render() {
+        console.log('render에서 props 찍어보기',this.props)
         return (
 
             <div className="container" role="main">
@@ -102,18 +105,20 @@ class QnABoardWrite extends React.Component {
 const mapStateToProps = (state) => {
 
     const { userDetails } = state.auth;
-    const { qnaBoard } = state.product;
+    const { qnaBoard } = state.board;
+    console.log(state, ' mapStateToProps')
     const { data } = qnaBoard;
+    console.log(data, 'mapStateToProps 의 data')
+   
 
 
     console.log(qnaBoard, ' qnaAnswerWrite Board  <--- MapStateToProps')
-    console.log(data, ' <-------- data')
-    console.log(data.boardNum, ' <------- boardNum')
     console.log(userDetails, ' <----------- userDetails')
     console.log(userDetails.userId, ' <----------- userId')
     return {
-        data,
-        userDetails
+        userDetails,
+        qnaBoard
+
     };
 }
 const mapDispatchToProps = (dispatch) => ({

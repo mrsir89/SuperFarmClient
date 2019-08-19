@@ -50,31 +50,56 @@ export const ActionTypes={
 
 
     DELETE_QNABOARDANSWER:'DELETE_QNABOARDANSWER',
-    DELETE_QNABOARDANSWER_SUCCESS:'DELETE_QNABOARDANSWER',
+    DELETE_QNABOARDANSWER_SUCCESS:'DELETE_QNABOARDANSWER_SUCCESS',
     DELETE_QNABOARDANSWER_FAIL:'DELETE_QNABOARDANSWER_FAIL',
 
     QNABOARD_DELETE:'QNABOARD_WRITE',
     QNABOARD_EDIT:'QNABOARD_EDIT',
     QNABOARD_FAIL:'QNABOARD_FAIL',
 
+    ///////////////////////////////////////////////////////
+    ////////// ReviewBoard
+
+    LOAD_REVIEWS: 'LOAD_REVIEWS',
+    LOAD_REVIEWS_FAIL:'LOAD_REVIEWS_FAIL',
+    LOAD_REVIEWS_SUCCESS:'LOAD_REVIEWS_SUCCESS',
+
+    ADD_REVIEW : 'ADD_REVIEW',
+    ADD_REVIEW_FAIL:'ADD_REVIEW_FAIL',
+    ADD_REVIEW_SUCCESS:'ADD_REVIEW_SUCCESS',
+
+    REMOVE_REVIEW: 'REMOVE_REVIEW',
+    REMOVE_REVIEW_FAIL:'REMOVE_REVIEW_FAIL',
+    REMOVE_REVIEW_SUCCESS:'REMOVE_REVIEW_SUCCESS',
+    
+    ///////////////////////////////////////////////////////
+    ////////// ProductList
 
     // 0810 loadProductList 
     LOAD_PRODUCTLIST : 'LOAD_PRODUCTLIST',
     LOAD_PRODUCTLIST_FAIL : 'LOAD_PRODUCTLIST_FAIL',
     LOAD_PRODUCTLIST_SUCCESS : 'LOAD_PRODUCTLIST_SUCCESS',
 
+    ////////////////////////////////////////////////////////
+    /////////// Cart
+
     // 0810 addCart
     ADD_CART : 'ADD_CART',
     ADD_CART_FAIL: 'ADD_CART_FAIL',
     ADD_CART_SUCCESS: 'ADD_CART_SUCCESS',
 
+    // 0814 유저의 장바구니 불러오기
+    GET_CART : 'GET_CART',
+    GET_CART_FAIL : 'GET_CART_FAIL',
+    GET_CART_SUCCESS : 'GET_CART_SUCCESS',
+
+
+    ///////////////////////////////////////////////////////
+    /////////// Category
+    
     // 0814 카테고리 불러오기
     GET_CATEGORIES : 'GET_CATEGORIES',
     GET_CATEGORIES_FAIL : 'GET_CATEGORIES_FAIL',
     GET_CATEGORIES_SUCCESS : 'GET_CATEGORIES_SUCCESS',
-
-    // 0814 유저의 장바구니 불러오기
-    GET_CART : 'GET_CART',
-    GET_CART_FAIL : 'GET_CART_FAIL',
-    GET_CART_SUCCESS : 'GET_CART_SUCCESS'
+    
 }
