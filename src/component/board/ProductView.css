@@ -1,9 +1,0 @@
-.navbar{
-    display: flex !important;
-    padding: 10px 8px;
-    justify-content: space-around;
-}
-.list-group-item.active {
-    border-color: red;
-    
-}
