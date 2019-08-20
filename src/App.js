@@ -1,4 +1,5 @@
 // // 8/20  BetaTest version
+//  8/20  login redirect, carousel(DB render), 
 
 import React from 'react';
 import { connect } from 'react-redux';

@@ -15,16 +15,16 @@ const loginAsync = (customerId, password) => (dispatch) => {
         console.log('로그인 실패 ', response)
         return Promise.reject(response);
       }
-    }).then(response => {
-      if (response.type === ActionTypes.GET_USERME_SUCCESS) {
-        console.log("userme 성공 >>>>>>>>>>>>");
-        return <Redirect to="/" />
-      } else {
-        return Promise.reject(response);
-      }
     });
 }
-
+// .then(response => {
+//   if (response.type === ActionTypes.GET_USERME_SUCCESS) {
+//     console.log("userme 성공 >>>>>>>>>>>>");
+//     return <Redirect to="/" />
+//   } else {
+//     return Promise.reject(response);
+//   }
+// })
 
 class Login extends React.Component {
 
@@ -35,7 +35,21 @@ class Login extends React.Component {
       password: ''
     }
     this._onchange = this._onchange.bind(this);
+    this.routeChange = this.routeChange.bind(this);
   }
+
+
+
+
+  // Change endpoint after Login (with some error)
+  routeChange() {
+    let path = '/';
+    this.props.history.push(path);
+  }
+
+
+
+
 
   _onchange(event) {
     const target = event.target;
@@ -76,7 +90,8 @@ class Login extends React.Component {
           <form onSubmit={e => this.onSubmit(e)}>
             <input type="text" name="customerId" value={this.state.userId} onChange={this._onchange} placeholder="Username" />
             <input type="password" name="password" value={this.state.password} onChange={this._onchange} placeholder="Password" />
-            <input type="submit" name="submit" value="Log In" />
+            {/* <input type="submit" name="submit" value="Log In"/> */}
+            <button onClick={this.routeChange}>Log In</button>
           </form>
           <div className="bottom">
             <a href="/page-forgotton-password.html">Forgot Password?</a>
