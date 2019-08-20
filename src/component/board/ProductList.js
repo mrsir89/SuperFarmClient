@@ -5,7 +5,6 @@ import { Actions } from '../../actions/index';
 // import {ActionTypes} from '../../contants';
 import { connect } from 'react-redux';
 //import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 
 
@@ -15,21 +14,25 @@ class ProductList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+      productBoard: []
     }
   }
 
   componentDidMount() {
     const { loadProductList } = this.props;
-    loadProductList();
+    //loadProductList();
+    const lowerId = this.props.match.params.id;
+    console.log("lowerId >>>>>>>>>>>", lowerId);
+    loadProductList('lower', lowerId);
+
   }
 
   _renderAllProducts = () => {
-    const { items } = this.props;
+    const { productBoard } = this.props;
     var productItems = [];
 
-    if (items !== undefined && items !== null) {
-      productItems = items.map(item => {
+    if (productBoard !== undefined && productBoard !== null) {
+      productItems = productBoard.map(item => {
         return <Link to={`/product/${item.productBoardNum}`}>
           <ProductItem key={item.productBoardNum} item={item} />
         </Link>
@@ -41,8 +44,12 @@ class ProductList extends React.Component {
 
   render() {
     return (
-      <div>
-        {this._renderAllProducts()}
+      <div className="main">
+        <div className="container" style={{ backgroundColor: 'white', display: 'flex', justifyContent: 'center' }}>
+          <div className="col-md-9 col-sm-7">
+            {this._renderAllProducts()}
+          </div>
+        </div>
       </div>
     );
   }
@@ -50,20 +57,15 @@ class ProductList extends React.Component {
 
 function mapStateToProps(state) {
   const { product } = state;
-  const { items } = product;
+  const { productBoard } = product;
   return {
-    items
+    productBoard
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    loadProductList: bindActionCreators(Actions.loadProductList, dispatch)
-  }
-}
 
-// const mapDispatchToProps = (dispatch) => ({
-//   loadProductList: () => dispatch(Actions.loadProductList())
-// });
+const mapDispatchToProps = (dispatch) => ({
+  loadProductList: (type, id) => dispatch(Actions.loadProductList(type, id))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

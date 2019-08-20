@@ -12,12 +12,12 @@ import './Signup.css';
 // Store와 Reducer를 연결시킬 수 있도록 만들어진 Component가 반환값이 된다
 
 
-const signupAsync = (signupModel) => dispatch => {
+const signupAsync = (signupCustomer) => dispatch => {
   return dispatch(Actions.getClientToken())
     .then(response => {
       if (response.type === ActionTypes.GET_TOKEN_SUCCESS) {
         console.log('dispatch signupAsync ActionTypes.GET_TOKEN_SUCCESS ')
-        return dispatch(Actions.signup(signupModel))
+        return dispatch(Actions.signup(signupCustomer))
       } else {
         return Promise.reject(response);
       }
@@ -68,7 +68,7 @@ class Signup extends React.Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    this.handleRadio = this.handleRa
+
 
     console.log(target, '     :target')
     console.log(value, '    :value')
@@ -82,34 +82,32 @@ class Signup extends React.Component {
     this._passwordCheck()
   }
 
-  handleRadio(event) {
-    let obj = {}
-    obj[event.target.value] = event.target.checked
-    this.setState({
-      gender: {
-        value: event.target.value
-      }
-    })
-  }
+  // handleRadio(event) {
+  //   let obj = {}
+  //   obj[event.target.value] = event.target.checked
+  //   this.setState({
+  //     gender: {
+  //       value: event.target.value
+  //     }
+  //   })
+  // }
 
   handleSubmit(e) {
     e.preventDefault();
 
     console.log('submit 실행 합니다.')
-    const signupModel = {
-      id: this.state.id.value,
-      name: this.state.name.value,
-      password: this.state.password.value,
-      birthday: this.state.birthday.value,
-      // gender : this.state.gender.value,
-      signupContact: {
-        phone: this.state.phone.value,
-        address: this.state.address.value,
-        email: this.state.email.value
-      }
+    const signupCustomer = {
+      userId: this.state.id.value,
+      userName: this.state.name.value,
+      userPassword: this.state.password.value,
+      userEmail: this.state.email.value,
+      customerBirth: this.state.birthday.value,
+      // customerGender : this.state.gender.value,
+      customerPhone: this.state.phone.value,
+      customerAddr: this.state.address.value
     }
     const { signup } = this.props;
-    signup(signupModel);
+    signup(signupCustomer);
   }
 
 
@@ -205,7 +203,7 @@ class Signup extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  signup: (signupModel) => dispatch(signupAsync(signupModel))
+  signup: (signupCustomer) => dispatch(signupAsync(signupCustomer))
 });
 
 export default connect(null, mapDispatchToProps)(Signup);

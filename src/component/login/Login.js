@@ -10,13 +10,14 @@ const loginAsync = (customerId, password) => (dispatch) => {
   return dispatch(Actions.login(customerId, password))
     .then(response => {
       if (response.type === ActionTypes.LOGIN_SUCCESS) {
-        return dispatch(Actions.getUserMe())
+        return dispatch(Actions.getUserMe());
       } else {
         console.log('로그인 실패 ', response)
         return Promise.reject(response);
       }
     }).then(response => {
       if (response.type === ActionTypes.GET_USERME_SUCCESS) {
+        console.log("userme 성공 >>>>>>>>>>>>");
         return <Redirect to="/" />
       } else {
         return Promise.reject(response);
@@ -60,6 +61,13 @@ class Login extends React.Component {
 
   render() {
     return (
+      <div className="main">
+      <div className="container" style={{ backgroundColor: 'white', display: 'flex', justifyContent: 'center' }}>
+      <div className="col-md-15 com-sm-15">
+      <div className="content-form-page">
+      <div className="row">
+      <div className="col-md-15 col-sm-15">
+
       <div className="Login">
         <div className="LoginForm">
           <div className="top">
@@ -71,10 +79,17 @@ class Login extends React.Component {
             <input type="submit" name="submit" value="Log In" />
           </form>
           <div className="bottom">
-            <a href="/findPassword">Forgot Password?</a> 
-              </div>
+            <a href="/page-forgotton-password.html">Forgot Password?</a>
+          </div>
         </div>
       </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+
     )
   }
 }
