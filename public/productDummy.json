@@ -1,0 +1,67 @@
+{
+    "product":[
+        {
+             "productCode":"1",
+             "productName":"제주도 은갈치 대",
+             "lowerCode" :"1",
+             "productType" :"갈치",
+             "productOption1":"대",
+             "productOption2":"null",
+             "productPrice":"5000",
+             "productMadeDate":"2019/07/01",
+             "productNotaxPrice":"4545",
+             "productTaxPrice":"455",
+             "productStock":"10",
+             "productTotalSales":"0",
+             "img":""
+                
+        },
+        {
+            "productCode":"2",
+            "productName":"제주도 은갈치 소",
+            "lowerCode" :"1",
+            "productType" :"갈치",
+            "productOption1":"소",
+            "productOption2":"null",
+            "productPrice":"5000",
+            "productMadeDate":"2019/07/01",
+            "productNotaxPrice":"4545",
+            "productTaxPrice":"455",
+            "productStock":"10",
+            "productTotalSales":"0",
+            "img":""
+            },
+        {
+
+            "productCode":"3",
+            "productName":"제주도 은갈치 중",
+            "lowerCode" :"1",
+            "productType" :"갈치",
+            "productOption1":"중",
+            "productOption2":"null",
+            "productPrice":"5000",
+            "productMadeDate":"2019/07/01",
+            "productNotaxPrice":"4545",
+            "productTaxPrice":"455",
+            "productStock":"10",
+            "productTotalSales":"0",
+            "img":""
+        },
+        {
+            "productCode":"1",
+            "productName":"제주도 은갈치 대",
+            "lowerCode" :"1",
+            "productType" :"갈치",
+            "productOption1":"대",
+            "productOption2":"null",
+            "productPrice":"5000",
+            "productMadeDate":"2019/07/01",
+            "productNotaxPrice":"4545",
+            "productTaxPrice":"455",
+            "productStock":"10",
+            "productTotalSales":"0",
+            "img":""
+        }
+    ]
+}
+

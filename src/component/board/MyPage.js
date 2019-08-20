@@ -6,7 +6,7 @@ class MyPage extends React.Component {
         super(props)
     }
 
-    render() {
+    render() { 
         const { auth } = this.props;
         const { userDetails } = auth;
         const { position } = userDetails;

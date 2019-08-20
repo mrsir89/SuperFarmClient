@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 var Search = function () {
 
     return {
@@ -13,20 +12,4 @@ var Search = function () {
 
     };
 
-=======
-var Search = function () {
-
-    return {
-        //main function to initiate the module
-        init: function () {
-            if (jQuery().datepicker) {
-                $('.date-picker').datepicker();
-            }
-
-            Metronic.initFancybox();
-        }
-
-    };
-
->>>>>>> master
 }();

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /***
 Clockface
 ***/
@@ -12,19 +11,4 @@ Clockface
   background-color:#4b8df8 !important;
   background-image: none ;
   filter:none ;
-=======
-/***
-Clockface
-***/
-
-.modal-open .clockface {
-  z-index: 10055 !important;
-}
-
-.clockface .cell .inner.active,
-.clockface .cell .outer.active {
-  background-color:#4b8df8 !important;
-  background-image: none ;
-  filter:none ;
->>>>>>> master
 }

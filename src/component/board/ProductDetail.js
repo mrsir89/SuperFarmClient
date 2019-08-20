@@ -7,7 +7,7 @@ import ProductView from './ProductView';
 //import { addCart } from '../actions/action';
 import { Link } from 'react-router-dom';
 import { Actions } from '../../actions/index';
-import { SideBar } from '../../containers';
+import {SideBar} from '../../containers';
 
 
 // 제품 상세 페이지
@@ -66,7 +66,7 @@ class ProductDetail extends React.Component {
          [name]: value
       });
 
-
+    
    }
 
    // 해당 productBoard 번호에 맞는 product Detail정보를 필터를 이용해서 꺼냄 
@@ -140,22 +140,22 @@ class ProductDetail extends React.Component {
 
       console.log("is State setted? >>", this.state)
       return (
-
+      
          <div className="product-item">
-
+            
             <div className="prod-info">
                <div className="prd-info">
-                  {/* ------------------------------------------------------------------------------------------------ */}
-                  <div class="col-md-6 col-sm-6">
-                     <div class="product-main-image" style={{ position: 'relative', overflow: 'hidden' }}>
-                        <img src="../../images/rice.jpg" alt="Cool green dress with red bell" className="img-responsive" data-bigimgsrc="../../images/rice.jpg" />
-                        <img src="../../images/rice.jpg" className="zoomImg" style={{ position: 'absolute', top: '-290.619px', left: '-180.201px', opacity: '0', width: '600px', height: '800px', border: 'none', maxWidth: 'none' }} />
-                     </div>
+{/* ------------------------------------------------------------------------------------------------ */}
+               <div class="col-md-6 col-sm-6">
+                  <div class="product-main-image" style={{position: 'relative', overflow: 'hidden'}}>
+                    <img src="../../images/rice.jpg" alt="Cool green dress with red bell" className="img-responsive" data-bigimgsrc="../../images/rice.jpg"/>
+                    <img src="../../images/rice.jpg" className="zoomImg" style={{position: 'absolute', top: '-290.619px', left: '-180.201px', opacity: '0', width: '600px', height: '800px', border: 'none', maxWidth : 'none'}}/>
                   </div>
-                  {/* ------------------------------------------------------------------------------------------------ */}
+               </div>
+{/* ------------------------------------------------------------------------------------------------ */}
                   <form onSubmit={this.handleSubmit}>
                      <div class="col-md-6 col-sm-6">
-
+                        
                         <table summary="">
                            <caption>상품정보 목록</caption>
                            <tbody>

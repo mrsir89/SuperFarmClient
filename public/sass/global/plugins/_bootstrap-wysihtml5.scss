@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /***
 wysihtml5
 ***/
@@ -29,36 +28,4 @@ Error state for WYSIWYG Editors
 
 .has-warning .wysihtml5-sandbox {
   border: 1px solid $state-warning-border !important;
-=======
-/***
-wysihtml5
-***/
-
-.wysihtml5-sandbox {
-  width: 100% !important;
-}
-
-.wysihtml5-toolbar li {
-  margin: 0px;
-  height: 29px;
-}
-
-.wysihtml5-toolbar li .dropdown-menu {
-  margin-top: 5px;
-}
-
-/***
-Error state for WYSIWYG Editors
-***/
-.has-error .wysihtml5-sandbox {
-  border: 1px solid $state-danger-border !important;
-}
-
-.has-success .wysihtml5-sandbox {
-  border: 1px solid $state-success-border !important;
-}
-
-.has-warning .wysihtml5-sandbox {
-  border: 1px solid $state-warning-border !important;
->>>>>>> master
 }

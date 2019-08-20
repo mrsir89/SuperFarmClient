@@ -1,0 +1,39 @@
+@charset "utf-8";
+/* 초기화 */
+
+html { }
+body { margin:0; padding:0; font-size: 13px; font-family:'Spoqa Han Sans', Helvetica, sans-serif; line-height: normal; }
+html, h1, h2, h3, h4, h5, h6, form, fieldset, img {margin:0;padding:0;border:0}
+h1, h2, h3, h4, h5, h6 {font-size:1em; font-family:'Spoqa Han Sans', Helvetica, sans-serif; }
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block}
+
+#hd ul, nav ul, #ft ul, ul {margin:0;padding:0;list-style:none}
+dl,dt,dd { font-weight: normal; line-height: normal; margin: 0; padding: 0; }
+li {list-style:none}
+legend {position:absolute;margin:0;padding:0;font-size:0;line-height:0;text-indent:-9999em;overflow:hidden}
+label, input, button, select, img {vertical-align: middle; margin-bottom: 0px;}
+input, button {margin:0;padding:0; font-family:'Spoqa Han Sans', Helvetica, sans-serif; font-size:13px; color:#555; }
+button {cursor:pointer; border: none; background: none; }
+textarea, input[type="text"], input[type="password"] { font-size:14px; color: #333; padding: 0px 10px; border:1px solid #d7d7d7; }
+input[type="submit"] { cursor: pointer; }
+input[type="radio"] { width:19px; height:19px; border:1px solid #ddd; background: #fff;}
+input { color: #333333; border:1px solid #ddd; }
+textarea, select {font-family:'Spoqa Han Sans', Helvetica, sans-serif; border:1px solid #d7d7d7; color: #555;}
+textarea { padding: 10px; }
+p {margin:0;padding:0;word-break:normal; }
+hr {display:none}
+pre {overflow-x:scroll;font-size:1.1em}
+a:link, a:visited {color:#555;text-decoration:none}
+a:hover, a:focus, a:active {color:#930029;text-decoration:none; }
+
+legend { border-bottom: none; }
+
+em { font-style:normal;}
+
+/* 테이블 */
+table { width: 100%; border-collapse:collapse; }
+caption { padding: 0 !important; height:0;overflow:hidden;font-size:0;line-height:0;text-indent:-20000px;}
+
+input[type="text"]:focus,input[type="password"]:focus { border: 1px solid #265ec7; }
+
+#wrap { width: 100%;  }
