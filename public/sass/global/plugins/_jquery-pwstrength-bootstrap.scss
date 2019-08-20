@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /***
 Password Strength(in v1.4)
 ***/
@@ -14,4 +15,22 @@ Password Strength(in v1.4)
 
 .password-strength .progress-bar {
   padding: 2px;
+=======
+/***
+Password Strength(in v1.4)
+***/
+.password-strength .password-verdict {
+  display: inline-block;
+  margin-top: 6px;
+  margin-left: 5px;
+}
+
+.password-strength .progress {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.password-strength .progress-bar {
+  padding: 2px;
+>>>>>>> master
 }

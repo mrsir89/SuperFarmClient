@@ -1,3 +1,7 @@
+
+// 8/16 sj
+// (userId)를 바탕으로 장바구니 추가/ 불러오기 기능 구현
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';

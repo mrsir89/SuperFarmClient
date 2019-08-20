@@ -8,11 +8,11 @@ function Footer({ history, location, matcher }) {
         <div className="row">
           {/* BEGIN COPYRIGHT */}
           <div className="col-md-6 col-sm-6 padding-top-10">
-            2014 © Metronic Shop UI. ALL Rights Reserved.
+            BitCamp Java 117th Final Project SuperFarm
         </div>
           {/* END COPYRIGHT */}
           {/* BEGIN PAYMENTS */}
-          <div className="col-md-6 col-sm-6">
+          <div className="col-md-5 col-sm-6">
             <ul className="list-unstyled list-inline pull-right">
               <li><img src="../../assets/frontend/layout/img/payments/western-union.jpg" alt="We accept Western Union" title="We accept Western Union" /></li>
               <li><img src="../../assets/frontend/layout/img/payments/american-express.jpg" alt="We accept American Express" title="We accept American Express" /></li>
