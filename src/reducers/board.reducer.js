@@ -98,9 +98,7 @@ const boardReducer = (state = initialStateBoard, action) => {
                 console.log('ActionTypes.REMOVE_REVIEW_SUCCESS',data)
                 return {
                     ...state
-                    
                 }
-                
             }
 
             return state
@@ -117,9 +115,18 @@ const boardReducer = (state = initialStateBoard, action) => {
                     };
                 }
             }
-
             return state;
-
+        case ActionTypes.UPLOADFILEREVIEW_SUCCESS:
+            if(payload !== undefined && payload !== null){
+                const{ data } =payload;
+                console.log('ActionTypes.UPLOADFILEREVIEW_SUCCESS',data);
+                if( data !== undefined && data !== null){
+                    return{
+                        ...state,
+                        reviewBoard: data,
+                    };
+                }
+            }
         default:
             return state;
     }

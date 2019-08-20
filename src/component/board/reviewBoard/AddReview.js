@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Actions } from '../../../actions/index';
 // import { ActionTypes } from '../../contants';
 import { withRouter } from 'react-router-dom';
+import { ActionTypes } from '../../../contants';
 
 
 
@@ -15,7 +16,6 @@ class AddReview extends React.Component {
     super(props)
     const { reviewBoard } = this.props;
     const { userDetails } = this.props;
-
     console.log(this.props, 'constructor AddReviewBoard')
     this.state = {
       productBoardNum: 5,
@@ -23,16 +23,18 @@ class AddReview extends React.Component {
       reviewBoardTitle: '',
       reviewBoardContent: '',
       reviewBoardRating: 3,
-      reviewBoardFiles: ''
-
+      reviewFiles:[]
     }
+
     console.log(this.props, ' props 확인 넘어 오는 match 값도 확인')
     this._onChangeInput = this._onChangeInput.bind(this);
     this._onClickAction = this._onClickAction.bind(this);
     this._onChnagereviewBoardRating = this._onChnagereviewBoardRating.bind(this);
+    this._onChangeFileUpload = this._onChangeFileUpload.bind(this);
   }
 
-  _onClickAction(e) {
+  _onClickAction=(e)=> {
+    const { uploadFileReview }= this.props;
     const reviewBoard = {
       productBoardNum: this.state.productBoardNum,
       customerId: this.state.customerId,
@@ -41,21 +43,34 @@ class AddReview extends React.Component {
       reviewBoardRating: this.state.reviewBoardRating
     }
     const { addReview } = this.props
+    let reviewBoardNum 
     console.log(this.props)
     console.log('onSubmit 실행 되어라')
-    addReview(reviewBoard)
-    window.close()
+    addReview(reviewBoard).then(response =>{
+      if(response.type===ActionTypes.ADD_REVIEW_SUCCESS){
+        console.log(response,' 성공하고 data')
+        let reviewBoardNum = response.payload.data.reviewBoardNum;
+        console.log('AddReview Response 확인 ',response)
+        uploadFileReview(reviewBoardNum,this.state.reviewFiles)
+      }else
+      console.log('Add 실패 한다~!!')
+    })
+    // window.close()
 
   }
   _onChangeInput(event) {
+
     const target = event.target;
     const value = target.value;
     const name = target.name;
+
     console.log(target.name, ' name')
     console.log(value)
+
     this.setState({
       [name]: value
     });
+
     console.log(this.state, 'this state')
   }
   _onChnagereviewBoardRating(event) {
@@ -71,14 +86,20 @@ class AddReview extends React.Component {
       this.setState({
         reviewBoardRating:rating
       })
-    }
+    } 
   }
-
+  _onChangeFileUpload(event){
+    console.log(event.target)
+    this.setState({
+      reviewFiles:event.target.files[0]
+    })
+    console.log('onChagneFileUpload 실행',this.state.reviewFiles)
+  }
 
   render() {
     console.log('render에서 props 찍어보기', this.props)
     return (
-
+      
       <div className="container" role="main">
         <h2>Review 게시판</h2>
         <form onSubmit={this._onClickAction}>
@@ -91,6 +112,7 @@ class AddReview extends React.Component {
           <div className="mb-3">
             <label >작성자</label>
             <div>
+              <img src ="http://localhost:8080/storage/files/0ed289c878d0d08a018e1602369e8adf4bc707206bcc40b95ee48fe37a70ea4d"/>
               <b>{this.state.customerId} </b>
             </div>
           </div>
@@ -101,7 +123,11 @@ class AddReview extends React.Component {
           </div>
 
           <div>
-            <input type="file" name="reviewBoardRating" />
+            <label >이미지 올리기</label>
+          </div>
+          <div>
+            <input type="file" accept=".jpg, .jpeg, .png, .bmp" name="reviewBoardRating" 
+               file={this.state.reviewFiles}onChange={this._onChangeFileUpload}/>
           </div>
 
           <div className="mb-3">
@@ -111,7 +137,7 @@ class AddReview extends React.Component {
           </div>
 
           <div >
-            <input type="submit" className="btn btn-sm btn-primary"
+            <input type="button" className="btn btn-sm btn-primary"
               name="submit" value="저장" onClick={this._onClickAction} />
             <button type="reset" className="btn btn-sm btn-primary" >목록</button>
           </div>
@@ -140,7 +166,8 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch) => ({
-  addReview: (reviewBoard) => dispatch(Actions.addReview(reviewBoard))
+  addReview: (reviewBoard) => dispatch(Actions.addReview(reviewBoard)),
+  uploadFileReview:(uploadInfo,file) =>dispatch(Actions.uploadFileReview(uploadInfo,file))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddReview));

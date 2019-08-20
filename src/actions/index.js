@@ -110,7 +110,7 @@ const writeQnABoard = (writeQnA) => {
 //QnABoard productBoardNum에 맞게 불러 오기
 const loadqnaboardList = (productNum, size, page ) => {
   const formdata = new FormData();
-  formdata.append('productNum', 5);
+  formdata.append('productNum', 5); 
   formdata.append('size', size);
   formdata.append('page', page);
   console.log('Action loadQnABoard 실행')
@@ -201,6 +201,7 @@ const deleteAnswer = (questionAnswer) => {
 /////////////////////////////////////////////////////////////////
 /////////// Review Board ///////////////////////////////////////
 
+// 리뷰 추가
 const addReview = (reviewBoard) => {
 
   console.log('Action AddReview 실행 ')
@@ -219,6 +220,7 @@ const addReview = (reviewBoard) => {
   });
 };
 
+// 리뷰 삭제
 const removeReview = (reviewBoardNum) => {
   console.log('removieReviewsd')
   return ({
@@ -232,6 +234,7 @@ const removeReview = (reviewBoardNum) => {
   });
 };
 
+// 리뷰 가져오기
 const getReviews = (type,id,size=initBoardListsize,
                             page=initBoardListPage) => {
   const formData = new FormData();
@@ -263,6 +266,26 @@ const getReviews = (type,id,size=initBoardListsize,
         }
       })
 };
+
+const uploadFileReview = (reviewBoardNum,file ) =>{
+  console.log('uploadFileReivew Start ')  
+  const formData = new FormData();
+    formData.append('file',file);
+    formData.append('reviewBoardNum',reviewBoardNum)
+    return({
+      type: ActionTypes.UPLOADFILEREVIEW,
+      payload: {
+        request:{
+          headers:{
+            'Content-Type':'multipart/form-data'
+          },
+          method: 'POST',
+          url: '/storage/file',
+          data:formData,
+        }
+      }
+  })
+}
 
 
 /////////////////////////////////////////////////////////////////
@@ -375,6 +398,6 @@ export const Actions = {
   getCategories, getCartByUser,
   loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,
   writeAnswer, deleteAnswer,
-  getReviews, removeReview, addReview
+  getReviews, removeReview, addReview,uploadFileReview
 
 };

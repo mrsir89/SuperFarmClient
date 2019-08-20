@@ -52,7 +52,7 @@ function Accordion(props) {
      
           {/* <img  src={"http://localhost:8080"+ "/resource/review07.jpg" }/> */}
           {/* <img src = "https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/> */}
-          <img src={"http://localhost:3000" + props.review.reviewBoardImg}/>
+          <img src={props.review.reviewBoardImg}/>
          
         </div>
           {/* 사진  */}

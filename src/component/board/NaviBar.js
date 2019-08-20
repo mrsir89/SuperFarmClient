@@ -12,8 +12,14 @@ class NaviBar extends React.Component {
 
   // 2. 카테고리 불러오기 
   componentDidMount() {
-    const { getCategories } = this.props;
-    getCategories();
+    const { category } = this.props;
+    var newURL = window.location.href
+    console.log('URL : ',newURL)
+    if( (category === null || category === undefined) 
+           && newURL!=="http://localhost:3000/login"){
+      const { getCategories } = this.props;
+      getCategories();
+    }
   }
 
   _loadCategory = () => {
@@ -32,7 +38,7 @@ class NaviBar extends React.Component {
 
   render() {
     console.log("category 불러왔니 ", this.props.category);
-    const { category } = this.props;
+    // const { category } = this.props;
     return (
 
       <div className="container">
