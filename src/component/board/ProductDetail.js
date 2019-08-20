@@ -39,7 +39,6 @@ class ProductDetail extends React.Component {
    handleSubmit(e) {
       e.preventDefault();
       const cartModel = {
-
          userNum: this.state.userNumber,
          productBoardNum: this.state.productBoardNum,
          cartProductName: this.state.cartProductName,

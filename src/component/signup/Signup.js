@@ -54,7 +54,21 @@ class Signup extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this._passwordCheck = this._passwordCheck.bind(this);
+
+    this.routeChange = this.routeChange.bind(this);
   }
+
+
+    // Change endpoint after Login (with some error)
+    routeChange() {
+      let path = '/';
+      this.props.history.push(path);
+    }
+  
+
+
+
+
 
   componentWillMount() {
     console.log('willMount 실행')
@@ -174,14 +188,6 @@ class Signup extends React.Component {
               value={this.state.birthday.value} onChange={this.handleInputChange}
               placeholder="birthday" /> </li>
 
-            {/* <li> 남 <input type="radio" name="gender"
-          value='남' onChange={this.handleRadio}
-          placeholder="gender" /> 
-          
-          여 <input type="radio"name="gender" 
-          value='여' onChange={this.handleRadio}
-          placeholder="gender" /> </li> */}
-
             <li>주소 <input type="text" name="address"
               value={this.state.address.value} onChange={this.handleInputChange}
               placeholder="address" /> </li>
@@ -189,7 +195,10 @@ class Signup extends React.Component {
             <li> 연락처 <input type="text" name="phone"
               value={this.state.phone.value} onChange={this.handleInputChange}
               placeholder="phone" />  </li>
-            <input type="submit" id="submit" name="submit" value="회원가입" />
+
+            <input type="submit" id="submit" name="submit" value="회원가입" onClick={this.routeChange}/>
+            {/* <button onClick={this.routeChange}>회원가입</button> */}
+
           </form>
 
           <div className="footer">

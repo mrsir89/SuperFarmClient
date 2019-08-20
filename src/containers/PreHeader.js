@@ -21,6 +21,7 @@ function PreHeader({ history, location, matcher }) {
               {/* <li><a href="shop-wishlist.html">My Wishlist</a></li> */}
               {/* <li><a href="shop-checkout.html">Checkout</a></li> */}
               <li><a href="/login">로그인</a></li>
+              <li><a href="/signup">회원가입</a></li>
             </ul>
           </div>
           {/* END TOP BAR MENU */}

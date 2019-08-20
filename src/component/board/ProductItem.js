@@ -9,7 +9,6 @@ function ProductItem(props) {
                     <img src="../../images/rice.jpg" className="img-responsive" alt="Berry Lace Dress" />
                     <div>
                         <a href="../../images/rice.jpg" className="btn btn-default fancybox-button">Zoom</a>
-                        <a href="#product-pop-up" className="btn btn-default fancybox-fast-view">View</a>
                     </div>
                 </div>
                 <h3><a href="shop-item.html">{props.item.productBoardTitle}</a></h3>
