@@ -3,24 +3,34 @@ import { Actions } from '../../actions/index';
 import { ActionTypes } from '../../contants';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
+import { reject } from 'q';
 
 
-const loginAsync = (customerId, password) => (dispatch) => {
+const loginAsync = (customerId, password, history) => (dispatch) => {
   console.log('loginAsynce 시작 ', customerId, password)
   return dispatch(Actions.login(customerId, password))
     .then(response => {
-      if (response.type === ActionTypes.LOGIN_SUCCESS) {
-        return dispatch(Actions.getUserMe())
+      if (response === undefined || response === null) {
+        alert(' 아이디 또는 비밀 번호가 잘못 되었습니다.')
+        return history.push("/login")
       } else {
-        console.log('로그인 실패 ', response)
-        return Promise.reject(response);
+        if (response.type === ActionTypes.LOGIN_SUCCESS) {
+          return dispatch(Actions.getUserMe())
+        } else {
+          return alert('아이디 또는 비밀 번호가 잘못 되었습니다.');
+        }
       }
     }).then(response => {
       if (response.type === ActionTypes.GET_USERME_SUCCESS) {
-        return <Redirect to="/" />
+        console.log("userme 성공 >>>>>>>>>>>>", response)
+        let userName = response.payload.data.username;
+        alert(`${userName} 님 환영 합니다. `)
+        return history.push("/")
       } else {
-        return Promise.reject(response);
+        return alert('회원 정보를 가져 오는데 실패 하였습니다. \n\n다시 시도해 주세요');
       }
+    }).catch(error => {
+      return console.log(' login Error', error)
     });
 }
 
@@ -34,7 +44,15 @@ class Login extends React.Component {
       password: ''
     }
     this._onchange = this._onchange.bind(this);
+    this.routeChange = this.routeChange.bind(this);
   }
+
+  // Change endpoint after Login (with some error)
+  routeChange() {
+    let path = '/';
+    this.props.history.push(path);
+  }
+
 
   _onchange(event) {
     const target = event.target;
@@ -55,7 +73,9 @@ class Login extends React.Component {
     let password = this.state.password
     console.log('customerId : ', customerId)
     console.log('password  : ', password)
-    login(customerId, password);
+    const { history } = this.props
+    login(customerId, password, history)
+
   }
 
   render() {
@@ -69,6 +89,7 @@ class Login extends React.Component {
             <input type="text" name="customerId" value={this.state.userId} onChange={this._onchange} placeholder="Username" />
             <input type="password" name="password" value={this.state.password} onChange={this._onchange} placeholder="Password" />
             <input type="submit" name="submit" value="Log In" />
+            {/* <input type="submit" onClick={this.routeChange}>Log In</button> */}
           </form>
           <div className="bottom">
             <a href="/findPassword">Forgot Password?</a>
@@ -80,7 +101,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (customerId, password) => dispatch(loginAsync(customerId, password))
+  login: (customerId, password, history) => dispatch(loginAsync(customerId, password, history))
 });
 
 

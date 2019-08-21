@@ -43,9 +43,10 @@ class StateLoader {
                 cartlist: [],
             },
             board : {
-                qnaBoard:[],
-                reviewBoard:[]
+                reviewBoard:[],
+                qnaBoard:[]  
             }
+            
         };
     }
 }

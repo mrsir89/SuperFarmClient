@@ -43,9 +43,7 @@ class AddReview extends React.Component {
       reviewBoardRating: this.state.reviewBoardRating
     }
     const { addReview } = this.props
-    let reviewBoardNum 
-    console.log(this.props)
-    console.log('onSubmit 실행 되어라')
+
     addReview(reviewBoard).then(response =>{
       if(response.type===ActionTypes.ADD_REVIEW_SUCCESS){
         console.log(response,' 성공하고 data')
@@ -55,7 +53,7 @@ class AddReview extends React.Component {
       }else
       console.log('Add 실패 한다~!!')
     })
-    // window.close()
+     window.close()
 
   }
   _onChangeInput(event) {

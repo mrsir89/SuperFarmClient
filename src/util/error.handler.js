@@ -32,12 +32,6 @@ const onError = ({ action, next, error }, options) => {
 const onErrorHandler = ({ action, next, error, getState, dispatch }, options) => {
 
     console.log('onErrorHandler', error);
-    if (error.response === undefined || error.response.status === 403) {
-        alert(' 권한이 없습니다. ')
-    }
-    if (error.response === undefined || error.response.status === 404) {
-        alert(' 이메세지가 나오길 바랍니다. ')
-    }
     if (error.response === undefined || error.response.status === 401) {
         const { auth } = getState();
         const { retryCount, token } = auth;

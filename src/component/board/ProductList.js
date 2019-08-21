@@ -20,7 +20,11 @@ class ProductList extends React.Component {
 
   componentDidMount() {
     const { loadProductList } = this.props;
-    loadProductList('lower',2);
+    //loadProductList();
+    const lowerId = this.props.match.params.id;
+    console.log("lowerId >>>>>>>>>>>", lowerId);
+    loadProductList('lower', lowerId);
+
   }
 
   _renderAllProducts = () => {
@@ -40,15 +44,18 @@ class ProductList extends React.Component {
 
   render() {
     return (
-      <div>
-        {this._renderAllProducts()}
+      <div className="main">
+        <div className="container" style={{ backgroundColor: 'white', display: 'flex', justifyContent: 'center' }}>
+          <div className="col-md-9 col-sm-7">
+            {this._renderAllProducts()}
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  console.log('mapStateToProps', state)
   const { product } = state;
   const { productBoard } = product;
   return {
@@ -56,13 +63,9 @@ function mapStateToProps(state) {
   };
 }
 
-const mapDispatchToProps = dispatch => ({
-    loadProductList:(type,id) => dispatch(Actions.loadProductList(type,id))
-  });
 
-
-// const mapDispatchToProps = (dispatch) => ({
-//   loadProductList: () => dispatch(Actions.loadProductList())
-// });
+const mapDispatchToProps = (dispatch) => ({
+  loadProductList: (type, id) => dispatch(Actions.loadProductList(type, id))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

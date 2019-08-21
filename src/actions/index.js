@@ -322,6 +322,7 @@ const addCart = (cartModel) => {
 
 // 0814 장바구니 불러오기 (user)
 const getCartByUser = (userNum) => {
+  console.log('getCartByUser 실행 ',userNum)
   const formData = new FormData();
   formData.append('userNum',userNum)
   return ({
@@ -329,9 +330,12 @@ const getCartByUser = (userNum) => {
     payload: {
       request: {
         method: 'POST',
-        url: '/cart'
-      },
-      data: formData
+        url: '/cart',
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: formData,
+      }
     }
   })
 }

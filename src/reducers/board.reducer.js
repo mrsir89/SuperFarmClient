@@ -56,6 +56,10 @@ const boardReducer = (state = initialStateBoard, action) => {
             if (payload !== undefined && payload !== null) {
                 const { data } = payload
                 console.log(data, 'ActionTypes.DELETE_QNABOARD_SUCCESS')
+                return{
+                    ...state,
+                    qnaBoard:data
+                }
             }else
                 return state
 
@@ -64,6 +68,10 @@ const boardReducer = (state = initialStateBoard, action) => {
             if (payload !== undefined && payload !== null) {
                 const { data } = payload
                 console.log(data, 'ActionTypes.WRITE_QNABOARDANSWER_SUCCESS')
+                return{
+                    ...state,
+                    qnaBoard:data
+                }
             }else
                 return state
 
@@ -72,6 +80,10 @@ const boardReducer = (state = initialStateBoard, action) => {
             if (payload !== undefined && payload !== null) {
                 const { data } = payload
                 console.log(data, 'ActionTypes.DELETE_QNABOARDANSWER_SUCCESS')
+                return{
+                    ...state,
+                    qnaBoard:data
+                }
             }else
                 return state;
 
@@ -97,7 +109,9 @@ const boardReducer = (state = initialStateBoard, action) => {
                 const { data } = payload;
                 console.log('ActionTypes.REMOVE_REVIEW_SUCCESS',data)
                 return {
-                    ...state
+                    ...state,
+                    ...state,
+                    reviewBoard:data
                 }
             }
 

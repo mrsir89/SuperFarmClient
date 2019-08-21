@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Accordion from "./Accordion";
 import { bindActionCreators } from 'redux';
 import { Actions } from '../../../actions/index';
-import { isFor } from '@babel/types';
+
 
 
 class ListReview extends React.Component {
@@ -15,15 +15,15 @@ class ListReview extends React.Component {
     }
     console.log(this.props,'  props 확인 ')
   }
-  // 시작시 ReviewBoard를 가져 온다.
+  // 시작시 reviewBoards를 가져 온다.
   componentWillMount() {
 
-    this._getReviewBoard('productBoard',5,10,1);
+    this._getreviewBoards('productBoard',5,10,1);
   }
-  // getReviewBoard Action 여기서 리뷰보드 리스트 가져오는거 실행
+  // getreviewBoards Action 여기서 리뷰보드 리스트 가져오는거 실행
   // type product 일때는 Type =productBoard  id= productBoard 번호
   // size 는 기본값 10 page 는 기본값 1
-  _getReviewBoard(type, id, size,page){
+  _getreviewBoards(type, id, size,page){
     const { getReviews } = this.props;
     getReviews(type,id,size,page);
     console.log("this.props>>>>>>>>>>>>>>>>>>>", this.props)
@@ -36,7 +36,7 @@ class ListReview extends React.Component {
 
     if (items !== undefined && items !== null) {
       reviewItems = items.map(review =>
-        <Accordion key={review.reviewBoardNum} review={review} />
+        <Accordion key={review.reviewBoardsNum} review={review} />
       )
     }
     return reviewItems
@@ -47,40 +47,40 @@ class ListReview extends React.Component {
   // 다음 페이지 
   _nextPage = () =>{
     console.log('Next Page 작동')
-    const { reviewBoard } = this.props;
-    console.log('NextPage ',reviewBoard)
+    const { reviewBoards } = this.props;
+    console.log('NextPage ',reviewBoards)
     
-    let hasNextPage = reviewBoard.hasNext;
+    let hasNextPage = reviewBoards.hasNext;
     console.log('hasNext',hasNextPage, )
 
-    var page = reviewBoard.page
-    var size = reviewBoard.size
-    let productBoardNum = reviewBoard.boardNum
+    var page = reviewBoards.page
+    var size = reviewBoards.size
+    let productBoardNum = reviewBoards.boardNum
 
     if(hasNextPage === true){
       page = page +1;
       console.log( page, '실제 다음페이지가 있을떄 작동');
-      this._getReviewBoard('productBoard',productBoardNum,size,page)
+      this._getreviewBoards('productBoard',productBoardNum,size,page)
     }    
   }
   // 이전 페이지
   _prevPage = () =>{
     
     console.log('Prev Page 작동')
-    const { reviewBoard } = this.props;
-    console.log('NextPage ',reviewBoard)
+    const { reviewBoards } = this.props;
+    console.log('NextPage ',reviewBoards)
     
-    let hasNextPage = reviewBoard.hasNext;
+    let hasNextPage = reviewBoards.hasNext;
     console.log('hasNext',hasNextPage, )
 
-    var page = reviewBoard.page
-    var size = reviewBoard.size
-    let productBoardNum = reviewBoard.boardNum
+    var page = reviewBoards.page
+    var size = reviewBoards.size
+    let productBoardNum = reviewBoards.boardNum
 
     if(page > 1 ){
       page = page - 1;
       console.log( page, '실제 다음페이지가 있을떄 작동');
-      this._getReviewBoard('productBoard',productBoardNum,size,page)
+      this._getreviewBoards('productBoard',productBoardNum,size,page)
     }    
 
   }
@@ -106,16 +106,15 @@ function mapStateToProps(state) {
   console.log(state, ' mapStateToProps state')
   const { board } = state;
   const { reviewBoard } = board
+  // const {items} = reviewBoards
   console.log('mpaStateToProps', reviewBoard)
     return {
-    reviewBoard
+      reviewBoard
   };
 }
 
 const mapDispatchToProps=(dispatch)=>({
-    
     getReviews: (product,id,size,page ) => dispatch(Actions.getReviews(product,id,size,page)),
     removeReview:() => dispatch(Actions.removeReview())
 })
 export default connect(mapStateToProps, mapDispatchToProps)(ListReview);
-

@@ -6,24 +6,26 @@ import { withRouter } from 'react-router-dom';
 import ProductView from './ProductView';
 //import { addCart } from '../actions/action';
 import { Link } from 'react-router-dom';
-import { Actions } from '../../actions/index';
+import { Actions } from '../../actions';
+import {SideBar} from '../../containers';
 
 
 // 제품 상세 페이지
 // 옵션, 가격을 form에 담아서 submit -> 바로구매 or 장바구니
 // 테스트 
 class ProductDetail extends React.Component {
+
    constructor(props) {    // props 굳이 안써줘도 넘어 옴
       super(props);
       const { userNum } = this.props.userDetails;
       const { productBoard } = this.props;
-
+      
       this.state = {
          productInfo: '',
          userNumber: `${userNum}`,
          productBoardNum: '',
          cartProductName: '',
-         cartProductOption1:'',
+         cartProductOption1: '',
          cartProductOption2: '',
          cartProductPrice: '',
          cartProductCount: '',
@@ -32,7 +34,7 @@ class ProductDetail extends React.Component {
 
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-      this._renderProduct= this._renderProduct.bind(this);
+      this._renderProduct = this._renderProduct.bind(this);
    }
 
    handleSubmit(e) {
@@ -60,14 +62,11 @@ class ProductDetail extends React.Component {
       const value = target.value;
       const name = target.name;
 
-
       this.setState({
          [name]: value
       });
 
-      console.log("value?? >>", value);
-      console.log("name?? >>", name);
-      console.log("target?? >>", target);
+    
    }
 
    // 해당 productBoard 번호에 맞는 product Detail정보를 필터를 이용해서 꺼냄 
@@ -86,7 +85,7 @@ class ProductDetail extends React.Component {
       var newProducts = [];
       if (products !== undefined && products !== null) {
          newProducts = products.filter((item) => (item.productBoardNum == productId));
-      }
+      
       console.log("newProduct[0] >>>>", newProducts[0])
 
       this.setState({
@@ -94,12 +93,13 @@ class ProductDetail extends React.Component {
          productBoardNum: newProducts[0].productBoardNum,
          cartProductName: newProducts[0].productList[0].productName,
          cartProductPrice: newProducts[0].productList[0].productPrice,
+         
          cartProductCount: 1,   // 추후 변경 예정
          cartProductImg: newProducts[0].productBoardThumbnail,
          cartProductOption1: newProducts[0].productList[0].productOption1,
          cartProductOption2: newProducts[0].productList[0].productOption2
       });
-
+   }
       return newProducts[0];
    }
 
@@ -138,15 +138,25 @@ class ProductDetail extends React.Component {
       const { productInfo } = this.state;
       const { productList } = productInfo;
       console.log("this.state >>>", this.state);
-      
-      console.log ("is State setted? >>", this.state)
+
+      console.log("is State setted? >>", this.state)
       return (
+      
          <div className="product-item">
+            
             <div className="prod-info">
                <div className="prd-info">
-
+{/* ------------------------------------------------------------------------------------------------ */}
+               <div class="col-md-6 col-sm-6">
+                  <div class="product-main-image" style={{position: 'relative', overflow: 'hidden'}}>
+                    <img src="../../images/rice.jpg" alt="Cool green dress with red bell" className="img-responsive" data-bigimgsrc="../../images/rice.jpg"/>
+                    <img src="../../images/rice.jpg" className="zoomImg" style={{position: 'absolute', top: '-290.619px', left: '-180.201px', opacity: '0', width: '600px', height: '800px', border: 'none', maxWidth : 'none'}}/>
+                  </div>
+               </div>
+{/* ------------------------------------------------------------------------------------------------ */}
                   <form onSubmit={this.handleSubmit}>
-                     <div class="prd-table">
+                     <div class="col-md-6 col-sm-6">
+                        
                         <table summary="">
                            <caption>상품정보 목록</caption>
                            <tbody>
@@ -189,11 +199,7 @@ class ProductDetail extends React.Component {
                               {this._selectOption2(productList)}
                            </select>
                         </div>
-
-
                      </div>
-
-
                      <div className="btn-prd">
                         <p><a href="#" className="btn-buy">구매</a></p>
                         <a href="/cart" className="btn-buy">
@@ -213,6 +219,7 @@ class ProductDetail extends React.Component {
 
 // store에서 state를 복사해서 컨테이너의 props에 붙여넣기 
 function mapStateToProps(state) {
+   console.log('mapStateToProps ->>>>>>',state)
    const { product, auth } = state;
    const { userDetails } = auth;
    const { productBoard } = product
@@ -229,3 +236,4 @@ const mapDispatchToProps = dispatch => ({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
+
