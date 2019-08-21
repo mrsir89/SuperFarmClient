@@ -53,7 +53,7 @@ class AddReview extends React.Component {
       }else
       console.log('Add 실패 한다~!!')
     })
-     window.close()
+     //window.close()
 
   }
   _onChangeInput(event) {

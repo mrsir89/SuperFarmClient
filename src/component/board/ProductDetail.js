@@ -30,6 +30,9 @@ class ProductDetail extends React.Component {
          cartProductPrice: '',
          cartProductCount: '',
          cartProductImg: '',
+         productBoardTitle : '',
+
+         prouductCode : ''
       };
 
       this.handleInputChange = this.handleInputChange.bind(this);
@@ -97,7 +100,11 @@ class ProductDetail extends React.Component {
          cartProductCount: 1,   // 추후 변경 예정
          cartProductImg: newProducts[0].productBoardThumbnail,
          cartProductOption1: newProducts[0].productList[0].productOption1,
-         cartProductOption2: newProducts[0].productList[0].productOption2
+         cartProductOption2: newProducts[0].productList[0].productOption2,
+         productBoardTitle : newProducts[0].productBoardTitle,
+
+         //prouductCode : newProducts[0].productBoardTitle
+         
       });
    }
       return newProducts[0];
@@ -137,9 +144,9 @@ class ProductDetail extends React.Component {
    render() {
       const { productInfo } = this.state;
       const { productList } = productInfo;
-      console.log("this.state >>>", this.state);
+      // console.log("this.state >>>", this.state);
 
-      console.log("is State setted? >>", this.state)
+      // console.log("is State setted? >>", this.state)
       return (
       
          <div className="product-item">

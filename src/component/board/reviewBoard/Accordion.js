@@ -37,7 +37,7 @@ function Accordion(props) {
       <div ref={content} className="row accordion__content" style={{ maxHeight: `${setHeight}` }}>
         <div className="col">
         
-
+        <img src={props.review.reviewBoardImg}/>
       
         <div ref={rating} style={{ maxHeight: `${setHeight}` }} className="rating">
         <div className="accordion__text" dangerouslySetInnerHTML={{ __html: props.review.reviewBoardContent }}/>
@@ -52,10 +52,11 @@ function Accordion(props) {
      
           {/* <img  src={"http://localhost:8080"+ "/resource/review07.jpg" }/> */}
           {/* <img src = "https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/> */}
-          <img src={props.review.reviewBoardImg}/>
+          
          
         </div>
           {/* 사진  */}
+          
         <div>
           <input type="button" value="수정"/>
           <input type="button" value="삭제"/>

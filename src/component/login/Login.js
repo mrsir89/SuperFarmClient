@@ -94,6 +94,10 @@ class Login extends React.Component {
           <div className="bottom">
             <a href="/findPassword">Forgot Password?</a>
           </div>
+          <div className="bottom">
+            <a href="http://www.keenthemes.com/preview/metronic/theme/templates/admin/ecommerce_index.html" target="_blank">Admin login</a>
+          </div>
+          
         </div>
       </div>
     )

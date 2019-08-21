@@ -1,6 +1,6 @@
-// ver4  8/11 Ref
-// merge ki from sj  8/15
-// 8/15 ////////////////////////////////////
+// 8/21
+// cartView 삭제
+// Cart 수정
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
