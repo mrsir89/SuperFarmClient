@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import Chevron from "./Chevron";
- import removeReview from './ListReview';
 
 import "./Accordion.css";
 
@@ -37,7 +36,6 @@ function Accordion(props) {
       <div ref={content} className="row accordion__content" style={{ maxHeight: `${setHeight}` }}>
         <div className="col">
         
-
       
         <div ref={rating} style={{ maxHeight: `${setHeight}` }} className="rating">
         <div className="accordion__text" dangerouslySetInnerHTML={{ __html: props.review.reviewBoardContent }}/>

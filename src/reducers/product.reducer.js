@@ -8,7 +8,8 @@ import { ActionTypes } from '../contants';
 const initialStateProduct = {
 
     productBoard: [],
-    category: []
+    category: [],
+    productBoardDetail:{}
 };
 
 
@@ -56,7 +57,21 @@ const productReducer = (state = initialStateProduct, action) => {
             }
             return state;
         default:
-            return state;   
+            return state;
+            
+        // 프로덕트 상세 정보 불러 오기
+        case ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS:
+            console.log('ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS',payload.data)
+            if(payload !== undefined && payload !== null){
+                const{ data } = payload;
+                if(data !== undefined && data !== null){
+                    return{
+                        ...state,
+                        productBoardDetail:data
+                    };
+                }
+            }
+            return state;  
     }
 }
 

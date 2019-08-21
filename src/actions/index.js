@@ -274,6 +274,7 @@ const uploadFileReview = (reviewBoardNum,file ) =>{
     formData.append('reviewBoardNum',reviewBoardNum)
     return({
       type: ActionTypes.UPLOADFILEREVIEW,
+
       payload: {
         request:{
           headers:{
@@ -373,6 +374,23 @@ const loadProductList = (type, id) => {
   })
 };
 
+
+const loadProductDetails =(productBoardNum) =>{
+
+  const formData = new FormData();
+  formData.append('num',productBoardNum);
+  return({
+    type:ActionTypes.LOAD_PRODUCTDETAIL,
+    payload:{
+      request:{
+        method:'POST',
+        url:'/product/productDetail',
+        data:formData
+      }
+    }
+  });
+};
+
 /////////////////////////////////////////////////////////////////
 ///////////   Category       ////////////////////////////////////
 
@@ -398,7 +416,7 @@ export const Actions = {
   login, logout, getClientToken,
   writeQnABoard,
   addCart, 
-  loadProductList,
+  loadProductList,loadProductDetails,
   getCategories, getCartByUser,
   loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,
   writeAnswer, deleteAnswer,

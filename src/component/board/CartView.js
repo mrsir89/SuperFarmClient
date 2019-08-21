@@ -60,7 +60,7 @@ class CartView extends React.Component {
                             <input type = "number" min ="1" max ="20" name ={item.cartNum}  onChange={this._changeQuantity} size="4"></input>
                             <input type ="button" value ="적용" onClick={this._changeQuantity}/>
                           </td>
-                          {/* <td className="goods-page-quantity">
+                          <td className="goods-page-quantity">
                             <div className="product-quantity">
                               <div className="input-group bootstrap-touchspin input-group-sm"><span className="input-group-btn">
                                 <button className="btn quantity-down bootstrap-touchspin-down" type="button" >
@@ -68,14 +68,14 @@ class CartView extends React.Component {
                                   </button>
                                   </span>
                                   <span className="input-group-addon bootstrap-touchspin-prefix" style={{ display: 'none' }}></span>
-                                    <input id="product-quantity" type="text" value={this.state.count} readonly="" 
+                                    <input id="product-quantity" type="text"  readonly="" 
                                     onChange={this._changeQuantity} className="form-control input-sm" style={{ display: 'block' }} />
                                   <span className="input-group-addon bootstrap-touchspin-postfix" style={{ display: 'none' }}></span>
                                   <span className="input-group-btn">
                                     <button className="btn quantity-up bootstrap-touchspin-up" type="button" onClick={this._changeQuantity}>
                                     <i className="fa fa-angle-up"></i></button></span></div>
                             </div>
-                          </td> */}
+                          </td>
                           <td className="goods-page-price">
                             <strong>{item.cartProductPrice}</strong>
                           </td>
