@@ -46,6 +46,7 @@ export const ActionTypes={
 
     // 0810 addCart
     ADD_CART : 'ADD_CART',
+<<<<<<< HEAD
     ADD_CART_FAIL: 'ADD_CART_FAIL',
     ADD_CART_SUCCESS: 'ADD_CART_SUCCESS',
 
@@ -58,4 +59,18 @@ export const ActionTypes={
     GET_CART : 'GET_CART',
     GET_CART_FAIL : 'GET_CART_FAIL',
     GET_CART_SUCCESS : 'GET_CART_SUCCESS'
+=======
+    // 필요한가..??
+    // ADD_CART_FAIL: 'ADD_CART_FAIL',
+    // ADD_CART_SUCCESS: 'ADD_CART_SUCCESS'
+
+    ADD_REVIEW : 'ADD_REVIEW',
+    REMOVE_REVIEW: 'REMOVE_REVIEW',
+    GET_REVIEWS: 'GET_REVIEWS',
+    GET_REVIEWS_FAIL:'GET_REVIEWS_FAIL',
+    GET_REVIEWS_SUCCESS:'GET_REVIEWS_SUCCESS'
+   
+
+
+>>>>>>> 7162c7f0af2aef88a34d0a337d35f7c7cc554fa4
 }

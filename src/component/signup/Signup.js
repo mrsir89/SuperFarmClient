@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Actions } from '../../actions/index';
 import { connect } from 'react-redux';
 import { ActionTypes } from '../../contants';
-import './Signup.css';
+import './SignUp.css';
 // Store가 가진 state를 어떻게 props에 엮을 지 정한다.
 //   (이 동작을 정의하는 함수는 mapStateToProps라고 불립니다)
 // Reducer에 action을 알리는 함수 dispatch를 어떻게 props에 엮을 지 정한다. 

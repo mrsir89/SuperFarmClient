@@ -1,7 +1,15 @@
+<<<<<<< HEAD
 // // 8/20  BetaTest version
 //  8/20  login redirect, carousel(DB render), 
+=======
+>>>>>>> 7162c7f0af2aef88a34d0a337d35f7c7cc554fa4
 
 import React from 'react';
+import ListReview from './component/review/ListReview';
+import AddReview from './component/review/AddReview';
+import RemoveReview from './component/review/RemoveReview';
+import Header from './component/review/Header';
+import Product from './component/review/Product';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import signup from './component/signup/Signup';
@@ -9,7 +17,6 @@ import login from './component/login/Login';
 import qnaboard from './component/board/QnABoard';
 import QnABoardWrite from './component/board/QnABoardWrite';
 import { Actions } from './actions';
-import './App.css';
 import Cart from './component/board/Cart';
 import ProductDetail from './component/board/ProductDetail';
 import ProductList from './component/board/ProductList';
@@ -36,10 +43,16 @@ import {Header, PreHeader , Home, Footer, PreFooter} from './containers';
 */
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7162c7f0af2aef88a34d0a337d35f7c7cc554fa4
 class App extends React.Component {
-  render() { // 화면에 html 뷰를 생성.
-    return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
+  // <Route exact path="/" component={Home} />
+  render() {
+    return (
       <div className="container">
+<<<<<<< HEAD
         <PreHeader/>
         <Header /> 
         <Switch>
@@ -47,20 +60,42 @@ class App extends React.Component {
           <Route exact path="/" component={Home} />
           {/* <Route exact path="/product" component={ProductList} /> */}
           <Route path="/productlist/:id" component={ProductList} />
+=======
+        <Header/>
+        <Product/>
+         <Switch>
+         <Route exact path="/" component={ProductList} />
+>>>>>>> 7162c7f0af2aef88a34d0a337d35f7c7cc554fa4
           <Route path="/signup" component={signup} />
           <Route path="/login" component={login} />
           <Route path="/qnaboard" component={qnaboard} />
           <Route path="/cart" component={Cart} />
           <Route path="/mypage" component={MyPage} />
           <Route path="/product/:id" component={ProductDetail} />
+<<<<<<< HEAD
 
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
         </Switch>
         {/* <PreFooter/> */}
         <Footer/>
+=======
+          <Route path="/review/all" component={ListReview} />
+          <Route path="/review/write" component={AddReview} />
+          <Route path="/review/delete" component={RemoveReview} />
+         
+        </Switch> 
+        
+>>>>>>> 7162c7f0af2aef88a34d0a337d35f7c7cc554fa4
       </div>
     );
   }
 }
+<<<<<<< HEAD
 export default App;
 
+=======
+
+export default App;
+
+
+>>>>>>> 7162c7f0af2aef88a34d0a337d35f7c7cc554fa4
