@@ -8,7 +8,8 @@ import { ActionTypes } from '../contants';
 const initialStateProduct = {
 
     productBoard: [],
-    category: []
+    category: [],
+    productBoardDetail:{}
 };
 
 
@@ -55,6 +56,19 @@ const productReducer = (state = initialStateProduct, action) => {
                 }
             }
             return state;
+
+        case ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS:
+            console.log('ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS',payload.data)
+            if(payload !== undefined && payload !== null){
+                const{ data } = payload;
+                if(data !== undefined && data !== null){
+                    return{
+                        ...state,
+                        productBoardDetail:data
+                    };
+                }
+            }
+            return state;  
         default:
             return state;   
     }

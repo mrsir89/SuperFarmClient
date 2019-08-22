@@ -84,6 +84,10 @@ export const ActionTypes={
     LOAD_PRODUCTLIST_FAIL : 'LOAD_PRODUCTLIST_FAIL',
     LOAD_PRODUCTLIST_SUCCESS : 'LOAD_PRODUCTLIST_SUCCESS',
 
+
+    LOAD_PRODUCTDETAIL:'LOAD_PRODUCTDETAIL',
+    LOAD_PRODUCTDETAIL_FAIL:'LOAD_PRODUCTDETAIL_FAIL',
+    LOAD_PRODUCTDETAIL_SUCCESS:'LOAD_PRODUCTDETAIL_SUCCESS',
     ////////////////////////////////////////////////////////
     /////////// Cart
 
@@ -97,6 +101,16 @@ export const ActionTypes={
     GET_CART_FAIL : 'GET_CART_FAIL',
     GET_CART_SUCCESS : 'GET_CART_SUCCESS',
 
+    // 0822 카트 수량 수정
+    EDIT_CART : 'EDIT_CART',
+    EDIT_CART_FAIL: 'EDIT_CART_FAIL',
+    EDIT_CART_SUCCESS: 'EDIT_CART_SUCCESS',
+
+    // 0822 카트 삭제 (cartNum)
+    REMOVE_CART_ID : 'REMOVE_CART_ID',
+    REMOVE_CART_ID_FAIL: 'REMOVE_CART_ID_FAIL',
+    REMOVE_CART_ID_SUCCESS: 'REMOVE_CART_ID_SUCCESS',
+    
 
     ///////////////////////////////////////////////////////
     /////////// Category

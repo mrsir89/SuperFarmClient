@@ -340,6 +340,45 @@ const getCartByUser = (userNum) => {
   })
 }
 
+// 0822 장바구니 수량 수정
+const editCartQty = (newCartList) => {
+  // const formData = new FormData();
+  // formData.append('cartProductNum', cartProductNum);
+  // formData.append('count', newCartList);
+  return ({
+    type: ActionTypes.EDIT_CART,
+    payload: {
+      request: {
+        method: 'PATCH',
+        url: '/cart/edit',
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: JSON.stringify(newCartList)
+      }
+    }
+  })
+}
+
+// 0822 장바구니 삭제 
+const removeCartById = (cartNum) => {
+  const formData = new FormData();
+  formData.append('cartNum', cartNum)
+  return ({
+    type: ActionTypes.REMOVE_CART_ID,
+    payload: {
+      request: {
+        method: 'DELETE',
+        url: `/cart/delete`,
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: formData,
+      }
+    }
+  });
+};
+
 /////////////////////////////////////////////////////////////////
 ///////////   productBoard   ////////////////////////////////////
 
@@ -373,6 +412,22 @@ const loadProductList = (type, id) => {
   })
 };
 
+const loadProductDetails =(productBoardNum) =>{
+
+  const formData = new FormData();
+  formData.append('num',productBoardNum);
+  return({
+    type:ActionTypes.LOAD_PRODUCTDETAIL,
+    payload:{
+      request:{
+        method:'POST',
+        url:'/product/productDetail',
+        data:formData
+      }
+    }
+  });
+};
+
 /////////////////////////////////////////////////////////////////
 ///////////   Category       ////////////////////////////////////
 
@@ -397,9 +452,9 @@ export const Actions = {
   signup, getUserMe,
   login, logout, getClientToken,
   writeQnABoard,
-  addCart, 
-  loadProductList,
-  getCategories, getCartByUser,
+  addCart, editCartQty,getCartByUser, removeCartById,
+  loadProductList,loadProductDetails,
+  getCategories, 
   loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,
   writeAnswer, deleteAnswer,
   getReviews, removeReview, addReview,uploadFileReview

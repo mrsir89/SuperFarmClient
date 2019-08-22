@@ -7,7 +7,7 @@ import ListReview from './reviewBoard/ListReview'
 function ProductView() {
 
   return (
-    <div className="container">
+    <div className>
       <div id="section1">
         <div className="list-group list-group-horizontal-md">
           <ul class="navbar">

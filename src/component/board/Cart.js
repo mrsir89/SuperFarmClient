@@ -21,6 +21,8 @@ import { Actions } from '../../actions/index';
  * items.map((item, index) => index == idx ? { ... item, qty: newQty} : item)
  */
 
+
+// 수량이 String 타입으로 넘어감 바꿔야 하나?
 class Cart extends React.Component {
 
   constructor(props) {    // props 굳이 안써줘도 넘어 옴
@@ -28,7 +30,8 @@ class Cart extends React.Component {
     const { cartlist, userDetails } = this.props;
 
     this.state = {
-      Items: []
+      items: [],
+      selectedProduct : []
     }
   }
 
@@ -36,20 +39,56 @@ class Cart extends React.Component {
     const { getCartByUser } = this.props;
     const { userDetails } = this.props;
     console.log(userDetails, '     UserDetails')
-    getCartByUser(userDetails.userNum);
+    getCartByUser(userDetails.userNum)
+    .then(response => this.setState(response));
   }
 
-  _changeQuantity(event) {
-    console.log('버튼  확인', event)
-    console.log('targetName >>>>>>>>>>>>>>', event.target.name)
-    console.log('targetValue >>>>>>>>>>>>>>', event.target.value)
+  // onChangeHandler
+  _changeQuantity(event, cartNum) {
+
     const target = event.target;
-    const value = target.value;
+    const newQty = target.value;     // newQty (변경된 수량)
+    const { cartlist } = this.props;
+    const idx = cartNum - 1;    // cartNum은 1부터 시작, 배열 인덱스는 0부터 시작하므로 맞춰준다
+    
+    //items.map((item, index) => index == idx ? { ... item, qty: newQty} : item)
+    const { editCartQty } = this.props;
+    const newCartList = cartlist.map((item, index) => index == idx ? { ...item, cartProductCount: newQty } : item)
     this.setState({
-      Items: []
+      items: newCartList
     });
 
+    editCartQty(newCartList[cartNum - 1]);
   }
+
+  //장바구니 삭제 
+  _delectCartById(e, cartNum) {
+    e.stopPropagation();
+    const { removeCartById } = this.props;
+    removeCartById(cartNum);
+
+  }
+
+  _getCartCount(items) {
+    return (items === undefined || items === null || items.length ===0 ? 0 : items.length);
+   
+ }
+
+  _getSubTotalPrice(items) {
+    return (items === undefined || items === null || items.length === 0 ? 0 : items.reduce((prevItem, item) => {
+      const itemPrice = Number.parseFloat(item.cartProductPrice) * Number.parseFloat(item.cartProductCount);
+      let totalPrice = 0.00;
+
+      if (typeof prevItem === 'object') {
+        totalPrice = Number.parseFloat(prevItem.cartProductPrice) * Number.parseFloat(prevItem.cartProductCount);
+      } else {
+        totalPrice = Number.parseFloat(prevItem);
+      }
+      //console.log('>>>>', (totalPrice + itemPrice).toFixed(0));
+      return (totalPrice + itemPrice).toFixed(0);
+    }));
+  }
+
 
   _cartlistCheck() {
     const { cartItem } = this.props
@@ -60,14 +99,24 @@ class Cart extends React.Component {
     }
   }
 
+  _getOnePrice (items) {
+    const price = Number.parseFloat(items[0].cartProductPrice) * Number.parseFloat(items[0].cartProductCount);
+    return price.toFixed(0);
+  }
+
+
   // {this._showCartItems()}
   render() {
-    // const{ cartItem }= this.props
     const { cartlist } = this.props;
+    const SubPrice =  this._getCartCount(cartlist) > 1 ? this._getSubTotalPrice(cartlist)
+                : this._getCartCount(cartlist) == 1 ? this._getOnePrice(cartlist) : 0 ;
+    const TotalPrice = SubPrice + 3.0;
+
+
+    console.log ("items가 왜 undefined 이지??", cartlist)
+    console.log ("SubPrice ???????", SubPrice)
+
     return (
-      // <div>
-      //   {this._showCartItems()}
-      // </div>
 
       <div className="main">
         <div className="container">
@@ -76,6 +125,9 @@ class Cart extends React.Component {
             {/* <!-- BEGIN CONTENT --> */}
             <div className="col-md-12 col-sm-12">
               <h1>장바구니</h1>
+
+              
+
               <div className="goods-page">
                 <div className="goods-data clearfix">
                   <div className="table-wrapper-responsive">
@@ -83,6 +135,7 @@ class Cart extends React.Component {
                     <table summary="Shopping cart">
                       <tbody>
                         <tr>
+                          <th >선택</th>
                           <th className="goods-page-image">제품</th>
                           <th className="goods-page-description">제품 목록</th>
                           {/* <th className="goods-page-ref-no">제품 번호</th> */}
@@ -90,20 +143,30 @@ class Cart extends React.Component {
                           <th className="goods-page-price">단가</th>
                           <th className="goods-page-total" colspan="2">가격 </th>
                         </tr>
-                        {/* --------------------------------------------------------------------------------------------------------------------------- */}
 
-                        {cartlist.map(item => {
+                        {/* --------------------------------------------------------------------------------------------------------------------------- */}
+                        
+                        {cartlist === undefined || cartlist === null ? '' 
+                          : cartlist.map(item => {
+                          console.log ("item !!!!!!!!!!!!!!!!!!!!!!!!!",item)
+                          const { cartProductCount, cartNum, productBoardTitle, cartProductPrice,
+                            cartProductName, productBoardNum, cartProductImg,
+                            cartProductOption1, cartProductOption2 } = item;
+
                           return (
                             <tr>
+                              <td>
+                                <input type="checkbox" name="check" checked />
+                              </td>
                               <td className="goods-page-image">
-                                <a href={`/product/${item.productBoardNum}`}><img src={item.cartProductImg} alt="Berry Lace Dress" /></a>
+                                <a href={`/product/${productBoardNum}`}><img src={cartProductImg} alt="Berry Lace Dress" /></a>
                               </td>
 
-                              {/* 옵션 */}
+                              {/* 상품 이름 & 옵션 */}
                               <td className="goods-page-description">
-                                <h3><a href={`/product/${item.cartProductName}`}>{item.cartProductName}</a></h3>
-                                <p><strong>{item.cartProductOption1 == null ? '' : '옵션1 '} </strong> {item.cartProductOption1 == null ? '' : item.cartProductOption1} </p>
-                                <p><strong>{item.cartProductOption2 == null ? '' : '옵션2 '} </strong> {item.cartProductOption2 == null ? '' : item.cartProductOption1} </p>
+                                <h3><a href={`/product/${cartProductName}`}>{cartProductName}</a></h3>
+                                <p><strong>{cartProductOption1 == null ? '' : '옵션1 '} </strong> {cartProductOption1 == null ? '' : cartProductOption1} </p>
+                                <p><strong>{cartProductOption2 == null ? '' : '옵션2 '} </strong> {cartProductOption2 == null ? '' : cartProductOption2} </p>
                               </td>
 
                               {/* 제품코드 */}
@@ -113,23 +176,25 @@ class Cart extends React.Component {
 
                               {/* 수량 */}
                               <td >
-                                <input type="number" min="1" max="20" name={item.cartNum} onChange={this._changeQuantity} size="4"></input>
-                                <input type="button" value="적용" onClick={this._changeQuantity} />
+                                <input type="number" value={cartProductCount} min="1" max="20" name={cartNum} onChange={e => this._changeQuantity(e, cartNum)} size="4"></input>
+                                {/* <input type="button" value="적용" onClick={e => this._editCartDB(e, cartNum)} /> */}
+
                               </td>
 
                               {/* 단가 */}
                               <td className="goods-page-price">
-                                <strong>{item.cartProductPrice}</strong>
+                                <strong>{cartProductPrice}</strong>
                               </td>
 
                               {/* 가격 */}
                               <td className="goods-page-total">
-                                <strong>{item.cartProductPrice * (item.cartProductCount)}</strong>
+                                <strong>{cartProductPrice * (cartProductCount)}</strong>
                               </td>
 
                               {/* 삭제 */}
                               <td className="del-goods-col">
-                                <a className="del-goods" href="javascript:;">&nbsp;</a>
+                                {/* <a className="del-goods" href="javascript:;">&nbsp;</a> */}
+                                <button className="del-goods" onClick={e => this._delectCartById(e, cartNum)} />
                               </td>
                             </tr>
                           );
@@ -143,7 +208,7 @@ class Cart extends React.Component {
                     <ul>
                       <li>
                         <em>Sub total</em>
-                        <strong className="price"><span>$</span>47.00</strong>
+                        <strong className="price"><span>$</span>{SubPrice}</strong>
                       </li>
                       <li>
                         <em>Shipping cost</em>
@@ -151,14 +216,17 @@ class Cart extends React.Component {
                       </li>
                       <li className="shopping-total-price">
                         <em>Total</em>
-                        <strong className="price"><span>$</span>50.00</strong>
+                        <strong className="price"><span>$</span>{TotalPrice}</strong>
                       </li>
                     </ul>
                   </div>
                 </div>
                 <button className="btn btn-default" type="submit">Continue shopping <i className="fa fa-shopping-cart"></i></button>
-                <button className="btn btn-primary" type="submit">Checkout <i className="fa fa-check"></i></button>
+                <input className="btn btn-primary" type="submit" value="구매하기"/>Checkout <i className="fa fa-check"></i>
               </div>
+
+             
+
             </div>
             {/* <!-- END CONTENT --> */}
           </div>
@@ -169,6 +237,7 @@ class Cart extends React.Component {
           {/* <!-- END SIMILAR PRODUCTS --> */}
         </div>
       </div>
+
     );
   }
 }
@@ -184,7 +253,9 @@ function mapStateToProps(state) {
   };
 }
 const mapDispatchToProps = (dispatch) => ({
-  getCartByUser: (userNum) => dispatch(Actions.getCartByUser(userNum))
+  getCartByUser: (userNum) => dispatch(Actions.getCartByUser(userNum)),
+  editCartQty: (newCart) => dispatch(Actions.editCartQty(newCart)),
+  removeCartById: (cartNum) => dispatch(Actions.removeCartById(cartNum))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

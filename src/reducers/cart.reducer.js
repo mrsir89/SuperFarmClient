@@ -41,6 +41,32 @@ const cartReducer = (state = initialStateCart, action) => {
             }
             return state;
 
+
+        case ActionTypes.EDIT_CART_SUCCESS:
+            //console.log('ActionTypes.EDIT_CART_SUCCESS',action)
+            if (payload !== undefined && payload !== null) {
+                const { data } = payload;
+                if (data !== undefined && data !== null) {
+                    return {
+                        ...state,
+                        cartlist: data
+                    };
+                }
+            }
+            return state;
+
+        case ActionTypes.REMOVE_CART_ID_SUCCESS:
+            if (payload !== undefined && payload !== null) {
+                const { data } = payload;
+                if (data !== undefined && data !== null) {
+                    return {
+                        ...state,
+                        cartlist: cartlist.filter(item => item.cartNum !== data.cartNum)
+                    };
+                }
+            }
+            return state;
+
         default:
             return state;
 
