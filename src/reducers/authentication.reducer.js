@@ -4,7 +4,7 @@ const initialStateAuth = {
     retryCount: 0,
     token: null,
     userDetails: null,
-    signupModel: null
+    signupCustomer: null
 };
 
 const authentication = (state = initialStateAuth, action) => {
@@ -31,7 +31,7 @@ const authentication = (state = initialStateAuth, action) => {
         case ActionTypes.SIGNUP:
             return {
                 ...state,
-                signupModel: payload.signupModel
+                signupCustomer: payload.signupCustomer
             };
         case ActionTypes.LOGIN:
             return {
@@ -42,8 +42,13 @@ const authentication = (state = initialStateAuth, action) => {
             return {
                 ...state,
                 userDetails: payload.data
-            }
-
+            };
+        case ActionTypes.USER_EDIT_SUCCESS:
+            console.log("user edit success");
+            return {
+                ...state,
+                userDetails: payload.userDetails
+            };
 
         default:
             return state;
