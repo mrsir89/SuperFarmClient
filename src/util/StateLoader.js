@@ -32,24 +32,21 @@ class StateLoader {
             auth: {
                 retryCount: 0,
                 token: null,
-                userDetails: null,
+                userDetails: {},
                 signupModel: null
             },
             product: {
                 productBoard: [],
-                category: []
+                category: [],
+                productBoardDetail:{} 
             },
             cart : {
                 cartlist: [],
-<<<<<<< HEAD
-            }
-=======
             },
-             reviewBoards: {
-                
-             }
->>>>>>> 7162c7f0af2aef88a34d0a337d35f7c7cc554fa4
-            
+            board : {
+                reviewBoards:[],
+                qnaBoard:[],
+            }
         };
     }
 }

@@ -9,6 +9,8 @@ function PreFooter({ history, location, matcher }) {
           {/* BEGIN BOTTOM ABOUT BLOCK */}
           <div className="col-md-3 col-sm-6 pre-footer-col">
             <h2>About us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam sit nonummy nibh euismod tincidunt ut laoreet dolore magna aliquarm erat sit volutpat. Nostrud exerci tation ullamcorper suscipit lobortis nisl aliquip  commodo consequat. </p>
+            <p>Duis autem vel eum iriure dolor vulputate velit esse molestie at dolore.</p>
           </div>
           {/* END BOTTOM ABOUT BLOCK */}
           {/* BEGIN BOTTOM INFO BLOCK */}
@@ -16,7 +18,12 @@ function PreFooter({ history, location, matcher }) {
             <h2>Information</h2>
             <ul className="list-unstyled">
               <li><i className="fa fa-angle-right" /> <a href="javascript:;">Delivery Information</a></li>
-              
+              <li><i className="fa fa-angle-right" /> <a href="javascript:;">Customer Service</a></li>
+              <li><i className="fa fa-angle-right" /> <a href="javascript:;">Order Tracking</a></li>
+              <li><i className="fa fa-angle-right" /> <a href="javascript:;">Shipping &amp; Returns</a></li>
+              <li><i className="fa fa-angle-right" /> <a href="contacts.html">Contact Us</a></li>
+              <li><i className="fa fa-angle-right" /> <a href="javascript:;">Careers</a></li>
+              <li><i className="fa fa-angle-right" /> <a href="javascript:;">Payment Methods</a></li>
             </ul>
           </div>
           {/* END INFO BLOCK */}
@@ -30,9 +37,12 @@ function PreFooter({ history, location, matcher }) {
           <div className="col-md-3 col-sm-6 pre-footer-col">
             <h2>Our Contacts</h2>
             <address className="margin-bottom-40">
-              Tel: 123 456 7890<br />
-              Email: <a href="mailto:info@metronic.com">SuperFarm@Project.com</a><br />
-              SuperFarm: <a href="skype:metronic">🍊</a>
+              35, Lorem Lis Street, Park Ave<br />
+              California, US<br />
+              Phone: 300 323 3456<br />
+              Fax: 300 323 1456<br />
+              Email: <a href="mailto:info@metronic.com">info@metronic.com</a><br />
+              Skype: <a href="skype:metronic">metronic</a>
             </address>
           </div>
           {/* END BOTTOM CONTACTS */}

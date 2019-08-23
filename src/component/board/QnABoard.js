@@ -66,6 +66,15 @@ class QnABoard extends React.Component {
     console.log(loadqnaboardList, ' qnaboardList 실행')
     loadqnaboardList(productNum, size, page);
   }
+  componentDidMount(){
+    const { loadqnaboardList } = this.props;
+    console.log(this.state, ' <<<<< willMount')
+    let productNum = 5
+    let size = 10
+    let page = 1
+    console.log(loadqnaboardList, ' qnaboardList 실행')
+    loadqnaboardList(productNum, size, page);
+  }
 
   _writeQnA() {
     const { writeQnABoard } = this.props

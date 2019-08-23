@@ -1,7 +1,6 @@
 
 // 8/16 sj
 // (userId)를 바탕으로 장바구니 추가/ 불러오기 기능 구현
-//  8/20  login redirect, carousel(DB render), 
 
 import React from 'react';
 import ReactDOM from 'react-dom';

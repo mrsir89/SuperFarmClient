@@ -1,5 +1,6 @@
 import React from 'react';
 import Carousel from './Carousel';
+import { connect } from 'react-redux';
 
 const newArrivals = [
   {
@@ -82,28 +83,36 @@ const productItems = [
   },
 ];
 
-function Home() {
+function Home(productBoard) {
   return (
     <div className="main">
       <div className="container">
-        <div className="row margin-bottom-40">
+        {/* <div className="row margin-bottom-40">
           <Carousel className={'col-md-12 sale-product'} carouselName={'owl-carousel owl-carousel5'}
-            title={'New Arrivals'} items={newArrivals} />
-        </div>
-        <div className="row margin-bottom-40">
+            title={'New Arrivals'} items={productBoard} />
+        </div> */}
+        {/* <div className="row margin-bottom-40">
           <Carousel className={'col-md-9 col-sm-8'} carouselName={'owl-carousel owl-carousel3'}
             title={'Three items'} items={productItems} />
         </div>
         <div className="row margin-bottom-40">
           <Carousel className={'col-md-6 two-items-bottom-items'} carouselName={'owl-carousel owl-carousel2'}
             title={'Three items'} items={productItems} />
-        </div>
+        </div> */}
       </div>
     </div>
   );
 }
 
-export default Home;
+function mapStateToProps(state) {
+  const { product } = state;
+  const { productBoard } = product;
+  return {
+    productBoard
+  };
+}
+export default connect(mapStateToProps)(Home);
+// export default Home;
 
 
 
@@ -130,3 +139,39 @@ export default Home;
 // }
 
 // export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import {
+//   CarouselFull,
+//   CarouselThree,
+//   CarouselTwo
+// } from './';
+
+// function Home() {
+//   return (
+//     <div className="main">
+//       <div className="container">
+//         <CarouselFull />
+//         <CarouselThree />
+//         <CarouselTwo />
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Home;
+
+
+
+

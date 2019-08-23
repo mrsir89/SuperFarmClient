@@ -3,9 +3,9 @@ import { ActionTypes } from '../contants';
 const initialStateAuth = {
     retryCount: 0,
     token: null,
-    userDetails: null,
+    userDetails:{},
     signupCustomer: null
-
+    
 };
 
 const authentication = (state = initialStateAuth, action) => {
@@ -44,6 +44,7 @@ const authentication = (state = initialStateAuth, action) => {
                 ...state,
                 userDetails: payload.data
             }
+
 
         default:
             return state;

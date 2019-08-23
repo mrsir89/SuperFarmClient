@@ -6,8 +6,10 @@ import { ActionTypes } from '../contants';
 //     shipping : {배송지, 배송방법, 배송비, 수취인, 수취인 전화번호, 배송 메세지}, 
 // }
 const initialStateProduct = {
+
     productBoard: [],
-    category: []
+    category: [],
+    productBoardDetail:{}
 };
 
 
@@ -30,18 +32,6 @@ const productReducer = (state = initialStateProduct, action) => {
             }
             return state;
 
-        case ActionTypes.LOAD_LOWER_PRODUCTLIST_SUCCESS:
-
-            if (payload !== undefined && payload !== null) {
-                const { data } = payload;
-                if (data !== undefined && data !== null) {
-                    return {
-                        ...state,
-                        productBoard: data
-                    };
-                }
-            }
-            return state;
 
         // case ActionTypes.ADD_CART:
         //     const { item } = action
@@ -67,35 +57,20 @@ const productReducer = (state = initialStateProduct, action) => {
             }
             return state;
 
-
-        case ActionTypes.LOAD_QNABOARDLIST_SUCCESS:
-            if (payload !== undefined && payload !== null) {
-                const { data } = payload
-                console.log(data, 'ActionTypes.LOAD_QNABOARDLIST_SUCCESS')
-                return {
-                    qnaBoard: {
-                        data
-                    }
+        case ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS:
+            console.log('ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS',payload.data)
+            if(payload !== undefined && payload !== null){
+                const{ data } = payload;
+                if(data !== undefined && data !== null){
+                    return{
+                        ...state,
+                        productBoardDetail:data
+                    };
                 }
             }
-            else
-                return state;
-        case ActionTypes.WRITE_QNABOARD_SUCCESS:
-            if (payload !== undefined && payload !== null) {
-                const { data } = payload
-                console.log(data, 'ActionTypes.WRITE_QNABOARD_SUCCESS')
-                return {
-                    ...state,
-                    qnaBoard: {
-                        data
-                    }
-                }
-            }
-            else
-                return state;
-
+            return state;  
         default:
-            return state;
+            return state;   
     }
 }
 

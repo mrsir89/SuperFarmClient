@@ -2,6 +2,11 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 function PreHeader({ history, location, matcher }) {
+  if(window.location.href === "http://localhost:3000/review/write"){
+    return (
+      <p></p>
+    )
+  }else {
   return (
     <div className="pre-header">
       <div className="container">
@@ -15,7 +20,7 @@ function PreHeader({ history, location, matcher }) {
           </div>
           {/* END TOP BAR LEFT PART */}
           {/* BEGIN TOP BAR MENU */}
-          <div className="col-md-5 col-sm-6 additional-nav">
+          <div className="col-md-5 col-sm-5 additional-nav">
             <ul className="list-unstyled list-inline pull-right">
               <li><a href="/mypage">회원정보</a></li>
               {/* <li><a href="shop-wishlist.html">My Wishlist</a></li> */}
@@ -29,6 +34,7 @@ function PreHeader({ history, location, matcher }) {
       </div>
     </div>
   );
+}
 }
 
 export default withRouter(PreHeader);
