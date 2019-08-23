@@ -8,6 +8,9 @@ export const ActionTypes={
     REFRESH_TOKEN_FAIL: 'REFRESH_TOKEN_FAIL',
     REFRESH_TOKEN_SUCCESS: 'REFRESH_TOKEN_SUCCESS',
 
+    ///////////////////////////////////////////////////
+    //////     회원 가입
+
     IDCHECK:'IDCHECK',
     IDCHECK_FAIL:'IDCHECK_FAIL',
     IDCHECK_SUCCESS:'IDCHECK_SUCCESS',
@@ -19,6 +22,10 @@ export const ActionTypes={
     SIGNUP:'SIGNUP',
     SIGNUP_FAIL:'SIGNUP_FAIL',
     SIGNUP_SUCCESS: 'SIGNUP_SUCCESS',
+
+
+    ////////////////////////////////////////////////////
+    ////         로그인
 
     LOGIN:'LOGIN',
     LOGIN_FAIL:'LOGIN_FAIL',
@@ -110,4 +117,11 @@ export const ActionTypes={
     GET_CATEGORIES_FAIL : 'GET_CATEGORIES_FAIL',
     GET_CATEGORIES_SUCCESS : 'GET_CATEGORIES_SUCCESS',
     
+
+    ///////////////////////////////////////////////////
+    ////////// 비동기 처리
+    ASNYCACTION:'ASNYCACTION',
+    ASNYCACTION_SUCCESS:'ASNYCACTION_SUCCESS',
+    ASNYCACTION_FAIL:'ASNYCACTION_FAIL'
+
 }

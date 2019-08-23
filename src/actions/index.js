@@ -30,7 +30,16 @@ const getClientToken = () => {
     }
   });
 };
-// 확인 
+
+
+//////////////////////////////////////////////
+//           회원 가입 
+
+/**
+ * 회원가입 
+ * @param {singupCustomer} signupCustomer 
+ * @Return User<Customer>
+ */
 const signup = (signupCustomer) => {
   console.log(signupCustomer, ' 여기는 signup 안쪽')
 
@@ -49,6 +58,45 @@ const signup = (signupCustomer) => {
   }
   );
 };
+
+/**
+ * id 중복 체크
+ * @param String id
+ * @return true or notfoud 
+ */
+const idCheck = (id) => {
+  console.log('idCheck 실행 ',id)
+
+  const formData = new FormData();
+  formData.append('id', id);
+  return ({
+    type: ActionTypes.IDCHECK,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/signup/idCheck',
+        data: formData
+      }
+    }
+  });
+};
+
+const emailCheck = (email) => {
+  const formData = new FormData();
+  formData.append = ('email', email);
+  return ({
+    type: ActionTypes.EMAILCHECK,
+    payload: {
+      method: 'POST',
+      url: '/signup/emailCheck',
+      data: formData
+    }
+  });
+}
+
+//////////////////////////////////////////////////////
+//        로 그 인 
+
 
 const login = (customerId, password) => {
   const formData = new FormData();
@@ -108,13 +156,13 @@ const writeQnABoard = (writeQnA) => {
 
 
 //QnABoard productBoardNum에 맞게 불러 오기
-const loadqnaboardList = (productNum, size, page ) => {
+const loadqnaboardList = (productNum, size, page) => {
   const formdata = new FormData();
-  formdata.append('productNum', 5); 
+  formdata.append('productNum', 5);
   formdata.append('size', size);
   formdata.append('page', page);
   console.log('Action loadQnABoard 실행')
-  console.log('size',size, ' page ', page)
+  console.log('size', size, ' page ', page)
   return ({
     type: ActionTypes.LOAD_QNABOARDLIST,
     payload: {
@@ -235,56 +283,56 @@ const removeReview = (reviewBoardNum) => {
 };
 
 // 리뷰 가져오기
-const getReviews = (type,id,size=initBoardListsize,
-                            page=initBoardListPage) => {
+const getReviews = (type, id, size = initBoardListsize,
+  page = initBoardListPage) => {
   const formData = new FormData();
   type = 'productBoard'
-  var url ='/review/product';
-      formData.append('size',size)
-      formData.append('page',page)
-      formData.append('productBoardNum',5)
-      console.log('Action LOAD_REVIEWS')
-  
-      if(type=='productBoard'){
-        formData.append('productBoardNum',5)
-        url = '/review/product';
-      }
-      if(type=='user'){
-        formData.append('userId',id)
-        url='/review/userId'
-      }
-      console.log('size', size, 'page',page,'id',id)
-      return ({
-        type: ActionTypes.LOAD_REVIEWS,
-        payload: {
-          request: {
-            method: 'POST',
-            url: url,
-            data:formData,
-          },
-         
-        }
-      })
+  var url = '/review/product';
+  formData.append('size', size)
+  formData.append('page', page)
+  formData.append('productBoardNum', 5)
+  console.log('Action LOAD_REVIEWS')
+
+  if (type == 'productBoard') {
+    formData.append('productBoardNum', 5)
+    url = '/review/product';
+  }
+  if (type == 'user') {
+    formData.append('userId', id)
+    url = '/review/userId'
+  }
+  console.log('size', size, 'page', page, 'id', id)
+  return ({
+    type: ActionTypes.LOAD_REVIEWS,
+    payload: {
+      request: {
+        method: 'POST',
+        url: url,
+        data: formData,
+      },
+
+    }
+  })
 };
 
-const uploadFileReview = (reviewBoardNum,file ) =>{
-  console.log('uploadFileReivew Start ')  
+const uploadFileReview = (reviewBoardNum, file) => {
+  console.log('uploadFileReivew Start ')
   const formData = new FormData();
-    formData.append('file',file);
-    formData.append('reviewBoardNum',reviewBoardNum)
-    return({
-      type: ActionTypes.UPLOADFILEREVIEW,
+  formData.append('file', file);
+  formData.append('reviewBoardNum', reviewBoardNum)
+  return ({
+    type: ActionTypes.UPLOADFILEREVIEW,
 
-      payload: {
-        request:{
-          headers:{
-            'Content-Type':'multipart/form-data'
-          },
-          method: 'POST',
-          url: '/storage/file',
-          data:formData,
-        }
+    payload: {
+      request: {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        method: 'POST',
+        url: '/storage/file',
+        data: formData,
       }
+    }
   })
 }
 
@@ -323,9 +371,9 @@ const addCart = (cartModel) => {
 
 // 0814 장바구니 불러오기 (user)
 const getCartByUser = (userNum) => {
-  console.log('getCartByUser 실행 ',userNum)
+  console.log('getCartByUser 실행 ', userNum)
   const formData = new FormData();
-  formData.append('userNum',userNum)
+  formData.append('userNum', userNum)
   return ({
     type: ActionTypes.GET_CART,
     payload: {
@@ -352,12 +400,12 @@ const loadProductList = (type, id) => {
 
   if (type === 'lower') {
     console.log('lower 확인 ,', type, id)
-      url = '/product/lower';
-      formData.append('lower', id);
+    url = '/product/lower';
+    formData.append('lower', id);
 
   } else if (type === 'search') {
-      url = '/product/search'
-      formData.append('search', id)
+    url = '/product/search'
+    formData.append('search', id)
 
   }
   console.log('loadProductList')
@@ -375,17 +423,17 @@ const loadProductList = (type, id) => {
 };
 
 
-const loadProductDetails =(productBoardNum) =>{
+const loadProductDetails = (productBoardNum) => {
 
   const formData = new FormData();
-  formData.append('num',productBoardNum);
-  return({
-    type:ActionTypes.LOAD_PRODUCTDETAIL,
-    payload:{
-      request:{
-        method:'POST',
-        url:'/product/productDetail',
-        data:formData
+  formData.append('num', productBoardNum);
+  return ({
+    type: ActionTypes.LOAD_PRODUCTDETAIL,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/product/productDetail',
+        data: formData
       }
     }
   });
@@ -408,18 +456,24 @@ const getCategories = () => {
   })
 }
 
+//////////////////////////////////////////////////////////
+///        비동기 처리를 위한 Action
+const asynAction =()=>({
+  type:ActionTypes.ASNYCACTION
+})
 
 
 export const Actions = {
 
-  signup, getUserMe,
+  signup, emailCheck, idCheck, getUserMe,
   login, logout, getClientToken,
   writeQnABoard,
-  addCart, 
-  loadProductList,loadProductDetails,
+  addCart,
+  loadProductList, loadProductDetails,
   getCategories, getCartByUser,
   loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,
   writeAnswer, deleteAnswer,
-  getReviews, removeReview, addReview,uploadFileReview
+  getReviews, removeReview, addReview, uploadFileReview,
+  asynAction
 
 };

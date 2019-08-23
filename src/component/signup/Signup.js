@@ -4,6 +4,7 @@ import { Actions } from '../../actions/index';
 import { connect } from 'react-redux';
 import { ActionTypes } from '../../contants';
 import './Signup.css';
+import { async } from 'q';
 // Store가 가진 state를 어떻게 props에 엮을 지 정한다.
 //   (이 동작을 정의하는 함수는 mapStateToProps라고 불립니다)
 // Reducer에 action을 알리는 함수 dispatch를 어떻게 props에 엮을 지 정한다. 
@@ -31,8 +32,8 @@ class Signup extends React.Component {
     super(props);
     this.state = {
       id: { value: '' },
-      password: { value: '' },
-      passwordCheck: { value: '' },
+      passwordOrigin:'' ,
+      passwordCheck:'' ,
       name: { value: '' },
       birthday: { value: '' },
       // gender:{ value:'' },
@@ -43,13 +44,7 @@ class Signup extends React.Component {
         idCheck: false,
         passwordCheck: false,
         emailCheck: false
-      },
-      signupCheckMessage: {
-        idMessage: '아이디 중복체크를 해주세요',
-        passwordMes: '패스워드를 입력해주세요',
-        emailMessage: '이메일 중복 체크를 해주세요'
       }
-
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -66,18 +61,22 @@ class Signup extends React.Component {
   componentWillMount() {
     console.log('willMount 실행');
     // Change endpoint after Login (with some error)
-    
+
 
   }
   componentDidMount() {
     console.log('DidMount 실행')
   }
 
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (JSON.stringify(nextState) != JSON.stringify(this.state));
+  }
+
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-
 
     console.log(target, '     :target')
     console.log(value, '    :value')
@@ -90,6 +89,70 @@ class Signup extends React.Component {
     console.log(this.state)
     this._passwordCheck()
   }
+
+  // 아이디 중복 체크 API 호출로 실시간 체크
+  _idCheckChange = (event) => {
+    console.log('아이디 바뀜', event.target)
+    let id = ''
+    id = event.target.value;
+    id.trim();
+    const { idCheck } = this.props;
+    console.log(id)
+    if (id.length > 3) {
+      console.log(id.length, ' 3자리 넘어서 실행 된다.')
+      idCheck(id).then(response => {
+        console.log(response, '  idCheck 확인~~~~~~~~ ')
+        if (response.type === ActionTypes.IDCHECK_SUCCESS) {
+          this.setState({
+            id: {
+              value: id,
+            },
+            idCheckStatus: '사용가능한 아이디 입니다.'
+          })
+          return
+        } else if(response.type === ActionTypes.IDCHECK_FAIL){
+          this.setState({
+            id: {
+              value: ''
+            },
+            idCheckStatus: '사용 불가능한 아이디 입니다.'
+          })
+        }
+      }).catch(error => {
+        console.log(error, ' error 확인 ')
+        this.setState({
+          id: {
+            value: ''
+          },
+          idCheckStatus: '사용 불가능한 아이디 입니다.'
+        })
+      })
+    } else {
+      this.setState({
+        idCheckStatus:'입력하신 아이디가 짧습니다.'
+      })
+    }
+  
+  }
+
+  _passwordCheck =(event)=>{
+    
+    const { asynAction } = this.props;
+    asynAction().then(response=>{
+      this.setState({
+        passwordOrigin:event.target.value    
+      })
+      if(this.state.passwordOrigin === this.state.passwordCheck)
+    })
+    
+  }
+  componentDidCatch(err, errorInfo) {
+    console.log("componentDidCatch");
+    console.error(err);
+    console.error(errorInfo);
+    this.setState(() => ({ err, errorInfo }));
+  }
+
 
   // handleRadio(event) {
   //   let obj = {}
@@ -156,20 +219,21 @@ class Signup extends React.Component {
             회원가입
         </div>
           <form onSubmit={this.handleSubmit}>
-            <li> ID <input type="text" name="id"
-              value={this.state.id.value}
-              onChange={this.handleInputChange} placeholder="아이디" />
-              <input type="button" value="아이디중복체크" onClick={this._idCheck}></input></li>
-            <li>{this.state.signupCheckMessage.idMessage}</li>
 
+            <li> ID <input type="text" name="id"
+              onChange={this._idCheckChange} placeholder="아이디" />
+            </li>
+            <div>
+               {this.state.idCheckStatus}{/** 여기는 아이디 중복 체크 결과가 나옴 */}
+            </div>
             <li>Password <input type="password" name="password"
-              onChange={this.handleInputChange}
+              onChange={this._passwordCheck}
               placeholder="비밀번호" /> </li>
 
             <li>Password확인 <input type="password" name="passwordCheck"
-              onChange={this.handleInputChange}
+              onChange={this._passwordCheck}
               placeholder="비밀번호확인" /> </li>
-            <li>{this.state.signupCheckMessage.passwordMes}</li>
+            <li>여기에 비밀번호 체크 넣어 주기</li>
 
             <li> 이름 <input type="text" name="name"
               value={this.state.name.value} onChange={this.handleInputChange}
@@ -199,7 +263,7 @@ class Signup extends React.Component {
               value={this.state.phone.value} onChange={this.handleInputChange}
               placeholder="phone" />  </li>
             {/* <input type="submit" id="submit" name="submit" value="회원가입" /> */}
-            <input type="submit" id="submit" name="submit" value="회원가입" onClick={this.routeChange}/>
+            <input type="submit" id="submit" name="submit" value="회원가입" onClick={this.routeChange} />
           </form>
 
           <div className="footer">
@@ -212,8 +276,12 @@ class Signup extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  signup: (signupCustomer) => dispatch(signupAsync(signupCustomer))
+const mapDispatchToProps = (dispatch) => (console.log('mapDispatchToProps', dispatch), {
+
+  signup: (signupCustomer) => dispatch(signupAsync(signupCustomer)),
+  idCheck: (id) => dispatch(Actions.idCheck(id)),
+  emailCheck: (email) => dispatch(Actions.emailCheck(email)),
+  asynAction: ()=>dispatch(Actions.asynAction())
 });
 
 export default connect(null, mapDispatchToProps)(Signup);

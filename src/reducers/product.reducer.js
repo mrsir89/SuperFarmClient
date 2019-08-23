@@ -6,10 +6,10 @@ import { ActionTypes } from '../contants';
 //     shipping : {배송지, 배송방법, 배송비, 수취인, 수취인 전화번호, 배송 메세지}, 
 // }
 const initialStateProduct = {
-
+    productBoardDetail:{},
     productBoard: [],
-    category: [],
-    productBoardDetail:{}
+    category: []
+    
 };
 
 
@@ -17,7 +17,7 @@ const initialStateProduct = {
 const productReducer = (state = initialStateProduct, action) => {
     const { productBoard, cartlist } = state;
     const { payload } = action;
-
+    console.log('productReducer',state)
     switch (action.type) {
         case ActionTypes.LOAD_PRODUCTLIST_SUCCESS:
 
