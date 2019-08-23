@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 function Header({ history, location, matcher }) {
   return (
@@ -78,9 +79,6 @@ function Header({ history, location, matcher }) {
                 연락처
             </a>
             </li>
-
-
-
             {/* BEGIN TOP SEARCH */}
             <li className="menu-search">
               <span className="sep" />
@@ -105,4 +103,13 @@ function Header({ history, location, matcher }) {
   );
 }
 
-export default withRouter(Header);
+function mapStateToProps(state){
+  const {auth}=state;
+  const {userDetails} =auth;
+  console.log("HEADER UserDetails   === >", userDetails)
+  return {
+    userDetails
+  }
+}
+
+export default connect(mapStateToProps)(Header);

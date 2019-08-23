@@ -39,11 +39,11 @@ import {Header, PreHeader , Home, Footer, PreFooter} from './containers';
 
 
 class App extends React.Component {
-  render() { // 화면에 html 뷰를 생성.
-    return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
+  render() { // 화면에 html 뷰를 생성.\
+      return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
       <div className="container">
         <PreHeader/>
-        <Header /> 
+        <Header/> 
         <Switch>
           {/* <Route exact path="/" component={Main} /> */}
           <Route exact path="/" component={Home} />
@@ -65,5 +65,6 @@ class App extends React.Component {
     );
   }
 }
+
 export default App;
 

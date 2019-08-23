@@ -4,6 +4,7 @@ import { ActionTypes } from '../../contants';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
 import UserEdit from './UserEdit';
+import './UserEditLogin.css';
 
 const onChangeRoute = ({ props }) => {
     console.log(props, "tesdfsefefsaef");
@@ -74,18 +75,36 @@ class userCheck extends React.Component{
         login(customerId, password, history);
     }
 
+    onSubmit1(event){
+      event.preventDefault();
+      const { history } =this.props
+      history.push("/");
+    }
+
     render(){
         return (
             <div className="userCheck">
                 {/* RELOGIN(CheckUser) */}
-                <div className="userCheckForm">
-                    사용자 확인
+                <div id="userCheckForm">
+                    <h2>사용자 확인</h2>
+                    <p>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.</p>
                 </div>
-                <form onSubmit={e => this.onSubmit(e)}>
-                    <input type="text" name="customerId" value={this.state.customerId} onChange={this._onChange} placeholder="아이디입력" />
-                    <input type="password" name="password" value={this.state.password} onChange={this._onChange} placeholder="비밀번호입력" />
-                    <input type="submit" name="확인" value="userCheck" />
-                </form>
+                <form onSubmit={e => this.onSubmit(e)} onSubmit1={e => this.onSubmit1(e)}>
+                  <div class="t-box-msg mt_30">
+                      <p>
+                        <label class="lab">아이디</label>
+                        <input type="text" name="customerId" value={this.state.customerId} onChange={this._onChange} placeholder="아이디입력" />
+                      </p>
+                      <p>
+                      <label class="lab">비밀번호</label>
+                        <input type="password" name="password" value={this.state.password} onChange={this._onChange} placeholder="비밀번호입력" />
+                      </p>
+                  </div>
+                  <div class="btn-foot mt_30" style={{display:'flex',justifyContent:'center'}}>
+                   <input type="submit" name="확인" value="확인" class="btn_x110_a"></input>
+                   <input type="submit" name="submit1" value="취소" class="btn_x110_b"></input>
+                  </div>
+                  </form>
             </div>
         );
     }

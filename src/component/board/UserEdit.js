@@ -3,6 +3,7 @@ import { Actions } from '../../actions';
 import { ActionTypes } from '../../contants';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
+import { getForkTsCheckerWebpackPluginHooks } from 'fork-ts-checker-webpack-plugin/lib/hooks';
 
 
 
@@ -40,11 +41,16 @@ class userEdit extends React.Component {
                 customerAddr: userDetails.customerAddr,
                 customerPhone: userDetails.customerPhone,
                 userPassword1:'',
+                passwordCheck:false,
+                addrCheck:false,
+                customerPhoneCheck:false
         }
 
         this.onChange = this.onChange.bind(this);
 
         this.routeChange=this.routeChange.bind(this);
+
+        this._inputCheck=this._inputCheck.bind(this);
     }
 
       // Change endpoint after Login (with some error)
@@ -60,14 +66,16 @@ class userEdit extends React.Component {
         const { history } = this.props
 
         if(this.state.userPassword===null || this.state.userPassword===undefined || this.state.userPassword1===null || this.state.userPassword1===undefined){
-            alert("비번을 확인하세요!");
+            alert("비밀번호을 확인하세요!");
         }else if(this.state.customerAddr === null || this.state.customerAddr === undefined ){
             alert("주소를 입력하세요")
         }else if(this.state.customerPhone===null || this.state.customerPhone===undefined){
             alert("핸드폰 번호를 입력하세요")
         } else if(this.state.userPassword !== this.state.userPassword1){
             alert("비밀번호를 재확인 하세요")
-        } else{
+        } else if(this.state.userPassword==="" || this.state.customerPhone==="" || this.state.customerAddr===""){ 
+            alert('빈칸이 있습니다. 확인하세요.')
+        }else if (this.state.addrCheck === true || this.state.passwordCheck ===true || this.state.customerPhoneCheck ===true){
             const changeUserInfo = {
                 userEmail: this.state.userEmail,
                 userId: this.state.userId,
@@ -93,6 +101,20 @@ class userEdit extends React.Component {
         });
         console.log(name, value, "name,value넣은 후.....")
         console.log(this.state)
+        this._inputCheck();
+    }
+
+    _inputCheck(){
+        let userPasswordCheck=this.state.userPassword;
+        let customerAddrCheck=this.state.customerAddr;
+        let customerPhoneCheck=this.state.customerPhone;
+        if(userPasswordCheck!==null || userPasswordCheck!==undefined || customerPhoneCheck!==null || customerPhoneCheck!==undefined || customerAddrCheck !== null || customerAddrCheck!==undefined){
+           this.setState({
+            passwordCheck:true,
+            addrCheck:true,
+            customerPhoneCheck:true
+           });
+        }
     }
 
     render() {
@@ -102,8 +124,10 @@ class userEdit extends React.Component {
         console.log("render userDetails->>>>>", userDetails);
         return (
             <div className="edituser">
-                <h3>회원정보 수정</h3>
-                <div className="edit-table">
+                <div style={{display:'flex',justifyContent:'center'}}>
+                    <h3>회원정보 수정</h3><br/>
+                </div>
+                <div className="edit-table" style={{display:'flex',justifyContent:'center'}}>
                     <form onSubmit={e => this.onSubmit(e)}>
                         <table>
                             <tbody>
@@ -126,10 +150,6 @@ class userEdit extends React.Component {
                                 <tr>
                                     <td scope="row">Email</td>
                                     <td><input value={userDetails.userEmail} /></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">고객성별</td>
-                                    <td><input value={userDetails.position.customerGender} /></td>
                                 </tr>
                                 <tr>
                                     <td scop="row">핸드폰 번호</td>

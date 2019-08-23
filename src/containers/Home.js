@@ -1,5 +1,6 @@
 import React from 'react';
 import Carousel from './Carousel';
+import PreHeader from './PreHeader';
 
 const newArrivals = [
   {
