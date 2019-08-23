@@ -45,6 +45,10 @@ const authentication = (state = initialStateAuth, action) => {
                 ...state,
                 userDetails: payload.data
             }
+        case ActionTypes.ASNYCACTION:
+            return{
+                ...state
+            }
 
 
         default:

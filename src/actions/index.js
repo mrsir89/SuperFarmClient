@@ -40,7 +40,7 @@ const getClientToken = () => {
  * @param {singupCustomer} signupCustomer 
  * @Return User<Customer>
  */
-const signup = (signupCustomer) => {
+const signup = (signupCustomer,history) => {
   console.log(signupCustomer, ' 여기는 signup 안쪽')
 
   return ({
@@ -65,7 +65,7 @@ const signup = (signupCustomer) => {
  * @return true or notfoud 
  */
 const idCheck = (id) => {
-  console.log('idCheck 실행 ',id)
+  console.log('idCheck 실행 ', id)
 
   const formData = new FormData();
   formData.append('id', id);
@@ -83,13 +83,15 @@ const idCheck = (id) => {
 
 const emailCheck = (email) => {
   const formData = new FormData();
-  formData.append = ('email', email);
+  formData.append('email', email);
   return ({
     type: ActionTypes.EMAILCHECK,
     payload: {
-      method: 'POST',
-      url: '/signup/emailCheck',
-      data: formData
+      request: {
+        method: 'POST',
+        url: '/signup/emailCheck',
+        data: formData
+      }
     }
   });
 }
@@ -458,9 +460,18 @@ const getCategories = () => {
 
 //////////////////////////////////////////////////////////
 ///        비동기 처리를 위한 Action
-const asynAction =()=>({
-  type:ActionTypes.ASNYCACTION
-})
+const asynAction = () => {
+  // window.setInterval(()=>{}, 100);
+  return {
+    type: ActionTypes.ASNYCACTION,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/signup/asyncAction'
+      }
+    }
+  }
+}
 
 
 export const Actions = {

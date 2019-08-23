@@ -13,15 +13,21 @@ import { async } from 'q';
 // Store와 Reducer를 연결시킬 수 있도록 만들어진 Component가 반환값이 된다
 
 
-const signupAsync = (signupCustomer) => dispatch => {
+const signupAsync = (signupCustomer,history) => dispatch => {
   return dispatch(Actions.getClientToken())
     .then(response => {
       if (response.type === ActionTypes.GET_TOKEN_SUCCESS) {
         console.log('dispatch signupAsync ActionTypes.GET_TOKEN_SUCCESS ')
-        return dispatch(Actions.signup(signupCustomer))
+        return dispatch(Actions.signup(signupCustomer,history)).then(response=>{
+          
+          history.push("/")
+        })
       } else {
         return Promise.reject(response);
       }
+    }).catch(error=>{
+      alert('서버와의 통신중 오류가 생겼습니다. 다시 시도해 주세요')
+      return history.push("/login")
     });
 };
 
@@ -31,24 +37,28 @@ class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: { value: '' },
-      passwordOrigin:'' ,
-      passwordCheck:'' ,
-      name: { value: '' },
-      birthday: { value: '' },
-      // gender:{ value:'' },
-      email: { value: '' },
-      address: { value: '' },
-      phone: { value: '' },
-      singupCheck: {
-        idCheck: false,
-        passwordCheck: false,
-        emailCheck: false
-      }
+      id: '',
+      passwordOrigin: '',
+      passwordCheck: '',
+      passwordComent: '비밀번호를 입력해 주세요',
+      name: '',
+      birthday:'' ,
+      gender:'' ,
+      email:'',
+      address:'' ,
+      phone:'' ,
+      emailComent: 'email을 입력하세요',
+      idCheck: false,
+      passwordCheck: false,
+      emailCheck: false
+
     };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this._handleInputChange = this._handleInputChange.bind(this);
+    this._signupSubmit = this._signupSubmit.bind(this);
+    this._idCheckChange = this._idCheckChange.bind(this);
     this._passwordCheck = this._passwordCheck.bind(this);
+    this._passwordOrigin = this._passwordOrigin.bind(this);
+    this._emailCheck = this._emailCheck.bind(this);
     this.routeChange = this.routeChange.bind(this);
   }
 
@@ -59,35 +69,30 @@ class Signup extends React.Component {
 
 
   componentWillMount() {
-    console.log('willMount 실행');
-    // Change endpoint after Login (with some error)
-
-
+    console.log('willMount 실행')
   }
+
   componentDidMount() {
     console.log('DidMount 실행')
   }
 
-
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextState) {
     return (JSON.stringify(nextState) != JSON.stringify(this.state));
   }
 
-  handleInputChange(event) {
+  _handleInputChange(event) {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-
+    value.trim()
     console.log(target, '     :target')
     console.log(value, '    :value')
     console.log(name, '   : name')
+
     this.setState({
-      [name]: {
-        value: value
-      }
+      [name]: value
     });
     console.log(this.state)
-    this._passwordCheck()
   }
 
   // 아이디 중복 체크 API 호출로 실시간 체크
@@ -104,17 +109,17 @@ class Signup extends React.Component {
         console.log(response, '  idCheck 확인~~~~~~~~ ')
         if (response.type === ActionTypes.IDCHECK_SUCCESS) {
           this.setState({
-            id: {
-              value: id,
-            },
+            id: id,
+            idCheck: true,
             idCheckStatus: '사용가능한 아이디 입니다.'
           })
           return
-        } else if(response.type === ActionTypes.IDCHECK_FAIL){
+        } else if (response.type === ActionTypes.IDCHECK_FAIL) {
           this.setState({
             id: {
               value: ''
             },
+            idCheck: false,
             idCheckStatus: '사용 불가능한 아이디 입니다.'
           })
         }
@@ -124,28 +129,112 @@ class Signup extends React.Component {
           id: {
             value: ''
           },
+          idCheck: false,
           idCheckStatus: '사용 불가능한 아이디 입니다.'
         })
       })
     } else {
       this.setState({
-        idCheckStatus:'입력하신 아이디가 짧습니다.'
+        idCheckStatus: '입력하신 아이디가 짧습니다.',
+        idCheck: false
       })
     }
-  
+    console.log('Id change 확인중 ', this.state)
   }
 
-  _passwordCheck =(event)=>{
-    
+  // 비밀번호 체크
+  _passwordOrigin = (event) => {
+    var password = event.target.value
+    password.trim()
     const { asynAction } = this.props;
-    asynAction().then(response=>{
+
+    asynAction().then(response => {
       this.setState({
-        passwordOrigin:event.target.value    
+        passwordOrigin: password
       })
-      if(this.state.passwordOrigin === this.state.passwordCheck)
+      if ((this.state.passwordOrigin).length > 3) {
+        if (this.state.passwordOrigin === this.state.passwordCheck) {
+          this.setState({
+            passwordComent: '비밀번호가 일치 합니다.',
+            passwordCheck: true
+          })
+          console.log('password State', this.state)
+        } else {
+          this.setState({
+            passwordComent: '비밀번호가 일치하지 않습니다.',
+            passwordCheck: true
+          })
+        }
+      } else {
+        this.setState({
+          passwordComent: '비밀번호가 짧습니다.',
+          passwordCheck: true
+        })
+      }
     })
-    
+    console.log('state 확인~!@!!!!!!!!!!!!!!!!!!!!!', this.state)
   }
+  _passwordCheck = (event) => {
+
+    console.log(event.target)
+    const { asynAction } = this.props;
+    var password = event.target.value
+    password.trim()
+    console.log(this.props, 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz')
+    console.log(event.target.value, 'check target')
+
+    asynAction().then((response) => {
+      console.log(response)
+      this.setState({
+        passwordCheck: password
+      })
+      if (this.state.passwordOrigin === this.state.passwordCheck) {
+        this.setState({
+          passwordComent: '비밀번호가 일치 합니다.',
+          passwordCheck: true
+        })
+        console.log('password State', this.state)
+      } else {
+        this.setState({
+          passwordComent: '비밀번호가 일치하지 않습니다.',
+          passwordCheck: true
+        })
+      }
+    })
+    console.log('state 확인~!@!!!!!!!!!!!!!!!!!!!!!', this.state)
+  }
+
+  _emailCheck = (event) => {
+    var email = event.target.value;
+    email.trim();
+    const { emailCheck } = this.props;
+    console.log('email 체크 합니다용~~~', this.props)
+    emailCheck(email).then(response => {
+      if (response.type === ActionTypes.EMAILCHECK_SUCCESS) {
+        this.setState({
+          email: email,
+          emailCheck: true,
+          emailComent: '사용 가능 합니다.'
+        })
+      } else {
+        this.setState({
+          email:'',
+          emailCheck: false,
+          emailComent: '사용 불가능한 email입니다.'
+        })
+      }
+    }).catch(error => {
+      console.log('error', error)
+      this.setState({
+        emailCheck: false,
+        emailComent: '사용 불가능한 email입니다.'
+      });
+    })
+
+    console.log(email, ' email 확인!!!!!!')
+  }
+
+
   componentDidCatch(err, errorInfo) {
     console.log("componentDidCatch");
     console.error(err);
@@ -164,51 +253,40 @@ class Signup extends React.Component {
   //   })
   // }
 
-  handleSubmit(e) {
+  _signupSubmit(e) {
     e.preventDefault();
-
     console.log('submit 실행 합니다.')
-    const signupCustomer = {
-      userId: this.state.id.value,
-      userName: this.state.name.value,
-      userPassword: this.state.password.value,
-      userEmail: this.state.email.value,
-      customerBirth: this.state.birthday.value,
-      // customerGender : this.state.gender.value,
-      customerPhone: this.state.phone.value,
-      customerAddr: this.state.address.value
-    }
-    const { signup } = this.props;
-    signup(signupCustomer);
-  }
+    let checkpwd = this.state.idCheck;
+    let checkId = this.state.passwordCheck;
+    let checkemail = this.state.emailCheck;
+    console.log('sumbit의 state.',this.state)
+    if (checkpwd !== false && checkId !== false && checkemail !== false) {
+      if (this.state.userId !== null && this.state.userId !==''
+          &&this.state.name !=='' && this.state.birthday !=='' 
+          &&this.state.address !=='' && this.state.phone !=='') {
 
-
-  _passwordCheck() {
-    //  console.log({getState},'get State 확인~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    let password1 = this.state.password.value;
-    let password2 = this.state.passwordCheck.value;
-    console.log('password1 = :', password1, '   password2 =  :', password2)
-    if (password1 === password2) {
-      this.setState({
-        signupCheckMessage: {
-          passwordMes: '패스워드가 일치 합니다.'
-        },
-        singupCheck: {
-          passwordCheck: true
+        const signupCustomer = {
+          userId: this.state.id,
+          userName: this.state.name,
+          userPassword: this.state.passwordOrigin,
+          userEmail: this.state.email,
+          customerBirth: this.state.birthday,
+          customerGender: this.state.gender,
+          customerPhone: this.state.phone,
+          customerAddr: this.state.address
         }
-      })
-    } else {
-      this.setState({
-        signupCheckMessage: {
-          passwordMes: '패스워드가 일치 하지 않습니다'
-        },
-        singupCheck: {
-          passwordCheck: false
-        }
-      })
-    }
-  }
+        const { signup } = this.props;
+        const { history }= this.props;
+        signup(signupCustomer,history);
 
+      
+      }else{
+        alert('누락된 곳이 있습니다.')
+      }
+    }else {
+      alert(' 입력하지 않은 곳이 있습니다.')
+    }
+  };
 
   render() {
 
@@ -218,52 +296,51 @@ class Signup extends React.Component {
           <div className="top">
             회원가입
         </div>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this._signupSubmit}>
 
             <li> ID <input type="text" name="id"
               onChange={this._idCheckChange} placeholder="아이디" />
+              {this.state.idCheckStatus}{/** 여기는 아이디 중복 체크 결과가 나옴 */}
             </li>
-            <div>
-               {this.state.idCheckStatus}{/** 여기는 아이디 중복 체크 결과가 나옴 */}
-            </div>
+
             <li>Password <input type="password" name="password"
-              onChange={this._passwordCheck}
+              onChange={this._passwordOrigin}
               placeholder="비밀번호" /> </li>
 
             <li>Password확인 <input type="password" name="passwordCheck"
-              onChange={this._passwordCheck}
+              onChange={this._passwordCheck} 
               placeholder="비밀번호확인" /> </li>
-            <li>여기에 비밀번호 체크 넣어 주기</li>
+
+            <li>{this.state.passwordComent}</li>
 
             <li> 이름 <input type="text" name="name"
-              value={this.state.name.value} onChange={this.handleInputChange}
-              placeholder="이름" /> </li>
+              value={this.state.name} onChange={this._handleInputChange}
+              placeholder="이름" /> 1</li>
 
-            <li> email <input type="text" name="email"
-              value={this.state.email.value} onChange={this.handleInputChange}
-              placeholder="eamil" /><input type="button" value="eamil 중복체크"></input> </li>
+            <li> email <input type="email" name="email"
+              onChange={this._emailCheck}
+              placeholder="eamil" />{this.state.emailComent}</li>
 
             <li> 생일 <input type="Date" name="birthday"
-              value={this.state.birthday.value} onChange={this.handleInputChange}
+              value={this.state.birthday.value} onChange={this._handleInputChange}
               placeholder="birthday" /> </li>
 
             {/* <li> 남 <input type="radio" name="gender"
-          value='남' onChange={this.handleRadio}
-          placeholder="gender" /> 
-          
-          여 <input type="radio"name="gender" 
-          value='여' onChange={this.handleRadio}
-          placeholder="gender" /> </li> */}
+                value='남' onChange={this.handleRadio}
+                placeholder="gender" /> 
+                여 <input type="radio"name="gender" 
+                value='여' onChange={this.handleRadio}
+                placeholder="gender" /> </li> */}
 
             <li>주소 <input type="text" name="address"
-              value={this.state.address.value} onChange={this.handleInputChange}
+              value={this.state.address.value} onChange={this._handleInputChange}
               placeholder="address" /> </li>
 
             <li> 연락처 <input type="text" name="phone"
-              value={this.state.phone.value} onChange={this.handleInputChange}
+              value={this.state.phone.value} onChange={this._handleInputChange}
               placeholder="phone" />  </li>
             {/* <input type="submit" id="submit" name="submit" value="회원가입" /> */}
-            <input type="submit" id="submit" name="submit" value="회원가입" onClick={this.routeChange} />
+            <input type="submit" id="submit" name="submit" value="회원가입"/>
           </form>
 
           <div className="footer">
@@ -278,10 +355,11 @@ class Signup extends React.Component {
 
 const mapDispatchToProps = (dispatch) => (console.log('mapDispatchToProps', dispatch), {
 
-  signup: (signupCustomer) => dispatch(signupAsync(signupCustomer)),
+  signup: (signupCustomer,history) => dispatch(signupAsync(signupCustomer,history)),
   idCheck: (id) => dispatch(Actions.idCheck(id)),
   emailCheck: (email) => dispatch(Actions.emailCheck(email)),
-  asynAction: ()=>dispatch(Actions.asynAction())
+  asynAction: () => dispatch(Actions.asynAction())
+
 });
 
 export default connect(null, mapDispatchToProps)(Signup);
