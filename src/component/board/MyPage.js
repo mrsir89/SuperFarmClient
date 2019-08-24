@@ -6,6 +6,12 @@ class MyPage extends React.Component {
         super(props)
     }
 
+    logout() {
+        localStorage.clear();
+        window.location.href = '/';
+    }
+
+
     render() { 
         const { auth } = this.props;
         const { userDetails } = auth;
@@ -15,6 +21,7 @@ class MyPage extends React.Component {
                 <p>이름 : {userDetails.username}</p>
                 <p>주소 : {position.customerAddr}</p>
                 <p>전화번호 : {position.customerPhone}</p>
+                <button onClick={this.logout}>Logout</button>
             </div>
         )
     }

@@ -141,7 +141,7 @@ class ProductDetail extends React.Component {
       const productBoardNum = this.props.match.params.id;
       console.log(productBoardNum, ' productBoardNum!!')
       const { loadProductDetails } = this.props;
-
+      console.log("0823 this.props ",this.props)
       loadProductDetails(productBoardNum);
 
    }

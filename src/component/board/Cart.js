@@ -69,6 +69,7 @@ class Cart extends React.Component {
 
   }
 
+  // 장바구니에 담긴 상품 갯수 구하기 
   _getCartCount(items) {
     return (items === undefined || items === null || items.length ===0 ? 0 : items.length);
    
@@ -90,31 +91,30 @@ class Cart extends React.Component {
   }
 
 
-  _cartlistCheck() {
-    const { cartItem } = this.props
-    if (cartItem !== undefined && cartItem !== null) {
-      return cartItem;
-    } else {
-      return null
-    }
-  }
+  // _cartlistCheck() {
+  //   const { cartItem } = this.props
+  //   if (cartItem !== undefined && cartItem !== null) {
+  //     return cartItem;
+  //   } else {
+  //     return null
+  //   }
+  // }
 
+  // 장바구니에 담긴 상품이 1개일 경우 가격 구하기 
   _getOnePrice (items) {
     const price = Number.parseFloat(items[0].cartProductPrice) * Number.parseFloat(items[0].cartProductCount);
     return price.toFixed(0);
   }
 
 
-  // {this._showCartItems()}
   render() {
     const { cartlist } = this.props;
     const SubPrice =  this._getCartCount(cartlist) > 1 ? this._getSubTotalPrice(cartlist)
                 : this._getCartCount(cartlist) == 1 ? this._getOnePrice(cartlist) : 0 ;
-    const TotalPrice = SubPrice + 3.0;
+    
+    const shippingPrice = (cartlist.length >0 ? 3000 : 0);
+    const TotalPrice = Number.parseFloat(SubPrice) +  Number.parseFloat(shippingPrice);
 
-
-    console.log ("items가 왜 undefined 이지??", cartlist)
-    console.log ("SubPrice ???????", SubPrice)
 
     return (
 
@@ -125,8 +125,6 @@ class Cart extends React.Component {
             {/* <!-- BEGIN CONTENT --> */}
             <div className="col-md-12 col-sm-12">
               <h1>장바구니</h1>
-
-              
 
               <div className="goods-page">
                 <div className="goods-data clearfix">
@@ -208,21 +206,24 @@ class Cart extends React.Component {
                     <ul>
                       <li>
                         <em>Sub total</em>
-                        <strong className="price"><span>$</span>{SubPrice}</strong>
+                        <strong className="price">{SubPrice}<span>원</span></strong>
                       </li>
                       <li>
                         <em>Shipping cost</em>
-                        <strong className="price"><span>$</span>3.00</strong>
+                        <strong className="price">{shippingPrice}<span>원</span></strong>
                       </li>
                       <li className="shopping-total-price">
                         <em>Total</em>
-                        <strong className="price"><span>$</span>{TotalPrice}</strong>
+                        <strong className="price">{TotalPrice}<span>원</span></strong>
                       </li>
                     </ul>
                   </div>
                 </div>
                 <button className="btn btn-default" type="submit">Continue shopping <i className="fa fa-shopping-cart"></i></button>
-                <input className="btn btn-primary" type="submit" value="구매하기"/>Checkout <i className="fa fa-check"></i>
+                
+                <input className="btn btn-primary" type="submit" value="구매하기"/>
+                   <a href="/orderSheet">Checkout</a>
+                <i className="fa fa-check"></i>
               </div>
 
              

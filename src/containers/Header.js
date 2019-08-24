@@ -2,13 +2,17 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import HeaderCart from './HeaderCart'
-//import { Actions } from '../../actions/index';
+import Menu from './Menu';
+import { Actions } from '../../actions/index';
 
-function Header({ history, location, matcher, cartlist}) {
+function Header({ history, location, matcher, cartlist, getCategories}) {
   console.log(cartlist);
+
+
   if(window.location.href !== "http://localhost:3000/review/write"){
     return (
       <div className="header">
+        {_loadCategories}
         <div className="container">
           <a className="site-logo" href="/"><img src="/images/logo.jpg" alt="Metronic Shop UI" /></a>
           <a href="javascript:void(0);" className="mobi-toggler"><i className="fa fa-bars" /></a>
@@ -18,46 +22,9 @@ function Header({ history, location, matcher, cartlist}) {
           {/* BEGIN NAVIGATION */}
           <div className="header-navigation">
             <ul>
-              <li className="dropdown active">
-                <a className="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
-                  농산물
-                </a>
-                <ul className="dropdown-menu">
-                  <li><a href="/productlist/1">채소</a></li>
-                  <li><a href="/productlist/2">과일</a></li>
-                </ul>
-              </li>
-              <li className="dropdown active">
-                <a className="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
-                  축산물
-              </a>
-                <ul className="dropdown-menu">
-                  <li><a href="shop-account.html">돼지고기</a></li>
-                  <li><a href="shop-wishlist.html">소고기</a></li>
-                </ul>
-              </li>
-              <li className="dropdown active">
-                <a className="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
-                  수산물
-              </a>
-                <ul className="dropdown-menu">
-                  <li><a href="shop-privacy-policy.html">어패류</a></li>
-                  <li><a href="shop-terms-conditions-page.html">해조류</a></li>
-                </ul>
-              </li>
-  
-              <li className="dropdown active">
-                <a className="dropdown-toggle" href="qnaboard">
-                  게시판
-              </a>
-              </li>
-              <li className="dropdown active">
-                <a className="dropdown-toggle" href="/about">
-                  연락처
-              </a>
-              </li>
+              
              
-  
+            {/* {categoryItems.categoryItems.map((items,index) => <Menu {...items} key={index}/>)} */}
   
               {/* BEGIN TOP SEARCH */}
               <li className="menu-search">
@@ -90,10 +57,13 @@ function Header({ history, location, matcher, cartlist}) {
  
 }
 
-
+const mapDispatchToProps = (dispatch) => ({
+  getCategories: () => dispatch(Actions.getCategories())
+});
 const mapStateToProps = state => ({
-  cartlist: state.cart.cartlist
+  cartlist: state.cart.cartlist,
+  
 });
 
-export default withRouter(connect(mapStateToProps)(Header));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Header));
 //export default withRouter(Header);

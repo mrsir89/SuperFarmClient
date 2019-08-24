@@ -57,6 +57,7 @@ class App extends React.Component {
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/review/all" component={ListReview} />
           <Route path="/review/write" component={AddReview} />
+          {/* <Route path="/orderSheet" component={OrderSheet} /> */}
 
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
         </Switch>
