@@ -398,7 +398,7 @@ const getCartByUser = (userNum) => {
 const loadProductList = (type, id) => {
 
   const formData = new FormData();
-  let url = '/product/all'
+  let url = '/product/lower'
 
   if (type === 'lower') {
     console.log('lower 확인 ,', type, id)

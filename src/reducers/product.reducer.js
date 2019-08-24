@@ -28,6 +28,11 @@ const productReducer = (state = initialStateProduct, action) => {
                         ...state,
                         productBoard: data
                     };
+                }else{
+                    return{
+                        ...state,
+                        productBoard:[]
+                    }
                 }
             }
             return state;
@@ -46,6 +51,7 @@ const productReducer = (state = initialStateProduct, action) => {
 
         // 카테고리 불러오기 
         case ActionTypes.GET_CATEGORIES_SUCCESS:
+            console.log('ActionType.CategorySuccess')
             if (payload !== undefined && payload !== null) {
                 const { data } = payload;
                 if (data !== undefined && data !== null) {

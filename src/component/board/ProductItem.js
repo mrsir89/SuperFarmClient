@@ -14,7 +14,7 @@ function ProductItem(props) {
                 </div>
                 <h3><a href="shop-item.html">{props.item.productBoardTitle}</a></h3>
                 <div class="pi-price">{props.item.productBoardDeliveryPrice}원</div>
-                <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
+                {/* <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a> */}
             </div>
         </div>
 

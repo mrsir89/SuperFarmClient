@@ -14,7 +14,6 @@ import axios from 'axios'; // 추가사항
 import axiosMiddleware from 'redux-axios-middleware'; // 추가사항
 import { StateLoader, interceptors, onErrorHandler } from './util';
 import App from './App';
-import NaviBar from './component/board/NaviBar';
 
 // import * as serviceWorker from './serviceWorker';
 

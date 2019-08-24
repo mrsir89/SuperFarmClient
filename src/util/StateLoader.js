@@ -32,7 +32,7 @@ class StateLoader {
             auth: {
                 retryCount: 0,
                 token: null,
-                userDetails: {},
+                userDetails: null,
                 signupModel: {}
             },
             product: {

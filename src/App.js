@@ -14,7 +14,6 @@ import Cart from './component/board/Cart';
 import ProductDetail from './component/board/ProductDetail';
 import ProductList from './component/board/ProductList';
 import MyPage from './component/board/MyPage';
-import NaviBar from './component/board/NaviBar';
 import {Header, PreHeader , Home, Footer, PreFooter} from './containers';
 import ListReview from './component/board/reviewBoard/ListReview'
 import AddReview from './component/board/reviewBoard/AddReview';
