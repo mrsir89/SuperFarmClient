@@ -32,8 +32,8 @@ class StateLoader {
             auth: {
                 retryCount: 0,
                 token: null,
-                userDetails: {},
-                signupModel: null
+                userDetails: null,
+                signupModel: {}
             },
             product: {
                 productBoard: [],

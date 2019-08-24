@@ -12,7 +12,7 @@ const cartReducer = (state = initialStateCart, action) => {
     switch (action.type) {
         // user의 장바구니 불러오기 
         case ActionTypes.GET_CART_SUCCESS:
-            console.log('ActionTypes.GET_CART_SUCCESS',action)
+            console.log('ActionTypes.GET_CART_SUCCESS', action)
             if (payload !== undefined && payload !== null) {
                 const { data } = payload;
                 if (data !== undefined && data !== null) {

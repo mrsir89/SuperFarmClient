@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import Chevron from "./Chevron";
- import removeReview from './ListReview';
 
  import "./Accordion.css";
 

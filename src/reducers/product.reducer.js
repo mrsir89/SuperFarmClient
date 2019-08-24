@@ -6,10 +6,9 @@ import { ActionTypes } from '../contants';
 //     shipping : {배송지, 배송방법, 배송비, 수취인, 수취인 전화번호, 배송 메세지}, 
 // }
 const initialStateProduct = {
-
+    productBoardDetail:{},
     productBoard: [],
-    category: [],
-    productBoardDetail:{}
+    category: []
 };
 
 
@@ -17,7 +16,7 @@ const initialStateProduct = {
 const productReducer = (state = initialStateProduct, action) => {
     const { productBoard, cartlist } = state;
     const { payload } = action;
-
+    console.log('productReducer',state)
     switch (action.type) {
         case ActionTypes.LOAD_PRODUCTLIST_SUCCESS:
 
@@ -28,6 +27,11 @@ const productReducer = (state = initialStateProduct, action) => {
                         ...state,
                         productBoard: data
                     };
+                }else{
+                    return{
+                        ...state,
+                        productBoard:[]
+                    }
                 }
             }
             return state;
@@ -46,6 +50,7 @@ const productReducer = (state = initialStateProduct, action) => {
 
         // 카테고리 불러오기 
         case ActionTypes.GET_CATEGORIES_SUCCESS:
+            console.log('ActionType.CategorySuccess')
             if (payload !== undefined && payload !== null) {
                 const { data } = payload;
                 if (data !== undefined && data !== null) {
@@ -70,7 +75,21 @@ const productReducer = (state = initialStateProduct, action) => {
             }
             return state;  
         default:
-            return state;   
+            return state;
+            
+        // 프로덕트 상세 정보 불러 오기
+        case ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS:
+            console.log('ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS',payload.data)
+            if(payload !== undefined && payload !== null){
+                const{ data } = payload;
+                if(data !== undefined && data !== null){
+                    return{
+                        ...state,
+                        productBoardDetail:data
+                    };
+                }
+            }
+            return state;  
     }
 }
 

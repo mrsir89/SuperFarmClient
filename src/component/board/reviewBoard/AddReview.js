@@ -49,7 +49,12 @@ class AddReview extends React.Component {
         console.log(response,' 성공하고 data')
         let reviewBoardNum = response.payload.data.reviewBoardNum;
         console.log('AddReview Response 확인 ',response)
-        uploadFileReview(reviewBoardNum,this.state.reviewFiles)
+        uploadFileReview(reviewBoardNum,this.state.reviewFiles).then(response =>{
+          if(response.type === ActionTypes.UPLOADFILEREVIEW_SUCCESS){
+            console.log(response.type)
+            window.close()
+          }
+        })
       }else
       console.log('Add 실패 한다~!!')
     })

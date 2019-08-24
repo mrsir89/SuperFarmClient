@@ -2,10 +2,7 @@ import React from 'react';
 import ProductItem from './ProductItem';
 import { Link } from 'react-router-dom';
 import { Actions } from '../../actions/index';
-// import {ActionTypes} from '../../contants';
 import { connect } from 'react-redux';
-//import { withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 
 
 // 제품 전체 리스트 페이지 
@@ -18,7 +15,15 @@ class ProductList extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    const { loadProductList } = this.props;
+    //loadProductList();
+    const lowerId = this.props.match.params.id;
+    console.log("lowerId >>>>>>>>>>>", lowerId);
+    loadProductList('lower', lowerId);
+
+  }
+  componentDidMount(){
     const { loadProductList } = this.props;
     //loadProductList();
     const lowerId = this.props.match.params.id;
@@ -31,13 +36,23 @@ class ProductList extends React.Component {
   _renderAllProducts = () => {
     const { productBoard } = this.props;
     var productItems = [];
-
-    if (productBoard !== undefined && productBoard !== null) {
+    console.log(productBoard , ' _renderAllProduct')
+    if (productBoard !== undefined && productBoard !== null && productBoard.length !== 0) {
       productItems = productBoard.map(item => {
         return <Link to={`/product/${item.productBoardNum}`}>
           <ProductItem key={item.productBoardNum} item={item} />
         </Link>
       })
+    }else{
+      return(
+        <div>
+          찾으시는 물품이 없습니다.
+        </div>
+        // 여기에 물품이 없을 경우 페이지 만들기 
+        // 찾으시는 물품이 없습니다가 잘 나오게 
+        
+
+      )
     }
     return productItems
 

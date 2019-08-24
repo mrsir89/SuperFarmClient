@@ -1,5 +1,5 @@
 
-// 8/16 sj
+// 8/24 merging 
 // (userId)를 바탕으로 장바구니 추가/ 불러오기 기능 구현
 
 import React from 'react';
@@ -14,7 +14,7 @@ import axios from 'axios'; // 추가사항
 import axiosMiddleware from 'redux-axios-middleware'; // 추가사항
 import { StateLoader, interceptors, onErrorHandler } from './util';
 import App from './App';
-import NaviBar from './component/board/NaviBar';
+// import NaviBar from './component/board/NaviBar';
 import 'bootstrap/dist/css/bootstrap.css'
 
 // import * as serviceWorker from './serviceWorker';
