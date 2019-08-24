@@ -19,6 +19,7 @@ import ListReview from './component/board/reviewBoard/ListReview'
 import AddReview from './component/board/reviewBoard/AddReview';
 import kakaoPay from './util/Payment/kakaoPay';
 import Notice from './component/board/notice/notice';
+import NoticeDetail from './component/board/notice/noticeDetail';
 
 
 // import Main from './Main';
@@ -52,6 +53,7 @@ class App extends React.Component {
           <Route exact path="/" component={Home} />
           {/* <Route exact path="/product" component={ProductList} /> */}
           <Route path="/productlist/:id" component={ProductList} />
+          <Route path="/notice/:noticeNum" component={NoticeDetail}/>
           <Route path="/signup" component={signup} />
           <Route path="/login" component={login} />
           <Route path="/qnaboard" component={qnaboard} />

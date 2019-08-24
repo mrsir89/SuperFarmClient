@@ -1,11 +1,8 @@
 import React from 'react';
-// import { NoticeItem }  from './noticeItem';
+import  NoticeItem   from './noticeItem';
 // import Noticejson from './Notice.json';
-import { connect } from 'http2';
-
-
-
-
+import { connect } from 'react-redux';
+import { Actions } from '../../../actions/index';
 
 
 class Notice extends React.Component {
@@ -14,34 +11,25 @@ class Notice extends React.Component {
     super(props)
   }
 
+  componentWillMount(){
+    const { loadNoticeBoard } = this.props;
+    loadNoticeBoard();
+  }
 
   render(){
+  const { noticeBoard } = this.props;
+  const { items } =noticeBoard;
+  console.log('00000000000000000000000000000000000000',noticeBoard)
   return (
       <div className="main">
         <div className="container">
-          <ul className="breadcrumb">
-            <li><a href="index.html">Home</a></li>
-            <li><a href>Store</a></li> 
-            <li className="active">Notice</li>
-          </ul>
+        
           {/* BEGIN SIDEBAR & CONTENT */}
-          <div className="row margin-bottom-40">
-            {/* BEGIN SIDEBAR */}
-            <div class="sidebar col-md-3 col-sm-3">
-            <ul class="list-group margin-bottom-25 sidebar-menu">
-              <li class="list-group-item clearfix"><a href="javascript:;"><i class="fa fa-angle-right"></i> Login/Register</a></li>
-              <li class="list-group-item clearfix"><a href="javascript:;"><i class="fa fa-angle-right"></i> Restore Password</a></li>
-              <li class="list-group-item clearfix"><a href="javascript:;"><i class="fa fa-angle-right"></i> My account</a></li>
-              <li class="list-group-item clearfix"><a href="javascript:;"><i class="fa fa-angle-right"></i> Address book</a></li>
-              <li class="list-group-item clearfix"><a href="javascript:;"><i class="fa fa-angle-right"></i> Wish list</a></li>
-              <li class="list-group-item clearfix"><a href="javascript:;"><i class="fa fa-angle-right"></i> Returns</a></li>
-              <li class="list-group-item clearfix"><a href="javascript:;"><i class="fa fa-angle-right"></i> Newsletter</a></li>
-            </ul>
-          </div>
+        
             {/* END SIDEBAR */}
             {/* BEGIN CONTENT */}
             <div className="col-md-9 col-sm-7">
-              <h1>Notice</h1>
+              <h1>공지사항</h1>
               <div className="goods-page">
                 <div className="goods-data clearfix">
                   <div className="table-wrapper-responsive">
@@ -54,7 +42,7 @@ class Notice extends React.Component {
                           <th className="goods-page-price" >&emsp;&emsp;&emsp;조회수</th>
                         </tr>
 
-                        {/* {Noticejson.noticeItems.map((item,index) => (<NoticeItem {...item} NoticeNum={index} key={index} />))} */}
+                        {items.map((item,index) => (<NoticeItem {...item} NoticeNum={index} key={index} />))}
 
 
                         {/* <tr>
@@ -86,15 +74,21 @@ class Notice extends React.Component {
           </div>
           {/* END SIDEBAR & CONTENT */}
         </div>
-      </div>
+   
     )
   }
 }
 const mapStateToProps = (state)=>{
   console.log('notice mapStateToProps----------',state);
+  const { board } = state;
+  const { noticeBoard } = board;
+  console.log(noticeBoard,' 000000000 00000000000000000000')
+  return{
+    noticeBoard
+  }
 }
 const mapDispatchToProps = (dispatch) =>({
-
+  loadNoticeBoard:() => dispatch(Actions.loadNoticeBoard())
 })
 
 
