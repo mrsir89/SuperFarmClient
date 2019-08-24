@@ -74,7 +74,6 @@ class ListReview extends React.Component {
     
     let hasNextPage = reviewBoards.hasNext;
     console.log('hasNext',hasNextPage, )
-
     var page = reviewBoards.page
     var size = reviewBoards.size
     let productBoardNum = reviewBoards.boardNum
@@ -99,6 +98,7 @@ class ListReview extends React.Component {
       </div>
     );
   }
+
 
 
 }

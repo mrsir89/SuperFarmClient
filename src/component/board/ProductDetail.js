@@ -35,7 +35,7 @@ class ProductDetail extends React.Component {
       };
 
  
-      this._renderProduct = this._renderProduct.bind(this);
+      // this._renderProduct = this._renderProduct.bind(this);
       this._option1Change = this._option1Change.bind(this);
       this._option2Change = this._option2Change.bind(this);
    }
@@ -147,31 +147,31 @@ class ProductDetail extends React.Component {
       loadProductDetails(productBoardNum);
 
    }
-   _renderProduct = () => {
+   // _renderProduct = () => {
 
-      const productId = this.props.match.params.id;
-      const products = this.props.productBoard;
-      console.log("products", products)
-      var newProducts = [];
-      if (products !== undefined && products !== null) {
-         newProducts = products.filter((item) => (item.productBoardNum == productId));
+   //    const productId = this.props.match.params.id;
+   //    const products = this.props.productBoard;
+   //    console.log("products", products)
+   //    var newProducts = [];
+   //    if (products !== undefined && products !== null) {
+   //       newProducts = products.filter((item) => (item.productBoardNum == productId));
 
-         console.log("newProduct[0] >>>>", newProducts[0])
+   //       console.log("newProduct[0] >>>>", newProducts[0])
 
-         this.setState({
-            productInfo: newProducts[0],
-            productBoardNum: newProducts[0].productBoardNum,
-            cartProductName: newProducts[0].productList[0].productName,
-            cartProductPrice: newProducts[0].productList[0].productPrice,
+   //       this.setState({
+   //          productInfo: newProducts[0],
+   //          productBoardNum: newProducts[0].productBoardNum,
+   //          cartProductName: newProducts[0].productList[0].productName,
+   //          cartProductPrice: newProducts[0].productList[0].productPrice,
 
-            cartProductCount: 1,   // 추후 변경 예정
-            cartProductImg: newProducts[0].productBoardThumbnail,
-            cartProductOption1: newProducts[0].productList[0].productOption1,
-            cartProductOption2: newProducts[0].productList[0].productOption2
-         });
-      }
-      return newProducts[0];
-   }
+   //          cartProductCount: 1,   // 추후 변경 예정
+   //          cartProductImg: newProducts[0].productBoardThumbnail,
+   //          cartProductOption1: newProducts[0].productList[0].productOption1,
+   //          cartProductOption2: newProducts[0].productList[0].productOption2
+   //       });
+   //    }
+   //    return newProducts[0];
+   // }
 
 
    componentWillMount() {
