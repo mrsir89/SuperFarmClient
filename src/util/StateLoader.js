@@ -28,12 +28,33 @@ class StateLoader {
     // 여기 auth에 장바구니, 구매한 목록 추가 
     // product에 카테고리 추가 (upper: [], lower: [])
     initialState() {
+        
         return {
+            // auth: {
+            //     retryCount: 0,
+            //     token: null,
+            //     userDetails: {},
+            //     signupModel: null
+            // },
+            // product: {
+            //     items: [],
+            //     cart: []
+            // },
+            // // 각 페이지 마다 questionBoard들, 현재의 페이지 저장
+            // questionBoard: {
+            //     page:1,
+            //     questionBoard:[]
+            // },
+            // userEdit: {
+            //     userDetails:[]
+            // },
+            //     productBoard: [],
+            //     category: []
             auth: {
                 retryCount: 0,
                 token: null,
-                userDetails: {},
-                signupModel: null
+                userDetails: null,
+                signupModel: {}
             },
             product: {
                 productBoard: [],
@@ -47,8 +68,15 @@ class StateLoader {
                 reviewBoard:[],
                 qnaBoard:[],
             }
+
+
+
+
+            }
+
+
+            
         };
-    }
 }
 
 export default StateLoader;

@@ -119,6 +119,9 @@ class Signup extends React.Component {
     signup(signupCustomer);
   }
 
+  _goPopUp(){
+
+  }
 
   _passwordCheck() {
     //  console.log({getState},'get State 확인~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
@@ -191,9 +194,12 @@ class Signup extends React.Component {
           value='여' onChange={this.handleRadio}
           placeholder="gender" /> </li> */}
 
-            <li>주소 <input type="text" name="address"
-              value={this.state.address.value} onChange={this.handleInputChange}
-              placeholder="address" /> </li>
+            <li>우편번호 <input type="hidden" id="confmKey" name="confmKey" value=""  />
+                        <input type="text" id="zipNo" name="zipNo" readonly/>
+                        <input type="button" value="주소검색" onclick={this._goPopUp} onChange={this.handleInputChange}/> </li>
+                도로명주소 <input type="text" id="roadAddrPart1" onChange={this.handleInputChange}/><br/>
+                상세주소 <input type="text" id="addrDetail" value="" onChange={this.handleInputChange}/>
+                        <input type="text" id="roadAddrPart2" value="" onChange={this.handleInputChange}/>
 
             <li> 연락처 <input type="text" name="phone"
               value={this.state.phone.value} onChange={this.handleInputChange}

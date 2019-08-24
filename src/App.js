@@ -13,7 +13,10 @@ import './App.css';
 import Cart from './component/board/Cart';
 import ProductDetail from './component/board/ProductDetail';
 import ProductList from './component/board/ProductList';
-import MyPage from './component/board/MyPage';
+import UserEdit from './component/board/UserEdit';
+import QuestionBoard from './component/board/QuestionBoard';
+import EditMe from './component/board/EditMe';
+import mypage from './component/board/MyPage';
 import NaviBar from './component/board/NaviBar';
 import {Header, PreHeader , Home, Footer, PreFooter} from './containers';
 import ListReview from './component/board/reviewBoard/ListReview'
@@ -49,16 +52,18 @@ class App extends React.Component {
           <Route exact path="/" component={Home} />
           {/* <Route exact path="/product" component={ProductList} /> */}
           <Route path="/productlist/:id" component={ProductList} />
+          <Route exact path="/product" component={ProductList} />
           <Route path="/signup" component={signup} />
           <Route path="/login" component={login} />
           <Route path="/qnaboard" component={qnaboard} />
           <Route path="/cart" component={Cart} />
-          <Route path="/mypage" component={MyPage} />
+          <Route path="/mypage" component={mypage} />
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/review/all" component={ListReview} />
           <Route path="/review/write" component={AddReview} />
           {/* <Route path="/orderSheet" component={OrderSheet} /> */}
 
+          <Route path="/qnaboardWrite" component={QnABoardWrite}/>
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
         </Switch>
         {/* <PreFooter/> */}

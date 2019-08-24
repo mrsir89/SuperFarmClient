@@ -18,10 +18,14 @@ class MyPage extends React.Component {
         const { position } = userDetails;
         return (
             <div>
-                <p>이름 : {userDetails.username}</p>
+                <p>이름 : {userDetails.username}<a href="/UserEdit">회원 정보수정</a></p>
                 <p>주소 : {position.customerAddr}</p>
                 <p>전화번호 : {position.customerPhone}</p>
                 <button onClick={this.logout}>Logout</button>
+                <p>쿠폰 : {position.cutomerCoupon}</p>
+                <p>가입일 : {userDetails.userRegDay}</p>
+                <p>최근 접속일자 : {userDetails.userLastConnect}</p>
+                <p>이메일 : {userDetails.userEmail}</p>
             </div>
         )
     }

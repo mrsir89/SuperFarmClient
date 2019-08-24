@@ -26,11 +26,15 @@ export const ActionTypes={
 
     LOGOUT:'LOGOUT',
 
+    // user정보 수정
+    USER_EDIT:'USER_EDIT',
+    USER_EDIT_SUCCESS:'USER_EDIT_SUCCESS',
+    USER_EDIT_FAIL:'USER_EDIT_FAIL',
+
+
     GET_USERME:'GET_USERME',
     GET_USERME_SUCCESS:'GET_USERME_SUCCESS',
-    
-    ////////////////////////////////////////////////////////////
-    /////////QnABoard 관련 
+    //QnABoard 관련 
     LOAD_QNABOARDLIST:'LOAD_QNABOARDLIST',
     LOAD_QNABOARDLIST_SUCCESS:'LOAD_QNABOARDLIST_SUCCESS',
     
@@ -92,6 +96,11 @@ export const ActionTypes={
     /////////// Cart
 
     // 0810 addCart
+    ADD_CART : 'ADD_CART',
+    // 필요한가..??
+    // ADD_CART_FAIL: 'ADD_CART_FAIL',
+    // ADD_CART_SUCCESS: 'ADD_CART_SUCCESS'
+
     ADD_CART : 'ADD_CART',
     ADD_CART_FAIL: 'ADD_CART_FAIL',
     ADD_CART_SUCCESS: 'ADD_CART_SUCCESS',

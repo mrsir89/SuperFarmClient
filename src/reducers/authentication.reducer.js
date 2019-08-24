@@ -36,15 +36,13 @@ const authentication = (state = initialStateAuth, action) => {
             };
         case ActionTypes.LOGIN:
             return {
-                ...state,
-                userDetails: payload.userDetails
+                ...state
             };
         case ActionTypes.GET_USERME_SUCCESS:
-            return {
+            return{
                 ...state,
                 userDetails: payload.data
             }
-
 
         default:
             return state;
