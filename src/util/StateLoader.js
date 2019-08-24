@@ -46,6 +46,7 @@ class StateLoader {
             board : {
                 reviewBoard:[],
                 qnaBoard:[],
+                noticeBoard:[],
             }
         };
     }

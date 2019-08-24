@@ -35,6 +35,12 @@ export const ActionTypes={
 
     GET_USERME:'GET_USERME',
     GET_USERME_SUCCESS:'GET_USERME_SUCCESS',
+
+    ////////////////////////////////////////////////////////////
+    /// noticeBoard 관련
+    LOAD_NOTICEBOARD:'LOAD_NOTICEBOARD',
+    LOAD_NOTICEBOARD_SUCCESS:'LOAD_NOTICEBOARD_SUCCESS',
+    LOAD_NOTICEBOARD_FAIL:'LOAD_NOTICEBOARD_FAIL',
     
     ////////////////////////////////////////////////////////////
     /////////QnABoard 관련 
@@ -117,6 +123,16 @@ export const ActionTypes={
     GET_CATEGORIES_FAIL : 'GET_CATEGORIES_FAIL',
     GET_CATEGORIES_SUCCESS : 'GET_CATEGORIES_SUCCESS',
     
+
+    //////////////////////////////////////////////////////
+    ///////// KakaoPay 
+    KAKAOPAYREADY:'KAKAOPAYREADY',
+    KAKAOPAYREADY_SUCCESS:'KAKAOPAYREADY_SUCCESS',
+    KAKAOPAYREADY_FAIL:'KAKAOPAYREADY_FAIL',
+
+
+
+
 
     ///////////////////////////////////////////////////
     ////////// 비동기 처리

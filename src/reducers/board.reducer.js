@@ -2,15 +2,32 @@ import { ActionTypes } from '../contants';
 
 const initialStateBoard = {
     qnaBoard: [],
-    reviewBoard: []
+    reviewBoard: [],
+    noticeBoard:[]
 };
 
 
 const boardReducer = (state = initialStateBoard, action) => {
-    const { qnaBoard, reviewBoard } = state;
+    const { qnaBoard, reviewBoard, noticeBoard } = state;
     const { payload } = action;
 
     switch (action.type) {
+        //////////////////////////////////////////////////////////
+        ///////////    noticeBoard
+
+        case ActionTypes.LOAD_NOTICEBOARD_SUCCESS:
+        
+        console.log('ActionTypes.LOAD_NOTICEBOARD_SUCCESS')
+        if(payload !== undefined && payload !== null){
+            const { data } = payload
+            return({
+                ...state,
+                noticeBoard:data
+            })
+            
+        }
+        else
+            return state;
 
         case ActionTypes.LOAD_QNABOARDLIST_SUCCESS:
 
@@ -33,7 +50,7 @@ const boardReducer = (state = initialStateBoard, action) => {
                 console.log(data, 'ActionTypes.WRITE_QNABOARD_SUCCESS')
                 return {
                     ...state,
-                    data
+                    qnaBoard:data
                 }
             }
             else
@@ -46,7 +63,7 @@ const boardReducer = (state = initialStateBoard, action) => {
                 console.log(data, 'ActionTypes.EDIT_QNABOARD_SUCCESS')
                 return {
                     ...state,
-                    data
+                    qnaBoard:data
                 }
             }else
                 return state;
@@ -110,8 +127,6 @@ const boardReducer = (state = initialStateBoard, action) => {
                 console.log('ActionTypes.REMOVE_REVIEW_SUCCESS',data)
                 return {
                     ...state,
-                    ...state,
-                    reviewBoard:data
                 }
             }
 
@@ -129,7 +144,8 @@ const boardReducer = (state = initialStateBoard, action) => {
                     };
                 }
             }
-            return state;
+            return state
+
         case ActionTypes.UPLOADFILEREVIEW_SUCCESS:
             if(payload !== undefined && payload !== null){
                 const{ data } =payload;
@@ -142,7 +158,7 @@ const boardReducer = (state = initialStateBoard, action) => {
                 }
             }
         default:
-            return state;
+            return state
     }
 }
 export default boardReducer;

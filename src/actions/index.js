@@ -135,6 +135,31 @@ const logout = () => ({
   type: ActionTypes.LOGOUT
 })
 
+/**
+ * @author 심인선
+ * @param {*} writeQnA 
+ */
+/////////////////////////////////////////////////////////////////
+///          notice board
+
+const loadNoticeBoard = ()=>{
+  const formData = new FormData();
+  console.log('Action NoticeBoard 실행')
+  return({
+    type:ActionTypes.LOAD_NOTICEBOARD,
+    payload:{
+      request:{
+        method:'POST',
+        url:'/notice',
+        data:formData
+      }
+    }
+  })
+}
+
+
+
+
 /////////////////////////////////////////////////////////////////
 /////////// QnA Board ///////////////////////////////////////
 
@@ -472,6 +497,22 @@ const asynAction = () => {
     }
   }
 }
+///////////////////////////////////////////////////////////
+////        KakaoPay 
+
+const kakaoPayReady =() =>{
+  const formData = new FormData();
+  return{
+    type:ActionTypes.KAKAOPAYREADY,
+    payload:{
+      request:{
+        method:'POST',
+        url:'/kakaoPay',
+        data:formData
+      }
+    }
+  }
+}
 
 
 export const Actions = {
@@ -482,9 +523,9 @@ export const Actions = {
   addCart,
   loadProductList, loadProductDetails,
   getCategories, getCartByUser,
-  loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,
+  loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,loadNoticeBoard,
   writeAnswer, deleteAnswer,
   getReviews, removeReview, addReview, uploadFileReview,
-  asynAction
+  asynAction, kakaoPayReady
 
 };
