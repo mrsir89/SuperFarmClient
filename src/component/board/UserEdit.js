@@ -4,6 +4,7 @@ import { ActionTypes } from '../../contants';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
 import { getForkTsCheckerWebpackPluginHooks } from 'fork-ts-checker-webpack-plugin/lib/hooks';
+import './UserEdit.css';
 
 
 
@@ -88,6 +89,11 @@ class userEdit extends React.Component {
             userEdit(changeUserInfo, history);
         }// else
     }
+    onSubmit1(event){
+        event.preventDefault();
+        const { history } =this.props
+        history.push("/");
+      }
 
     onChange(event) {
         const target = event.target;
@@ -123,66 +129,93 @@ class userEdit extends React.Component {
         console.log("현재의 props", this.props);
         console.log("render userDetails->>>>>", userDetails);
         return (
-            <div className="edituser">
+            <div className="edituser" class="mt_30">
                 <div style={{display:'flex',justifyContent:'center'}}>
                     <h3>회원정보 수정</h3><br/>
                 </div>
-                <div className="edit-table" style={{display:'flex',justifyContent:'center'}}>
-                    <form onSubmit={e => this.onSubmit(e)}>
+                <div className="edit-table" style={{display:'flex',justifyContent:'center'}} id="person-Info">
+                    <form onSubmit={e => this.onSubmit(e)} onSubmit1={e=>this.onSubmit1(e)}>
                         <table>
+                            <colgroup>
+                                <col width="187"/>
+                                <col width="*"/>
+                            </colgroup>
                             <tbody>
                                 <tr>
-                                    <td scope="row">회원 ID</td>
+                                    <div class="tb-1">
+                                        <th scope="row">회원 ID</th>
+                                    </div>
                                     <td><input value={userDetails.userId} /></td>
                                 </tr>
                                 <tr>
-                                    <td scope="row">비밀번호</td>
+                                    <div class="tb-1">
+                                        <th scope="row">비밀번호<span class="red">*</span></th>
+                                    </div>
                                     <td><input type="password" name="userPassword" onChange={this.onChange} placeholder="변경할 비밀번호 입력" /></td>
                                 </tr>
                                 <tr>
-                                    <td scope="row">비밀번호 재확인</td>
+                                    <div class="tb-1">
+                                        <th scope="row">비밀번호 재확인<span class="red">*</span></th>
+                                    </div>
                                     <td><input type="password" name="userPassword1" onChange={this.onChange} placeholder="변경할 비밀번호 입력" /></td>
                                 </tr>
                                 <tr>
-                                    <td scope="row">고객 이름</td>
+                                    <div class="tb-1">
+                                        <th scope="row">고객 이름</th>
+                                    </div>
                                     <td><input value={userDetails.username} /></td>
                                 </tr>
                                 <tr>
-                                    <td scope="row">Email</td>
+                                    <div class="tb-1">
+                                        <th scope="row">Email</th>
+                                    </div>
                                     <td><input value={userDetails.userEmail} /></td>
                                 </tr>
                                 <tr>
-                                    <td scop="row">핸드폰 번호</td>
+                                    <div class="tb-1">
+                                        <th scop="row">핸드폰 번호<span class="red">*</span></th>
+                                    </div>
                                     <td><input type="phone" name="customerPhone" onChange={this.onChange} value={userDetails.customerPhone}  placeholder="'-'없이 입력" /></td>
                                 </tr>
                                 <tr>
-                                    <td scope="row">주소</td>
+                                    <div class="tb-1">
+                                        <th scope="row">주소<span class="red">*</span></th>
+                                    </div>
                                     <td><input type="address" name="customerAddr" onChange={this.onChange} value={userDetails.customerAddr} placeholder="주소입력" /></td>
                                 </tr>
                                 <tr>
-                                    <td scope="row">생년월일</td>
+                                    <div class="tb-1">
+                                        <th scope="row">생년월일</th>
+                                    </div>
                                     <td><input value={userDetails.position.customerBirth} /></td>
                                 </tr>
                                 <tr>
-                                    <td scope="row">고객 등급</td>
+                                    <div class="tb-1">
+                                        <th scope="row">고객 등급</th>
+                                    </div>
                                     <td><input value={userDetails.position.customerGrade} /></td>
                                 </tr>
                                 <tr>
-                                    <td scope="row">최근 접속일자</td>
+                                    <div class="tb-1">
+                                        <th scope="row">최근 접속일자</th>
+                                    </div>
                                     <td><input value={userDetails.userLastConnect} /></td>
                                 </tr>
                                 <tr>
-                                    <td scope="row">가입일자</td>
+                                    <div class="tb-l">
+                                        <th scope="row">가입일자</th>
+                                    </div>
                                     <td><input value={userDetails.userRegday} /></td>
-                                </tr>
-                                <tr>
-                                    <input type="submit" name="submit" value="저장" />
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="submit">
+                            <input type="submit" name="onSubmit" value="저장"/>
+                            <input type="submit" name="onSubmit1" value="취소"/>
+                        </div>
                     </form>
                 </div>
-            </div>
+                </div>
         );
     }
 

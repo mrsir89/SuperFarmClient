@@ -18,6 +18,7 @@ import NaviBar from './component/board/NaviBar';
 import userEditlogin from './component/board/UserEditLogin'
 import myPage from './component/board/MyPage';
 import {Header, PreHeader , Home, Footer, PreFooter} from './containers';
+import ProductTest from './component/board/PksProduct';
 // import Main from './Main';
 
 // REACT는 라이브러리, View를 Rendering 하는 것이 주 기능이며 나머지 기타 기능들(router, ajax등등)은 서드파티 라이브러리를 추가적으로 사용해야 한다.
@@ -57,6 +58,7 @@ class App extends React.Component {
           <Route path="/usereditlogin" component={userEditlogin}/>
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/mypage" component={myPage}/>
+          <Route path="/producttest" component={ProductTest}/>
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
         </Switch>
         {/* <PreFooter/> */}
