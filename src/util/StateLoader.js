@@ -60,6 +60,7 @@ class StateLoader {
                 productBoard: [],
                 category: [],
                 productBoardDetail:{} 
+             
             },
             cart : {
                 cartlist: [],

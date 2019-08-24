@@ -1,4 +1,5 @@
 import { ActionTypes } from '../contants';
+import { userInfo } from 'os';
 // React 컴포넌트같은 것이 직접 접근하려고 하면 안됨.
 // 직접 접근하기 위해 "Action"이라는 의식을 거쳐야 한다.
 // 1)_ Store에 대해 뭔가 하고 싶은 경우엔 Action 을 발행한다.
@@ -31,6 +32,9 @@ const getClientToken = () => {
   });
 };
 // 확인 
+// const signup = (signupCustomer) => {
+//   console.log(signupCustomer, ' 여기는 signup 안쪽')
+
 const signup = (signupCustomer) => {
   console.log(signupCustomer, ' 여기는 signup 안쪽')
 
@@ -101,9 +105,6 @@ const logout = () => ({
   type: ActionTypes.LOGOUT
 })
 
-/////////////////////////////////////////////////////////////////
-/////////// QnA Board ///////////////////////////////////////
-
 const writeQnABoard = (writeQnA) => {
   console.log('writeQnABoard')
   return ({
@@ -121,16 +122,11 @@ const writeQnABoard = (writeQnA) => {
   })
 }
 
-
-
-//QnABoard productBoardNum에 맞게 불러 오기
-const loadqnaboardList = (productNum, size, page ) => {
+const loadqnaboardList = (productNum, size, page) => {
   const formdata = new FormData();
-  formdata.append('productNum', 5); 
-  formdata.append('size', size);
-  formdata.append('page', page);
-  console.log('Action loadQnABoard 실행')
-  console.log('size',size, ' page ', page)
+  formdata.append('productNum', 5);
+  formdata.append('size', '10');
+  formdata.append('page', '1');
   return ({
     type: ActionTypes.LOAD_QNABOARDLIST,
     payload: {
@@ -142,170 +138,6 @@ const loadqnaboardList = (productNum, size, page ) => {
     }
   })
 }
-
-//QnABoard 내용수정
-const editQnABoard = (editQnABoard) => {
-  console.log(' edit QnABoard Action 실행')
-  return ({
-    type: ActionTypes.EDIT_QNABOARD,
-    payload: {
-      request: {
-        method: 'POST',
-        url: '/update/question',
-        headers: {
-          'Content-Type': 'application/json; charset: utf-8'
-        },
-        data: JSON.stringify(editQnABoard)
-      }
-    }
-  })
-}
-// QnABOARD 작성
-const deleteQnABoard = (deleteQnABoard) => {
-  console.log(' delete QnABoard action 실행 ')
-  return ({
-    type: ActionTypes.DELETE_QNABOARD,
-    payload: {
-      request: {
-        method: 'POST',
-        url: '/question/delete/question',
-        headers: {
-          'Content-Type': 'application/json; charset: utf-8'
-        },
-        data: JSON.stringify(deleteQnABoard)
-      }
-    }
-  })
-}
-
-// QnABOARD 댓글 작성 
-const writeAnswer = (questionAnswer) => {
-  console.log(' writeAnswer QnABoard action 실행')
-  return ({
-    type: ActionTypes.WRITE_QNABOARDANSWER,
-    payload: {
-      request: {
-        method: 'POST',
-        url: '/question/write/answer',
-        headers: {
-          'Content-Type': 'application/json; charset: utf-8'
-        },
-        data: JSON.stringify(questionAnswer)
-      }
-    }
-  })
-}
-
-//QnABoard 댓글 soft삭제
-const deleteAnswer = (questionAnswer) => {
-  console.log(' deleteAnswer QnABoard action 실행')
-  return ({
-    type: ActionTypes.DELETE_QNABOARDANSWER,
-    payload: {
-      request: {
-        method: 'POST',
-        url: '/question/delete/answer',
-        headers: {
-          'Content-Type': 'application/json; charset: utf-8'
-        },
-        data: JSON.stringify(questionAnswer)
-      }
-    }
-  })
-}
-
-/////////////////////////////////////////////////////////////////
-/////////// Review Board ///////////////////////////////////////
-
-// 리뷰 추가
-const addReview = (reviewBoard) => {
-
-  console.log('Action AddReview 실행 ')
-  return ({
-    type: ActionTypes.ADD_REVIEW,
-    payload: {
-      request: {
-        method: 'POST',
-        url: '/review/write',
-        headers: {
-          'Content-Type': 'application/json; charset: utf-8'
-        },
-        data: JSON.stringify(reviewBoard)
-      }
-    }
-  });
-};
-
-// 리뷰 삭제
-const removeReview = (reviewBoardNum) => {
-  console.log('removieReviewsd')
-  return ({
-    type: ActionTypes.REMOVE_REVIEW,
-    payload: {
-      request: {
-        method: 'DELETE',
-        url: `/review/delete${reviewBoardNum}`
-      }
-    }
-  });
-};
-
-// 리뷰 가져오기
-const getReviews = (type,id,size=initBoardListsize,
-                            page=initBoardListPage) => {
-  const formData = new FormData();
-  type = 'productBoard'
-  var url ='/review/product';
-      formData.append('size',size)
-      formData.append('page',page)
-      formData.append('productBoardNum',5)
-      console.log('Action LOAD_REVIEWS')
-  
-      if(type=='productBoard'){
-        formData.append('productBoardNum',5)
-        url = '/review/product';
-      }
-      if(type=='user'){
-        formData.append('userId',id)
-        url='/review/userId'
-      }
-      console.log('size', size, 'page',page,'id',id)
-      return ({
-        type: ActionTypes.LOAD_REVIEWS,
-        payload: {
-          request: {
-            method: 'POST',
-            url: url,
-            data:formData,
-          },
-         
-        }
-      })
-};
-
-const uploadFileReview = (reviewBoardNum,file ) =>{
-  console.log('uploadFileReivew Start ')  
-  const formData = new FormData();
-    formData.append('file',file);
-    formData.append('reviewBoardNum',reviewBoardNum)
-    return({
-      type: ActionTypes.UPLOADFILEREVIEW,
-      payload: {
-        request:{
-          headers:{
-            'Content-Type':'multipart/form-data'
-          },
-          method: 'POST',
-          url: '/storage/file',
-          data:formData,
-        }
-      }
-  })
-}
-
-
-/////////////////////////////////////////////////////////////////
-///////////     Cart      ///////////////////////////////////////
 
 
 // 0810 장바구니 추가 action (local storage에 저장, db에는 저장 안함)
@@ -448,6 +280,22 @@ const loadProductDetails =(productBoardNum) =>{
 ///////////   Category       ////////////////////////////////////
 
 
+// // 카테고리 DB에서 가져오는 action 추가 
+// const getCategories = () => {
+//   return ({
+//     type: ActionTypes.GET_CATEGORIES,
+//     payload: {
+//       request: {
+//         method: 'POST',
+//         url: '/category'
+//       }
+//     }
+//   })
+// }
+
+
+
+
 // 카테고리 DB에서 가져오는 action 추가 
 const getCategories = () => {
   return ({
@@ -462,6 +310,203 @@ const getCategories = () => {
 }
 
 
+//QnABoard 내용수정
+const editQnABoard = (editQnABoard) => {
+  console.log(' edit QnABoard Action 실행')
+  return ({
+    type: ActionTypes.EDIT_QNABOARD,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/update/question',
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: JSON.stringify(editQnABoard)
+      }
+    }
+  })
+}
+// QnABOARD 작성
+const deleteQnABoard = (deleteQnABoard) => {
+  console.log(' delete QnABoard action 실행 ')
+  return ({
+    type: ActionTypes.DELETE_QNABOARD,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/question/delete/question',
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: JSON.stringify(deleteQnABoard)
+      }
+    }
+  })
+}
+
+// QnABOARD 댓글 작성 
+const writeAnswer = (questionAnswer) => {
+  console.log(' writeAnswer QnABoard action 실행')
+  return ({
+    type: ActionTypes.WRITE_QNABOARDANSWER,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/question/write/answer',
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: JSON.stringify(questionAnswer)
+      }
+    }
+  })
+}
+
+//QnABoard 댓글 soft삭제
+const deleteAnswer = (questionAnswer) => {
+  console.log(' deleteAnswer QnABoard action 실행')
+  return ({
+    type: ActionTypes.DELETE_QNABOARDANSWER,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/question/delete/answer',
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: JSON.stringify(questionAnswer)
+      }
+    }
+  })
+}
+
+/////////////////////////////////////////////////////////////////
+/////////// Review Board ///////////////////////////////////////
+
+// 리뷰 추가
+const addReview = (reviewBoard) => {
+
+  console.log('Action AddReview 실행 ')
+  return ({
+    type: ActionTypes.ADD_REVIEW,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/review/write',
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: JSON.stringify(reviewBoard)
+      }
+    }
+  });
+};
+
+// 리뷰 삭제
+// const removeReview = (reviewBoardNum) => {
+//   console.log('removieReviewsd')
+//   return ({
+//     type: ActionTypes.REMOVE_REVIEW,
+//     payload: {
+//       request: {
+//         method: 'DELETE',
+//         url: `/review/delete?reviewBoardNum=${reviewBoardNum}`
+//       }
+//     }
+//   });
+// };
+
+
+const removeReview = (reviewBoardNum) => {
+  console.log('removieReviewsd')
+  const formData = new FormData();
+  formData.append('reviewBoardNum', reviewBoardNum)
+  return ({
+    type: ActionTypes.REMOVE_REVIEW,
+    payload: {
+      request: {
+        method: 'PATCH',
+        url: `/review/delete`,
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: formData,
+      }
+    }
+  });
+};
+
+// 리뷰 가져오기
+const getReviews = (type,id,size=initBoardListsize,
+                            page=initBoardListPage) => {
+  const formData = new FormData();
+  type = 'productBoard'
+  var url ='/review/product';
+      formData.append('size',size)
+      formData.append('page',page)
+      formData.append('productBoardNum',5)
+      console.log('Action LOAD_REVIEWS')
+  
+      if(type=='productBoard'){
+        formData.append('productBoardNum',5)
+        url = '/review/product';
+      }
+      if(type=='user'){
+        formData.append('userId',id)
+        url='/review/userId'
+      }
+      console.log('size', size, 'page',page,'id',id)
+      return ({
+        type: ActionTypes.LOAD_REVIEWS,
+        payload: {
+          request: {
+            method: 'POST',
+            url: url,
+            data:formData,
+          },
+         
+        }
+      })
+};
+
+const uploadFileReview = (reviewBoardNum,file ) =>{
+  console.log('uploadFileReivew Start ')  
+  const formData = new FormData();
+    formData.append('file',file);
+    formData.append('reviewBoardNum',reviewBoardNum)
+    return({
+      type: ActionTypes.UPLOADFILEREVIEW,
+      payload: {
+        request:{
+          headers:{
+            'Content-Type':'multipart/form-data'
+          },
+          method: 'POST',
+          url: '/storage/file',
+          data:formData,
+        }
+      }
+  })
+}
+
+
+// const userEdit=(customerEdit)=>{
+//   return ({
+//     type: ActionTypes.USER_EDIT,
+//     payload: {
+//       request: {
+//         method: 'POST',
+//         url: '/users/edit',
+//         headers: {
+//           'Content-Type': 'application/json; charset: utf-8'
+//         },
+//         data: JSON.stringify(customerEdit)
+//       }
+//     }
+//   }
+//   );
+// };
 
 export const Actions = {
 
@@ -473,6 +518,6 @@ export const Actions = {
   getCategories, 
   loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,
   writeAnswer, deleteAnswer,
-  getReviews, removeReview, addReview,uploadFileReview
-
+  getReviews, removeReview, addReview,uploadFileReview, 
+  userEdit
 };

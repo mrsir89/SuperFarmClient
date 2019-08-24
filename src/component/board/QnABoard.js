@@ -46,16 +46,18 @@ class QnABoard extends React.Component {
     // this.handleClick=this.handleClick.bind(this);
     console.log('여기 실행 되나?', this.state)
   }
+
+  //   handleClick(e){
+  //     const {Clickitem}=this.state;
+  //     this.setState({
+  //       Clickitem:{
+  //         ...Clickitem,
+  //         isExpanded : !this.setState.isExpanded
+  //       }
+  //     })
+  //   }
+  
   componentWillMount() {
-    const { loadqnaboardList } = this.props;
-    console.log(this.state, ' <<<<< willMount')
-    let productNum = 5
-    let size = 10
-    let page = 1
-    console.log(loadqnaboardList, ' qnaboardList 실행')
-    loadqnaboardList(productNum, size, page);
-  }
-  componentDidMount(){
     const { loadqnaboardList } = this.props;
     console.log(this.state, ' <<<<< willMount')
     let productNum = 5
@@ -118,12 +120,14 @@ class QnABoard extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps=(state)=> {
   console.log(state)
   const { product } = state;
   const { qnaBoard } = product;
+  // const { data } = qnaBoard;
   console.log(qnaBoard, '<--------- qnaBoad')
   console.log(product, ' <--------- product')
+  // console.log(data, '<------------ data')
   return {
     qnaBoard
   };
@@ -133,6 +137,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   loadqnaboardList: (productNum, size, page) => dispatch(Actions.loadqnaboardList(productNum, size, page))
+  //writeQnABoard: (qnaContent) => dispatch(writeQnABoard(qnaContent))
 });
 
 

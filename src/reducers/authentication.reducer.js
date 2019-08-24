@@ -42,7 +42,13 @@ const authentication = (state = initialStateAuth, action) => {
             return{
                 ...state,
                 userDetails: payload.data
-            }
+            };
+        case ActionTypes.USER_EDIT_SUCCESS:
+            console.log("user edit success");
+            return {
+                ...state,
+                userDetails: payload.userDetails
+            };
 
         default:
             return state;

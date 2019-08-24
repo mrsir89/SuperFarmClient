@@ -13,7 +13,8 @@ import './App.css';
 import Cart from './component/board/Cart';
 import ProductDetail from './component/board/ProductDetail';
 import ProductList from './component/board/ProductList';
-import UserEdit from './component/board/UserEdit';
+import userEdit from './component/board/UserEdit';
+import userEditlogin from './component/board/UserEditLogin';
 import QuestionBoard from './component/board/QuestionBoard';
 import EditMe from './component/board/EditMe';
 import mypage from './component/board/MyPage';
@@ -42,8 +43,8 @@ import AddReview from './component/board/reviewBoard/AddReview';
 
 
 class App extends React.Component {
-  render() { // 화면에 html 뷰를 생성.
-    return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
+  render() { // 화면에 html 뷰를 생성.\
+      return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
       <div className="container">
         <PreHeader/>
         <Header /> 
@@ -64,6 +65,10 @@ class App extends React.Component {
           {/* <Route path="/orderSheet" component={OrderSheet} /> */}
 
           <Route path="/qnaboardWrite" component={QnABoardWrite}/>
+          <Route path="/useredit" component={userEdit} />
+          <Route path="/usereditlogin" component={userEditlogin}/>
+        
+          
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
         </Switch>
         {/* <PreFooter/> */}
