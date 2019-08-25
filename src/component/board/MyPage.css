@@ -101,3 +101,34 @@
 #my_info_top dd p.number em {
     color: #ff600f;
 }
+
+#my_link_nav {
+    padding: 0 0 45px 0;
+    overflow: hidden;
+}
+#my_link_nav li {
+    width: 12.49%;
+    float: left;
+    list-style: none;
+}
+#my_link_nav li a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    border: 1px #d3d3d3 solid;
+    border-right: 1;
+    line-height: 18px;
+    padding: 64px 0 16px 0;
+    background-repeat: no-repeat;
+    background-position: center 24px;
+    font-family: 'Nanum Gothic';
+    font-weight: 700;
+}
+.mt_20 {
+    margin-top: 20px !important;
+}
+.my_menu01{
+    list-style: armenian;
+}
