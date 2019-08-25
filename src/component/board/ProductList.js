@@ -20,6 +20,7 @@ class ProductList extends React.Component {
     //loadProductList();
     const lowerId = this.props.match.params.id;
     console.log("lowerId >>>>>>>>>>>", lowerId);
+    console.log("lowerId type >>>>>>>>>>>", typeof lowerId);
     loadProductList('lower', lowerId);
 
   }
@@ -27,7 +28,6 @@ class ProductList extends React.Component {
     const { loadProductList } = this.props;
     //loadProductList();
     const lowerId = this.props.match.params.id;
-
     console.log("lowerId >>>>>>>>>>>", lowerId);
     loadProductList('lower', lowerId);
 

@@ -37,6 +37,9 @@ const productReducer = (state = initialStateProduct, action) => {
             return state;
 
 
+            
+
+
         // case ActionTypes.ADD_CART:
         //     const { item } = action
         //     return {

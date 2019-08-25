@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import ProductView from './ProductView';
 //import { addCart } from '../actions/action';
 import { Actions } from '../../actions';
+import { ActionTypes } from '../../contants';
 // import './ProductDetail.css';
 // import { thisTypeAnnotation } from '@babel/types';
 
@@ -24,7 +25,7 @@ class ProductDetail extends React.Component {
       this.state = {
          ProductDetail: productBoardDetail,
          productList: productList,
-         productInfo: '',
+         // productInfo: '',
          userNumber: userNum,
          quantity: 1,
          tmpOption1: null,
@@ -62,7 +63,17 @@ class ProductDetail extends React.Component {
 
       const { addCart } = this.props;
       console.log("장바구니 추가>>>", cartModel)
-      addCart(cartModel);
+      addCart(cartModel)
+      .then(response => {
+         if(response.type === ActionTypes.ADD_CART_SUCCESS){
+            return alert("해당 상품이 장바구니에 추가되었습니다.")
+         } else if(response.type === ActionTypes.ADD_CART_FAIL){
+            return alert("옵션을 선택해주세요.")
+         }
+      }
+         
+         
+      )//
    }
 
    _option1Check(productList) {
@@ -104,11 +115,11 @@ class ProductDetail extends React.Component {
    }
 
    // 옵션2 선택시 변경
-   _option2Change = (event) => {
+   _option2Change = (event, productListFromProps) => {
 
       let tmpCode = ''
       tmpCode = event.target.value;
-      const productList = this.state.productList;
+      const productList = productListFromProps;
       const choiceProduct = productList.filter(productList => productList.productCode == tmpCode)
       console.log(choiceProduct, 'ssssssssssssssssssssssss')
       if (choiceProduct.length !== 0) {
@@ -150,6 +161,15 @@ class ProductDetail extends React.Component {
 
    }
 
+   // 컴포넌트가 props를 새로 받았을 때 실행된다. 
+   componentWillReceiveProps(nextProps){
+      console.log("componentWillReceiveProps 실행됨  >> rerender")
+      this.setState({
+         ProductDetail : nextProps.productBoardDetail,
+         productList : ProductDetail.productList
+
+      })
+  }
 
    componentWillMount() {
       console.log(this.productBoard, ' will mount')
@@ -170,9 +190,15 @@ class ProductDetail extends React.Component {
    render() {
       console.log('r e n d e r 시작', this.props)
       console.log(' render state 확인!!!!!!!', this.state)
-      const productInfo = this.state.ProductDetail;
-      const productList = this.state.productList;
-      console.log('시작 이다!!!!!', productList)
+      // const productInfo = this.props.ProductDetail;
+      // const productList = this.props.productList;
+      // console.log('시작 이다!!!!!', productList)
+
+      const { productBoardDetail } = this.props;
+      const { productList } = productBoardDetail;
+      const {productBoardTitle, lowerCode, productBoardDeliveryPrice} = productBoardDetail;
+
+
       return (
 
          <div className="product-item">
@@ -195,11 +221,11 @@ class ProductDetail extends React.Component {
                            <tbody>
                               <tr>
                                  <th scope="row">상품 이름</th>
-                                 <td>{productInfo.productBoardTitle}</td>
+                                 <td>{productBoardTitle}</td>
                               </tr>
                               <tr>
                                  <th scope="row">상품 소분류</th>
-                                 <td>{productInfo.lowerCode}</td>
+                                 <td>{lowerCode}</td>
                               </tr>
                               {/* {/* <tr>
                                  <th scope="row">상품 가격(옵션에 따라 달라질 예정)</th>
@@ -208,7 +234,7 @@ class ProductDetail extends React.Component {
 
                               <tr>
                                  <th scope="row">배송비</th>
-                                 <td>{productInfo.productBoardDeliveryPrice}</td>
+                                 <td>{productBoardDeliveryPrice}</td>
                               </tr>
                            </tbody>
                         </table>
@@ -227,7 +253,7 @@ class ProductDetail extends React.Component {
 
                         <div className="form-group col-md-6">
                            <label for="exampleFormControlSelect1">옵션2 선택</label>
-                           < select name="option2" onChange={this._option2Change}>
+                           < select name="option2" onChange={ event => this._option2Change(event,productList )}>
                               <option value="default" selected="selected">
                                  옵션을 선택하세요</option>
                               {this._option2Check(productList).map((productList) => (

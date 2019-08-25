@@ -100,6 +100,7 @@ const emailCheck = (email) => {
 //        로 그 인 
 
 
+
 const login = (customerId, password) => {
   const formData = new FormData();
   formData.append('grant_type', 'password');
@@ -134,6 +135,26 @@ const getUserMe = () => {
 const logout = () => ({
   type: ActionTypes.LOGOUT
 })
+
+
+
+const refreshToken = (refresh_token) => {
+  const formData = new FormData();
+  formData.append('grant_type', 'refresh_token');
+  formData.append('refresh_token', refresh_token);
+
+// 미들웨어 형식 
+  return ({   
+    type: ActionTypes.REFRESH_TOKEN,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/oauth/token',
+        data: formData
+      }
+    }
+  });
+};
 
 /////////////////////////////////////////////////////////////////
 /////////// QnA Board ///////////////////////////////////////
@@ -352,7 +373,6 @@ const uploadFileReview = (reviewBoardNum, file) => {
 // 0814 장바구니 추가 (user)
 // userNum,
 const addCart = (cartModel) => {
-  // console.log ("userNum 넘어옴?? >>>> ", userNum)
   console.log("cartModel 넘어옴?? >>>> ", cartModel)
 
   return ({
@@ -393,9 +413,6 @@ const getCartByUser = (userNum) => {
 
 // 0822 장바구니 수량 수정
 const editCartQty = (newCartList) => {
-  // const formData = new FormData();
-  // formData.append('cartProductNum', cartProductNum);
-  // formData.append('count', newCartList);
   console.log("newCartlist ?????", newCartList)
   return ({
     type: ActionTypes.EDIT_CART,
@@ -442,6 +459,7 @@ const loadProductList = (type, id) => {
 
   if (type === 'lower') {
     console.log('lower 확인 ,', type, id)
+    console.log('[[[[[[[lowerid 확인 type]]]]]]]]]]]] ,', typeof id)
     url = '/product/lower';
     formData.append('lower', id);
 
@@ -517,7 +535,7 @@ const asynAction = () => {
 export const Actions = {
 
   signup, emailCheck, idCheck, getUserMe,
-  login, logout, getClientToken,
+  login, logout, getClientToken,refreshToken,
   writeQnABoard,
   addCart,
   loadProductList, loadProductDetails,
