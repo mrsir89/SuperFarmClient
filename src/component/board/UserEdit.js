@@ -13,6 +13,7 @@ const userEditAsync=(changeUserInfo, history) => (dispatch) => {
     return dispatch(Actions.userEdit(changeUserInfo))
         .then(response => {
             if (response.Type === ActionTypes.USER_EDIT_SUCCESS) {
+                localStorage.clear();
                 history.push("/");
                 alert('회원님의 정보가 성공적으로 수정되었습니다.');
             }

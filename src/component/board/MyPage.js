@@ -29,7 +29,7 @@ logout() {
                 <div id="content">
                     <div class="navi w1100">
                         <a href="/">HOME</a>
-                        <a href="/shop/mypage.html">마이페이지</a>
+                        <a href="/mypage">마이페이지</a>
                         <h2>마이페이지</h2>
                     </div><br/>
                     <link type="text/css" rel="stylesheet" href="/shopimages/samdamall/template/work/592/menu.2.css?t=201905070922"></link>
