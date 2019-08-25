@@ -5,7 +5,7 @@ import './kakaoTable.css';
 
 
     // 1순서
-    //결제를 하기 위해서 넘어와야 하는 목록 (준비 단계 -> reuest )
+    //결제를 하기 위해서 넘어와야 하는 목록 (준비 단계 -> reuest ) 프론트 -> 백엔드 -> 카카오서버
     /**
      * cid 가맹점 코드 10자 : TC0ONETIME <  test 버전용
      * partner_order_id    : 가맹점 주문번호 < 우리에게 생성되는 주문 번호
@@ -19,7 +19,7 @@ import './kakaoTable.css';
      */
 
      /**
-      * (결제준비를 위한 <- response 목록) 
+      * (결제준비를 위한 <- response 목록) 카카오서버 -> 백엔드 -> 프론트(개인 카톡으로 알람옴)
       * 
       * tid 결제 고유번호 20자	     : String
         next_redirect_app_url	    : 요청한 클라이언트가 모바일 앱일 경우 해당 url을 통해 카카오톡 결제페이지를 띄움	String
@@ -30,7 +30,7 @@ import './kakaoTable.css';
         created_at	                : 결제 준비 요청 시간	Datetime
       */
 
-      /**(최종 결제 승인을 위한 호출 -> request)
+      /**(최종 결제 승인을 위한 호출 -> request) (개인카톡에서 결제 완료) -> 백엔드 -> 프론트(완료)
        *  cid               : 가맹점 코드 10자
        *  tid               : 결제 고유 번호. 결제 준비 API의 응답에서 얻을 수 있음
        * partner_order_id   : 가맹점 주문번호. 결제 준비 API에서 요청한 값고 일치해야 함

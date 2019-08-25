@@ -47,7 +47,7 @@ const productReducer = (state = initialStateProduct, action) => {
         //             item
         //         ]
         //     }
-
+        
 
         // 카테고리 불러오기 
         case ActionTypes.GET_CATEGORIES_SUCCESS:
