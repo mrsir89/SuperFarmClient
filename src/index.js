@@ -1,4 +1,6 @@
-// 8/11 Ref
+
+// 8/16 sj
+// (userId)를 바탕으로 장바구니 추가/ 불러오기 기능 구현
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -12,6 +14,7 @@ import axios from 'axios'; // 추가사항
 import axiosMiddleware from 'redux-axios-middleware'; // 추가사항
 import { StateLoader, interceptors, onErrorHandler } from './util';
 import App from './App';
+
 // import * as serviceWorker from './serviceWorker';
 
 // 여기서만 선언 endpoint가 oauth가 아니면 override 할거
@@ -69,9 +72,3 @@ ReactDOM.render(
   document.getElementById('root'));
 
 
-
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-// serviceWorker.unregister();
