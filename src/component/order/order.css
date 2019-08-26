@@ -1,0 +1,177 @@
+
+.tg  {
+    border-collapse:collapse;
+    border-spacing:0;
+    ;border:none;
+    border-top-style:solid;
+    border-color:#ccc;
+    width:1170px
+    }
+.tg td{
+    font-family:Arial, sans-serif;
+    font-size:14px;padding:10px 5px;
+    border-style:solid;border-width:0px;
+    overflow:hidden;word-break:normal;
+    border-color:#ccc;
+    color:#333;
+    background-color:#fff;
+}
+
+.tg th{
+    font-family:Arial, sans-serif;
+    font-size:14px;
+    font-weight:normal;
+    padding:10px 5px;
+    border-style:solid;
+    border-width:0px;
+    overflow:hidden;
+    word-break:normal;
+    border-color:#ccc;
+    color:#333;
+    background-color:#f0f0f0;
+}
+.tg .tg-833v{
+    font-weight:bold;
+    background-color:#efefef;
+    font-size:14px;
+    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
+    /* border-color:darkgray; */
+    text-align:left;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    vertical-align:middle
+}
+.tg .tg-m9fq{
+    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif !important;;
+    border-color:#ffffff;
+    vertical-align:middle;
+    text-align:left;
+    vertical-align:middle
+}
+.tg .tg-vsa0{font-weight:bold;font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif !important;;
+    background-color:#efefef;
+    text-align:center;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    vertical-align:middle}
+.tg .tg-wymk{font-weight:bold;font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif !important;;
+    background-color:#efefef;
+    text-align:left;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    vertical-align:middle}
+.tg .tg-gt6j{font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif !important;;
+    background-color:#ffffff;
+    /* border-color:darkgray; */
+    text-align:left; 
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    vertical-align:middle}
+.tg .tg-d44j{
+    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif !important;;
+    text-align:left;
+    border-bottom-style: solid;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    vertical-align:middle}
+
+.tg .tg-g4tm{
+    text-align:left;
+    border-bottom-style: solid;
+    font-weight:bold;
+    background-color:#efefef;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    vertical-align:middle}
+.tg .tg-de2y{
+    border-color:#333333;
+    text-align:left;
+    vertical-align:top}
+.tg .tg-cly1{
+        text-align:left;
+        background-color:#efefef;
+        vertical-align:middle;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    }
+.tg .tg-nrix{
+        text-align:center;
+        vertical-align:middle;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    }
+.tg .tg-nrit{
+        text-align:center;
+        vertical-align:middle;
+        font-size:30px;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    }
+.tg .tg-payCheck{
+        text-align:left;
+        vertical-align:middle;
+        font-size:14px;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    }
+.tg .tg-lastCheck{
+        background-color:#ffffff;
+        border-top-width:0px;
+        text-align:left;
+        vertical-align:middle;
+        font-size:14px;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    }
+.tg .tg-orderClick{
+        background-color:#ffffff;
+        border-top-width:0px;
+        text-align:center;
+        vertical-align:middle;
+        font-size:14px;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    }
+.orderClick{
+    background-color:#ffffff;
+    border-top-width:0px;
+    text-align:center;
+    vertical-align:middle;
+    font-size:14px;
+ 
+}
+.tg .tg-default{
+        font-size:14px;
+        border-bottom-style: solid;
+        border: 0;
+}
+.submitButton{
+        border:0px;
+        display:inline-block;
+        *display:inline;_display:inline;zoom:1;
+        width:110px;
+        height:40px;
+        line-height:40px;
+        text-align:center;
+        color:#fff;
+        font-size:12px !important;
+        letter-spacing:-0.025em;
+        font-weight:600;
+        background-color:indigo;
+    
+}
+.submitcancel{
+    border:0px;
+    display:inline-block;
+    *display:inline;_display:inline;zoom:1;
+    width:110px;
+    height:40px;
+    line-height:40px;
+    text-align:center;
+    color:#fff;
+    font-size:12px !important;
+    letter-spacing:-0.025em;
+    font-weight:600;
+    background-color:lightslategrey;
+
+}

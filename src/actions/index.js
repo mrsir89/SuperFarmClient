@@ -31,6 +31,24 @@ const getClientToken = () => {
   });
 };
 
+//refreshToken
+const refreshToken = (refresh_token) => {
+  const formData = new FormData();
+  formData.append('grant_type', 'refresh_token');
+  formData.append('refresh_token', refresh_token);
+
+  return ({
+    type: "REFRESH_TOKEN",
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/oauth/token',
+        data: formData
+      }
+    }
+  });
+};
+
 
 //////////////////////////////////////////////
 //           회원 가입 
@@ -130,6 +148,7 @@ const getUserMe = () => {
     }
   });
 };
+
 
 const logout = () => ({
   type: ActionTypes.LOGOUT
@@ -502,7 +521,7 @@ const asynAction = () => {
 
 const kakaoPayReady =() =>{
   const formData = new FormData();
-  return{
+  return({
     type:ActionTypes.KAKAOPAYREADY,
     payload:{
       request:{
@@ -511,14 +530,32 @@ const kakaoPayReady =() =>{
         data:formData
       }
     }
-  }
+  })
 }
 
+///////////////////////////////////////////////////////////////////
+/////     Order 관련 
+const checkoutOrder=(orders)=>{
+  const formData = new FormData();
+  return({
+    type:ActionTypes.CHECKOUTORDERS,
+    payload:{
+      request:{
+        method:'POST',
+        url:'/orders',
+        headers:{
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data:JSON.stringify(orders)
+      }
+    }
+  })
+}
 
 export const Actions = {
 
   signup, emailCheck, idCheck, getUserMe,
-  login, logout, getClientToken,
+  login, logout, getClientToken,refreshToken,
   writeQnABoard,
   addCart,
   loadProductList, loadProductDetails,
@@ -526,6 +563,6 @@ export const Actions = {
   loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,loadNoticeBoard,
   writeAnswer, deleteAnswer,
   getReviews, removeReview, addReview, uploadFileReview,
-  asynAction, kakaoPayReady
+  asynAction, kakaoPayReady,checkoutOrder
 
 };

@@ -37,18 +37,6 @@ const productReducer = (state = initialStateProduct, action) => {
             }
             return state;
 
-
-        // case ActionTypes.ADD_CART:
-        //     const { item } = action
-        //     return {
-        //         ...state,
-        //         cart: [
-        //             ...cart,
-        //             item
-        //         ]
-        //     }
-        
-
         // 카테고리 불러오기 
         case ActionTypes.GET_CATEGORIES_SUCCESS:
             console.log('ActionType.CategorySuccess')

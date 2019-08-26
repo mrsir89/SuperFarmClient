@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Actions } from '../../actions/index';
-import './kakaoTable.css';
+import './order.css';
 
 
     // 1순서
