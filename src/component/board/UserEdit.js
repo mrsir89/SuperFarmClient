@@ -94,11 +94,6 @@ class userEdit extends React.Component {
             userEdit(changeUserInfo, history);
         }// else
     }
-    onSubmit1(event){
-        event.preventDefault();
-        const { history } =this.props
-        history.push("/");
-      }
 
     onChange(event) {
         const target = event.target;
@@ -139,7 +134,7 @@ class userEdit extends React.Component {
                     <h3>회원정보 수정</h3><br/>
                 </div>
                 <div className="edit-table" style={{display:'flex',justifyContent:'center'}} id="person-Info">
-                    <form onSubmit={e => this.onSubmit(e)} onSubmit1={e=>this.onSubmit1(e)}>
+                    <form onSubmit={e => this.onSubmit(e)}>
                         <table>
                             <colgroup>
                                 <col width="187"/>
@@ -216,7 +211,6 @@ class userEdit extends React.Component {
                         </table>
                         <div class="submit">
                             <input type="submit" name="onSubmit" value="저장"/>
-                            <input type="submit" name="onSubmit1" value="취소"/>
                         </div>
                     </form>
                 </div>
