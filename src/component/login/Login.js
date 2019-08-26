@@ -3,8 +3,13 @@ import { Actions } from '../../actions/index';
 import { ActionTypes } from '../../contants';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
-import { reject } from 'q';
+import preheader from '../../containers/PreHeader'
 
+const onChangeRoute = ({ props }) => {
+  console.log(props, "tesdfsefefsaef");
+  let path = '/';
+  props.history.push(path);
+}
 
 const loginAsync = (customerId, password, history) => (dispatch) => {
   console.log('loginAsynce 시작 ', customerId, password)
@@ -70,14 +75,18 @@ class Login extends React.Component {
       password: ''
     }
     this._onchange = this._onchange.bind(this);
+
     this.routeChange = this.routeChange.bind(this);
   }
+
+
 
   // Change endpoint after Login (with some error)
   routeChange() {
     let path = '/';
     this.props.history.push(path);
   }
+
 
 
   _onchange(event) {
@@ -100,9 +109,13 @@ class Login extends React.Component {
     console.log('customerId : ', customerId)
     console.log('password  : ', password)
     const { history } = this.props
-    login(customerId, password, history)
-
+    login(customerId, password, history);
   }
+
+  // .then(response=>{
+  //   if(response.type===ActionTypes.LOGIN_SUCCESS){
+  //     this.routeChange();
+  //   }
 
   render() {
     return (
@@ -110,22 +123,19 @@ class Login extends React.Component {
         <div className="LoginForm">
           <div className="top">
             Log in
-              </div>
+          </div>
           <form onSubmit={e => this.onSubmit(e)}>
             <input type="text" name="customerId" value={this.state.userId} onChange={this._onchange} placeholder="Username" />
             <input type="password" name="password" value={this.state.password} onChange={this._onchange} placeholder="Password" />
             <input type="submit" name="submit" value="Log In" />
-            {/* <input type="submit" onClick={this.routeChange}>Log In</button> */}
+            {/* <button onClick={this.routeChange}>Log In</button> */}
           </form>
           <div className="bottom">
-            <a href="/findPassword">Forgot Password?</a>
+            <a href="/page-forgotton-password.html">Forgot Password?</a>
           </div>
-          <div className="bottom">
-            <a href="http://www.keenthemes.com/preview/metronic/theme/templates/admin/ecommerce_index.html" target="_blank">Admin login</a>
-          </div>
-          
         </div>
       </div>
+
     )
   }
 }

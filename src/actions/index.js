@@ -1,4 +1,5 @@
 import { ActionTypes } from '../contants';
+import { userInfo } from 'os';
 // React 컴포넌트같은 것이 직접 접근하려고 하면 안됨.
 // 직접 접근하기 위해 "Action"이라는 의식을 거쳐야 한다.
 // 1)_ Store에 대해 뭔가 하고 싶은 경우엔 Action 을 발행한다.
@@ -119,6 +120,22 @@ const login = (customerId, password) => {
   });
 };
 
+const userEdit = (changeUserInfo) => {
+  const formData = new FormData();
+  formData.append('userEdit', changeUserInfo);
+  console.log('userEdit Actions ====> ', changeUserInfo);
+  return({
+    type: ActionTypes.USER_EDIT,
+    payload: {
+      request:{
+        method:'POST',
+        url:'/oauth/token',
+        data:formData
+      }
+    }
+  });
+};
+
 const getUserMe = () => {
   return ({
     type: ActionTypes.GET_USERME,
@@ -197,6 +214,30 @@ const loadqnaboardList = (productNum, size, page) => {
     }
   })
 }
+
+
+
+
+
+/////////////////////////////////////////////////////////////////
+///////////   Category       ////////////////////////////////////
+
+
+// // 카테고리 DB에서 가져오는 action 추가 
+// const getCategories = () => {
+//   return ({
+//     type: ActionTypes.GET_CATEGORIES,
+//     payload: {
+//       request: {
+//         method: 'POST',
+//         url: '/category'
+//       }
+//     }
+//   })
+// }
+
+
+
 
 //QnABoard 내용수정
 const editQnABoard = (editQnABoard) => {
@@ -292,14 +333,34 @@ const addReview = (reviewBoard) => {
 };
 
 // 리뷰 삭제
+// const removeReview = (reviewBoardNum) => {
+//   console.log('removieReviewsd')
+//   return ({
+//     type: ActionTypes.REMOVE_REVIEW,
+//     payload: {
+//       request: {
+//         method: 'DELETE',
+//         url: `/review/delete?reviewBoardNum=${reviewBoardNum}`
+//       }
+//     }
+//   });
+// };
+
+
 const removeReview = (reviewBoardNum) => {
   console.log('removieReviewsd')
+  const formData = new FormData();
+  formData.append('reviewBoardNum', reviewBoardNum)
   return ({
     type: ActionTypes.REMOVE_REVIEW,
     payload: {
       request: {
-        method: 'DELETE',
-        url: `/review/delete${reviewBoardNum}`
+        method: 'PATCH',
+        url: `/review/delete`,
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: formData,
       }
     }
   });
@@ -542,7 +603,9 @@ export const Actions = {
   getCategories, getCartByUser,removeCartById,editCartQty,
   loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,
   writeAnswer, deleteAnswer,
-  getReviews, removeReview, addReview, uploadFileReview,
-  asynAction
 
+  getReviews, removeReview, addReview, uploadFileReview,
+  asynAction,
+
+  userEdit
 };

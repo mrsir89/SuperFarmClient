@@ -120,6 +120,7 @@ class ProductDetail extends React.Component {
       let tmpCode = ''
       tmpCode = event.target.value;
       const productList = productListFromProps;
+      console.log("option2 [[productList]]", productList)
       const choiceProduct = productList.filter(productList => productList.productCode == tmpCode)
       console.log(choiceProduct, 'ssssssssssssssssssssssss')
       if (choiceProduct.length !== 0) {
@@ -196,6 +197,8 @@ class ProductDetail extends React.Component {
 
       const { productBoardDetail } = this.props;
       const { productList } = productBoardDetail;
+      console.log("product Board Detail >>", productBoardDetail)
+      console.log("productList >>", productList)
       const {productBoardTitle, lowerCode, productBoardDeliveryPrice} = productBoardDetail;
 
 
@@ -217,7 +220,7 @@ class ProductDetail extends React.Component {
                      <div className="col-md-6 col-sm-6">
 
                         <table summary="">
-                           <caption>상품정보 목록</caption>
+                           <caption><strong>상품정보 목록</strong></caption>
                            <tbody>
                               <tr>
                                  <th scope="row">상품 이름</th>
@@ -236,12 +239,35 @@ class ProductDetail extends React.Component {
                                  <th scope="row">배송비</th>
                                  <td>{productBoardDeliveryPrice}</td>
                               </tr>
+
+                              <tr> 
+                                 <th scope ="row"> 옵션1 선택</th> &nbsp;
+                           < select name="option1" onChange={this._option1Change}>
+                              <option value='defaultValue' selected="selected">옵션을 선택하세요</option>
+                              {this._option1Check(productList).map((productList) => (
+                                 <option value={productList.productOption1} >
+                                    {productList.productOption1}</option>
+                              ))}
+                               </select>
+                              </tr>
+
+                              <tr> 
+                                 <th scope ="row"> 옵션2 선택</th> &nbsp;
+                                 < select name="option2" onChange={e => this._option2Change(e,productList)}>
+                              <option value="default" selected="selected">
+                                 옵션을 선택하세요</option>
+                              {this._option2Check(productList).map((productList) => (
+                                 <option value={productList.productCode} >
+                                    {productList.productOption2}</option>
+                              ))}
+                                 </select>
+                              </tr>
                            </tbody>
                         </table>
                      </div>
                      <div className="form-row">
-                        <div className="form-group col-md-6">
-                           <label for="exampleFormControlSelect1">옵션1 선택</label>
+                        {/* <div className="form-group col-md-6">
+                           <label for="exampleFormControlSelect1">옵션1 선택</label> &nbsp;
                            < select name="option1" onChange={this._option1Change}>
                               <option value='defaultValue' selected="selected">옵션을 선택하세요</option>
                               {this._option1Check(productList).map((productList) => (
@@ -249,31 +275,22 @@ class ProductDetail extends React.Component {
                                     {productList.productOption1}</option>
                               ))}
                            </select>
-                        </div>
+                        </div> */}
 
-                        <div className="form-group col-md-6">
-                           <label for="exampleFormControlSelect1">옵션2 선택</label>
-                           < select name="option2" onChange={ event => this._option2Change(event,productList )}>
-                              <option value="default" selected="selected">
-                                 옵션을 선택하세요</option>
-                              {this._option2Check(productList).map((productList) => (
-                                 <option value={productList.productCode} >
-                                    {productList.productOption2}</option>
-                              ))}
-                           </select>
-                        </div>
+                        
+
                         <div>
-                           <label > 개수</label>
+                           <label > 개수</label> &nbsp;
                            <input type="number" min="1" max="100" value={this.state.quantity}
                               step="1" onChange={this._quantityChange}></input>
                         </div>
                         <div>
-                           <label> 가격</label>
+                           <label> 가격</label> &nbsp;
                            {this.state.totalPrice}
                         </div>
                      </div>
                      <div className="btn-prd">
-                        <p><a href="#" className="btn-buy">구매</a></p>
+                        <p><button><a href="#" className="btn-buy">구매</a></button></p>
                         <a href="/cart" className="btn-buy">
                            <p>장바구니로 이동(링크)</p>
                         </a>

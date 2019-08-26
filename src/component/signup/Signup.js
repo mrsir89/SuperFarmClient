@@ -10,7 +10,13 @@ import { async } from 'q';
 // Reducer에 action을 알리는 함수 dispatch를 어떻게 props에 엮을 지 정한다. 
 //   (이 동작을 정의하는 함수는 mapDispatchToProps라고 불립니다)
 // 위에 두가지가 적용된 props를 받을 Component를 정한다
-// Store와 Reducer를 연결시킬 수 있도록 만들어진 Component가 반환값이 된다
+// Store와 Reducer를 연결시킬 수 있도록 만들어진 Component가 반환값이 된다.
+
+const onChangeRoute = ({ props }) => {
+  console.log(props, "tesdfsefefsaef");
+  let path = '/';
+  props.history.push(path);
+}
 
 
 const signupAsync = (signupCustomer,history) => dispatch => {
@@ -62,10 +68,14 @@ class Signup extends React.Component {
     this.routeChange = this.routeChange.bind(this);
   }
 
-  routeChange() {
-    let path = '/';
-    this.props.history.push(path);
-  };
+
+    // Change endpoint after Login (with some error)
+    routeChange() {
+      let path = '/';
+      this.props.history.push(path);
+    }
+  
+
 
 
   componentWillMount() {

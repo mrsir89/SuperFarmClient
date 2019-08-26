@@ -15,7 +15,7 @@ import axiosMiddleware from 'redux-axios-middleware'; // 추가사항
 import { StateLoader, interceptors, onErrorHandler } from './util';
 import App from './App';
 // import NaviBar from './component/board/NaviBar';
-import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap/dist/css/bootstrap.css'
 
 // import * as serviceWorker from './serviceWorker';
 
@@ -72,5 +72,4 @@ ReactDOM.render(
     </Router>
   </Provider>,
   document.getElementById('root'));
-
 

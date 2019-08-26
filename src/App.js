@@ -19,6 +19,11 @@ import ListReview from './component/board/reviewBoard/ListReview'
 import AddReview from './component/board/reviewBoard/AddReview';
 
 
+import userEdit from './component/board/UserEdit';
+import userEditlogin from './component/board/UserEditLogin';
+// import QuestionBoard from './component/board/QuestionBoard';
+import EditMe from './component/board/EditMe';
+import ProductTest from './component/board/PksProduct';
 // import Main from './Main';
 
 // REACT는 라이브러리, View를 Rendering 하는 것이 주 기능이며 나머지 기타 기능들(router, ajax등등)은 서드파티 라이브러리를 추가적으로 사용해야 한다.
@@ -40,8 +45,8 @@ import AddReview from './component/board/reviewBoard/AddReview';
 
 
 class App extends React.Component {
-  render() { // 화면에 html 뷰를 생성.
-    return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
+  render() { // 화면에 html 뷰를 생성.\
+      return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
       <div className="container">
         <PreHeader/>
         <Header /> 
@@ -50,6 +55,7 @@ class App extends React.Component {
           <Route exact path="/" component={Home} />
           {/* <Route exact path="/product" component={ProductList} /> */}
           <Route path="/productlist/:id" component={ProductList} />
+          <Route exact path="/product" component={ProductList} />
           <Route path="/signup" component={signup} />
           <Route path="/login" component={login} />
           <Route path="/qnaboard" component={qnaboard} />
@@ -60,6 +66,14 @@ class App extends React.Component {
           <Route path="/review/write" component={AddReview} />
           {/* <Route path="/orderSheet" component={OrderSheet} /> */}
 
+          <Route path="/qnaboardWrite" component={QnABoardWrite}/>
+          <Route path="/useredit" component={userEdit} />
+          <Route path="/usereditlogin" component={userEditlogin}/>
+        
+          
+          <Route path="/product/:id" component={ProductDetail} />
+          {/* <Route path="/mypage" component={myPage}/> */}
+          <Route path="/producttest" component={ProductTest}/>
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
         </Switch>
         {/* <PreFooter/> */}
