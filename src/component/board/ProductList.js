@@ -24,7 +24,7 @@ class ProductList extends React.Component {
     loadProductList('lower', lowerId);
 
   }
-  componentDidMount(){
+  componentWillMount(){
     const { loadProductList } = this.props;
     //loadProductList();
     const lowerId = this.props.match.params.id;
