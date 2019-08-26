@@ -71,7 +71,7 @@ class App extends React.Component {
           <Route path="/usereditlogin" component={userEditlogin}/>
         
           
-          <Route path="/product/:id" component={ProductDetail} />
+        
           {/* <Route path="/mypage" component={myPage}/> */}
           <Route path="/producttest" component={ProductTest}/>
           {/* <Route path="/findPassword" component={ProductDetail} /> */}

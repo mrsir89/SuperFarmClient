@@ -2,7 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+
+const logout =() =>  {
+  localStorage.clear();
+  window.location.href = '/';
+  
+}
+
 function PreHeader( { userDetails } ) {
+
+
   console.log('PreHeader userDetails =====>',userDetails)
   return (
     <div className="pre-header">
@@ -23,7 +32,8 @@ function PreHeader( { userDetails } ) {
               {/* <li><a href="shop-wishlist.html">My Wishlist</a></li> */}
               {/* <li><a href="shop-checkout.html">Checkout</a></li> */}
               <li>
-                {((userDetails === undefined || userDetails ===null))?(<a href="/login">로그인</a>):(<a href="/logout">로그아웃</a>)}
+                {((userDetails === undefined || userDetails ===null))?(<a href="/login">로그인</a>)
+                      :(<a onClick={logout}>로그아웃 </a>)}
               </li>
               <li><a href="/signup">회원가입</a></li>
             </ul>

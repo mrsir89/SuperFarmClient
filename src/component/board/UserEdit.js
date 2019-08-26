@@ -7,7 +7,6 @@ import { getForkTsCheckerWebpackPluginHooks } from 'fork-ts-checker-webpack-plug
 import './UserEdit.css';
 
 
-
 const userEditAsync=(changeUserInfo, history) => (dispatch) => {
     // 수정후 바로 집으로 보내버리기. 왜냐 USER_EDIT_SUCCESS를 받을 동안 현재 페이지가 실행되는데
     // 그사이에 setState후 랜더링이 발생 UserDetails가 undefined로 값이 없어져서 그전에 미리 보내버리기.
@@ -17,8 +16,6 @@ const userEditAsync=(changeUserInfo, history) => (dispatch) => {
     alert('회원님의 정보가 성공적으로 수정되었습니다. 다시 로그인 해주세요~!');
     return dispatch(Actions.userEdit(changeUserInfo))
         .then(response => {
-            console.log("response >>>>", response);
-            console.log("response.Type >>>>", response.Type)
             if (response.Type === ActionTypes.USER_EDIT_SUCCESS) {
             }else {
                 return Promise.reject(response);

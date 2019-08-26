@@ -6,11 +6,11 @@ import Login from '../login/Login';
 class MyPage extends React.Component {
 
 //  추후에 로그인 후 로그아웃으로 스위치
-logout() {
-    localStorage.clear();
-    window.location.href = '/';
+// logout() {
+//     localStorage.clear();
+//     window.location.href = '/';
     
-}
+// }
 
     render() {
         const { userDetails } = this.props;
@@ -40,10 +40,11 @@ logout() {
                             <dl id="my_info_top" class="mt_30">
                                 <dt>
                                     <div class="user_info">
-                                        <em>{userDetails.userName}</em>님<br />
+                                        <em>{userDetails.username}</em>님<br />
                                         반갑습니다!
-                            </div>
+                                    </div>
                                     <a href="/usereditlogin" class="user_btn">회원정보 수정</a>
+                                    
                                 </dt>
                                 <dd>
                                     <h3>적립 포인트</h3>

@@ -120,21 +120,23 @@ const login = (customerId, password) => {
   });
 };
 
-const userEdit = (changeUserInfo) => {
-  const formData = new FormData();
-  formData.append('userEdit', changeUserInfo);
-  console.log('userEdit Actions ====> ', changeUserInfo);
-  return({
+const userEdit=(customerEdit)=>{
+  return ({
     type: ActionTypes.USER_EDIT,
     payload: {
-      request:{
-        method:'POST',
-        url:'/oauth/token',
-        data:formData
+      request: {
+        method: 'POST',
+        url: '/users/edit',
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: JSON.stringify(customerEdit)
       }
     }
-  });
+  }
+  );
 };
+
 
 const getUserMe = () => {
   return ({

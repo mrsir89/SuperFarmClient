@@ -15,8 +15,7 @@ const rootReducers = combineReducers({
   auth: authentication,
   product: productReducer,
   cart : cartReducer,
-  board: boardReducer
-  //userEdit:userEditReducer
+  board: boardReducer,
 });
 
 export default rootReducers;

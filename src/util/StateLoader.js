@@ -45,9 +45,7 @@ class StateLoader {
             //     page:1,
             //     questionBoard:[]
             // },
-            // userEdit: {
-            //     userDetails:[]
-            // },
+            
             //     productBoard: [],
             //     category: []
             auth: {
@@ -68,6 +66,9 @@ class StateLoader {
             board : {
                 reviewBoard:[],
                 qnaBoard:[],
+            },
+            userEdit: {
+                userDetails:[]
             }
 
 
