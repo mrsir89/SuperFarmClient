@@ -9,17 +9,22 @@ import './UserEdit.css';
 
 
 const userEditAsync=(changeUserInfo, history) => (dispatch) => {
+    // 수정후 바로 집으로 보내버리기. 왜냐 USER_EDIT_SUCCESS를 받을 동안 현재 페이지가 실행되는데
+    // 그사이에 setState후 랜더링이 발생 UserDetails가 undefined로 값이 없어져서 그전에 미리 보내버리기.
     console.log("userEdit 시작", changeUserInfo);
+    localStorage.clear();
+    history.push("/login");
+    alert('회원님의 정보가 성공적으로 수정되었습니다. 다시 로그인 해주세요~!');
     return dispatch(Actions.userEdit(changeUserInfo))
         .then(response => {
             console.log("response >>>>", response);
             console.log("response.Type >>>>", response.Type)
             if (response.Type === ActionTypes.USER_EDIT_SUCCESS) {
-                history.push("/");
-                alert('회원님의 정보가 성공적으로 수정되었습니다.');
+            }else {
+                return Promise.reject(response);
             }
         }).catch(error => {
-            return console.log('login Error', error)
+            return console.log('userEdit', error)
         });
 }
 
@@ -91,11 +96,6 @@ class userEdit extends React.Component {
             userEdit(changeUserInfo, history);
         }// else
     }
-    onSubmit1(event){
-        event.preventDefault();
-        const { history } =this.props
-        history.push("/");
-      }
 
     onChange(event) {
         const target = event.target;
@@ -136,7 +136,7 @@ class userEdit extends React.Component {
                     <h3>회원정보 수정</h3><br/>
                 </div>
                 <div className="edit-table" style={{display:'flex',justifyContent:'center'}} id="person-Info">
-                    <form onSubmit={e => this.onSubmit(e)} onSubmit1={e=>this.onSubmit1(e)}>
+                    <form onSubmit={e => this.onSubmit(e)}>
                         <table>
                             <colgroup>
                                 <col width="187"/>
@@ -213,7 +213,6 @@ class userEdit extends React.Component {
                         </table>
                         <div class="submit">
                             <input type="submit" name="onSubmit" value="저장"/>
-                            <input type="submit" name="onSubmit1" value="취소"/>
                         </div>
                     </form>
                 </div>

@@ -1,14 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import './MyPage.css'
-
+import './MyPage.css';
+import Login from '../login/Login';
 
 class MyPage extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
-
 
 //  추후에 로그인 후 로그아웃으로 스위치
 logout() {
@@ -17,73 +12,82 @@ logout() {
     
 }
 
-    render() { 
-        const {userDetails}=this.props;
-        var date =new Date( userDetails.userLastConnect);
-        console.log("date====>",date, typeof date);
+    render() {
+        const { userDetails } = this.props;
 
-        const userdate=getFormatDate(date);
-        console.log(userdate);
-        return (
-            <div id="contentWrap">
-                <div id="content">
-                    <div class="navi w1100">
-                        <a href="/">HOME</a>
-                        <a href="/shop/mypage.html">마이페이지</a>
-                        <h2>마이페이지</h2>
-                    </div><br/>
-                    <link type="text/css" rel="stylesheet" href="/shopimages/samdamall/template/work/592/menu.2.css?t=201905070922"></link>
-                    <div id="mypage_aside">
-                        <dl id="my_info_top" class="mt_30">
-                        <dt>
-                            <div class="user_info">
-                                <em>{userDetails.userName}</em>님<br/>
-                                반갑습니다!
+        if (userDetails === null || userDetails === undefined) {
+            alert("로그인 후 이용바랍니다.");
+            return (
+                <Login />
+            );
+        } else {
+            var date = new Date(userDetails.userLastConnect);
+            console.log("date====>", date, typeof date);
+
+            const userdate = getFormatDate(date);
+            console.log(userdate);
+
+            return (
+                <div id="contentWrap">
+                    <div id="content">
+                        <div class="navi w1100">
+                            <a href="/">HOME</a>
+                            <a href="/mypage">마이페이지</a>
+                            <h2>마이페이지</h2>
+                        </div><br />
+                        <link type="text/css" rel="stylesheet" href="/shopimages/samdamall/template/work/592/menu.2.css?t=201905070922"></link>
+                        <div id="mypage_aside">
+                            <dl id="my_info_top" class="mt_30">
+                                <dt>
+                                    <div class="user_info">
+                                        <em>{userDetails.userName}</em>님<br />
+                                        반갑습니다!
                             </div>
-                            <a href="/usereditlogin" class="user_btn">회원정보 수정</a>  
-                        </dt>
-                        <dd>
-                            <h3>적립 포인트</h3>
-                            <p class="info">
-                                고객님이 적립하신<br/>총 포인트 금액입니다.
+                                    <a href="/usereditlogin" class="user_btn">회원정보 수정</a>
+                                </dt>
+                                <dd>
+                                    <h3>적립 포인트</h3>
+                                    <p class="info">
+                                        고객님이 적립하신<br />총 포인트 금액입니다.
                             </p>
-                            <p class="number">
-                                <em>{userDetails.position.customerPoint}</em> 포인트
+                                    <p class="number">
+                                        <em>{userDetails.position.customerPoint}</em> 포인트
                             </p>
-                        </dd>
-                        <dd>
-                            <h3>회원 등급</h3>
-                            <p class="info">
-                                고객님의 현재 등급<br/>입니다.
+                                </dd>
+                                <dd>
+                                    <h3>회원 등급</h3>
+                                    <p class="info">
+                                        고객님의 현재 등급<br />입니다.
                             </p>
-                            <p class="number">
-                                <em>{userDetails.position.customerGrade}</em> 등급
+                                    <p class="number">
+                                        <em>{userDetails.position.customerGrade}</em> 등급
                             </p>
-                        </dd>
-                        <dd>
-                            <h3>마지막 접속일자</h3>
-                            <p class="info">
-                                고객님의 마지막 접속일자<br/>입니다.
+                                </dd>
+                                <dd>
+                                    <h3>마지막 접속일자</h3>
+                                    <p class="info">
+                                        고객님의 마지막 접속일자<br />입니다.
                             </p>
-                            <p class="number">
-                                <em>{userdate}</em> 입니다.
+                                    <p class="number">
+                                        <em>{userdate}</em> 입니다.
                             </p>
-                        </dd>
-                        </dl>
-                        <ul id="my_link_nav" class="mt_20">
-                            <li class="my_menu01"><a href=""><span>주문/배송조회</span></a></li>
-                            <li class="my_menu02"><a href=""><span>포인트내역</span></a></li>
-                            <li class="my_menu03"><a href=""><span>쿠폰내역</span></a></li>
-                            <li class="my_menu04"><a href=""><span>관심상품(장바구니)</span></a></li>
-                            <li class="my_menu05"><a href=""><span>e-mail 문의</span></a></li>
-                            <li class="my_menu05"><a href=""><span>1:1문의게시판</span></a></li>
-                            <li class="my_menu07"><a href=""><span>오늘 본 상품</span></a></li>
-                            <li class="my_menu08"><a href=""><span>회원탈퇴</span></a></li>
-                        </ul>
+                                </dd>
+                            </dl>
+                            <ul id="my_link_nav" class="mt_20">
+                                <li class="my_menu01"><a href=""><span>주문/배송조회</span></a></li>
+                                <li class="my_menu02"><a href=""><span>포인트내역</span></a></li>
+                                <li class="my_menu03"><a href=""><span>쿠폰내역</span></a></li>
+                                <li class="my_menu04"><a href=""><span>관심상품(장바구니)</span></a></li>
+                                <li class="my_menu05"><a href=""><span>e-mail 문의</span></a></li>
+                                <li class="my_menu05"><a href=""><span>1:1문의게시판</span></a></li>
+                                <li class="my_menu07"><a href=""><span>오늘 본 상품</span></a></li>
+                                <li class="my_menu08"><a href=""><span>회원탈퇴</span></a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }
 
