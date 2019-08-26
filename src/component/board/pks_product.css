@@ -1,0 +1,181 @@
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+.container {
+    width: 1200px;
+}
+
+a {
+    color: #000;
+}
+
+a:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+.product {
+    /* background: #ddd; */
+}
+
+.product-top {
+    background: #ddd;
+}
+
+
+
+.product-best {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 30px 0;
+}
+
+.product-best-item {
+    width: 300px;
+    background: #fff;
+}
+
+.product-best-item--rank {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    background: #000;
+    background: orange;
+
+}
+
+.product-best-item--thumb {
+    border-left: 1px solid #888;
+    border-right: 1px solid #888;
+    box-sizing: border-box;
+}
+
+.product-best-item--thumb img {
+    width: 100%;
+}
+
+.product-best-item--info {
+    padding: 0 25px;
+    border-left: 1px solid #888;
+    border-right: 1px solid #888;
+    border-bottom: 1px solid #888;
+}
+
+.product-best-item--icon {
+}
+
+.icon {
+    padding: 5px 0;
+    width: 50px;
+    height: 20px;
+    text-align: center;
+    background: red;
+    border-radius: 100px;
+}
+
+.product-best-item--title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+}
+
+.product-best-item--price {
+    padding-top: 10px;
+    font-size: 20px;
+    padding-bottom: 30px;
+}
+
+.price {
+    
+}
+
+/* end of top best  */
+
+.product-bot {
+    /* background:  skyblue; */
+    display: flex;
+    padding: 30px 0;
+}
+
+.product-bot-left{
+    width: 200px;
+}
+.product-bot-right{
+    margin-left: 50px;
+    width: 950px;
+}
+
+/* end of bot basic */
+
+.product-sidebar {
+    width: 100%;
+    outline: 1px solid #888;
+    padding: 20px;
+}
+
+.sidebar-title {
+    font-weight: 500;
+    font-size: 20px;
+    border-bottom: 2px solid #000
+
+}
+
+.sidebar-menu {
+    margin-top: 10px;
+}
+
+
+
+.product-total {
+    display: flex;
+    justify-content: space-between;
+    /* background: red; */
+    border-bottom: 2px solid #000;
+}
+
+.product-total-bar {
+    font-size: 25px;
+}
+
+.total-item {
+    color: orange
+}
+
+.total-count {
+    color: orange
+}
+
+
+
+
+.product-bot-list {
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+.product-bot-item {
+    width: 200px;
+}
+
+.product-bot-item:nth-child(n+5) {
+    margin-top: 40px;
+}
+
+.product-bot-info {
+    padding-top: 10px;
+    border: none;
+    border-top: 1px solid #888;
+}

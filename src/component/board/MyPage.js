@@ -70,6 +70,16 @@ logout() {
                             </p>
                         </dd>
                         </dl>
+                        <ul id="my_link_nav" class="mt_20">
+                            <li class="my_menu01"><a href=""><span>주문/배송조회</span></a></li>
+                            <li class="my_menu02"><a href=""><span>포인트내역</span></a></li>
+                            <li class="my_menu03"><a href=""><span>쿠폰내역</span></a></li>
+                            <li class="my_menu04"><a href=""><span>관심상품(장바구니)</span></a></li>
+                            <li class="my_menu05"><a href=""><span>e-mail 문의</span></a></li>
+                            <li class="my_menu05"><a href=""><span>1:1문의게시판</span></a></li>
+                            <li class="my_menu07"><a href=""><span>오늘 본 상품</span></a></li>
+                            <li class="my_menu08"><a href=""><span>회원탈퇴</span></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>

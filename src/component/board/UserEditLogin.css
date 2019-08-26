@@ -1,6 +1,13 @@
 #userCheckForm {
     text-align: center;
 }
+.userCheck {
+    zoom: 1;
+    overflow: hidden;
+    width: 1200px;
+    padding-top: 36px;
+}
+
 #userCheckForm > h2 {
     font-size: 26px;
     line-height: 40px;
@@ -69,6 +76,6 @@
     letter-spacing: -0.025em;
     font-weight: 600;
     background-color: #828282;
-    margin: 0 6px;
+    margin: 0 0 50px;
 }
 
