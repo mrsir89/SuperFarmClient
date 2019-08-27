@@ -31,7 +31,10 @@ class Cart extends React.Component {
 
     this.state = {
       items: [],
-      selectedProduct: []
+      selectedProduct: [],
+      SubPrice:0,
+      shippingPrice:0,
+      TotalPrice:0
     }
   }
 
@@ -39,7 +42,13 @@ class Cart extends React.Component {
     const { getCartByUser } = this.props;
     const { userDetails } = this.props;
     getCartByUser(userDetails.userNum)
-      .then(response => this.setState(response));
+      .then(response =>{
+        this._changeTotalPrice();
+      });
+  }
+  componentDidMount(){
+        
+   
   }
 
   // onChangeHandler
@@ -61,7 +70,9 @@ class Cart extends React.Component {
       items: newCartList
     });
 
-    editCartQty(newCartList[idx]);
+    editCartQty(newCartList[idx]).then(response=>{
+      this._changeTotalPrice();
+    });
   }
 
   //장바구니 삭제 
@@ -93,6 +104,9 @@ class Cart extends React.Component {
     }));
   }
 
+  _test(event){
+    console.log("event.target ____________________",event.target)
+  }
 
   // _cartlistCheck() {
   //   const { cartItem } = this.props
@@ -110,13 +124,30 @@ class Cart extends React.Component {
   }
 
 
-  render() {
+  _changeTotalPrice(){
+    console.log('작동~!!!!!!!!!!!!!!!')
     const { cartlist } = this.props;
     const SubPrice = this._getCartCount(cartlist) > 1 ? this._getSubTotalPrice(cartlist)
       : this._getCartCount(cartlist) == 1 ? this._getOnePrice(cartlist) : 0;
 
     const shippingPrice = (cartlist.length > 0 ? 3000 : 0);
     const TotalPrice = Number.parseFloat(SubPrice) + Number.parseFloat(shippingPrice);
+
+    this.setState ({
+      SubPrice:SubPrice,
+      shippingPrice:shippingPrice,
+      TotalPrice:TotalPrice
+    })
+  }
+
+
+  render() {
+    const { cartlist } = this.props;
+    // const SubPrice = this._getCartCount(cartlist) > 1 ? this._getSubTotalPrice(cartlist)
+    //   : this._getCartCount(cartlist) == 1 ? this._getOnePrice(cartlist) : 0;
+
+    // const shippingPrice = (cartlist.length > 0 ? 3000 : 0);
+    // const TotalPrice = Number.parseFloat(SubPrice) + Number.parseFloat(shippingPrice);
 
 
     return (
@@ -209,15 +240,15 @@ class Cart extends React.Component {
                     <ul>
                       <li>
                         <em>Sub total</em>
-                        <strong className="price">{SubPrice}<span>원</span></strong>
+                        <strong className="price">{this.state.SubPrice}<span>원</span></strong>
                       </li>
                       <li>
                         <em>Shipping cost</em>
-                        <strong className="price">{shippingPrice}<span>원</span></strong>
+                        <strong className="price">{this.state.shippingPrice}<span>원</span></strong>
                       </li>
                       <li className="shopping-total-price">
                         <em>Total</em>
-                        <strong className="price">{TotalPrice}<span>원</span></strong>
+                        <strong className="price" onChange={this._test}>{this.state.TotalPrice}<span>원</span></strong>
                       </li>
                     </ul>
                   </div>

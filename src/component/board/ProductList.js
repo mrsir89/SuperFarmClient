@@ -91,7 +91,7 @@ class ProductList extends React.Component {
   }// _renderAllproducts end
 
   render() {
-    //const {category, productBoard}= this.props;
+    const {category, productBoard}= this.props;
 
     // const upper =  productBoard[0].upperCode ;
     // const upperCategories = category[upper-1];
@@ -139,14 +139,13 @@ class ProductList extends React.Component {
             {this._renderSideBar()}
           </div>
 
-
-
           <div className="product-bot-right">
-
             {/* 필터 */}
             <div className="product-total">
               <div className="product-total-bar">
-                <span className="total-item">현재 lower </span> 카테고리 내 <span className="total-count">8</span>개의 상품이 있습니다.
+                <span className="total-item">현재 </span> 
+                    카테고리 내 
+                <span className="total-count"> {productBoard.length}</span>개의 상품이 있습니다.
               </div>
               <div className="product-filter">
                 필터
