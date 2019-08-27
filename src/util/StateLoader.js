@@ -30,24 +30,7 @@ class StateLoader {
     initialState() {
         
         return {
-            // auth: {
-            //     retryCount: 0,
-            //     token: null,
-            //     userDetails: {},
-            //     signupModel: null
-            // },
-            // product: {
-            //     items: [],
-            //     cart: []
-            // },
-            // // 각 페이지 마다 questionBoard들, 현재의 페이지 저장
-            // questionBoard: {
-            //     page:1,
-            //     questionBoard:[]
-            // },
-            
-            //     productBoard: [],
-            //     category: []
+          
             auth: {
                 retryCount: 0,
                 token: null,
@@ -66,6 +49,7 @@ class StateLoader {
             board : {
                 reviewBoard:[],
                 qnaBoard:[],
+                noticeBoard: []
             },
             userEdit: {
                 userDetails:[]

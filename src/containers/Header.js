@@ -37,7 +37,7 @@ class Header extends React.Component{
               
              {/* 여기에 map 형식으로 뿌려준다 menu에게 전달 한다.*/}
             {category.map((items,index) => <Menu {...items} key={index}/>)}
-  
+              <li><a href="/notice">공지사항</a></li>
               {/* BEGIN TOP SEARCH */}
               <li className="menu-search">
                 <span className="sep" />

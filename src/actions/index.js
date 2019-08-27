@@ -175,6 +175,54 @@ const refreshToken = (refresh_token) => {
   });
 };
 
+
+/**
+ * @author 심인선
+ * @param {*} writeQnA 
+ */
+
+ /////////////////////////////////////////////////////////////////////
+ //faq
+
+ const loadFrequentlyAskedQuestionBoard = ()=>{
+  const formData = new FormData();
+  console.log('Action FrequentlyAskedBoard 실행')
+  return({
+    type:ActionTypes.LOAD_FREQUENTLYASKEDBOARD,
+    payload:{
+      request:{
+        method:'POST',
+        url:'/faqboard',
+        data:formData
+      }
+    }
+  })
+}
+
+
+/////////////////////////////////////////////////////////////////
+/////          notice board
+
+const loadNoticeBoard = ()=>{
+  const formData = new FormData();
+  console.log('Action NoticeBoard 실행')
+  return({
+    type:ActionTypes.LOAD_NOTICEBOARD,
+    payload:{
+      request:{
+        method:'POST',
+        url:'/notice',
+        data:formData
+      }
+    }
+  })
+}
+
+
+
+
+
+
 /////////////////////////////////////////////////////////////////
 /////////// QnA Board ///////////////////////////////////////
 
@@ -604,6 +652,8 @@ export const Actions = {
   loadProductList, loadProductDetails,
   getCategories, getCartByUser,removeCartById,editCartQty,
   loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,
+  loadNoticeBoard,
+  loadFrequentlyAskedQuestionBoard,
   writeAnswer, deleteAnswer,
 
   getReviews, removeReview, addReview, uploadFileReview,

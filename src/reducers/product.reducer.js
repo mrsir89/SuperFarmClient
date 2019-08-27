@@ -22,6 +22,7 @@ const productReducer = (state = initialStateProduct, action) => {
 
             if (payload !== undefined && payload !== null) {
                 const { data } = payload;
+                console.log("load product list data >>>", data)
                 if (data !== undefined && data !== null) {
                     return {
                         ...state,

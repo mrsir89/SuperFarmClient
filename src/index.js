@@ -24,6 +24,7 @@ const clientId = 'test01';
 const clientSecret = 'test01';
 
 //Axios client 생성// 왜 여기서 생성을 했을 까요?
+// create a new instance of axios with a custom config.
 const client = axios.create({
   baseURL: 'http://localhost:8080',
   headers: {

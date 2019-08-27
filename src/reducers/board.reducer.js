@@ -2,12 +2,14 @@ import { ActionTypes } from '../contants';
 
 const initialStateBoard = {
     qnaBoard: [],
-    reviewBoard: []
+    reviewBoard: [],
+    noticeBoard: [],
+    frequentlyBoard: []
 };
 
 
 const boardReducer = (state = initialStateBoard, action) => {
-    const { qnaBoard, reviewBoard } = state;
+    const { qnaBoard, reviewBoard,noticeBoard, frequentlyBoard } = state;
     const { payload } = action;
 
     switch (action.type) {
@@ -141,6 +143,39 @@ const boardReducer = (state = initialStateBoard, action) => {
                     };
                 }
             }
+
+
+        //////////////////////////////////////////////////////////
+        ///////////    noticeBoard
+
+        case ActionTypes.LOAD_NOTICEBOARD_SUCCESS:
+        
+        console.log('ActionTypes.LOAD_NOTICEBOARD_SUCCESS')
+        if(payload !== undefined && payload !== null){
+            const { data } = payload
+            return({
+                ...state,
+                noticeBoard:data
+            })
+            
+        }
+        else
+            return state;
+        
+        case ActionTypes.LOAD_FREQUENTLYASKEDBOARD_SUCCESS:
+        
+            console.log('ActionTypes.LOAD_FREQUENTLYASKEDBOARD_SUCCESS')
+            if(payload !== undefined && payload !== null){
+                const { data } = payload
+                return({
+                    ...state,
+                    frequentlyBoard:data
+                })
+                    
+                }
+            else
+                return state;
+                
         default:
             return state;
     }

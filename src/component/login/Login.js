@@ -13,7 +13,7 @@ const onChangeRoute = ({ props }) => {
 
 const loginAsync = (customerId, password, history) => (dispatch) => {
   console.log('loginAsynce 시작 ', customerId, password)
-  alert('환영합니다');
+  //alert('환영합니다');
   history.push('/');
   return dispatch(Actions.login(customerId, password))
     .then(response => {

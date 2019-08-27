@@ -23,7 +23,10 @@ class ProductList extends React.Component {
     //loadProductList();
     const lowerId = this.props.match.params.id;
     console.log("lowerId >>>>>>>>>>>", lowerId);
-    loadProductList('lower', lowerId);
+    loadProductList('lower', lowerId)
+    .then (response => {
+      console.log("=======response========", response)
+    });
 
   }
 

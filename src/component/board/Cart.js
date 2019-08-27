@@ -30,7 +30,6 @@ class Cart extends React.Component {
     const { cartlist, userDetails } = this.props;
 
     this.state = {
-      items: [],
       selectedProduct: [],
       SubPrice:0,
       shippingPrice:0,
@@ -66,9 +65,11 @@ class Cart extends React.Component {
 
     // index와 idx 어케 맞추지............
     const newCartList = cartlist.map((item, index) => index == idx ? { ...item, cartProductCount:newQty} : item)
+    
+    /// 변경된 값 state에 저장 
     this.setState({
-      items: newCartList
-    });
+      selectedProduct : newCartList
+    })
 
     editCartQty(newCartList[idx]).then(response=>{
       this._changeTotalPrice();
@@ -104,18 +105,6 @@ class Cart extends React.Component {
     }));
   }
 
-  _test(event){
-    console.log("event.target ____________________",event.target)
-  }
-
-  // _cartlistCheck() {
-  //   const { cartItem } = this.props
-  //   if (cartItem !== undefined && cartItem !== null) {
-  //     return cartItem;
-  //   } else {
-  //     return null
-  //   }
-  // }
 
   // 장바구니에 담긴 상품이 1개일 경우 가격 구하기 
   _getOnePrice(items) {
@@ -149,7 +138,7 @@ class Cart extends React.Component {
     // const shippingPrice = (cartlist.length > 0 ? 3000 : 0);
     // const TotalPrice = Number.parseFloat(SubPrice) + Number.parseFloat(shippingPrice);
 
-
+    console.log("===========selected product===========",this.state.selectedProduct)
     return (
 
       <div className="main">

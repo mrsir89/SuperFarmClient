@@ -39,7 +39,12 @@ const onErrorHandler = ({ action, next, error, getState, dispatch }, options) =>
         const { retryCount, token } = auth;
 
         if (retryCount === 3 || token === undefined || token === null) {
-            return dispatch(Actions.logout());// logout 실행 
+            return dispatch(Actions.logout());// logout 실행   ==> redirect 필요 
+                // .then(response => <Redirect to='/login' />);
+                //<Redirect to='/login' />
+            
+            
+            
         } else {
             console.log("onErrorHandler에서 action")
             return dispatch(Actions.refreshToken(token.refresh_token))
