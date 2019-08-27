@@ -13,11 +13,11 @@ const onChangeRoute = ({ props }) => {
 
 const loginAsync = (customerId, password, history) => (dispatch) => {
   console.log('loginAsynce 시작 ', customerId, password)
-  alert('환영합니다');
-  history.push('/');
   return dispatch(Actions.login(customerId, password))
     .then(response => {
       if (response.type === ActionTypes.LOGIN_SUCCESS) {
+        alert('환영합니다');
+        history.push('/');
         return dispatch(Actions.getUserMe());
       } else {
         console.log('로그인 실패 ', response)
