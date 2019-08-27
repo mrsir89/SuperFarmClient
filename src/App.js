@@ -23,7 +23,6 @@ import userEdit from './component/board/UserEdit';
 import userEditlogin from './component/board/UserEditLogin';
 // import QuestionBoard from './component/board/QuestionBoard';
 import EditMe from './component/board/EditMe';
-import ProductTest from './component/board/PksProduct';
 // import Main from './Main';
 
 // REACT는 라이브러리, View를 Rendering 하는 것이 주 기능이며 나머지 기타 기능들(router, ajax등등)은 서드파티 라이브러리를 추가적으로 사용해야 한다.
@@ -51,7 +50,6 @@ class App extends React.Component {
         <PreHeader/>
         <Header /> 
         <Switch>
-          {/* <Route exact path="/" component={Main} /> */}
           <Route exact path="/" component={Home} />
           {/* <Route exact path="/product" component={ProductList} /> */}
           <Route path="/productlist/:id" component={ProductList} />
@@ -69,11 +67,6 @@ class App extends React.Component {
           <Route path="/qnaboardWrite" component={QnABoardWrite}/>
           <Route path="/useredit" component={userEdit} />
           <Route path="/usereditlogin" component={userEditlogin}/>
-        
-          
-        
-          {/* <Route path="/mypage" component={myPage}/> */}
-          <Route path="/producttest" component={ProductTest}/>
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
         </Switch>
         {/* <PreFooter/> */}

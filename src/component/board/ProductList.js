@@ -3,6 +3,7 @@ import ProductItem from './ProductItem';
 import { Link } from 'react-router-dom';
 import { Actions } from '../../actions/index';
 import { connect } from 'react-redux';
+import './ProductList.css';
 
 
 // 제품 전체 리스트 페이지 
@@ -11,7 +12,8 @@ class ProductList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productBoard: []
+      productBoard: [],
+      
     }
   }
 
