@@ -27,7 +27,7 @@ import NoticeDetail from './component/board/notice/noticeDetail';
 import Faq from './component/board/faq/faq';
 
 
-
+// 08/28 update
 // import Main from './Main';
 
 // REACT는 라이브러리, View를 Rendering 하는 것이 주 기능이며 나머지 기타 기능들(router, ajax등등)은 서드파티 라이브러리를 추가적으로 사용해야 한다.
