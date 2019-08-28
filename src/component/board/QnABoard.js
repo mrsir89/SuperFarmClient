@@ -3,37 +3,6 @@ import { Actions } from '../../actions/index';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-// const qnaboardList = (productNum,size,page) => dispatch => {
-//   return dispatch(Actions.getQnABoard())
-//     .then(response => {
-//       if (response.type === ActionTypes.QNABOARD_SUCCESS) {
-//         console.log(' QnABoard Reading 성공')
-//       } else {
-//         return Promise.reject(response);
-//       }
-//     });
-// };
-
-// 추가 라이브러리 npm i react-new-window --save <--- 윈도우 새창 띄우기숌
-
-// const writeQnABoard = (qnaContent) => dispatch => {
-//   return dispatch(Actions.writeQnABoard())
-//     .then(response => {
-//       if (response.type === ActionTypes.QNABOARD_SUCCESS) {
-//         console.log('QnA READ SUCCESS')
-//         return dispatch(Actions.getQnABoard())
-//       } else {
-//         return Promise.reject(response);
-//       }
-//     });
-// };
-
-// const writeQnABoard=()={
-//   return (
-
-//   )
-// }
-
 
 class QnABoard extends React.Component {
 
@@ -47,26 +16,9 @@ class QnABoard extends React.Component {
     console.log('여기 실행 되나?', this.state)
   }
 
-  //   handleClick(e){
-  //     const {Clickitem}=this.state;
-  //     this.setState({
-  //       Clickitem:{
-  //         ...Clickitem,
-  //         isExpanded : !this.setState.isExpanded
-  //       }
-  //     })
-  //   }
+
   
   componentWillMount() {
-    const { loadqnaboardList } = this.props;
-    console.log(this.state, ' <<<<< willMount')
-    let productNum = 5
-    let size = 10
-    let page = 1
-    console.log(loadqnaboardList, ' qnaboardList 실행')
-    loadqnaboardList(productNum, size, page);
-  }
-  componentDidMount(){
     const { loadqnaboardList } = this.props;
     console.log(this.state, ' <<<<< willMount')
     let productNum = 5
@@ -110,6 +62,7 @@ class QnABoard extends React.Component {
                       <div className="col-10">{answer.answerContent}</div>
                     </div>
                   ))}
+                  <input type="button" value="삭제"></input>
                 </details>
               </div>
               <div>

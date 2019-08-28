@@ -1,0 +1,134 @@
+.navi {
+    text-align: right;
+    height: 60px;
+    line-height: 20px;
+    padding: 30px 0 9px;
+    padding-top: 30px;
+    padding-right: 0px;
+    padding-bottom: 9px;
+    padding-left: 0px;
+    font-size: 0;
+    border-bottom: solid 2px #333;
+    position: relative;
+}
+
+.navi h2 {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    font-size: 18px;
+    line-height: 19px;
+    font-weight: 600;
+    color: #333;
+}
+.navi a:first-child {
+    display: inline-block;
+    *display: inline;
+    _display: inline;
+    zoom: 1;
+    width: 9px;
+    height: 9px;
+    text-indent: 9999px;
+    background: url(http://d4-0550.d4.makeshop.co.kr/design/d4-0550/2016img/locate_home.png) no-repeat #ff600f;
+    padding: 0;
+}
+.navi a {
+    color: #666;
+    font-size: 12px;
+    background: url(http://d4-0550.d4.makeshop.co.kr/design/d4-0550/2016img/locate_arr.png) no-repeat center left;
+    padding-left: 18px;
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 20px;
+    height: 20px;
+}
+#my_info_top {
+    position: relative;
+    padding: 9px 0 9px 370px;
+    height: 150px;
+    background-color: #efefef;
+    border: solid 1px #d3d3d3;
+}
+.user_info {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    font-size: 16px;
+    color: #666;
+    line-height: 24px;
+}
+#my_info_top .user_btn {
+    position: absolute;
+    top: 90px;
+    left: 20px;
+    border: solid 1px #000;
+    width: 93px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    color: #000;
+    font-size: 12px;
+}
+
+#my_info_top dd {
+    width: 210px;
+    height: 138px;
+    padding-left: 10px;
+    background: url(http://d4-0550.d4.makeshop.co.kr/design/d4-0550/2016img/my_top_line.gif) repeat-y top left;
+    background-color: #fff;
+    float: left;
+}
+#my_info_top dd h3 {
+    color: #333;
+    font-size: 15px;
+    line-height: 21px;
+    font-weight: 600;
+    margin: 22px 0 5px;
+}
+#my_info_top dd p.info {
+    font-size: 12px;
+    line-height: 16px;
+    color: #888;
+    margin-bottom: 10px;
+}
+#my_info_top dd p.number {
+    color: #333;
+    font-size: 15px;
+    line-height: 21px;
+    font-weight: 600;
+}
+#my_info_top dd p.number em {
+    color: #ff600f;
+}
+
+#my_link_nav {
+    padding: 0 0 45px 0;
+    overflow: hidden;
+}
+#my_link_nav li {
+    width: 12.49%;
+    float: left;
+    list-style: none;
+}
+#my_link_nav li a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    border: 1px #d3d3d3 solid;
+    border-right: 1;
+    line-height: 18px;
+    padding: 64px 0 16px 0;
+    background-repeat: no-repeat;
+    background-position: center 24px;
+    font-family: 'Nanum Gothic';
+    font-weight: 700;
+}
+.mt_20 {
+    margin-top: 20px !important;
+}
+.my_menu01{
+    list-style: armenian;
+}

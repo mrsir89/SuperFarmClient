@@ -3,15 +3,16 @@ import { ActionTypes } from '../contants';
 const initialStateAuth = {
     retryCount: 0,
     token: null,
-    userDetails:{},
-    signupCustomer: null
+    userDetails: null,
+    signupCustomer: {}
     
 };
 
 const authentication = (state = initialStateAuth, action) => {
     const { payload } = action;
     const { retryCount } = state;
-
+    console.log('authentication.reducer  의 state 시작 ',state)
+    console.log('authentication.reducer  의 action 시작 ',action)
     switch (action.type) {
         case ActionTypes.GET_TOKEN_SUCCESS:
         case ActionTypes.LOGIN_SUCCESS:
@@ -36,15 +37,24 @@ const authentication = (state = initialStateAuth, action) => {
             };
         case ActionTypes.LOGIN:
             return {
-                ...state,
-                userDetails: payload.userDetails
+                ...state
             };
         case ActionTypes.GET_USERME_SUCCESS:
-            return {
+            return{
                 ...state,
                 userDetails: payload.data
             }
+        case ActionTypes.ASNYCACTION:
+            return{
+                ...state
+            };
 
+        case ActionTypes.USER_EDIT_SUCCESS:
+            console.log("user edit success");
+            return {
+                ...state,
+                userDetails: payload.userDetails
+            };
 
         default:
             return state;

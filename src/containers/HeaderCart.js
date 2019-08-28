@@ -2,10 +2,23 @@ import React from 'react';
 import HeaderCartItem from './HeaderCartItem';
 
 function getCartCount(items) {
+<<<<<<< HEAD
   return (items === undefined || items === null || items.length ===0 ? 0 : items.length);
+=======
+   return (items === undefined || items === null || items.length ===0 ? 0 : items.length);
+  
+}
+
+function getOnePrice (items) {
+  console.log("items >>>>>>>>>>>>>>>>>>>",items)
+  const price = Number.parseFloat(items[0].cartProductPrice) * Number.parseFloat(items[0].cartProductCount);
+  return price.toFixed(0);
+>>>>>>> 6b192ebcfc71227f7200903378fbc7f1e726b0c1
 }
 
 function getTotalPrice(items) {
+  console.log("item의 타입은??", typeof items);
+  console.log("item의 타입은??",  items);
   
   return (items === undefined || items === null || items.length ===0 ? 0 : items.reduce((prevItem, item) => {
     const itemPrice = Number.parseFloat(item.cartProductPrice) * Number.parseFloat(item.cartProductCount);
@@ -29,7 +42,9 @@ function HeaderCart(props) {
     <div className="top-cart-block">
       <div className="top-cart-info">
         <a href="javascript:void(0);" className="top-cart-info-count">{getCartCount(items)}개</a>
-        <a href="javascript:void(0);" className="top-cart-info-value">{getTotalPrice(items)}원</a>
+        <a href="javascript:void(0);" className="top-cart-info-value">
+          {getCartCount(items) >1 ? getTotalPrice(items): getCartCount(items)== 1 ?getOnePrice(items) : 0}원
+        </a>
       </div>
       <i className="fa fa-shopping-cart" />
       <div className="top-cart-content-wrapper">

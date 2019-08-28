@@ -14,11 +14,20 @@ import Cart from './component/board/Cart';
 import ProductDetail from './component/board/ProductDetail';
 import ProductList from './component/board/ProductList';
 import MyPage from './component/board/MyPage';
-import NaviBar from './component/board/NaviBar';
 import {Header, PreHeader , Home, Footer, PreFooter} from './containers';
 import ListReview from './component/board/reviewBoard/ListReview'
 import AddReview from './component/board/reviewBoard/AddReview';
-import RemoveReview from './component/board/reviewBoard/RemoveReview';
+
+import userEdit from './component/board/UserEdit';
+import userEditlogin from './component/board/UserEditLogin';
+// import QuestionBoard from './component/board/QuestionBoard';
+import EditMe from './component/board/EditMe';
+import Notice from './component/board/notice/notice';
+import NoticeDetail from './component/board/notice/noticeDetail';
+import Faq from './component/board/faq/faq';
+
+
+// 08/28 update
 // import Main from './Main';
 
 // REACT는 라이브러리, View를 Rendering 하는 것이 주 기능이며 나머지 기타 기능들(router, ajax등등)은 서드파티 라이브러리를 추가적으로 사용해야 한다.
@@ -40,16 +49,33 @@ import RemoveReview from './component/board/reviewBoard/RemoveReview';
 
 
 class App extends React.Component {
-  render() { // 화면에 html 뷰를 생성.
-    return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
+
+  constructor(props) {
+    super(props)
+
+  }
+
+  componentWillMount(){
+    const { auth,getClientToken  } = this.props;
+    const { token } = auth;
+    if (token === undefined || token === null ) {
+      return getClientToken();
+    }
+    console.log("<<this.props in App >> ", this.props)
+  }
+
+
+
+  render() { // 화면에 html 뷰를 생성.\
+      return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
       <div className="container">
         <PreHeader/>
         <Header /> 
         <Switch>
-          {/* <Route exact path="/" component={Main} /> */}
           <Route exact path="/" component={Home} />
           {/* <Route exact path="/product" component={ProductList} /> */}
           <Route path="/productlist/:id" component={ProductList} />
+          <Route exact path="/product" component={ProductList} />
           <Route path="/signup" component={signup} />
           <Route path="/login" component={login} />
           <Route path="/qnaboard" component={qnaboard} />
@@ -58,9 +84,16 @@ class App extends React.Component {
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/review/all" component={ListReview} />
           <Route path="/review/write" component={AddReview} />
-          {/* <Route path="/review/delete/:reviewBoardNum" component={RemoveReview} /> */}
+          {/* <Route path="/orderSheet" component={OrderSheet} /> */}
 
+          <Route path="/qnaboardWrite" component={QnABoardWrite}/>
+          <Route path="/useredit" component={userEdit} />
+          <Route path="/usereditlogin" component={userEditlogin}/>
+          <Route path="/notice/:noticeNum" component={NoticeDetail}/>
+          <Route exact path="/notice" component={Notice}/>
+          <Route path="/faqboard" component={Faq} />
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
+
         </Switch>
         {/* <PreFooter/> */}
         <Footer/>
@@ -68,5 +101,19 @@ class App extends React.Component {
     );
   }
 }
-export default App;
+
+function mapStateToProps(state) {
+  const { auth } = state;
+  const {token , userDetails} = auth
+  
+  return {
+    auth
+  };
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  getClientToken: () => dispatch(Actions.getClientToken())
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
 

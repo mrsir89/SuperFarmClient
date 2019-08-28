@@ -63,6 +63,8 @@ class ListReview extends React.Component {
       page = page +1;
       console.log( page, '실제 다음페이지가 있을떄 작동');
       this._getreviewBoards('productBoard',productBoardNum,size,page)
+    }else{
+      alert('마지막 페이지 입니다.')
     }    
   }
   // 이전 페이지
@@ -74,7 +76,6 @@ class ListReview extends React.Component {
     
     let hasNextPage = reviewBoards.hasNext;
     console.log('hasNext',hasNextPage, )
-
     var page = reviewBoards.page
     var size = reviewBoards.size
     let productBoardNum = reviewBoards.boardNum
@@ -99,6 +100,7 @@ class ListReview extends React.Component {
       </div>
     );
   }
+
 
 
 }

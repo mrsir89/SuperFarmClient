@@ -6,7 +6,7 @@ import { ActionTypes } from '../contants';
 //     shipping : {배송지, 배송방법, 배송비, 수취인, 수취인 전화번호, 배송 메세지}, 
 // }
 const initialStateProduct = {
-
+    productBoardDetail:{},
     productBoard: [],
     category: [],
     productBoardDetail:{}
@@ -17,35 +17,33 @@ const initialStateProduct = {
 const productReducer = (state = initialStateProduct, action) => {
     const { productBoard, cartlist } = state;
     const { payload } = action;
-
+    console.log('productReducer',state)
     switch (action.type) {
         case ActionTypes.LOAD_PRODUCTLIST_SUCCESS:
 
             if (payload !== undefined && payload !== null) {
                 const { data } = payload;
+                console.log("load product list data >>>", data)
                 if (data !== undefined && data !== null) {
                     return {
                         ...state,
                         productBoard: data
                     };
+                }else{
+                    return{
+                        ...state,
+                        productBoard:[]
+                    }
                 }
             }
             return state;
 
-
-        // case ActionTypes.ADD_CART:
-        //     const { item } = action
-        //     return {
-        //         ...state,
-        //         cart: [
-        //             ...cart,
-        //             item
-        //         ]
-        //     }
+        case ActionTypes.LOAD_LOWER_PRODUCTLIST_SUCCESS:
 
 
         // 카테고리 불러오기 
         case ActionTypes.GET_CATEGORIES_SUCCESS:
+            console.log('ActionType.CategorySuccess')
             if (payload !== undefined && payload !== null) {
                 const { data } = payload;
                 if (data !== undefined && data !== null) {
@@ -56,6 +54,40 @@ const productReducer = (state = initialStateProduct, action) => {
                 }
             }
             return state;
+        // case ActionTypes.GET_CATEGORIES:
+        //     console.log('ActionType.CategorySuccess')
+
+        //     return {
+        //         ...state,
+        //         category : 
+        //     }
+
+
+        case ActionTypes.LOAD_QNABOARDLIST_SUCCESS:
+            if (payload !== undefined && payload !== null) {
+                const { data } = payload
+                console.log(data, 'ActionTypes.LOAD_QNABOARDLIST_SUCCESS')
+                return {
+                    qnaBoard: {
+                        data
+                    }
+                }
+            }
+            else
+                return state;
+        case ActionTypes.WRITE_QNABOARD_SUCCESS:
+            if (payload !== undefined && payload !== null) {
+                const { data } = payload
+                console.log(data, 'ActionTypes.WRITE_QNABOARD_SUCCESS')
+                return {
+                    ...state,
+                    qnaBoard: {
+                        data
+                    }
+                }
+            }
+            else
+                return state;
 
         case ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS:
             console.log('ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS',payload.data)
@@ -70,7 +102,21 @@ const productReducer = (state = initialStateProduct, action) => {
             }
             return state;  
         default:
-            return state;   
+            return state;
+            
+        // 프로덕트 상세 정보 불러 오기
+        case ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS:
+            console.log('ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS',payload.data)
+            if(payload !== undefined && payload !== null){
+                const{ data } = payload;
+                if(data !== undefined && data !== null){
+                    return{
+                        ...state,
+                        productBoardDetail:data
+                    };
+                }
+            }
+            return state;  
     }
 }
 

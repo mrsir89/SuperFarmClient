@@ -1,5 +1,7 @@
 import { getActionTypes } from 'redux-axios-middleware';
 import { Actions } from '../actions';
+import {connect} from 'react-redux';
+
 
 
 const onError = ({ action, next, error }, options) => {
@@ -37,14 +39,22 @@ const onErrorHandler = ({ action, next, error, getState, dispatch }, options) =>
         const { retryCount, token } = auth;
 
         if (retryCount === 3 || token === undefined || token === null) {
-            return dispatch(Actions.logout());// logout 실행 
+            return dispatch(Actions.logout());// logout 실행   ==> redirect 필요 
+                // .then(response => <Redirect to='/login' />);
+                //<Redirect to='/login' />
+            
+            
+            
         } else {
+            console.log("onErrorHandler에서 action")
             return dispatch(Actions.refreshToken(token.refresh_token))
                 // 만약 To-do 패치 같은것을 하면 마지막 액션도 실행한다.
                 // if(response.type==Actiontypes.REFRESH_TOKEN_SUCCESS) 생략 되었다.
                 .then(response => dispatch(action));       
         }
     }
+    return onError({ action, next, error }, options);
 }
+
 
 export default onErrorHandler;

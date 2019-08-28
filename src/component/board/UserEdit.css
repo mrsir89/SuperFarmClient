@@ -1,0 +1,59 @@
+.mt_30{
+    margin-top: 30px !important;
+}
+
+.h3 {
+    font-size: 16px;
+    line-height: 37px;
+    border-bottom: 1px solid #000;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+}
+.person-Info{
+    margin-bottom: 50px;
+}
+table {
+    width: 400px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+    word-wrap: break-word;
+    word-break: keep-all;
+    border-top:2px solid #000;
+    border-bottom: 2px solid #000;
+    margin: 0 0 10px;
+}
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+    border-bottom: 1px solid rgb(226, 220, 220);
+    border-top: 1px solid rgb(226, 220, 220);
+}
+th {
+    width: 187px;
+    height: 37px;
+    letter-spacing: -1px;
+    vertical-align: middle;
+    background-color: #f7ecec;
+    font-weight: 600;
+    padding-left: 30px;
+    font-size: 13px;
+    color: #333;
+}
+td {
+    padding-left: 30px;
+}
+.submit{
+    margin: 0 auto;
+    width: 100px;
+}
+.red{
+    color: #e84d1c;
+}

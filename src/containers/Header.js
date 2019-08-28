@@ -1,14 +1,44 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import HeaderCart from './HeaderCart'
-//import { Actions } from '../../actions/index';
+import HeaderCart from './Headercart'
+import Menu from './Menu';
+import  { Actions }  from '../actions/index';
 
-function Header({ history, location, matcher, cartlist}) {
-  console.log(cartlist);
-  if(window.location.href !== "http://localhost:3000/review/write"){
+
+class Header extends React.Component{
+
+// ({ history, location, matcher, cartlist, getCategories}) 
+//   console.log('cartList >>>>>',cartlist);
+//   console.log('categories >>>>>',getCategories);
+  constructor(props){
+    super(props)
+    this.state = {
+      category : [],
+      cartlist : []
+    }
+  }
+  
+
+  componentWillMount(){
+    const{ getCategories } = this.props;
+    getCategories()
+    .then( response => {
+      console.log("Header에서 getCategories 실행 >>", response)
+      this.setState ({
+        // category : response.payload.data
+      })
+    }) ;
+  }
+  render(){
+    //const{ category } = this.state
+    const{ category } = this.props
+    const{ cartlist } = this.props
+    console.log('render 의',category)
+    console.log('render의 props',this.props)
     return (
       <div className="header">
+        
         <div className="container">
           <a className="site-logo" href="/"><img src="/images/logo.jpg" alt="Metronic Shop UI" /></a>
           <a href="javascript:void(0);" className="mobi-toggler"><i className="fa fa-bars" /></a>
@@ -18,47 +48,10 @@ function Header({ history, location, matcher, cartlist}) {
           {/* BEGIN NAVIGATION */}
           <div className="header-navigation">
             <ul>
-              <li className="dropdown active">
-                <a className="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
-                  농산물
-                </a>
-                <ul className="dropdown-menu">
-                  <li><a href="/productlist/1">채소</a></li>
-                  <li><a href="/productlist/2">과일</a></li>
-                </ul>
-              </li>
-              <li className="dropdown active">
-                <a className="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
-                  축산물
-              </a>
-                <ul className="dropdown-menu">
-                  <li><a href="shop-account.html">돼지고기</a></li>
-                  <li><a href="shop-wishlist.html">소고기</a></li>
-                </ul>
-              </li>
-              <li className="dropdown active">
-                <a className="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
-                  수산물
-              </a>
-                <ul className="dropdown-menu">
-                  <li><a href="shop-privacy-policy.html">어패류</a></li>
-                  <li><a href="shop-terms-conditions-page.html">해조류</a></li>
-                </ul>
-              </li>
-  
-              <li className="dropdown active">
-                <a className="dropdown-toggle" href="qnaboard">
-                  게시판
-              </a>
-              </li>
-              <li className="dropdown active">
-                <a className="dropdown-toggle" href="/about">
-                  연락처
-              </a>
-              </li>
-             
-  
-  
+              
+             {/* 여기에 map 형식으로 뿌려준다 menu에게 전달 한다.*/}
+            {category.map((items,index) => <Menu {...items} key={index}/>)}
+              <li><a href="/notice">공지사항</a></li>
               {/* BEGIN TOP SEARCH */}
               <li className="menu-search">
                 <span className="sep" />
@@ -82,18 +75,27 @@ function Header({ history, location, matcher, cartlist}) {
       </div>
     );
   } 
-  else {
-    return (
-    <div></div>
-    )
-  }
- 
 }
 
 
-const mapStateToProps = state => ({
-  cartlist: state.cart.cartlist
+const mapStateToProps = (state) =>{
+  
+  console.log('mapStateToProps Header에서 확인 ', state);
+  const{ location, matcher ,history } =state;
+  const { cartlist } =  state.cart;
+  const { category } = state.product;
+  console.log(cartlist, ' 카트 리스트 확인 ')
+
+  return{
+    cartlist,
+    category,
+
+  }
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getCategories: () => dispatch(Actions.getCategories())
 });
 
-export default withRouter(connect(mapStateToProps)(Header));
+export default connect(mapStateToProps,mapDispatchToProps)(Header);
 //export default withRouter(Header);

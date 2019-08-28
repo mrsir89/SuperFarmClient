@@ -1,3 +1,4 @@
+import { Actions } from'../actions/index';
 // 인터셉터 정의
 // 인터셉터는 여러개 만들수 있다.
 /*
@@ -10,6 +11,7 @@ const requestInterceptor = ({ getState }, req) => {
     const { token } = auth;
     let { headers, url } = req;
 
+    
 
     if (token !== undefined && token !== null && url !== '/oauth/token') {
         const { access_token } = token;
@@ -18,7 +20,7 @@ const requestInterceptor = ({ getState }, req) => {
             // 여기서 토큰을 갱신해도 안전함.
             headers = { ...headers, 'Authorization': `Bearer ${access_token}` };
         }
-    }
+    } 
     console.log('requestInterceptor  headers', headers)
     console.log('requestInterceptor  ...req ', req)
     return { ...req, headers }
@@ -26,6 +28,7 @@ const requestInterceptor = ({ getState }, req) => {
 
 // 리턴.  request 도 있고 response도 있음.
 const interceptors = {
+
     request: [
         requestInterceptor
     ]

@@ -37,10 +37,8 @@ import { connect } from 'react-redux';
    return (
      <div className="accordion__section">
        <button className={`accordion ${setActive}`} onClick={toggleAccordion}>
-       <p className="accordion__reviewBoardNum">No.{props.review.productBoardNum}</p>
-         <p className="accordion__title">{props.review.reviewBoardTitle}</p>
-         
-         <br></br>{props.review.customerId}
+       <p className="accordion__reviewBoardNum">reviewBN:{props.review.reviewBoardNum}<br></br>refPN:{props.review.productBoardNum}</p>
+         <p className="accordion__title">{props.review.reviewBoardTitle}<br></br>ID: {props.review.customerId}</p>
          <Chevron className={`${setRotate}`} width={10} fill={"#777"} />
        </button>
    
