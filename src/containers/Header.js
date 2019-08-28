@@ -11,6 +11,13 @@ class Header extends React.Component{
 // ({ history, location, matcher, cartlist, getCategories}) 
 //   console.log('cartList >>>>>',cartlist);
 //   console.log('categories >>>>>',getCategories);
+  constructor(props){
+    super(props)
+    this.state = {
+      category : [],
+      cartlist : []
+    }
+  }
   
 
   componentWillMount(){
@@ -18,10 +25,17 @@ class Header extends React.Component{
     if(category ===null || category ===undefined
       || category.size===0){
     const{ getCategories } = this.props;
-    getCategories();
+    getCategories()
+    .then( response => {
+      console.log("Header에서 getCategories 실행 >>", response)
+      this.setState ({
+        // category : response.payload.data
+      })
+    }) ;
   }
   }
   render(){
+    //const{ category } = this.state
     const{ category } = this.props
     const{ cartlist } = this.props
     console.log('render 의',category)
@@ -41,7 +55,7 @@ class Header extends React.Component{
               
              {/* 여기에 map 형식으로 뿌려준다 menu에게 전달 한다.*/}
             {category.map((items,index) => <Menu {...items} key={index}/>)}
-  
+              <li><a href="/notice">공지사항</a></li>
               {/* BEGIN TOP SEARCH */}
               <li className="menu-search">
                 <span className="sep" />

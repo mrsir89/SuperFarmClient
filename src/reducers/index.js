@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import authentication from './authentication.reducer'
 import productReducer from './product.reducer'
+//import userEditReducer from './userEdit.reducer'
 import cartReducer from './cart.reducer';
 import boardReducer from './board.reducer';
 import orderReducer from './order.reducer';
@@ -16,7 +17,10 @@ const rootReducers = combineReducers({
   product: productReducer,
   cart : cartReducer,
   board: boardReducer,
+<<<<<<< HEAD
   order: orderReducer
+=======
+>>>>>>> dev_sj
 });
 
 export default rootReducers;

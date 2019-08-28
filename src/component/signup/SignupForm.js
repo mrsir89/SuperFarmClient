@@ -5,6 +5,7 @@ import { resolve } from 'path';
 import { reject } from 'q';
 import { request } from 'http';
 import { _addSignup } from './Signup';
+import AddrBoardWrite from '../board/AddrBoardWrite'
 
 export default class SignupForm extends React.Component {
 
@@ -39,6 +40,10 @@ export default class SignupForm extends React.Component {
       }
     });
     console.log(this.state)
+  }
+
+  _onClickPopUp(){
+    window.open('AddrBoardWrite', 'window_name', 'with=430, height=500, location=no, status=no, scrollbars=yes');
   }
 
   handleRadio(event) {
@@ -115,7 +120,7 @@ export default class SignupForm extends React.Component {
 
             <li>주소 <input type="text" name="address"
               value={this.state.address.value} onChange={this.handleInputChange}
-              placeholder="address" /> </li>
+              placeholder="address" /> <input tyoe="button" value="작성" onClick={this._onClickPopUp}/></li>
 
             <li> 연락처 <input type="text" name="phone"
               value={this.state.phone.value} onChange={this.handleInputChange}

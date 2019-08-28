@@ -1,4 +1,5 @@
 import { ActionTypes } from '../contants';
+import { userInfo } from 'os';
 // React 컴포넌트같은 것이 직접 접근하려고 하면 안됨.
 // 직접 접근하기 위해 "Action"이라는 의식을 거쳐야 한다.
 // 1)_ Store에 대해 뭔가 하고 싶은 경우엔 Action 을 발행한다.
@@ -118,6 +119,7 @@ const emailCheck = (email) => {
 //        로 그 인 
 
 
+
 const login = (customerId, password) => {
   const formData = new FormData();
   formData.append('grant_type', 'password');
@@ -135,6 +137,24 @@ const login = (customerId, password) => {
     }
   });
 };
+
+const userEdit=(customerEdit)=>{
+  return ({
+    type: ActionTypes.USER_EDIT,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/users/edit',
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: JSON.stringify(customerEdit)
+      }
+    }
+  }
+  );
+};
+
 
 const getUserMe = () => {
   return ({
@@ -154,12 +174,53 @@ const logout = () => ({
   type: ActionTypes.LOGOUT
 })
 
+
+
+const refreshToken = (refresh_token) => {
+  const formData = new FormData();
+  formData.append('grant_type', 'refresh_token');
+  formData.append('refresh_token', refresh_token);
+
+// 미들웨어 형식 
+  return ({   
+    type: ActionTypes.REFRESH_TOKEN,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/oauth/token',
+        data: formData
+      }
+    }
+  });
+};
+
+
 /**
  * @author 심인선
  * @param {*} writeQnA 
  */
+
+ /////////////////////////////////////////////////////////////////////
+ //faq
+
+ const loadFrequentlyAskedQuestionBoard = ()=>{
+  const formData = new FormData();
+  console.log('Action FrequentlyAskedBoard 실행')
+  return({
+    type:ActionTypes.LOAD_FREQUENTLYASKEDBOARD,
+    payload:{
+      request:{
+        method:'POST',
+        url:'/faqboard',
+        data:formData
+      }
+    }
+  })
+}
+
+
 /////////////////////////////////////////////////////////////////
-///          notice board
+/////          notice board
 
 const loadNoticeBoard = ()=>{
   const formData = new FormData();
@@ -175,6 +236,8 @@ const loadNoticeBoard = ()=>{
     }
   })
 }
+
+
 
 
 
@@ -220,6 +283,14 @@ const loadqnaboardList = (productNum, size, page) => {
     }
   })
 }
+
+
+
+
+
+/////////////////////////////////////////////////////////////////
+///////////   Category       ////////////////////////////////////
+
 
 //QnABoard 내용수정
 const editQnABoard = (editQnABoard) => {
@@ -315,14 +386,34 @@ const addReview = (reviewBoard) => {
 };
 
 // 리뷰 삭제
+// const removeReview = (reviewBoardNum) => {
+//   console.log('removieReviewsd')
+//   return ({
+//     type: ActionTypes.REMOVE_REVIEW,
+//     payload: {
+//       request: {
+//         method: 'DELETE',
+//         url: `/review/delete?reviewBoardNum=${reviewBoardNum}`
+//       }
+//     }
+//   });
+// };
+
+
 const removeReview = (reviewBoardNum) => {
   console.log('removieReviewsd')
+  const formData = new FormData();
+  formData.append('reviewBoardNum', reviewBoardNum)
   return ({
     type: ActionTypes.REMOVE_REVIEW,
     payload: {
       request: {
-        method: 'DELETE',
-        url: `/review/delete${reviewBoardNum}`
+        method: 'PATCH',
+        url: `/review/delete`,
+        headers: {
+          'Content-Type': 'application/json; charset: utf-8'
+        },
+        data: formData,
       }
     }
   });
@@ -482,6 +573,7 @@ const loadProductList = (type, id) => {
 
   if (type === 'lower') {
     console.log('lower 확인 ,', type, id)
+    console.log('[[[[[[[lowerid 확인 type]]]]]]]]]]]] ,', typeof id)
     url = '/product/lower';
     formData.append('lower', id);
 
@@ -537,6 +629,14 @@ const getCategories = () => {
     }
   })
 }
+
+
+
+// const getCategories = () => {
+//   return ({
+//     type: ActionTypes.GET_CATEGORIES
+//   })
+// }
 
 //////////////////////////////////////////////////////////
 ///        비동기 처리를 위한 Action
@@ -625,10 +725,12 @@ export const Actions = {
   addCart,removeCartById,editCartQty,
   loadProductList, loadProductDetails,
   getCategories, getCartByUser,
-  loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,loadNoticeBoard,
+  loadqnaboardList,  editQnABoard, deleteQnABoard,
+  loadNoticeBoard,
+  loadFrequentlyAskedQuestionBoard,
   writeAnswer, deleteAnswer,
+
   getReviews, removeReview, addReview, uploadFileReview,
   asynAction, kakaoPayReady,checkoutOrder,kakaoPaySuccess,
-  orderList
-
+  orderList,userEdit
 };

@@ -57,6 +57,11 @@ class Cart extends React.Component {
       history.push("/login")
     }
   }
+  componentDidMount(){
+        
+   
+  }
+
 
   // onChangeHandler
   _changeQuantity(event, index) {
@@ -112,6 +117,7 @@ class Cart extends React.Component {
   }
 
 
+<<<<<<< HEAD
 
   _orderListPaser=()=>{
     // const{ cartlist } = this.props
@@ -149,15 +155,21 @@ class Cart extends React.Component {
     }
   }
 
+=======
+>>>>>>> dev_sj
   // 장바구니에 담긴 상품이 1개일 경우 가격 구하기 
   _getOnePrice(items) {
     const price = Number.parseFloat(items[0].cartProductPrice) * Number.parseFloat(items[0].cartProductCount);
     return price.toFixed(0);
   }
 
+<<<<<<< HEAD
   _priceChange(event){
     console.log(event.target.value,'돈 수정중~!!!')
   }
+=======
+
+>>>>>>> dev_sj
   _changeTotalPrice(){
     console.log('작동~!!!!!!!!!!!!!!!')
     const { cartlist } = this.props;
@@ -173,6 +185,11 @@ class Cart extends React.Component {
       TotalPrice:TotalPrice
     })
   }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_sj
   render() {
     const { cartlist } = this.props;
     // const SubPrice = this._getCartCount(cartlist) > 1 ? this._getSubTotalPrice(cartlist)
@@ -180,8 +197,13 @@ class Cart extends React.Component {
 
     // const shippingPrice = (cartlist.length > 0 ? 3000 : 0);
     // const TotalPrice = Number.parseFloat(SubPrice) + Number.parseFloat(shippingPrice);
+<<<<<<< HEAD
 
 
+=======
+
+    console.log("===========selected product===========",this.state.selectedProduct)
+>>>>>>> dev_sj
     return (
 
       <div className="main">
@@ -211,7 +233,11 @@ class Cart extends React.Component {
                         {/* --------------------------------------------------------------------------------------------------------------------------- */}
 
                         {cartlist === undefined || cartlist === null ? ''
+<<<<<<< HEAD
                           : cartlist.map((item, index) => {
+=======
+                          : cartlist.map((item ,index)=> {
+>>>>>>> dev_sj
                             console.log("item !!!!!!!!!!!!!!!!!!!!!!!!!", item)
                             const { cartProductCount, cartNum, productBoardTitle, cartProductPrice,
                               cartProductName, productBoardNum, cartProductImg,
@@ -220,7 +246,11 @@ class Cart extends React.Component {
                             return (
                               <tr>
                                 <td>
+<<<<<<< HEAD
                                   <input type="checkbox" name="check" value={cartNum} checked />
+=======
+                                  <input type="checkbox" name="check" checked />
+>>>>>>> dev_sj
                                 </td>
                                 <td className="goods-page-image">
                                   <a href={`/product/${productBoardNum}`}><img src={cartProductImg} alt="Berry Lace Dress" /></a>
@@ -280,15 +310,23 @@ class Cart extends React.Component {
                       </li>
                       <li className="shopping-total-price">
                         <em>Total</em>
+<<<<<<< HEAD
                         <strong className="price" >{this.state.TotalPrice}<span>원</span></strong>
                         
+=======
+                        <strong className="price" onChange={this._test}>{this.state.TotalPrice}<span>원</span></strong>
+>>>>>>> dev_sj
                       </li>
                     </ul>
                   </div>
                 </div>
                 <button className="btn btn-default" type="submit">Continue shopping <i className="fa fa-shopping-cart"></i></button>
 
+<<<<<<< HEAD
                 <input className="btn btn-primary" type="submit" value="구매하기" onClick={this._checkout} />
+=======
+                <input className="btn btn-primary" type="submit" value="구매하기" />
+>>>>>>> dev_sj
                 <a href="/orderSheet">Checkout</a>
                 <i className="fa fa-check"></i>
               </div>
@@ -330,8 +368,16 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => ({
   getCartByUser: (userNum) => dispatch(Actions.getCartByUser(userNum)),
   editCartQty: (newCart) => dispatch(Actions.editCartQty(newCart)),
+<<<<<<< HEAD
   removeCartById: (cartNum) => dispatch(Actions.removeCartById(cartNum)),
   orderList: (cartlist) => dispatch(Actions.orderList(cartlist))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+=======
+  removeCartById: (cartNum) => dispatch(Actions.removeCartById(cartNum))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+
+>>>>>>> dev_sj

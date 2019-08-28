@@ -4,7 +4,7 @@ import { ActionTypes } from '../contants';
 const initialStateAuth = {
     retryCount: 0,
     token: null,
-    userDetails: {},
+    userDetails: null,
     signupCustomer: {}
     
 };
@@ -38,19 +38,24 @@ const authentication = (state = initialStateAuth, action) => {
             };
         case ActionTypes.LOGIN:
             return {
-                ...state,
-                userDetails: payload.userDetails
+                ...state
             };
         case ActionTypes.GET_USERME_SUCCESS:
-            return {
+            return{
                 ...state,
                 userDetails: payload.data
             }
         case ActionTypes.ASNYCACTION:
             return{
                 ...state
-            }
+            };
 
+        case ActionTypes.USER_EDIT_SUCCESS:
+            console.log("user edit success");
+            return {
+                ...state,
+                userDetails: payload.userDetails
+            };
 
         default:
             return state;

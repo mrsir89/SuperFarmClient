@@ -6,8 +6,9 @@ import { withRouter } from 'react-router-dom';
 import ProductView from './ProductView';
 //import { addCart } from '../actions/action';
 import { Actions } from '../../actions';
-import './ProductDetail.css';
-import { thisTypeAnnotation } from '@babel/types';
+import { ActionTypes } from '../../contants';
+// import './ProductDetail.css';
+// import { thisTypeAnnotation } from '@babel/types';
 
 
 
@@ -19,12 +20,12 @@ class ProductDetail extends React.Component {
    constructor(props) {    // props 굳이 안써줘도 넘어 옴
       super(props);
       const { userNum } = this.props.userDetails;
-      const { productBoardDetail } = this.props;
-      const { productList } = productBoardDetail;
+      // const { productBoardDetail } = this.props;
+      // const { productList } = productBoardDetail;
       this.state = {
-         ProductDetail:productBoardDetail,
-         productList: productList,
-         productInfo: '',
+         ProductDetail: [],
+       
+         
          userNumber: userNum,
          quantity: 1,
          tmpOption1: null,
@@ -34,33 +35,45 @@ class ProductDetail extends React.Component {
          totalPrice: 0
       };
 
- 
+
+      //this._renderProduct = this._renderProduct.bind(this);
       // this._renderProduct = this._renderProduct.bind(this);
       this._option1Change = this._option1Change.bind(this);
       this._option2Change = this._option2Change.bind(this);
    }
 
+   // 장바구니 추가 -> action으로 갈 cartModel 
    handleSubmit = (e) => {
-
-      const  productChoice  = this.state.productChoice;
-
+      //const  productChoice  = this.state.productChoice;
+      const { productChoice, userNumber, ProductDetail, quantity } = this.state
       e.preventDefault();
+      console.log("productChoice >>>>>>", productChoice)
       const cartModel = {
-
-         userNum: productChoice.userNumber,
+         userNum: userNumber,
          productBoardNum: productChoice.productBoardNum,
-         productBoardTitle:ProductDetail.productBoardTitle,
-         cartProductName: productChoice.cartProductName,
-         cartProductOption1: productChoice.cartProductOption1,
-         cartProductOption2: productChoice.cartProductOption2,
-         cartProductPrice: productChoice.cartProductPrice,
-         cartProductCount: productChoice.cartProductCount,
-         cartProductImg: productChoice.cartProductImg
+         productBoardTitle: ProductDetail.productBoardTitle,
+         cartProductName: productChoice.productName,
+         cartProductOption1: productChoice.productOption1,
+         cartProductOption2: productChoice.productOption2,
+         cartProductPrice: productChoice.productPrice,
+         cartProductCount: Number.parseInt(quantity),
+         cartProductImg: ProductDetail.productBoardCommon,
+         productCode: productChoice.productCode
       };
 
       const { addCart } = this.props;
       console.log("장바구니 추가>>>", cartModel)
-      addCart(cartModel);
+      addCart(cartModel)
+      .then(response => {
+         if(response.type === ActionTypes.ADD_CART_SUCCESS){
+            return alert("해당 상품이 장바구니에 추가되었습니다.")
+         } else if(response.type === ActionTypes.ADD_CART_FAIL){
+            return alert("옵션을 선택해주세요.")
+         }
+      }
+         
+         
+      )//
    }
 
    _option1Check(productList) {
@@ -102,11 +115,12 @@ class ProductDetail extends React.Component {
    }
 
    // 옵션2 선택시 변경
-   _option2Change = (event) => {
+   _option2Change = (event, productListFromProps) => {
 
       let tmpCode = ''
       tmpCode = event.target.value;
-      const productList = this.state.productList;
+      const productList = productListFromProps;
+      console.log("option2 [[productList]]", productList)
       const choiceProduct = productList.filter(productList => productList.productCode == tmpCode)
       console.log(choiceProduct, 'ssssssssssssssssssssssss')
       if (choiceProduct.length !== 0) {
@@ -138,52 +152,22 @@ class ProductDetail extends React.Component {
 
    }
 
-   _loadProductDetail() {
-
-      const productBoardNum = this.props.match.params.id;
-      console.log(productBoardNum, ' productBoardNum!!')
-      const { loadProductDetails } = this.props;
-
-      loadProductDetails(productBoardNum);
-
-   }
-   // _renderProduct = () => {
-
-   //    const productId = this.props.match.params.id;
-   //    const products = this.props.productBoard;
-   //    console.log("products", products)
-   //    var newProducts = [];
-   //    if (products !== undefined && products !== null) {
-   //       newProducts = products.filter((item) => (item.productBoardNum == productId));
-
-   //       console.log("newProduct[0] >>>>", newProducts[0])
-
-   //       this.setState({
-   //          productInfo: newProducts[0],
-   //          productBoardNum: newProducts[0].productBoardNum,
-   //          cartProductName: newProducts[0].productList[0].productName,
-   //          cartProductPrice: newProducts[0].productList[0].productPrice,
-
-   //          cartProductCount: 1,   // 추후 변경 예정
-   //          cartProductImg: newProducts[0].productBoardThumbnail,
-   //          cartProductOption1: newProducts[0].productList[0].productOption1,
-   //          cartProductOption2: newProducts[0].productList[0].productOption2
-   //       });
-   //    }
-   //    return newProducts[0];
-   // }
-
-
    componentWillMount() {
-      console.log(this.productBoard, ' will mount')
-      this._loadProductDetail();
-      //this._renderProduct();
+      //this._loadProductDetail();
+      const productBoardNum = this.props.match.params.id;
+      const { loadProductDetails } = this.props;
+      loadProductDetails(productBoardNum)
+      .then(response => {
+         if(response.type=="LOAD_PRODUCTDETAIL_SUCCESS"){
+            this.setState({
+               ProductDetail : response.payload.data
+            })
+         } 
+      });
+     
    }
 
-   componentDidMount() {
-      console.log('componentDidMount')
-   }
-
+  
    shouldComponentUpdate(nextProps, nextState) {
       console.log('shouldComponentUpdate')
       return (JSON.stringify(nextState) != JSON.stringify(this.state));
@@ -191,11 +175,12 @@ class ProductDetail extends React.Component {
 
    // TODO : userDetails가 없을 경우 에러 처리해줘야함 
    render() {
-      console.log('r e n d e r 시작', this.props)
-      console.log(' render state 확인!!!!!!!', this.state)
-      const  productInfo  = this.state.ProductDetail;
-      const productList = this.state.productList;
-      console.log('시작 이다!!!!!', productList)
+
+      const { ProductDetail } = this.state;
+      const { productList } = ProductDetail;
+      const {productBoardTitle, lowerCode, productBoardDeliveryPrice} = ProductDetail;
+
+
       return (
 
          <div className="product-item">
@@ -214,15 +199,15 @@ class ProductDetail extends React.Component {
                      <div className="col-md-6 col-sm-6">
 
                         <table summary="">
-                           <caption>상품정보 목록</caption>
+                           <caption><strong>상품정보 목록</strong></caption>
                            <tbody>
                               <tr>
                                  <th scope="row">상품 이름</th>
-                                 <td>{productInfo.productBoardTitle}</td>
+                                 <td>{productBoardTitle}</td>
                               </tr>
                               <tr>
                                  <th scope="row">상품 소분류</th>
-                                 <td>{productInfo.lowerCode}</td>
+                                 <td>{lowerCode}</td>
                               </tr>
                               {/* {/* <tr>
                                  <th scope="row">상품 가격(옵션에 따라 달라질 예정)</th>
@@ -231,46 +216,60 @@ class ProductDetail extends React.Component {
 
                               <tr>
                                  <th scope="row">배송비</th>
-                                 <td>{productInfo.productBoardDeliveryPrice}</td>
+                                 <td>{productBoardDeliveryPrice}</td>
                               </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                     <div className="form-row">
-                        <div className="form-group col-md-6">
-                           <label for="exampleFormControlSelect1">옵션1 선택</label>
+
+                              <tr> 
+                                 <th scope ="row"> 옵션1 선택</th> &nbsp;
                            < select name="option1" onChange={this._option1Change}>
-                              <option value='defaultValue'selected="selected">옵션을 선택하세요</option>
+                              <option value='defaultValue' selected="selected">옵션을 선택하세요</option>
                               {this._option1Check(productList).map((productList) => (
                                  <option value={productList.productOption1} >
                                     {productList.productOption1}</option>
                               ))}
-                           </select>
-                        </div>
+                               </select>
+                              </tr>
 
-                        <div className="form-group col-md-6">
-                           <label for="exampleFormControlSelect1">옵션2 선택</label>
-                           < select name="option2" onChange={this._option2Change}>
+                              <tr> 
+                                 <th scope ="row"> 옵션2 선택</th> &nbsp;
+                                 < select name="option2" onChange={e => this._option2Change(e,productList)}>
                               <option value="default" selected="selected">
                                  옵션을 선택하세요</option>
                               {this._option2Check(productList).map((productList) => (
                                  <option value={productList.productCode} >
                                     {productList.productOption2}</option>
                               ))}
+                                 </select>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     <div className="form-row">
+                        {/* <div className="form-group col-md-6">
+                           <label for="exampleFormControlSelect1">옵션1 선택</label> &nbsp;
+                           < select name="option1" onChange={this._option1Change}>
+                              <option value='defaultValue' selected="selected">옵션을 선택하세요</option>
+                              {this._option1Check(productList).map((productList) => (
+                                 <option value={productList.productOption1} >
+                                    {productList.productOption1}</option>
+                              ))}
                            </select>
-                        </div>
+                        </div> */}
+
+                        
+
                         <div>
-                           <label > 개수</label>
+                           <label > 개수</label> &nbsp;
                            <input type="number" min="1" max="100" value={this.state.quantity}
                               step="1" onChange={this._quantityChange}></input>
                         </div>
                         <div>
-                           <label> 가격</label>
+                           <label> 가격</label> &nbsp;
                            {this.state.totalPrice}
                         </div>
                      </div>
                      <div className="btn-prd">
-                        <p><a href="#" className="btn-buy">구매</a></p>
+                        <p><button><a href="#" className="btn-buy">구매</a></button></p>
                         <a href="/cart" className="btn-buy">
                            <p>장바구니로 이동(링크)</p>
                         </a>

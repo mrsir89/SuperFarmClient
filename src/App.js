@@ -1,6 +1,6 @@
-// ver4  8/11 Ref
-// merge ki from sj  8/15
-// 8/15 ////////////////////////////////////
+// 8/21
+// cartView 삭제
+// Cart 수정
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
@@ -17,10 +17,23 @@ import MyPage from './component/board/MyPage';
 import {Header, PreHeader , Home, Footer, PreFooter} from './containers';
 import ListReview from './component/board/reviewBoard/ListReview'
 import AddReview from './component/board/reviewBoard/AddReview';
+<<<<<<< HEAD
 import order from './component/order/order';
 import Notice from './component/board/notice/notice';
 import NoticeDetail from './component/board/notice/noticeDetail';
 import orderSuccess from './component/order/orderSuccess';
+=======
+
+import userEdit from './component/board/UserEdit';
+import userEditlogin from './component/board/UserEditLogin';
+// import QuestionBoard from './component/board/QuestionBoard';
+import EditMe from './component/board/EditMe';
+import Notice from './component/board/notice/notice';
+import NoticeDetail from './component/board/notice/noticeDetail';
+import Faq from './component/board/faq/faq';
+
+
+>>>>>>> dev_sj
 
 // import Main from './Main';
 
@@ -43,17 +56,37 @@ import orderSuccess from './component/order/orderSuccess';
 
 
 class App extends React.Component {
-  render() { // 화면에 html 뷰를 생성.
-    return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
+
+  constructor(props) {
+    super(props)
+
+  }
+
+  componentWillMount(){
+    const { auth,getClientToken  } = this.props;
+    const { token } = auth;
+    if (token === undefined || token === null ) {
+      return getClientToken();
+    }
+    console.log("<<this.props in App >> ", this.props)
+  }
+
+
+
+  render() { // 화면에 html 뷰를 생성.\
+      return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
       <div className="container">
         <PreHeader/>
         <Header /> 
         <Switch>
-          {/* <Route exact path="/" component={Main} /> */}
           <Route exact path="/" component={Home} />
           {/* <Route exact path="/product" component={ProductList} /> */}
           <Route path="/productlist/:id" component={ProductList} />
+<<<<<<< HEAD
           <Route path="/notice/:noticeNum" component={NoticeDetail}/>
+=======
+          <Route exact path="/product" component={ProductList} />
+>>>>>>> dev_sj
           <Route path="/signup" component={signup} />
           <Route path="/login" component={login} />
           <Route path="/qnaboard" component={qnaboard} />
@@ -62,10 +95,22 @@ class App extends React.Component {
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/review/all" component={ListReview} />
           <Route path="/review/write" component={AddReview} />
+<<<<<<< HEAD
           <Route path="/order" component={order} />
           <Route path="/notice" component={Notice}/>
           <Route path="/orderSuccess" component={orderSuccess} />
+=======
+          {/* <Route path="/orderSheet" component={OrderSheet} /> */}
+
+          <Route path="/qnaboardWrite" component={QnABoardWrite}/>
+          <Route path="/useredit" component={userEdit} />
+          <Route path="/usereditlogin" component={userEditlogin}/>
+          <Route path="/notice/:noticeNum" component={NoticeDetail}/>
+          <Route exact path="/notice" component={Notice}/>
+          <Route path="/faqboard" component={Faq} />
+>>>>>>> dev_sj
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
+
         </Switch>
         {/* <PreFooter/> */}
         <Footer/>
@@ -73,5 +118,19 @@ class App extends React.Component {
     );
   }
 }
-export default App;
+
+function mapStateToProps(state) {
+  const { auth } = state;
+  const {token , userDetails} = auth
+  
+  return {
+    auth
+  };
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  getClientToken: () => dispatch(Actions.getClientToken())
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
 

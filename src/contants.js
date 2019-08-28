@@ -33,17 +33,39 @@ export const ActionTypes={
 
     LOGOUT:'LOGOUT',
 
+    // user정보 수정
+    USER_EDIT:'USER_EDIT',
+    USER_EDIT_SUCCESS:'USER_EDIT_SUCCESS',
+    USER_EDIT_FAIL:'USER_EDIT_FAIL',
+
+
     GET_USERME:'GET_USERME',
     GET_USERME_SUCCESS:'GET_USERME_SUCCESS',
+
+<<<<<<< HEAD
+    ////////////////////////////////////////////////////////////
+    /// noticeBoard 관련
+    LOAD_NOTICEBOARD:'LOAD_NOTICEBOARD',
+    LOAD_NOTICEBOARD_SUCCESS:'LOAD_NOTICEBOARD_SUCCESS',
+    LOAD_NOTICEBOARD_FAIL:'LOAD_NOTICEBOARD_FAIL',
+=======
+
+    ////////////////////////////////////////////////////////////
+    /// faq 관련
+    LOAD_FREQUENTLYASKEDBOARD:'LOAD_FREQUENTLYASKEDBOARD',
+    LOAD_FREQUENTLYASKEDBOARD_SUCCESS:'LOAD_FREQUENTLYASKEDBOARD_SUCCESS',
+    LOAD_FREQUENTLYASKEDBOARD_FAIL:'LOAD_FREQUENTLYASKEDBOARD_FAIL',
+>>>>>>> dev_sj
+    
 
     ////////////////////////////////////////////////////////////
     /// noticeBoard 관련
     LOAD_NOTICEBOARD:'LOAD_NOTICEBOARD',
     LOAD_NOTICEBOARD_SUCCESS:'LOAD_NOTICEBOARD_SUCCESS',
     LOAD_NOTICEBOARD_FAIL:'LOAD_NOTICEBOARD_FAIL',
-    
-    ////////////////////////////////////////////////////////////
-    /////////QnABoard 관련 
+
+
+    //QnABoard 관련 
     LOAD_QNABOARDLIST:'LOAD_QNABOARDLIST',
     LOAD_QNABOARDLIST_SUCCESS:'LOAD_QNABOARDLIST_SUCCESS',
     
@@ -66,6 +88,10 @@ export const ActionTypes={
     DELETE_QNABOARDANSWER_SUCCESS:'DELETE_QNABOARDANSWER_SUCCESS',
     DELETE_QNABOARDANSWER_FAIL:'DELETE_QNABOARDANSWER_FAIL',
 
+    //QnABoard 관련 
+    LOAD_QNABOARDLIST:'LOAD_QNABOARDLIST',
+    LOAD_QNABOARDLIST_SUCCESS:'LOAD_QNABOARDLIST_SUCCESS',
+   
     QNABOARD_DELETE:'QNABOARD_WRITE',
     QNABOARD_EDIT:'QNABOARD_EDIT',
     QNABOARD_FAIL:'QNABOARD_FAIL',
@@ -106,8 +132,19 @@ export const ActionTypes={
 
     // 0810 addCart
     ADD_CART : 'ADD_CART',
+    // 필요한가..??
+    // ADD_CART_FAIL: 'ADD_CART_FAIL',
+    // ADD_CART_SUCCESS: 'ADD_CART_SUCCESS'
+
+    ADD_CART : 'ADD_CART',
     ADD_CART_FAIL: 'ADD_CART_FAIL',
     ADD_CART_SUCCESS: 'ADD_CART_SUCCESS',
+  
+
+    // 0814 카테고리 불러오기
+    GET_CATEGORIES : 'GET_CATEGORIES',
+    // GET_CATEGORIES_FAIL : 'GET_CATEGORIES_FAIL',
+    // GET_CATEGORIES_SUCCESS : 'GET_CATEGORIES_SUCCESS',
 
     // 0814 유저의 장바구니 불러오기
     GET_CART : 'GET_CART',
@@ -118,10 +155,22 @@ export const ActionTypes={
     EDIT_CART_FAIL: 'EDIT_CART_FAIL',
     EDIT_CART_SUCCESS: 'EDIT_CART_SUCCESS',
 
+<<<<<<< HEAD
+=======
+    // 0822 카트 수량 수정
+    EDIT_CART : 'EDIT_CART',
+    EDIT_CART_FAIL: 'EDIT_CART_FAIL',
+    EDIT_CART_SUCCESS: 'EDIT_CART_SUCCESS',
+
+>>>>>>> dev_sj
     // 0822 카트 삭제 (cartNum)
     REMOVE_CART_ID : 'REMOVE_CART_ID',
     REMOVE_CART_ID_FAIL: 'REMOVE_CART_ID_FAIL',
     REMOVE_CART_ID_SUCCESS: 'REMOVE_CART_ID_SUCCESS',
+<<<<<<< HEAD
+=======
+    
+>>>>>>> dev_sj
 
     ///////////////////////////////////////////////////////
     /////////// Category
@@ -159,6 +208,9 @@ export const ActionTypes={
     ////////// 비동기 처리
     ASNYCACTION:'ASNYCACTION',
     ASNYCACTION_SUCCESS:'ASNYCACTION_SUCCESS',
-    ASNYCACTION_FAIL:'ASNYCACTION_FAIL'
+    ASNYCACTION_FAIL:'ASNYCACTION_FAIL',
 
+    USER_EDIT:'USER_EDIT',
+    USER_EDIT_SUCCESS:'USER_EDIT_SUCCESS',
+    USER_EDIT_FAIL:'USER_EDIT_FAIL'
 }

@@ -9,7 +9,6 @@ const initialStateProduct = {
     productBoardDetail:{},
     productBoard: [],
     category: []
-    
 };
 
 
@@ -23,6 +22,7 @@ const productReducer = (state = initialStateProduct, action) => {
 
             if (payload !== undefined && payload !== null) {
                 const { data } = payload;
+                console.log("load product list data >>>", data)
                 if (data !== undefined && data !== null) {
                     return {
                         ...state,
@@ -37,6 +37,12 @@ const productReducer = (state = initialStateProduct, action) => {
             }
             return state;
 
+<<<<<<< HEAD
+=======
+        case ActionTypes.LOAD_LOWER_PRODUCTLIST_SUCCESS:
+
+
+>>>>>>> dev_sj
         // 카테고리 불러오기 
         case ActionTypes.GET_CATEGORIES_SUCCESS:
             console.log('ActionType.CategorySuccess')
@@ -50,6 +56,53 @@ const productReducer = (state = initialStateProduct, action) => {
                 }
             }
             return state;
+        // case ActionTypes.GET_CATEGORIES:
+        //     console.log('ActionType.CategorySuccess')
+
+        //     return {
+        //         ...state,
+        //         category : 
+        //     }
+
+
+        case ActionTypes.LOAD_QNABOARDLIST_SUCCESS:
+            if (payload !== undefined && payload !== null) {
+                const { data } = payload
+                console.log(data, 'ActionTypes.LOAD_QNABOARDLIST_SUCCESS')
+                return {
+                    qnaBoard: {
+                        data
+                    }
+                }
+            }
+            else
+                return state;
+        case ActionTypes.WRITE_QNABOARD_SUCCESS:
+            if (payload !== undefined && payload !== null) {
+                const { data } = payload
+                console.log(data, 'ActionTypes.WRITE_QNABOARD_SUCCESS')
+                return {
+                    ...state,
+                    qnaBoard: {
+                        data
+                    }
+                }
+            }
+            else
+                return state;
+
+        case ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS:
+            console.log('ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS',payload.data)
+            if(payload !== undefined && payload !== null){
+                const{ data } = payload;
+                if(data !== undefined && data !== null){
+                    return{
+                        ...state,
+                        productBoardDetail:data
+                    };
+                }
+            }
+            return state;  
         default:
             return state;
             
