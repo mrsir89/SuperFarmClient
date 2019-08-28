@@ -1,16 +1,30 @@
-import { useStore } from './useStore'
+import { ReactReduxContext } from '../components/Context'
+import { useStore as useDefaultStore, createStoreHook } from './useStore'
 
 /**
- * A hook to access the redux `dispatch` function. Note that in most cases where you
- * might want to use this hook it is recommended to use `useActions` instead to bind
- * action creators to the `dispatch` function.
+ * Hook factory, which creates a `useDispatch` hook bound to a given context.
+ *
+ * @param {Function} [context=ReactReduxContext] Context passed to your `<Provider>`.
+ * @returns {Function} A `useDispatch` hook bound to the specified context.
+ */
+export function createDispatchHook(context = ReactReduxContext) {
+  const useStore =
+    context === ReactReduxContext ? useDefaultStore : createStoreHook(context)
+  return function useDispatch() {
+    const store = useStore()
+    return store.dispatch
+  }
+}
+
+/**
+ * A hook to access the redux `dispatch` function.
  *
  * @returns {any|function} redux store's `dispatch` function
  *
  * @example
  *
  * import React, { useCallback } from 'react'
- * import { useReduxDispatch } from 'react-redux'
+ * import { useDispatch } from 'react-redux'
  *
  * export const CounterComponent = ({ value }) => {
  *   const dispatch = useDispatch()
@@ -23,7 +37,4 @@ import { useStore } from './useStore'
  *   )
  * }
  */
-export function useDispatch() {
-  const store = useStore()
-  return store.dispatch
-}
+export const useDispatch = createDispatchHook()
