@@ -11,13 +11,27 @@ class Header extends React.Component{
 // ({ history, location, matcher, cartlist, getCategories}) 
 //   console.log('cartList >>>>>',cartlist);
 //   console.log('categories >>>>>',getCategories);
+  constructor(props){
+    super(props)
+    this.state = {
+      category : [],
+      cartlist : []
+    }
+  }
   
 
   componentWillMount(){
     const{ getCategories } = this.props;
-    getCategories();
+    getCategories()
+    .then( response => {
+      console.log("Header에서 getCategories 실행 >>", response)
+      this.setState ({
+        // category : response.payload.data
+      })
+    }) ;
   }
   render(){
+    //const{ category } = this.state
     const{ category } = this.props
     const{ cartlist } = this.props
     console.log('render 의',category)

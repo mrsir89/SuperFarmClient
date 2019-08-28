@@ -273,22 +273,6 @@ const loadqnaboardList = (productNum, size, page) => {
 ///////////   Category       ////////////////////////////////////
 
 
-// // 카테고리 DB에서 가져오는 action 추가 
-// const getCategories = () => {
-//   return ({
-//     type: ActionTypes.GET_CATEGORIES,
-//     payload: {
-//       request: {
-//         method: 'POST',
-//         url: '/category'
-//       }
-//     }
-//   })
-// }
-
-
-
-
 //QnABoard 내용수정
 const editQnABoard = (editQnABoard) => {
   console.log(' edit QnABoard Action 실행')
@@ -626,6 +610,14 @@ const getCategories = () => {
     }
   })
 }
+
+
+
+// const getCategories = () => {
+//   return ({
+//     type: ActionTypes.GET_CATEGORIES
+//   })
+// }
 
 //////////////////////////////////////////////////////////
 ///        비동기 처리를 위한 Action

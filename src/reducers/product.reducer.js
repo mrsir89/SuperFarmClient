@@ -39,18 +39,6 @@ const productReducer = (state = initialStateProduct, action) => {
 
         case ActionTypes.LOAD_LOWER_PRODUCTLIST_SUCCESS:
 
-            
-
-
-        // case ActionTypes.ADD_CART:
-        //     const { item } = action
-        //     return {
-        //         ...state,
-        //         cart: [
-        //             ...cart,
-        //             item
-        //         ]
-        //     }
 
         // 카테고리 불러오기 
         case ActionTypes.GET_CATEGORIES_SUCCESS:
@@ -65,6 +53,13 @@ const productReducer = (state = initialStateProduct, action) => {
                 }
             }
             return state;
+        // case ActionTypes.GET_CATEGORIES:
+        //     console.log('ActionType.CategorySuccess')
+
+        //     return {
+        //         ...state,
+        //         category : 
+        //     }
 
 
         case ActionTypes.LOAD_QNABOARDLIST_SUCCESS:

@@ -27,6 +27,7 @@ import NoticeDetail from './component/board/notice/noticeDetail';
 import Faq from './component/board/faq/faq';
 
 
+
 // import Main from './Main';
 
 // REACT는 라이브러리, View를 Rendering 하는 것이 주 기능이며 나머지 기타 기능들(router, ajax등등)은 서드파티 라이브러리를 추가적으로 사용해야 한다.
@@ -48,6 +49,23 @@ import Faq from './component/board/faq/faq';
 
 
 class App extends React.Component {
+
+  constructor(props) {
+    super(props)
+
+  }
+
+  componentWillMount(){
+    const { auth,getClientToken  } = this.props;
+    const { token } = auth;
+    if (token === undefined || token === null ) {
+      return getClientToken();
+    }
+    console.log("<<this.props in App >> ", this.props)
+  }
+
+
+
   render() { // 화면에 html 뷰를 생성.\
       return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
       <div className="container">
@@ -83,5 +101,19 @@ class App extends React.Component {
     );
   }
 }
-export default App;
+
+function mapStateToProps(state) {
+  const { auth } = state;
+  const {token , userDetails} = auth
+  
+  return {
+    auth
+  };
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  getClientToken: () => dispatch(Actions.getClientToken())
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
 

@@ -19,20 +19,13 @@ class Notice extends React.Component {
   componentWillMount() {
     const { loadNoticeBoard } = this.props;
     loadNoticeBoard()
-    // .then(response => {
-    //   const { payload } = response;
-    //   const { data } = payload;
-    //   this.setState({     // state가 바뀌면 rerender 
-    //     items: data
-    //   })
-    // })
-  }
-
-
-  componentWillReceiveProps(nextProps) {
-    console.log("componentWillReceiveProps 실행됨  >> nextProps", nextProps.noticeBoard.items)
-    this.setState({
-      noticeBoard: nextProps.noticeBoard.items
+    .then(response => {
+      const { payload } = response;
+      const { data } = payload;
+      console.log("notice의 data",data)
+      this.setState({     // state가 바뀌면 rerender 
+        noticeBoard: data.items
+      })
     })
   }
 
