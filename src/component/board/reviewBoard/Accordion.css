@@ -2,13 +2,19 @@
 
 /* Style the accordion section */
  .accordion__section {
+ 
   display: flex;
   flex-direction: column;
+  
+  
+
 } 
 
 /* Style the buttons that are used to open and close the accordion panel */
  .accordion {
-  background-color: whitesmoke;
+
+
+  background-color: white;
   color: #555555;
   cursor: pointer;
   padding: 15px;
@@ -16,7 +22,7 @@
   align-items: center;
   border: none;
   outline: none;
-  transition: background-color 0.6s ease;
+  transition: background-color 0.5s ease;
 } 
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
@@ -30,6 +36,14 @@
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
   font-size: 14px;
+} 
+
+/* Style the accordion content writer */
+.accordion__writer {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  text-align:right;
 } 
 
 /* Style the accordion chevron icon */
@@ -54,15 +68,15 @@
 
 .accordion__text {
   font-family: "Open Sans", sans-serif;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 14px;
-  padding: 25px;
+  padding: 20px;
 }
 
 .accordion__remove {
   font-family: "Open Sans", sans-serif;
   font-weight: 200;
-  font-size: 9px;
+  font-size: 3px;
   padding: 2px;
   border-bottom-right-radius: 10%
  

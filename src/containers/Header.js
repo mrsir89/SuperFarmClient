@@ -21,9 +21,6 @@ class Header extends React.Component{
   
 
   componentWillMount(){
-    const{ category } = this.props;
-    if(category ===null || category ===undefined
-      || category.size===0){
     const{ getCategories } = this.props;
     getCategories()
     .then( response => {
@@ -32,7 +29,6 @@ class Header extends React.Component{
         // category : response.payload.data
       })
     }) ;
-  }
   }
   render(){
     //const{ category } = this.state

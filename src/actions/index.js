@@ -32,24 +32,6 @@ const getClientToken = () => {
   });
 };
 
-//refreshToken
-const refreshToken = (refresh_token) => {
-  const formData = new FormData();
-  formData.append('grant_type', 'refresh_token');
-  formData.append('refresh_token', refresh_token);
-
-  return ({
-    type: "REFRESH_TOKEN",
-    payload: {
-      request: {
-        method: 'POST',
-        url: '/oauth/token',
-        data: formData
-      }
-    }
-  });
-};
-
 
 //////////////////////////////////////////////
 //           회원 가입 
@@ -169,7 +151,6 @@ const getUserMe = () => {
   });
 };
 
-
 const logout = () => ({
   type: ActionTypes.LOGOUT
 })
@@ -218,7 +199,10 @@ const refreshToken = (refresh_token) => {
   })
 }
 
-
+/**
+ * @author 심인선
+ * @param {*} writeQnA 
+ */
 /////////////////////////////////////////////////////////////////
 /////          notice board
 
@@ -288,8 +272,6 @@ const loadqnaboardList = (productNum, size, page) => {
 
 
 
-/////////////////////////////////////////////////////////////////
-///////////   Category       ////////////////////////////////////
 
 
 //QnABoard 내용수정
@@ -508,6 +490,7 @@ const addCart = (cartModel) => {
 // 0814 장바구니 불러오기 (user)
 const getCartByUser = (userNum) => {
   console.log('getCartByUser 실행 ', userNum)
+  
   const formData = new FormData();
   formData.append('userNum', userNum)
   return ({
@@ -630,28 +613,6 @@ const getCategories = () => {
   })
 }
 
-
-
-// const getCategories = () => {
-//   return ({
-//     type: ActionTypes.GET_CATEGORIES
-//   })
-// }
-
-//////////////////////////////////////////////////////////
-///        비동기 처리를 위한 Action
-const asynAction = () => {
-  // window.setInterval(()=>{}, 100);
-  return {
-    type: ActionTypes.ASNYCACTION,
-    payload: {
-      request: {
-        method: 'POST',
-        url: '/signup/asyncAction'
-      }
-    }
-  }
-}
 ///////////////////////////////////////////////////////////
 ////        KakaoPay 
 
@@ -717,20 +678,46 @@ const orderList =(orderList) =>{
   })
 }
 
+
+// const getCategories = () => {
+//   return ({
+//     type: ActionTypes.GET_CATEGORIES
+//   })
+// }
+
+//////////////////////////////////////////////////////////
+///        비동기 처리를 위한 Action
+const asynAction = () => {
+  // window.setInterval(()=>{}, 100);
+  return {
+    type: ActionTypes.ASNYCACTION,
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/signup/asyncAction'
+      }
+    }
+  }
+}
+
+
 export const Actions = {
 
   signup, emailCheck, idCheck, getUserMe,
   login, logout, getClientToken,refreshToken,
   writeQnABoard,
-  addCart,removeCartById,editCartQty,
+  addCart,
   loadProductList, loadProductDetails,
-  getCategories, getCartByUser,
-  loadqnaboardList,  editQnABoard, deleteQnABoard,
+  getCategories, getCartByUser,removeCartById,editCartQty,
+  loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,
   loadNoticeBoard,
   loadFrequentlyAskedQuestionBoard,
   writeAnswer, deleteAnswer,
 
   getReviews, removeReview, addReview, uploadFileReview,
-  asynAction, kakaoPayReady,checkoutOrder,kakaoPaySuccess,
-  orderList,userEdit
+  asynAction,
+
+  userEdit,
+  kakaoPayReady,kakaoPaySuccess,
+  checkoutOrder,orderList
 };

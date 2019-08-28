@@ -3,40 +3,16 @@ import { ActionTypes } from '../contants';
 const initialStateBoard = {
     qnaBoard: [],
     reviewBoard: [],
-<<<<<<< HEAD
-    noticeBoard:[]
-=======
     noticeBoard: [],
     frequentlyBoard: []
->>>>>>> dev_sj
 };
 
 
 const boardReducer = (state = initialStateBoard, action) => {
-<<<<<<< HEAD
-    const { qnaBoard, reviewBoard, noticeBoard } = state;
-=======
     const { qnaBoard, reviewBoard,noticeBoard, frequentlyBoard } = state;
->>>>>>> dev_sj
     const { payload } = action;
 
     switch (action.type) {
-        //////////////////////////////////////////////////////////
-        ///////////    noticeBoard
-
-        case ActionTypes.LOAD_NOTICEBOARD_SUCCESS:
-        
-        console.log('ActionTypes.LOAD_NOTICEBOARD_SUCCESS')
-        if(payload !== undefined && payload !== null){
-            const { data } = payload
-            return({
-                ...state,
-                noticeBoard:data
-            })
-            
-        }
-        else
-            return state;
 
         case ActionTypes.LOAD_QNABOARDLIST_SUCCESS:
 
@@ -59,7 +35,7 @@ const boardReducer = (state = initialStateBoard, action) => {
                 console.log(data, 'ActionTypes.WRITE_QNABOARD_SUCCESS')
                 return {
                     ...state,
-                    qnaBoard:data
+                    data
                 }
             }
             else
@@ -71,10 +47,10 @@ const boardReducer = (state = initialStateBoard, action) => {
                 const { data } = payload
                 console.log(data, 'ActionTypes.EDIT_QNABOARD_SUCCESS')
                 return {
-                    ...state,
-                    qnaBoard:data
+                    ...state
                 }
             }else
+                
                 return state;
 
         case ActionTypes.DELETE_QNABOARD_SUCCESS:
@@ -87,6 +63,7 @@ const boardReducer = (state = initialStateBoard, action) => {
                     qnaBoard:data
                 }
             }else
+                
                 return state
 
         case ActionTypes.WRITE_QNABOARDANSWER_SUCCESS:
@@ -99,6 +76,7 @@ const boardReducer = (state = initialStateBoard, action) => {
                     qnaBoard:data
                 }
             }else
+                
                 return state
 
         case ActionTypes.DELETE_QNABOARDANSWER_SUCCESS:
@@ -111,6 +89,7 @@ const boardReducer = (state = initialStateBoard, action) => {
                     qnaBoard:data
                 }
             }else
+            
                 return state;
 
         ////////////////////////////////////////////////
@@ -127,7 +106,8 @@ const boardReducer = (state = initialStateBoard, action) => {
                     reviewBoard:data
                 }
             }else
-                return state;
+            
+            return state;
 
         case ActionTypes.REMOVE_REVIEW_SUCCESS:
 
@@ -136,11 +116,11 @@ const boardReducer = (state = initialStateBoard, action) => {
                 console.log('ActionTypes.REMOVE_REVIEW_SUCCESS',data)
                 return {
                     ...state,
+                    reviewBoard:data
                 }
             }
-
             return state
-
+            
         case ActionTypes.LOAD_REVIEWS_SUCCESS:
 
             if (payload !== undefined && payload !== null) {
@@ -153,7 +133,8 @@ const boardReducer = (state = initialStateBoard, action) => {
                     };
                 }
             }
-            return state
+            
+            return state;
 
         case ActionTypes.UPLOADFILEREVIEW_SUCCESS:
             if(payload !== undefined && payload !== null){
@@ -200,7 +181,7 @@ const boardReducer = (state = initialStateBoard, action) => {
                 return state;
                 
         default:
-            return state
+            return state;
     }
 }
 export default boardReducer;

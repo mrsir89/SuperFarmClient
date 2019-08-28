@@ -1,4 +1,5 @@
 
+
 .tg  {
     border-collapse:collapse;
     border-spacing:0;
@@ -7,6 +8,7 @@
     border-color:#ccc;
     width:1170px
     }
+
 .tg td{
     font-family:Arial, sans-serif;
     font-size:14px;
@@ -78,13 +80,25 @@
     vertical-align:middle}
 
 .tg .tg-g4tm{
-    text-align:left;
+    width: 135px;
+    text-align:center;
     border-bottom-style: solid;
     font-weight:bold;
     background-color:#efefef;
     border-bottom-style: solid;
     border-bottom-width: 1px;
-    vertical-align:middle}
+    vertical-align:middle
+}
+.tg .tg-g3tm{
+        width: 25px;
+        text-align:center;
+        border-bottom-style: solid;
+        font-weight:bold;
+        background-color:#efefef;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        vertical-align:middle
+    }
 .tg .tg-de2y{
     border-color:#333333;
     text-align:left;
@@ -134,8 +148,8 @@
         text-align:center;
         vertical-align:middle;
         font-size:14px;
-        border-bottom-style: solid;
-        border-bottom-width: 1px;
+        border-bottom-style: none;
+        border-bottom-width: 0px;
     }
 .orderClick{
     background-color:#ffffff;
@@ -147,7 +161,7 @@
 }
 .tg .tg-default{
         font-size:14px;
-        border-bottom-style: solid;
+        border-bottom-style:none;
         border: 0;
 }
 .submitButton{
@@ -179,4 +193,15 @@
     font-weight:600;
     background-color:lightslategrey;
 
+}
+.inputTypeCenter{
+
+    height: auto;  /* 높이값 초기화 */
+    padding: .8em .5em; /* 원하는 여백 설정, 상하단 여백으로 높이를 조절 */
+    border: 1px solid #999;
+    border-radius: 0;  /* iSO 둥근모서리 제거 */
+    outline-style: none;  /* 포커스시 발생하는 효과 제거를 원한다면 */
+    -webkit-appearance: none;  /* 브라우저별 기본 스타일링 제거 */
+    -moz-appearance: none;
+    appearance: none;
 }

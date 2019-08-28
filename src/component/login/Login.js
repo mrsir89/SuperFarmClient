@@ -3,9 +3,6 @@ import { Actions } from '../../actions/index';
 import { ActionTypes } from '../../contants';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
-import { reject } from 'q';
-import KakaoLogin from 'react-kakao-login';
-import styled from 'styled-components';
 import preheader from '../../containers/PreHeader'
 
 const onChangeRoute = ({ props }) => {
@@ -116,9 +113,7 @@ class Login extends React.Component {
     const { history } = this.props
     login(customerId, password, history);
   }
-  responseKako =(res)=>{
 
-  }
   // .then(response=>{
   //   if(response.type===ActionTypes.LOGIN_SUCCESS){
   //     this.routeChange();
@@ -141,30 +136,12 @@ class Login extends React.Component {
             <a href="/page-forgotton-password.html">Forgot Password?</a>
           </div>
         </div>
-        <KakaoButton
-        jsKey="93be7abc94b98bba65b961711b646d92"
-        buttonText="Kakao"
-        onSuccess={this.responseKakao}
-        onFailure={this.responseFail}
-        getProfile="true"/>
       </div>
 
     )
   }
 }
-const KakaoButton = styled(KakaoLogin)`
-padding:0;
-width:190px;
-height:44px;
-line-height:44px;
-color:#783c00;
-background-color:#FFEB00;
-border: 1px solid transparent;
-border-radius:3px;
-font-size:16px;
-font-weight:bold;
-text-align:center;
-`
+
 const mapDispatchToProps = (dispatch) => ({
   login: (customerId, password, history) => dispatch(loginAsync(customerId, password, history))
 });

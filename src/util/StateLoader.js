@@ -28,9 +28,9 @@ class StateLoader {
     // 여기 auth에 장바구니, 구매한 목록 추가 
     // product에 카테고리 추가 (upper: [], lower: [])
     initialState() {
-        
+
         return {
-          
+
             auth: {
                 retryCount: 0,
                 token: null,
@@ -40,33 +40,27 @@ class StateLoader {
             product: {
                 productBoard: [],
                 category: [],
-                productBoardDetail:{} 
-             
+                productBoardDetail: {},
+                
+
             },
-            cart : {
-                cartlist: [],
+            cart: {
+                cartlist: []
             },
-            board : {
-                reviewBoard:[],
-                qnaBoard:[],
-                noticeBoard:[],
-                // order:{}
-            },
-            order : {
-                noticeBoard: []
+            board: {
+                reviewBoard: [],
+                qnaBoard: [],
+                noticeBoard: [],
+                frequentlyBoard:[]
             },
             userEdit: {
-                userDetails:[]
-            }
-
-
-
+                userDetails: []
+            },
+            order: {
 
             }
-
-
-            
-        };
+        }
+    };
 }
 
 export default StateLoader;

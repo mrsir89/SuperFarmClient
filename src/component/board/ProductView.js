@@ -1,9 +1,8 @@
 import React from 'react';
 import './ProductView.css';
-import QuestionBoard from './QuestionBoard';
 //import productItem from './productItem.json';
 import ListReview from './reviewBoard/ListReview'
-import QnABoard from './QuestionBoard';
+import QnABoard from '../board/QnABoard';
 
 // ProductDetail 페이지에서 공통으로 있는 상품 상세 정보, 배송교환반품안내, 이용후기(추후 해당 컴포넌트 추가 예정) 
 function ProductView(props) {
@@ -16,7 +15,7 @@ function ProductView(props) {
             <a className="list-group-item list-group-item-dark active" href="#section1">상품 상세 정보</a>
             <a className="list-group-item list-group-item-dark" href="#section2">배송/교환/반품안내</a>
             <a className="list-group-item list-group-item-dark" href="#section3">이용후기</a>
-            <a className="list-group-item list-group-item-dark" href="#section4"><QuestionBoard product= {props.key}/>QnA</a>
+            <a className="list-group-item list-group-item-dark" href="#section4">QnA</a>
           </ul>
         </div>
         <img src="/resource/b.jpg" />
@@ -27,7 +26,7 @@ function ProductView(props) {
           <a className="list-group-item list-group-item-dark active" href="#section1">상품 상세 정보</a>
             <a className="list-group-item list-group-item-dark" href="#section2">배송/교환/반품안내</a>
             <a className="list-group-item list-group-item-dark" href="#section3">이용후기</a>
-            <a className="list-group-item list-group-item-dark" href="#section4"><QnABoard product= {props.key}/>QnA</a>
+            <a className="list-group-item list-group-item-dark" href="#section4">QnA</a>
           </ul>
         </div>
         <img src="/resource/b.jpg" />
@@ -38,7 +37,7 @@ function ProductView(props) {
           <a className="list-group-item list-group-item-dark active" href="#section1">상품 상세 정보</a>
             <a className="list-group-item list-group-item-dark" href="#section2">배송/교환/반품안내</a>
             <a className="list-group-item list-group-item-dark" href="#section3">이용후기</a>
-            <a className="list-group-item list-group-item-dark" href="#section4"><QnABoard product= {props.key}/>QnA</a>
+            <a className="list-group-item list-group-item-dark" href="#section4">QnA</a>
           </ul>
         </div>
         <img src="/resource/b.jpg" />
@@ -49,11 +48,12 @@ function ProductView(props) {
           <a className="list-group-item list-group-item-dark active" href="#section1">상품 상세 정보</a>
             <a className="list-group-item list-group-item-dark" href="#section2">배송/교환/반품안내</a>
             <a className="list-group-item list-group-item-dark" href="#section3">이용후기</a>
-            <a className="list-group-item list-group-item-dark" href="#section4"><QnABoard product= {props.key}/>QnA</a>
+            <a className="list-group-item list-group-item-dark" href="#section4">QnA</a>
           </ul>
         </div>
-        <ListReview />
+        {/* <ListReview /> */}
       </div>
+      {/* <QnABoard /> */}
     </div>
   );
 }

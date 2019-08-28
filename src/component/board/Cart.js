@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Actions } from '../../actions/index';
-import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom' ;
+import Order from '../order/order';
 
 /**
  * items = [{qty}, {qty}, {qty}]
@@ -22,11 +23,6 @@ import { Redirect } from 'react-router-dom';
  */
 
 
-
-/**
- * @todo 체크 박스 변경시 금액 변경  체크된 상품만 주문
- * 
- */ 
 // 수량이 String 타입으로 넘어감 바꿔야 하나?
 class Cart extends React.Component {
 
@@ -34,32 +30,28 @@ class Cart extends React.Component {
     super(props)
     const { cartlist, userDetails } = this.props;
 
+
     this.state = {
       items: [],
       selectedProduct: [],
-      SubPrice:0,
-      shippingPrice:0,
-      TotalPrice:0
+      SubPrice: 0,
+      shippingPrice: 0,
+      TotalPrice: 0
     }
   }
-
   componentWillMount() {
     const { getCartByUser } = this.props;
     const { userDetails } = this.props;
     const { history } = this.props;
-    if(userDetails !== null && userDetails !== undefined ){
-    getCartByUser(userDetails.userNum)
-      .then(response => {
-        this._changeTotalPrice();
-      });
-    }else{
+    if (userDetails !== null && userDetails !== undefined) {
+      getCartByUser(userDetails.userNum)
+        .then(response => {
+          this._changeTotalPrice();
+        });
+    } else {
       alert('로그인이 필요한 페이지 입니다.')
       history.push("/login")
     }
-  }
-  componentDidMount(){
-        
-   
   }
 
 
@@ -82,7 +74,7 @@ class Cart extends React.Component {
       items: newCartList
     });
 
-    editCartQty(newCartList[idx]).then(response=>{
+    editCartQty(newCartList[idx]).then(response => {
       this._changeTotalPrice();
     });
   }
@@ -117,30 +109,45 @@ class Cart extends React.Component {
   }
 
 
-<<<<<<< HEAD
+  // 장바구니에 담긴 상품이 1개일 경우 가격 구하기 
+  _getOnePrice(items) {
+    const price = Number.parseFloat(items[0].cartProductPrice) * Number.parseFloat(items[0].cartProductCount);
+    return price.toFixed(0);
+  }
 
-  _orderListPaser=()=>{
-    // const{ cartlist } = this.props
-    
-    // const orderList ={
-    //   orderItem:cartlist,
-    //   totalPrice:
-    // }
-      
-    
+
+  _changeTotalPrice() {
+    console.log('작동~!!!!!!!!!!!!!!!')
+    const { cartlist } = this.props;
+    const SubPrice = this._getCartCount(cartlist) > 1 ? this._getSubTotalPrice(cartlist)
+      : this._getCartCount(cartlist) == 1 ? this._getOnePrice(cartlist) : 0;
+
+    const shippingPrice = (cartlist.length > 0 ? 3000 : 0);
+    const TotalPrice = Number.parseFloat(SubPrice) + Number.parseFloat(shippingPrice);
+
+    this.setState({
+      SubPrice: SubPrice,
+      shippingPrice: shippingPrice,
+      TotalPrice: TotalPrice
+    })
   }
 
   // 주문 하기
   // 주문 하기 위해 현재 리스트에 담겨 있는 제품들을 리듀서를 통해 store 에 저장해 준다.
   _checkout = () => {
+    const{ userDetails } = this.props;
+    if(userDetails === null || userDetails ===undefined){
+      
+      return alert(' 로그인이 필요한 작업니다.')
+    }
     const { cartlist } = this.props
     const { history } = this.props
-    const {orderList } = this.props
-    console.log(cartlist,' cart List 임니다.')
+    const { orderList } = this.props
+    console.log(cartlist, ' cart List 임니다.')
     var SubPrice = this.state.SubPrice;
     var shippingPrice = this.state.shippingPrice;
     var TotalPrice = this.state.TotalPrice;
-    
+
     const orderItems = {
       cartlist,
       SubPrice,
@@ -155,22 +162,7 @@ class Cart extends React.Component {
     }
   }
 
-=======
->>>>>>> dev_sj
-  // 장바구니에 담긴 상품이 1개일 경우 가격 구하기 
-  _getOnePrice(items) {
-    const price = Number.parseFloat(items[0].cartProductPrice) * Number.parseFloat(items[0].cartProductCount);
-    return price.toFixed(0);
-  }
-
-<<<<<<< HEAD
-  _priceChange(event){
-    console.log(event.target.value,'돈 수정중~!!!')
-  }
-=======
-
->>>>>>> dev_sj
-  _changeTotalPrice(){
+  _changeTotalPrice() {
     console.log('작동~!!!!!!!!!!!!!!!')
     const { cartlist } = this.props;
     const SubPrice = this._getCartCount(cartlist) > 1 ? this._getSubTotalPrice(cartlist)
@@ -179,17 +171,13 @@ class Cart extends React.Component {
     const shippingPrice = (cartlist.length > 0 ? 3000 : 0);
     const TotalPrice = Number.parseFloat(SubPrice) + Number.parseFloat(shippingPrice);
 
-    this.setState ({
-      SubPrice:SubPrice,
-      shippingPrice:shippingPrice,
-      TotalPrice:TotalPrice
+    this.setState({
+      SubPrice: SubPrice,
+      shippingPrice: shippingPrice,
+      TotalPrice: TotalPrice
     })
   }
-<<<<<<< HEAD
-=======
 
-
->>>>>>> dev_sj
   render() {
     const { cartlist } = this.props;
     // const SubPrice = this._getCartCount(cartlist) > 1 ? this._getSubTotalPrice(cartlist)
@@ -197,13 +185,8 @@ class Cart extends React.Component {
 
     // const shippingPrice = (cartlist.length > 0 ? 3000 : 0);
     // const TotalPrice = Number.parseFloat(SubPrice) + Number.parseFloat(shippingPrice);
-<<<<<<< HEAD
 
-
-=======
-
-    console.log("===========selected product===========",this.state.selectedProduct)
->>>>>>> dev_sj
+    console.log("===========selected product===========", this.state.selectedProduct)
     return (
 
       <div className="main">
@@ -233,11 +216,7 @@ class Cart extends React.Component {
                         {/* --------------------------------------------------------------------------------------------------------------------------- */}
 
                         {cartlist === undefined || cartlist === null ? ''
-<<<<<<< HEAD
                           : cartlist.map((item, index) => {
-=======
-                          : cartlist.map((item ,index)=> {
->>>>>>> dev_sj
                             console.log("item !!!!!!!!!!!!!!!!!!!!!!!!!", item)
                             const { cartProductCount, cartNum, productBoardTitle, cartProductPrice,
                               cartProductName, productBoardNum, cartProductImg,
@@ -246,11 +225,7 @@ class Cart extends React.Component {
                             return (
                               <tr>
                                 <td>
-<<<<<<< HEAD
-                                  <input type="checkbox" name="check" value={cartNum} checked />
-=======
                                   <input type="checkbox" name="check" checked />
->>>>>>> dev_sj
                                 </td>
                                 <td className="goods-page-image">
                                   <a href={`/product/${productBoardNum}`}><img src={cartProductImg} alt="Berry Lace Dress" /></a>
@@ -310,24 +285,14 @@ class Cart extends React.Component {
                       </li>
                       <li className="shopping-total-price">
                         <em>Total</em>
-<<<<<<< HEAD
-                        <strong className="price" >{this.state.TotalPrice}<span>원</span></strong>
-                        
-=======
                         <strong className="price" onChange={this._test}>{this.state.TotalPrice}<span>원</span></strong>
->>>>>>> dev_sj
                       </li>
                     </ul>
                   </div>
                 </div>
                 <button className="btn btn-default" type="submit">Continue shopping <i className="fa fa-shopping-cart"></i></button>
 
-<<<<<<< HEAD
-                <input className="btn btn-primary" type="submit" value="구매하기" onClick={this._checkout} />
-=======
-                <input className="btn btn-primary" type="submit" value="구매하기" />
->>>>>>> dev_sj
-                <a href="/orderSheet">Checkout</a>
+                <input className="btn btn-primary" type="button" onClick={this._checkout}value="구매하기" />
                 <i className="fa fa-check"></i>
               </div>
 
@@ -352,8 +317,7 @@ function mapStateToProps(state) {
   const { cart, auth } = state;
   const { userDetails } = auth;
   const { cartlist } = cart;
-
-  if (userDetails !== null || userDetails !== undefined ) {
+  if (userDetails !== null || userDetails !== undefined) {
     return {
       cartlist,  // 배열 
       userDetails
@@ -368,16 +332,9 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => ({
   getCartByUser: (userNum) => dispatch(Actions.getCartByUser(userNum)),
   editCartQty: (newCart) => dispatch(Actions.editCartQty(newCart)),
-<<<<<<< HEAD
   removeCartById: (cartNum) => dispatch(Actions.removeCartById(cartNum)),
   orderList: (cartlist) => dispatch(Actions.orderList(cartlist))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
-=======
-  removeCartById: (cartNum) => dispatch(Actions.removeCartById(cartNum))
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
-
->>>>>>> dev_sj

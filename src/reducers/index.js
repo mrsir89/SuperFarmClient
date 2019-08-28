@@ -17,10 +17,7 @@ const rootReducers = combineReducers({
   product: productReducer,
   cart : cartReducer,
   board: boardReducer,
-<<<<<<< HEAD
   order: orderReducer
-=======
->>>>>>> dev_sj
 });
 
 export default rootReducers;

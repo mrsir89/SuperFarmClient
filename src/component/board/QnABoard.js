@@ -8,9 +8,8 @@ class QnABoard extends React.Component {
 
   constructor(props) {
     super(props)
-    const { qnaBoard } = this.props;
     this.state = {
-      qnaBoardList: qnaBoard
+      productBoardNum:this.props
     }
     // this.handleClick=this.handleClick.bind(this);
     console.log('여기 실행 되나?', this.state)
@@ -28,9 +27,6 @@ class QnABoard extends React.Component {
     loadqnaboardList(productNum, size, page);
   }
 
-  _writeQnA() {
-    const { writeQnABoard } = this.props
-  }
   _onClickPopUp() {
     window.open('qnaboardWrite', 'window_name', 'width=430,height=500,location=no,status=no,scrollbars=yes');
   }
@@ -38,9 +34,8 @@ class QnABoard extends React.Component {
   render() {
     console.log(this.props, '<----- props')
     const { qnaBoard } = this.props;
-    const list = qnaBoard.data;
-    const { items } = list;
-    console.log(list.items, ' <------- ')
+    const { items } = qnaBoard;
+    console.log(items, ' <------- ')
     return (
       <div>
         <div className="row">
@@ -83,11 +78,11 @@ class QnABoard extends React.Component {
 
 const mapStateToProps=(state)=> {
   console.log(state)
-  const { product } = state;
-  const { qnaBoard } = product;
+  const { board } = state;
+  const { qnaBoard } = board;
   // const { data } = qnaBoard;
   console.log(qnaBoard, '<--------- qnaBoad')
-  console.log(product, ' <--------- product')
+  console.log(board, ' <--------- product')
   // console.log(data, '<------------ data')
   return {
     qnaBoard

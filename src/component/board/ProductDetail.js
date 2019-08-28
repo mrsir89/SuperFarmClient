@@ -6,8 +6,10 @@ import { withRouter } from 'react-router-dom';
 import ProductView from './ProductView';
 //import { addCart } from '../actions/action';
 import { Actions } from '../../actions';
-import { ActionTypes } from '../../contants';
-// import './ProductDetail.css';
+import './ProductDetail.css';
+import QnABoard from './QnABoard';
+import ListReview from './reviewBoard/ListReview'
+
 // import { thisTypeAnnotation } from '@babel/types';
 
 
@@ -19,14 +21,14 @@ class ProductDetail extends React.Component {
 
    constructor(props) {    // props 굳이 안써줘도 넘어 옴
       super(props);
-      const { userNum } = this.props.userDetails;
-      // const { productBoardDetail } = this.props;
-      // const { productList } = productBoardDetail;
+      // const { userNum } = this.props.userDetails;
+      const { productBoardDetail } = this.props;
+      const { productList } = productBoardDetail;
       this.state = {
-         ProductDetail: [],
-       
-         
-         userNumber: userNum,
+         ProductDetail: productBoardDetail,
+         productList: productList,
+         productInfo: '',
+         userNumber: '',
          quantity: 1,
          tmpOption1: null,
          tmpOption2: null,
@@ -63,17 +65,7 @@ class ProductDetail extends React.Component {
 
       const { addCart } = this.props;
       console.log("장바구니 추가>>>", cartModel)
-      addCart(cartModel)
-      .then(response => {
-         if(response.type === ActionTypes.ADD_CART_SUCCESS){
-            return alert("해당 상품이 장바구니에 추가되었습니다.")
-         } else if(response.type === ActionTypes.ADD_CART_FAIL){
-            return alert("옵션을 선택해주세요.")
-         }
-      }
-         
-         
-      )//
+      addCart(cartModel);
    }
 
    _option1Check(productList) {
@@ -115,12 +107,11 @@ class ProductDetail extends React.Component {
    }
 
    // 옵션2 선택시 변경
-   _option2Change = (event, productListFromProps) => {
+   _option2Change = (event) => {
 
       let tmpCode = ''
       tmpCode = event.target.value;
-      const productList = productListFromProps;
-      console.log("option2 [[productList]]", productList)
+      const productList = this.state.productList;
       const choiceProduct = productList.filter(productList => productList.productCode == tmpCode)
       console.log(choiceProduct, 'ssssssssssssssssssssssss')
       if (choiceProduct.length !== 0) {
@@ -152,35 +143,51 @@ class ProductDetail extends React.Component {
 
    }
 
-   componentWillMount() {
-      //this._loadProductDetail();
+   _loadProductDetail() {
+
       const productBoardNum = this.props.match.params.id;
+      console.log(productBoardNum, ' productBoardNum!!')
       const { loadProductDetails } = this.props;
-      loadProductDetails(productBoardNum)
-      .then(response => {
-         if(response.type=="LOAD_PRODUCTDETAIL_SUCCESS"){
-            this.setState({
-               ProductDetail : response.payload.data
-            })
-         } 
-      });
-     
+
+      loadProductDetails(productBoardNum);
+
    }
 
-  
+
+   componentWillMount() {
+      console.log(this.productBoard, ' will mount')
+      this._loadProductDetail();
+      //this._renderProduct();
+   }
+
+   componentDidMount() {
+      console.log('componentDidMount')
+   }
+
    shouldComponentUpdate(nextProps, nextState) {
       console.log('shouldComponentUpdate')
       return (JSON.stringify(nextState) != JSON.stringify(this.state));
    }
 
+   _checkout=()=>{
+      const { userDetails } = this.props
+      const { history } = this.props
+      if(userDetails === undefined || userDetails === null){
+         alert('login이 필요한 페이지 입니다.')
+         return history.push("/login")
+      }else{
+
+      }
+      
+   }
+
    // TODO : userDetails가 없을 경우 에러 처리해줘야함 
    render() {
-
-      const { ProductDetail } = this.state;
-      const { productList } = ProductDetail;
-      const {productBoardTitle, lowerCode, productBoardDeliveryPrice} = ProductDetail;
-
-
+      console.log('r e n d e r 시작', this.props)
+      console.log(' render state 확인!!!!!!!', this.state)
+      const productInfo = this.state.ProductDetail;
+      const productList = this.state.productList;
+      console.log('시작 이다!!!!!', productList)
       return (
 
          <div className="product-item">
@@ -197,17 +204,16 @@ class ProductDetail extends React.Component {
 
                   <form onSubmit={this.handleSubmit}>
                      <div className="col-md-6 col-sm-6">
-
+                        <h2><bold>상품정보 목록</bold></h2>
                         <table summary="">
-                           <caption><strong>상품정보 목록</strong></caption>
                            <tbody>
                               <tr>
                                  <th scope="row">상품 이름</th>
-                                 <td>{productBoardTitle}</td>
+                                 <td>{productInfo.productBoardTitle}</td>
                               </tr>
                               <tr>
                                  <th scope="row">상품 소분류</th>
-                                 <td>{lowerCode}</td>
+                                 <td>{productInfo.lowerCode}</td>
                               </tr>
                               {/* {/* <tr>
                                  <th scope="row">상품 가격(옵션에 따라 달라질 예정)</th>
@@ -216,70 +222,72 @@ class ProductDetail extends React.Component {
 
                               <tr>
                                  <th scope="row">배송비</th>
-                                 <td>{productBoardDeliveryPrice}</td>
+                                 <td>{productInfo.productBoardDeliveryPrice}</td>
                               </tr>
 
-                              <tr> 
-                                 <th scope ="row"> 옵션1 선택</th> &nbsp;
-                           < select name="option1" onChange={this._option1Change}>
-                              <option value='defaultValue' selected="selected">옵션을 선택하세요</option>
-                              {this._option1Check(productList).map((productList) => (
-                                 <option value={productList.productOption1} >
-                                    {productList.productOption1}</option>
-                              ))}
-                               </select>
+                              <tr>
+                                 <th scope="row"> 옵션1 선택</th> &nbsp; &nbsp;
+                                   < select name="option1" onChange={this._option1Change}>
+                                    <option value='defaultValue' selected="selected">옵션을 선택하세요</option>
+                                    {this._option1Check(productList).map((productList) => (
+                                       <option value={productList.productOption1} >
+                                          {productList.productOption1}</option>
+                                    ))}
+                                 </select>
                               </tr>
 
-                              <tr> 
-                                 <th scope ="row"> 옵션2 선택</th> &nbsp;
-                                 < select name="option2" onChange={e => this._option2Change(e,productList)}>
-                              <option value="default" selected="selected">
-                                 옵션을 선택하세요</option>
-                              {this._option2Check(productList).map((productList) => (
-                                 <option value={productList.productCode} >
-                                    {productList.productOption2}</option>
-                              ))}
+                              <tr>
+                                 <th scope="row"> 옵션2 선택</th> &nbsp;&nbsp;
+                                 < select name="option2" onChange={this._option2Change}>
+                                    <option value="default" selected="selected">
+                                       옵션을 선택하세요</option>
+                                    {this._option2Check(productList).map((productList) => (
+                                       <option value={productList.productCode} >
+                                          {productList.productOption2}</option>
+                                    ))}
                                  </select>
                               </tr>
                            </tbody>
                         </table>
                      </div>
-                     <div className="form-row">
-                        {/* <div className="form-group col-md-6">
-                           <label for="exampleFormControlSelect1">옵션1 선택</label> &nbsp;
-                           < select name="option1" onChange={this._option1Change}>
-                              <option value='defaultValue' selected="selected">옵션을 선택하세요</option>
-                              {this._option1Check(productList).map((productList) => (
-                                 <option value={productList.productOption1} >
-                                    {productList.productOption1}</option>
-                              ))}
-                           </select>
-                        </div> */}
 
-                        
+                     <div className="col-md-6 col-sm-6">
+                        <table>
+                           <tbody>
+                              <tr>
+                                 <th>개수</th>
+                                 <tr> &nbsp; <input type="number" min="1" max="100" value={this.state.quantity}
+                                    step="1" onChange={this._quantityChange}></input></tr>
+                              </tr>
+                              <tr>
+                                 <th>가격</th>
+                                 <tr> &nbsp;{this.state.totalPrice}</tr>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
 
-                        <div>
-                           <label > 개수</label> &nbsp;
-                           <input type="number" min="1" max="100" value={this.state.quantity}
-                              step="1" onChange={this._quantityChange}></input>
-                        </div>
-                        <div>
-                           <label> 가격</label> &nbsp;
-                           {this.state.totalPrice}
+                     <div className="col-md-6" >
+                        <div className="btn-prd">
+                           <button><a href="#" className="btn-buy">구매</a></button>
+                           <a href="/cart" className="btn-cart">장바구니</a>
+                           <button type="submit" class="btn-cart2">카트담기</button>
                         </div>
                      </div>
-                     <div className="btn-prd">
-                        <p><button><a href="#" className="btn-buy">구매</a></button></p>
-                        <a href="/cart" className="btn-buy">
-                           <p>장바구니로 이동(링크)</p>
-                        </a>
-                        <input type="submit" id="submit" name="submit" value="장바구니 추가" />
-                     </div>
+
                   </form>
                </div>
             </div>
             <ProductView />
+            <div>
+
+            </div>
+               <ListReview />
+            
+             <QnABoard />
+             
          </div>
+
       );
    }
 }
@@ -295,7 +303,7 @@ function mapStateToProps(state) {
    return {
       productBoard,
       userDetails,
-      productBoardDetail
+      productBoardDetail,
    };
 }
 
@@ -308,4 +316,3 @@ const mapDispatchToProps = dispatch => ({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
-

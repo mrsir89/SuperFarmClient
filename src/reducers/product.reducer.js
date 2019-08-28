@@ -37,12 +37,9 @@ const productReducer = (state = initialStateProduct, action) => {
             }
             return state;
 
-<<<<<<< HEAD
-=======
         case ActionTypes.LOAD_LOWER_PRODUCTLIST_SUCCESS:
 
 
->>>>>>> dev_sj
         // 카테고리 불러오기 
         case ActionTypes.GET_CATEGORIES_SUCCESS:
             console.log('ActionType.CategorySuccess')
@@ -65,31 +62,31 @@ const productReducer = (state = initialStateProduct, action) => {
         //     }
 
 
-        case ActionTypes.LOAD_QNABOARDLIST_SUCCESS:
-            if (payload !== undefined && payload !== null) {
-                const { data } = payload
-                console.log(data, 'ActionTypes.LOAD_QNABOARDLIST_SUCCESS')
-                return {
-                    qnaBoard: {
-                        data
-                    }
-                }
-            }
-            else
-                return state;
-        case ActionTypes.WRITE_QNABOARD_SUCCESS:
-            if (payload !== undefined && payload !== null) {
-                const { data } = payload
-                console.log(data, 'ActionTypes.WRITE_QNABOARD_SUCCESS')
-                return {
-                    ...state,
-                    qnaBoard: {
-                        data
-                    }
-                }
-            }
-            else
-                return state;
+        // case ActionTypes.LOAD_QNABOARDLIST_SUCCESS:
+        //     if (payload !== undefined && payload !== null) {
+        //         const { data } = payload
+        //         console.log(data, 'ActionTypes.LOAD_QNABOARDLIST_SUCCESS')
+        //         return {
+        //             qnaBoard: {
+        //                 data
+        //             }
+        //         }
+        //     }
+        //     else
+        //         return state;
+        // case ActionTypes.WRITE_QNABOARD_SUCCESS:
+        //     if (payload !== undefined && payload !== null) {
+        //         const { data } = payload
+        //         console.log(data, 'ActionTypes.WRITE_QNABOARD_SUCCESS')
+        //         return {
+        //             ...state,
+        //             qnaBoard: {
+        //                 data
+        //             }
+        //         }
+        //     }
+        //     else
+        //         return state;
 
         case ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS:
             console.log('ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS',payload.data)
@@ -104,21 +101,7 @@ const productReducer = (state = initialStateProduct, action) => {
             }
             return state;  
         default:
-            return state;
-            
-        // 프로덕트 상세 정보 불러 오기
-        case ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS:
-            console.log('ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS',payload.data)
-            if(payload !== undefined && payload !== null){
-                const{ data } = payload;
-                if(data !== undefined && data !== null){
-                    return{
-                        ...state,
-                        productBoardDetail:data
-                    };
-                }
-            }
-            return state;  
+            return state;           
     }
 }
 

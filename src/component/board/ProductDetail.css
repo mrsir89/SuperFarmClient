@@ -1,62 +1,86 @@
-.input-number-group {
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
+.btn-buy{
+  background-color: rgb(255, 96, 15);
+  border-collapse: collapse;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Nanum Gothic", "Noto Sans KR", "malgun gothic",  sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  height: 50px;
+  line-height: 50px;
+  margin-left: 0px;
+  overflow-wrap: break-word;
+  text-align: center;
+  text-decoration-color: rgb(255, 255, 255);
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  vertical-align: middle;
+  width: 170px;
+}
+
+.btn-cart{
+  background-color: rgb(130, 130, 130);
+border-collapse: collapse;
+color: rgb(255, 255, 255);
+cursor: pointer;
+display: inline-block;
+font-family: "Nanum Gothic", "Noto Sans KR", "malgun gothic", 덩Б����, Dotum, AppleGothic, sans-serif;
+font-size: 13px;
+font-weight: 600;
+height: 50px;
+line-height: 50px;
+margin-left: 5px;
+overflow-wrap: break-word;
+text-align: center;
+text-decoration-color: rgb(255, 255, 255);
+text-decoration-line: none;
+text-decoration-style: solid;
+vertical-align: middle;
+width: 100px;
+}
+.tg-1{
+  width:110px;
+}
+.btn-cart2 {
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: rgb(255, 255, 255);
+  background-origin: padding-box;
+  background-position-x: 17px;
+  background-position-y: 50%;
+  background-size: auto;
+  border-bottom-color: rgb(130, 130, 130);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-collapse: collapse;
+  border-left-color: rgb(130, 130, 130);
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: rgb(130, 130, 130);
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-color: rgb(130, 130, 130);
+  border-top-style: solid;
+  border-top-width: 1px;
   
-  .input-number-group input[type=number]::-webkit-inner-spin-button,
-  .input-number-group input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-            appearance: none;
-  }
-  
-  .input-number-group .input-group-button {
-    line-height: calc(80px/2 - 5px);
-  }
-  
-  .input-number-group .input-number {
-    width: 80px;
-    padding: 0 12px;
-    vertical-align: top;
-    text-align: center;
-    outline: none;
-    display: block;
-    margin: 0;
-  }
-  
-  .input-number-group .input-number,
-  .input-number-group .input-number-decrement,
-  .input-number-group .input-number-increment {
-    border: 1px solid #cacaca;
-    height: 40px;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-    border-radius: 0;
-  }
-  
-  .input-number-group .input-number-decrement,
-  .input-number-group .input-number-increment {
-    display: inline-block;
-    width: 40px;
-    background: #e6e6e6;
-    color: #0a0a0a;
-    text-align: center;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 2rem;
-    font-weight: 400;
-  }
-  
-  .input-number-group .input-number-decrement {
-    margin-right: 0.3rem;
-  }
-  
-  .input-number-group .input-number-increment {
-    margin-left: 0.3rem;
-  }
-  
+  color: rgb(102, 102, 102);
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Nanum Gothic", "Noto Sans KR", "malgun gothic",  sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  height: 50px;
+  line-height: 50px;
+  margin-left: 5px;
+  overflow-wrap: break-word;
+
+  text-align:left ;
+  text-decoration-color: rgb(102, 102, 102);
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  text-indent: 39px;
+  vertical-align: middle;
+  width: 120px;
+ 
+}

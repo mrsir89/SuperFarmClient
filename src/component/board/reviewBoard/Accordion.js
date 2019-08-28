@@ -1,7 +1,12 @@
 import React, { useState, useRef } from "react";
 import Chevron from "./Chevron";
+import {Actions} from '../../../actions/index'
+import { connect } from 'react-redux';
+//import AddReview from "./AddReview";
+
 
  import "./Accordion.css";
+
 
  function Accordion(props) {
    const [setActive, setActiveState] = useState("");
@@ -10,6 +15,8 @@ import Chevron from "./Chevron";
 
    const content = useRef(null);
    const rating = useRef(null);
+
+   const {removeReview}= props;
 
    function toggleAccordion(review) {
      setActiveState(setActive === "" ? "active" : "");
@@ -21,13 +28,26 @@ import Chevron from "./Chevron";
      );
    }
 
+
+   const removeHandler = (e,reviewBoardNum) =>{
+      e.stopPropagation();
+      removeReview(reviewBoardNum); 
+    };
+
    return (
      <div className="accordion__section">
        <button className={`accordion ${setActive}`} onClick={toggleAccordion}>
-       <p className="accordion__reviewBoardNum">reviewBN:{props.review.reviewBoardNum}<br></br>refPN:{props.review.productBoardNum}</p>
-         <p className="accordion__title">{props.review.reviewBoardTitle}<br></br>ID: {props.review.customerId}</p>
+       <p className="accordion__reviewBoardNum">No.{props.review.productBoardNum}&nbsp;</p>
+         <p className="accordion__title">{props.review.reviewBoardTitle}</p>
+         &nbsp;<div className ="accordion__title"> {props.review.customerId} </div>
+        
+         
+       
          <Chevron className={`${setRotate}`} width={10} fill={"#777"} />
        </button>
+       
+      
+     
    
        {/* 보드넘, 리뷰보드넘, 아이디, 제목  */}
 
@@ -41,26 +61,20 @@ import Chevron from "./Chevron";
          <div ref={rating} style={{ maxHeight: `${setHeight}` }} className="rating">
          <div className="accordion__text" dangerouslySetInnerHTML={{ __html: props.review.reviewBoardContent }}/>
            별점 {props.review.reviewBoardRating}
-         <div> 
-           <button input> 삭제</button>
-           <button input> 수정</button>
+         <div>
+         <button type="button" class="btn btn-light"> 수정</button>
+           <button type="button" class="btn btn-light" onClick ={e => removeHandler(e,props.review.reviewBoardNum)}>삭제</button>
+           {/* <input type="button" value="삭제" onClick ={e => removeHandler(e,props.review.reviewBoardNum)}/> */}
            </div>
+           <br></br>
            </div>
-         </p> 
-      
-      
-          
-           {/* <button className = "accordion__remove" onClick={removeReview(props.review.reviewBoardNum)}>remove</button> */}
-
-   
+         </p>
        {/* 내용, 별점 */}
          </div>
          <div className="col">
-     
            {/* <img  src={"http://localhost:8080"+ "/resource/review07.jpg" }/> */}
            {/* <img src = "https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/> */}
            <img src={"http://localhost:3000" + props.review.reviewBoardImg}/>
-         
          </div>
            {/* 사진  */}
          <div>
@@ -68,6 +82,12 @@ import Chevron from "./Chevron";
      </div>
      </div>
    );
- }
+  }
 
- export default Accordion;
+
+
+
+ const mapDispatchToProps = (dispatch) => ({
+   removeReview: (reviewBoardNum) => dispatch(Actions.removeReview(reviewBoardNum))
+ })
+ export default connect (null,mapDispatchToProps)(Accordion);
