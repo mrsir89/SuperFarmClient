@@ -17,10 +17,10 @@ import MyPage from './component/board/MyPage';
 import {Header, PreHeader , Home, Footer, PreFooter} from './containers';
 import ListReview from './component/board/reviewBoard/ListReview'
 import AddReview from './component/board/reviewBoard/AddReview';
-import kakaoPay from './util/Payment/kakaoPay';
+import order from './component/order/order';
 import Notice from './component/board/notice/notice';
 import NoticeDetail from './component/board/notice/noticeDetail';
-
+import orderSuccess from './component/order/orderSuccess';
 
 // import Main from './Main';
 
@@ -62,8 +62,9 @@ class App extends React.Component {
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/review/all" component={ListReview} />
           <Route path="/review/write" component={AddReview} />
-          <Route path="/kakaopaytest" component={kakaoPay} />
+          <Route path="/order" component={order} />
           <Route path="/notice" component={Notice}/>
+          <Route path="/orderSuccess" component={orderSuccess} />
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
         </Switch>
         {/* <PreFooter/> */}

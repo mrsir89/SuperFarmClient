@@ -65,6 +65,7 @@ class ListReview extends React.Component {
       alert('마지막 페이지 입니다.')
     }    
   }
+  
   // 이전 페이지
   _prevPage = () =>{
     
