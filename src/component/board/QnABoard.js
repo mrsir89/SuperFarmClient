@@ -3,59 +3,19 @@ import { Actions } from '../../actions/index';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-// const qnaboardList = (productNum,size,page) => dispatch => {
-//   return dispatch(Actions.getQnABoard())
-//     .then(response => {
-//       if (response.type === ActionTypes.QNABOARD_SUCCESS) {
-//         console.log(' QnABoard Reading 성공')
-//       } else {
-//         return Promise.reject(response);
-//       }
-//     });
-// };
-
-// 추가 라이브러리 npm i react-new-window --save <--- 윈도우 새창 띄우기숌
-
-// const writeQnABoard = (qnaContent) => dispatch => {
-//   return dispatch(Actions.writeQnABoard())
-//     .then(response => {
-//       if (response.type === ActionTypes.QNABOARD_SUCCESS) {
-//         console.log('QnA READ SUCCESS')
-//         return dispatch(Actions.getQnABoard())
-//       } else {
-//         return Promise.reject(response);
-//       }
-//     });
-// };
-
-// const writeQnABoard=()={
-//   return (
-
-//   )
-// }
-
 
 class QnABoard extends React.Component {
 
   constructor(props) {
     super(props)
-    const { qnaBoard } = this.props;
     this.state = {
-      qnaBoardList: qnaBoard
+      productBoardNum:this.props
     }
     // this.handleClick=this.handleClick.bind(this);
     console.log('여기 실행 되나?', this.state)
   }
 
-  //   handleClick(e){
-  //     const {Clickitem}=this.state;
-  //     this.setState({
-  //       Clickitem:{
-  //         ...Clickitem,
-  //         isExpanded : !this.setState.isExpanded
-  //       }
-  //     })
-  //   }
+
   
   componentWillMount() {
     const { loadqnaboardList } = this.props;
@@ -67,9 +27,6 @@ class QnABoard extends React.Component {
     loadqnaboardList(productNum, size, page);
   }
 
-  _writeQnA() {
-    const { writeQnABoard } = this.props
-  }
   _onClickPopUp() {
     window.open('qnaboardWrite', 'window_name', 'width=430,height=500,location=no,status=no,scrollbars=yes');
   }
@@ -77,9 +34,8 @@ class QnABoard extends React.Component {
   render() {
     console.log(this.props, '<----- props')
     const { qnaBoard } = this.props;
-    const list = qnaBoard.data;
-    const { items } = list;
-    console.log(list.items, ' <------- ')
+    const { items } = qnaBoard;
+    console.log(items, ' <------- ')
     return (
       <div>
         <div className="row">
@@ -101,6 +57,7 @@ class QnABoard extends React.Component {
                       <div className="col-10">{answer.answerContent}</div>
                     </div>
                   ))}
+                  <input type="button" value="삭제"></input>
                 </details>
               </div>
               <div>
@@ -121,11 +78,11 @@ class QnABoard extends React.Component {
 
 const mapStateToProps=(state)=> {
   console.log(state)
-  const { product } = state;
-  const { qnaBoard } = product;
+  const { board } = state;
+  const { qnaBoard } = board;
   // const { data } = qnaBoard;
   console.log(qnaBoard, '<--------- qnaBoad')
-  console.log(product, ' <--------- product')
+  console.log(board, ' <--------- product')
   // console.log(data, '<------------ data')
   return {
     qnaBoard
