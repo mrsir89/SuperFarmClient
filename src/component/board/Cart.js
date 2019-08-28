@@ -1,337 +1,179 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Actions } from '../../actions/index';
-import { Redirect } from 'react-router-dom';
-
-/**
- * items = [{qty}, {qty}, {qty}]
- * item = items[idx];
- * item = {
- *   ...item,
- *   qty: qty
- * }
- * items = [
- *   ...items,
- *   {
- *     ...item,
- *     qty: newQty
- *   }
- * ]
- * 
- * items.map((item, index) => index == idx ? { ... item, qty: newQty} : item)
- */
+import CartView from './CartView';
+// 0810 Cart Component 추가 (장바구니 페이지)
 
 
-
-/**
- * @todo 체크 박스 변경시 금액 변경  체크된 상품만 주문
- * 
- */ 
-// 수량이 String 타입으로 넘어감 바꿔야 하나?
 class Cart extends React.Component {
 
   constructor(props) {    // props 굳이 안써줘도 넘어 옴
     super(props)
     const { cartlist, userDetails } = this.props;
-
     this.state = {
-      items: [],
-      selectedProduct: [],
-      SubPrice:0,
-      shippingPrice:0,
-      TotalPrice:0
-    }
+      cartItems: cartlist
+    };
+    console.log('cart의 state 확인',this.state)
   }
 
   componentWillMount() {
     const { getCartByUser } = this.props;
     const { userDetails } = this.props;
-    const { history } = this.props;
-    if(userDetails !== null && userDetails !== undefined ){
-    getCartByUser(userDetails.userNum)
-      .then(response => {
-        this._changeTotalPrice();
-      });
+    console.log(userDetails,'     UserDetails')
+    getCartByUser(userDetails.userNum);
+
+  }
+
+  // getCartByUser응답이 오고 나서 실행 되어야함
+  _showCartItems = () => {
+    const { cartlist } = this.props;
+    console.log("cartItems >>>", cartlist);
+
+    var cartItem = [];
+    if (cartlist !== undefined && cartlist !== null) {
+      cartItem = cartlist.map(item => {
+        return <CartView key={item.productBoardNum} item={item} />
+      })
+    }
+    return cartItem
+  }
+  _cartlistCheck(){
+    const{ cartItem } = this.props
+    if(cartItem !== undefined &&  cartItem !== null){
+      return cartItem;
     }else{
-      alert('로그인이 필요한 페이지 입니다.')
-      history.push("/login")
+      return null
     }
   }
-
-  // onChangeHandler
-  _changeQuantity(event, index) {
-
-    const target = event.target;
-    const newQty = Number.parseInt(target.value);     // newQty (변경된 수량) Number.parseInt(target.value); 
-    const { cartlist } = this.props;
-    const idx = index;    // cartNum은 1부터 시작, 배열 인덱스는 0부터 시작하므로 맞춰준다 개망...
-
-    //items.map((item, index) => index == idx ? { ... item, qty: newQty} : item)  
-    console.log("바뀐 수량 newQty >>>>>>>>>>>>>>>>>.", newQty);
-    console.log("바뀐 수량 newQty 타입 ??>>>>>>>>>>>>>>>>>.", typeof newQty)
-    const { editCartQty } = this.props;
-
-    // index와 idx 어케 맞추지............
-    const newCartList = cartlist.map((item, index) => index == idx ? { ...item, cartProductCount: newQty } : item)
-    this.setState({
-      items: newCartList
-    });
-
-    editCartQty(newCartList[idx]).then(response=>{
-      this._changeTotalPrice();
-    });
-  }
-
-  //장바구니 삭제 
-  _delectCartById(e, cartNum) {
-    e.stopPropagation();
-    const { removeCartById } = this.props;
-    removeCartById(cartNum);
-
-  }
-
-  // 장바구니에 담긴 상품 갯수 구하기 
-  _getCartCount(items) {
-    return (items === undefined || items === null || items.length === 0 ? 0 : items.length);
-
-  }
-
-  _getSubTotalPrice(items) {
-    return (items === undefined || items === null || items.length === 0 ? 0 : items.reduce((prevItem, item) => {
-      const itemPrice = Number.parseFloat(item.cartProductPrice) * Number.parseFloat(item.cartProductCount);
-      let totalPrice = 0.00;
-
-      if (typeof prevItem === 'object') {
-        totalPrice = Number.parseFloat(prevItem.cartProductPrice) * Number.parseFloat(prevItem.cartProductCount);
-      } else {
-        totalPrice = Number.parseFloat(prevItem);
-      }
-      //console.log('>>>>', (totalPrice + itemPrice).toFixed(0));
-      return (totalPrice + itemPrice).toFixed(0);
-    }));
-  }
-
-
-
-  _orderListPaser=()=>{
-    // const{ cartlist } = this.props
-    
-    // const orderList ={
-    //   orderItem:cartlist,
-    //   totalPrice:
-    // }
-      
-    
-  }
-
-  // 주문 하기
-  // 주문 하기 위해 현재 리스트에 담겨 있는 제품들을 리듀서를 통해 store 에 저장해 준다.
-  _checkout = () => {
-    const { cartlist } = this.props
-    const { history } = this.props
-    const {orderList } = this.props
-    console.log(cartlist,' cart List 임니다.')
-    var SubPrice = this.state.SubPrice;
-    var shippingPrice = this.state.shippingPrice;
-    var TotalPrice = this.state.TotalPrice;
-    
-    const orderItems = {
-      cartlist,
-      SubPrice,
-      shippingPrice,
-      TotalPrice
-    }
-    if (cartlist.size !== 0) {
-      orderList(orderItems)
-      history.push("/order");
-    } else {
-      alert('제품에 담긴 물품이 없습니다.')
-    }
-  }
-
-  // 장바구니에 담긴 상품이 1개일 경우 가격 구하기 
-  _getOnePrice(items) {
-    const price = Number.parseFloat(items[0].cartProductPrice) * Number.parseFloat(items[0].cartProductCount);
-    return price.toFixed(0);
-  }
-
-  _priceChange(event){
-    console.log(event.target.value,'돈 수정중~!!!')
-  }
-  _changeTotalPrice(){
-    console.log('작동~!!!!!!!!!!!!!!!')
-    const { cartlist } = this.props;
-    const SubPrice = this._getCartCount(cartlist) > 1 ? this._getSubTotalPrice(cartlist)
-      : this._getCartCount(cartlist) == 1 ? this._getOnePrice(cartlist) : 0;
-
-    const shippingPrice = (cartlist.length > 0 ? 3000 : 0);
-    const TotalPrice = Number.parseFloat(SubPrice) + Number.parseFloat(shippingPrice);
-
-    this.setState ({
-      SubPrice:SubPrice,
-      shippingPrice:shippingPrice,
-      TotalPrice:TotalPrice
-    })
-  }
+// {this._showCartItems()}
   render() {
-    const { cartlist } = this.props;
-    // const SubPrice = this._getCartCount(cartlist) > 1 ? this._getSubTotalPrice(cartlist)
-    //   : this._getCartCount(cartlist) == 1 ? this._getOnePrice(cartlist) : 0;
 
-    // const shippingPrice = (cartlist.length > 0 ? 3000 : 0);
-    // const TotalPrice = Number.parseFloat(SubPrice) + Number.parseFloat(shippingPrice);
-
-
+    // const{ cartItem }= this.props
+      const { cartItem } = this.props;
     return (
-
-      <div className="main">
-        <div className="container">
-          {/* <!-- BEGIN SIDEBAR & CONTENT --> */}
-          <div className="row margin-bottom-40">
-            {/* <!-- BEGIN CONTENT --> */}
-            <div className="col-md-12 col-sm-12">
-              <h1>장바구니</h1>
-
-              <div className="goods-page">
-                <div className="goods-data clearfix">
-                  <div className="table-wrapper-responsive">
-
-                    <table summary="Shopping cart">
-                      <tbody>
-                        <tr>
-                          <th >선택</th>
-                          <th className="goods-page-image">제품</th>
-                          <th className="goods-page-description">제품 목록</th>
-                          {/* <th className="goods-page-ref-no">제품 번호</th> */}
-                          <th className="goods-page-quantity">수량</th>
-                          <th className="goods-page-price">단가</th>
-                          <th className="goods-page-total" colspan="2">가격 </th>
-                        </tr>
-
-                        {/* --------------------------------------------------------------------------------------------------------------------------- */}
-
-                        {cartlist === undefined || cartlist === null ? ''
-                          : cartlist.map((item, index) => {
-                            console.log("item !!!!!!!!!!!!!!!!!!!!!!!!!", item)
-                            const { cartProductCount, cartNum, productBoardTitle, cartProductPrice,
-                              cartProductName, productBoardNum, cartProductImg,
-                              cartProductOption1, cartProductOption2 } = item;
-
-                            return (
-                              <tr>
-                                <td>
-                                  <input type="checkbox" name="check" value={cartNum} checked />
-                                </td>
-                                <td className="goods-page-image">
-                                  <a href={`/product/${productBoardNum}`}><img src={cartProductImg} alt="Berry Lace Dress" /></a>
-                                </td>
-
-                                {/* 상품 이름 & 옵션 */}
-                                <td className="goods-page-description">
-                                  <h3><a href={`/product/${cartProductName}`}>{cartProductName}</a></h3>
-                                  <p><strong>{cartProductOption1 == null ? '' : '옵션1 '} </strong> {cartProductOption1 == null ? '' : cartProductOption1} </p>
-                                  <p><strong>{cartProductOption2 == null ? '' : '옵션2 '} </strong> {cartProductOption2 == null ? '' : cartProductOption2} </p>
-                                </td>
-
-                                {/* 제품코드 */}
-                                {/* <td className="goods-page-ref-no">
-                                  {item.productCode}
-                                  </td> */}
-
-                                {/* 수량 */}
-                                <td >
-                                  <input type="number" value={cartProductCount} min="1" max="20" name={cartNum} onChange={e => this._changeQuantity(e, index)} size="4"></input>
-                                  {/* <input type="button" value="적용" onClick={e => this._editCartDB(e, cartNum)} /> */}
-
-                                </td>
-
-                                {/* 단가 */}
-                                <td className="goods-page-price">
-                                  <strong>{cartProductPrice}</strong>
-                                </td>
-
-                                {/* 가격 */}
-                                <td className="goods-page-total">
-                                  <strong>{cartProductPrice * (cartProductCount)}</strong>
-                                </td>
-
-                                {/* 삭제 */}
-                                <td className="del-goods-col">
-                                  {/* <a className="del-goods" href="javascript:;">&nbsp;</a> */}
-                                  <button className="del-goods" onClick={e => this._delectCartById(e, cartNum)} />
-                                </td>
-                              </tr>
-                            );
-                          })}
-
-                        {/* --------------------------------------------------------------------------------------------------------------------------- */}
-                      </tbody></table>
-                  </div>
-
-                  <div className="shopping-total">
-                    <ul>
-                      <li>
-                        <em>Sub total</em>
-                        <strong className="price">{this.state.SubPrice}<span>원</span></strong>
-                      </li>
-                      <li>
-                        <em>Shipping cost</em>
-                        <strong className="price">{this.state.shippingPrice}<span>원</span></strong>
-                      </li>
-                      <li className="shopping-total-price">
-                        <em>Total</em>
-                        <strong className="price" >{this.state.TotalPrice}<span>원</span></strong>
-                        
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <button className="btn btn-default" type="submit">Continue shopping <i className="fa fa-shopping-cart"></i></button>
-
-                <input className="btn btn-primary" type="submit" value="구매하기" onClick={this._checkout} />
-                <a href="/orderSheet">Checkout</a>
-                <i className="fa fa-check"></i>
-              </div>
-
-
-
-            </div>
-            {/* <!-- END CONTENT --> */}
-          </div>
-          {/* <!-- END SIDEBAR & CONTENT --> */}
-
-          {/* <!-- BEGIN SIMILAR PRODUCTS --> */}
-
-          {/* <!-- END SIMILAR PRODUCTS --> */}
-        </div>
+      <div>
+        {this._showCartItems()}
       </div>
+      
+    //  <div>
+    //    {cartItem.map((item) => (
+    //     <div className="main">
+    //     <div className="container">
+    //       {/* <!-- BEGIN SIDEBAR & CONTENT --> */}
+    //       <div className="row margin-bottom-40">
+    //         {/* <!-- BEGIN CONTENT --> */}
+    //         <div className="col-md-12 col-sm-12">
+    //           <h1>장바구니</h1>
+    //           <div className="goods-page">
+    //             <div className="goods-data clearfix">
+    //               <div className="table-wrapper-responsive">
+    //                 <table summary="Shopping cart">
+    //                   <tbody>
+                        
+    //                     <tr>
+    //                     <th className="goods-page-image">제품</th>
+    //                     <th className="goods-page-description">제품 설명</th>
+    //                     <th className="goods-page-ref-no">제품 코드</th>
+    //                     <th className="goods-page-quantity">수량</th>
+    //                     <th className="goods-page-price">금액</th>
+    //                     <th className="goods-page-total" colspan="2">총금액</th>
+    //                   </tr>
+    //       {/* -------------------------------------------------------------------------------------------------------- */}
+    //                     <tr>
+    //                       <td className="goods-page-image">
+    //                         <a href="javascript:;"><img src="../../assets/frontend/pages/img/products/model3.jpg" alt="Berry Lace Dress" /></a>
+    //                       </td>
+    //                       <td className="goods-page-description">
+    //                         <h3><a href='/product/'>{item.cartProductName}</a></h3>
+    //                         <p><strong>Item 1</strong> - Color: Green; Size: S</p>
+    //                         <em>More info is here</em>
+    //                       </td>
+    //                       <td className="goods-page-ref-no">
+    //                         javc2133
+    //                       </td>
+    //                       <td className="goods-page-quantity">
+    //                         <div className="product-quantity">
+    //                           <div className="input-group bootstrap-touchspin input-group-sm">
+    //                             <span className="input-group-btn">
+    //                               <button className="btn quantity-down bootstrap-touchspin-down" type="button">
+    //                                 <i className="fa fa-angle-down"></i>
+    //                               </button>
+    //                             </span>
+    //                             <span className="input-group-addon bootstrap-touchspin-prefix" style={{ display: 'none' }}>
+    //                             </span>
+    //                             <input id="product-quantity" type="text" value="1" readonly="" className="form-control input-sm" style={{ display: 'block' }} />
+    //                             <span className="input-group-addon bootstrap-touchspin-postfix" style={{ display: 'none' }}></span>
+    //                             <span className="input-group-btn">
+    //                               <button className="btn quantity-up bootstrap-touchspin-up" type="button">
+    //                               <i className="fa fa-angle-up"></i></button></span></div>
+    //                         </div>
+    //                       </td>
+    //                       <td className="goods-page-price">
+    //                         <strong><span>$</span>47.00</strong>
+    //                       </td>
+    //                       <td className="goods-page-total">
+    //                         <strong><span>$</span>47.00</strong>
+    //                       </td>
+    //                       <td className="del-goods-col">
+    //                         <a className="del-goods" href="javascript:;">&nbsp;</a>
+    //                       </td>
+    //                     </tr>
+             
+    //             {/* -------------------------------------------------------------------------------------------------------- */}
+    //                   </tbody></table>
+    //               </div>
 
+    //               <div className="shopping-total">
+    //                 <ul>
+    //                   <li>
+    //                     <em>Sub total</em>
+    //                     <strong className="price"><span>$</span>47.00</strong>
+    //                   </li>
+    //                   <li>
+    //                     <em>Shipping cost</em>
+    //                     <strong className="price"><span>$</span>3.00</strong>
+    //                   </li>
+    //                   <li className="shopping-total-price">
+    //                     <em>Total</em>
+    //                     <strong className="price"><span>$</span>50.00</strong>
+    //                   </li>
+    //                 </ul>
+    //               </div>
+    //             </div>
+    //             <button className="btn btn-default" type="submit">Continue shopping <i className="fa fa-shopping-cart"></i></button>
+    //             <button className="btn btn-primary" type="submit">Checkout <i className="fa fa-check"></i></button>
+    //           </div>
+    //         </div>
+    //         {/* <!-- END CONTENT --> */}
+    //       </div>
+    //       {/* <!-- END SIDEBAR & CONTENT --> */}
+
+    //       {/* <!-- BEGIN SIMILAR PRODUCTS --> */}
+
+    //       {/* <!-- END SIMILAR PRODUCTS --> */}
+    //     </div>
+    //   </div>
+    //    ))};
+    //   </div>
     );
   }
 }
 
 function mapStateToProps(state) {
+  console.log('mapStateToProps--------',state)
   const { cart, auth } = state;
   const { userDetails } = auth;
   const { cartlist } = cart;
-
-  if (userDetails !== null || userDetails !== undefined ) {
-    return {
-      cartlist,  // 배열 
-      userDetails
-    }
-  } else {
-    alert('로그인이 필요 합니다.')
-    return (
-      <Redirect to="/" />
-    )
-  }
+  return {
+    cartlist,  // 배열 
+    userDetails
+  };
 }
-const mapDispatchToProps = (dispatch) => ({
-  getCartByUser: (userNum) => dispatch(Actions.getCartByUser(userNum)),
-  editCartQty: (newCart) => dispatch(Actions.editCartQty(newCart)),
-  removeCartById: (cartNum) => dispatch(Actions.removeCartById(cartNum)),
-  orderList: (cartlist) => dispatch(Actions.orderList(cartlist))
+const mapDispatchToProps=(dispatch)=>( {
+     getCartByUser:(userNum) =>dispatch(Actions.getCartByUser(userNum))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+
+

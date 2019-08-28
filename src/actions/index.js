@@ -396,6 +396,7 @@ const uploadFileReview = (reviewBoardNum, file) => {
 // 0814 장바구니 추가 (user)
 // userNum,
 const addCart = (cartModel) => {
+  // console.log ("userNum 넘어옴?? >>>> ", userNum)
   console.log("cartModel 넘어옴?? >>>> ", cartModel)
 
   return ({
@@ -433,43 +434,6 @@ const getCartByUser = (userNum) => {
     }
   })
 }
-
-// 0822 장바구니 수량 수정
-const editCartQty = (newCartList) => {
-  console.log("newCartlist ?????", newCartList)
-  return ({
-    type: ActionTypes.EDIT_CART,
-    payload: {
-      request: {
-        method: 'PATCH',
-        url: '/cart/edit',
-        headers: {
-          'Content-Type': 'application/json; charset: utf-8'
-        },
-        data: JSON.stringify(newCartList)
-      }
-    }
-  })
-}
-
-// 0822 장바구니 삭제 
-const removeCartById = (cartNum) => {
-  const formData = new FormData();
-  formData.append('cartNum', cartNum)
-  return ({
-    type: ActionTypes.REMOVE_CART_ID,
-    payload: {
-      request: {
-        method: 'DELETE',
-        url: `/cart/delete`,
-        headers: {
-          'Content-Type': 'application/json; charset: utf-8'
-        },
-        data: formData,
-      }
-    }
-  });
-};
 
 /////////////////////////////////////////////////////////////////
 ///////////   productBoard   ////////////////////////////////////
@@ -555,7 +519,7 @@ const asynAction = () => {
 ///////////////////////////////////////////////////////////
 ////        KakaoPay 
 
-const kakaoPayReady =(orderSend) =>{
+const kakaoPayReady =() =>{
   const formData = new FormData();
   return({
     type:ActionTypes.KAKAOPAYREADY,
@@ -563,37 +527,16 @@ const kakaoPayReady =(orderSend) =>{
       request:{
         method:'POST',
         url:'/kakaoPay',
-        headers:{
-          'Content-Type': 'application/json; charset: utf-8'
-        },
-        data:JSON.stringify(orderSend)
+        data:formData
       }
     }
   })
-}
-
-const kakaoPaySuccess =(kakaopayResult) =>{
-  console.log(kakaopayResult,' actionKaKaoPaySuccess')
-  return({
-    type:ActionTypes.KAKAOPAYRESULT,
-    payload:{
-      request:{
-        method:'POST',
-        url:'/kakaoPaySuccess',
-        headers:{
-          'Content-Type': 'application/json; charset: utf-8'
-        },
-        data: JSON.stringify(kakaopayResult)
-      }
-    }
-  })
-
 }
 
 ///////////////////////////////////////////////////////////////////
 /////     Order 관련 
-const checkoutOrder=(orderModel)=>{
-  console.log(orderModel,'Action에서 checkoutOrder 확인')
+const checkoutOrder=(orders)=>{
+  const formData = new FormData();
   return({
     type:ActionTypes.CHECKOUTORDERS,
     payload:{
@@ -603,17 +546,9 @@ const checkoutOrder=(orderModel)=>{
         headers:{
           'Content-Type': 'application/json; charset: utf-8'
         },
-        data: JSON.stringify(orderModel)
+        data:JSON.stringify(orders)
       }
     }
-  })
-}
-
-const orderList =(orderList) =>{
-  console.log('orderList 실행',orderList)
-  return({
-    type:ActionTypes.SAVEORDERLIST,
-    data:orderList
   })
 }
 
@@ -622,13 +557,12 @@ export const Actions = {
   signup, emailCheck, idCheck, getUserMe,
   login, logout, getClientToken,refreshToken,
   writeQnABoard,
-  addCart,removeCartById,editCartQty,
+  addCart,
   loadProductList, loadProductDetails,
   getCategories, getCartByUser,
   loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,loadNoticeBoard,
   writeAnswer, deleteAnswer,
   getReviews, removeReview, addReview, uploadFileReview,
-  asynAction, kakaoPayReady,checkoutOrder,kakaoPaySuccess,
-  orderList
+  asynAction, kakaoPayReady,checkoutOrder
 
 };

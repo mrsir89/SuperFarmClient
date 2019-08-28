@@ -1,6 +1,5 @@
 import { ActionTypes } from '../contants';
 
-
 const initialStateAuth = {
     retryCount: 0,
     token: null,

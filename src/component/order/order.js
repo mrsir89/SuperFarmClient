@@ -2,495 +2,270 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Actions } from '../../actions/index';
 import './order.css';
-import { ActionTypes } from '../../contants';
-import { exportDefaultSpecifier } from '@babel/types';
-import orderSuccess from './orderSuccess';
 
 
-// 1순서
-//결제를 하기 위해서 넘어와야 하는 목록 (준비 단계 -> reuest ) 프론트 -> 백엔드 -> 카카오서버
-/**
- * cid                 : 가맹점 코드 10자 TC0ONETIME <  test 버전용
- * partner_order_id    : 가맹점 주문번호 < 우리에게 생성되는 주문 번호
- * partner_user_id     : 가맹점 회원 Id
- * quantity            : 상품 수량,
- * total_amount        : 상품 총액
- * tax_free_amount     : 상품 비과세 금액 tax
- * approval_url        : 결제 성공시 redirect url 최대 255
- * cancel_url          : 결제 취소 redirect url 최대 255
- * fail_url            : 결제 실패시 url 최대 255
- */
+    // 1순서
+    //결제를 하기 위해서 넘어와야 하는 목록 (준비 단계 -> reuest ) 프론트 -> 백엔드 -> 카카오서버
+    /**
+     * cid 가맹점 코드 10자 : TC0ONETIME <  test 버전용
+     * partner_order_id    : 가맹점 주문번호 < 우리에게 생성되는 주문 번호
+     * partner_user_id     : 가맹점 회원 Id
+     * quantity            : 상품 수량,
+     * total_amount        : 상품 총액
+     * tax_free_amount     : 상품 비과세 금액 tax
+     * approval_url        : 결제 성공시 redirect url 최대 255
+     * cancel_url          : 결제 취소 redirect url 최대 255
+     * fail_url            : 결제 실패시 url 최대 255
+     */
 
-/**
- * (결제준비를 위한 <- response 목록) 카카오서버 -> 백엔드 -> 프론트(개인 카톡으로 알람옴)
- * 
- * tid 결제 고유번호 20자	     : String
-   next_redirect_app_url	    : 요청한 클라이언트가 모바일 앱일 경우 해당 url을 통해 카카오톡 결제페이지를 띄움	String
-   next_redirect_mobile_url	    : 요청한 클라이언트가 모바일 웹일 경우 해당 url을 통해 카카오톡 결제페이지를 띄움	String
-   next_redirect_pc_url	        : 요청한 클라이언트가 pc 웹일 경우 redirect. 카카오톡으로 TMS를 보내기 위한 사용자입력화면이으로 redirect	String
-   android_app_scheme	        : 카카오페이 결제화면으로 이동하는 안드로이드 앱스킴	String
-   ios_app_scheme	            : 카카오페이 결제화면으로 이동하는 iOS 앱스킴	String
-   created_at	                : 결제 준비 요청 시간	Datetime
- */
+     /**
+      * (결제준비를 위한 <- response 목록) 카카오서버 -> 백엔드 -> 프론트(개인 카톡으로 알람옴)
+      * 
+      * tid 결제 고유번호 20자	     : String
+        next_redirect_app_url	    : 요청한 클라이언트가 모바일 앱일 경우 해당 url을 통해 카카오톡 결제페이지를 띄움	String
+        next_redirect_mobile_url	: 요청한 클라이언트가 모바일 웹일 경우 해당 url을 통해 카카오톡 결제페이지를 띄움	String
+        next_redirect_pc_url	    : 요청한 클라이언트가 pc 웹일 경우 redirect. 카카오톡으로 TMS를 보내기 위한 사용자입력화면이으로 redirect	String
+        android_app_scheme	        : 카카오페이 결제화면으로 이동하는 안드로이드 앱스킴	String
+        ios_app_scheme	            : 카카오페이 결제화면으로 이동하는 iOS 앱스킴	String
+        created_at	                : 결제 준비 요청 시간	Datetime
+      */
 
-/**(최종 결제 승인을 위한 호출 -> request) (개인카톡에서 결제 완료) -> 백엔드 -> 프론트(완료)
- *  cid               : 가맹점 코드 10자
- *  tid               : 결제 고유 번호. 결제 준비 API의 응답에서 얻을 수 있음
- * partner_order_id   : 가맹점 주문번호. 결제 준비 API에서 요청한 값고 일치해야 함
- * partner_user_id    : 가맹점 회원 id. 결제 준비 API에서 요청한 값과 일치해야 함
- * pg_token           : 결제 승인 요청을 인증하는 토큰 사용자가 결제 수단 선택 완료시 
- *                      approval_url로 redirection해 줄때 pg_token을 query String으로 넘겨줌
- */
+      /**(최종 결제 승인을 위한 호출 -> request) (개인카톡에서 결제 완료) -> 백엔드 -> 프론트(완료)
+       *  cid               : 가맹점 코드 10자
+       *  tid               : 결제 고유 번호. 결제 준비 API의 응답에서 얻을 수 있음
+       * partner_order_id   : 가맹점 주문번호. 결제 준비 API에서 요청한 값고 일치해야 함
+       * partner_user_id    : 가맹점 회원 id. 결제 준비 API에서 요청한 값과 일치해야 함
+       * pg_token           : 결제 승인 요청을 인증하는 토큰 사용자가 결제 수단 선택 완료시 
+       *                      approval_url로 redirection해 줄때 pg_token을 query String으로 넘겨줌
+       */
 
-/**
- * ( 결제 완료후 response 되는 값들 <- response)
- * 
- * aid	Request 고유 번호	String
-     tid	                : 결제 고유 번호	String
-     cid	                : 가맹점 코드	String
-     sid	                : subscription id. 정기(배치)결제 CID로 결제요청한 경우 발급	String
-     partner_order_id	: 가맹점 주문번호	String
-     partner_user_id	    : 가맹점 회원 id	String
-     payment_method_type	: 결제 수단. CARD, MONEY 중 하나	String
-     amount	            : 결제 금액 정보	JSON Object
-     card_info	        : 결제 상세 정보(결제수단이 카드일 경우만 포함)	JSON Object
-     item_name	        : 상품 이름. 최대 100자	String
-     item_code	        : 상품 코드. 최대 100자	String
-     quantity	        : 상품 수량	Integer
-     created_at	        : 결제 준비 요청 시각	Datetime
-     approved_at	        : 결제 승인 시각	Datetime
-     payload	            : Request로 전달한 값	String
-     * 
- */
+       /**
+        * ( 결제 완료후 response 되는 값들 <- response)
+        * 
+        * aid	Request 고유 번호	String
+            tid	                : 결제 고유 번호	String
+            cid	                : 가맹점 코드	String
+            sid	                : subscription id. 정기(배치)결제 CID로 결제요청한 경우 발급	String
+            partner_order_id	: 가맹점 주문번호	String
+            partner_user_id	    : 가맹점 회원 id	String
+            payment_method_type	: 결제 수단. CARD, MONEY 중 하나	String
+            amount	            : 결제 금액 정보	JSON Object
+            card_info	        : 결제 상세 정보(결제수단이 카드일 경우만 포함)	JSON Object
+            item_name	        : 상품 이름. 최대 100자	String
+            item_code	        : 상품 코드. 최대 100자	String
+            quantity	        : 상품 수량	Integer
+            created_at	        : 결제 준비 요청 시각	Datetime
+            approved_at	        : 결제 승인 시각	Datetime
+            payload	            : Request로 전달한 값	String
+            * 
+        */
 
-
-/**
- *  cart 나 구매클릭시  물품 정보 props로 가져 온다는 가정하에  시작
- *  orderList 라는 모델에 객체를 담아 보내기
- *  필요 param
- *  userNum
- *  orderTotalPrice
- *  orderItemprice[]
- * 
- */
-class order extends React.Component {
+class kakaoPay extends React.Component {
 
     constructor(props) {
-
         const { userDetails } = props
-        const { order } = props
-        const { orderList } = order
-        const { history } =props
-        console.log(props, ' constructor props')
-        if(userDetails === null || userDetails === undefined){
-            alert('잘못된 접근입니다')
-            history.push("/")
-        }
         super(props)
         this.state = {
-            userDetails: userDetails,
-            userNum: userDetails.userNum,
-            userId:userDetails.userId,
-            shippingReceiver: '',
-            deliveryAddress: '',
-            paymentMethod: 'kakaopay',
-            productCode: '',
-            SubPrice:orderList.SubPrice,
-            orderTotalPrice: orderList.TotalPrice,
-            orderMemo: '',
-            shippigMethod: '',
-            shippingPrice: orderList.shippingPrice,
-            shipping_memo: '',
-            bankDepositName: '',
-            phone1: '', phone2: '', phone3: '',
-            phone4: '', phone5: '', phone6: '',
-            orderItemsList:orderList.cartlist
-        }
-    }
+            userDetails: userDetails
 
-    _email(email) {
-        var emailArray = email.split('@')
-        return emailArray
-    }
-    _phoneNumber(phone) {
-        var phoneArray = phone.split('-')
-        return phoneArray
-    }
-    _onChangeInputText = (event) => {
-
-        const target = event.target
-        const name = target.name
-        const value = target.value
-        console.log('name : ', name, '   value: ', value)
-        this.setState({
-            [name]: value
-        })
-
-    }
-    _onChangePhoneNumber = (event) => {
-        const target = event.target
-        const name = target.name
-        const value = target.value
-        console.log(event.target)
-        console.log(target.name, ' name')
-        console.log(target.value, ' value')
-
-        this.setState({
-            [name]: value
-        })
-    }
-
-    componentWillMount=()=> {
-        const { history } = this.props
-        if(this.state.userNum === null || this.state.userNum === undefined){
-            alert('잘못된 접근 입니다.')
-            history.push("/")
-        }
-    }
-
-
-    // _kakaoPayStart = () => {
-    //     console.log('kakopay test', this.props)
-    //     const { kakaoPayReady } = this.props;
-    //     kakaoPayReady();
-    // }
-
-    _phoneSum(type) {
-        let phone = ''
-        if (type == 1) {
-            phone = this.state.phone1 + '-' + this.state.phone2 + '-' + this.state.phone3
-        } else {
-            phone = this.state.phone4 + '-' + this.state.phone5 + '-' + this.state.phone6
-        }
-        return phone;
-    }
-
-    _checkOut = () => {
-        const { checkoutOrder } = this.props
-        console.log('checkout sssssss',this.state)
-        const itemlist = this.state.orderItemsList
-        const orderModel = {
-            userNum: this.state.userNum,
-            paymentMethod: 'kakaopay',
-            orderTotalPrice: this.state.orderTotalPrice,
-            orderMemo: this.state.orderMemo,
-            deliveryAddress: this.state.deliveryAddress,
-            shippingMethod: this.state.shippigMethod,
-            shippingPrice: this.shippngPrice,
-            shippingReceiver: this.state.shippingReceiver,
-            shippingReceiverPhone: this._phoneSum(1),
-            shippingReceiverPhone2: this._phoneSum(2),
-            shippingMemo: this.state.orderMemo,
-            orderItemsList: this.state.orderItemsList
-        }
-        console.log(orderModel, ' order 들어가기전 확인 ')
-        if (this.state.paymentMethod === 'kakaopay') {
-            checkoutOrder(orderModel).then(response => {
-                if (response.type === ActionTypes.CHECKOUTORDERS_SUCCESS) {
-                    const { data } = response.payload
-                    if (data !== null && data !== undefined) {
-                        console.log(data,'----------------')
-                        this._kakaopayStart(data);
-                    }
-                }
-            });
-
-        } else {
-            alert('현재 카카오페이 서비스만 이용 가능 합니다.')
-        }
-    }
-    
-    _inputCheck(){
-        
-        if(this.state.shippingReceiver === null && this.state.shippingReceiver === undefined){
-            alert('받으실 분이 누락 되었습니다.')
-            return false
-        }else if(this.state.deliveryAddress === null && this.state.deliveryAddress === undefined){
-            alert('주소가 누락 되었습니다.')
-            return false
-        }else if(this.state.phone1 === null || this.state.phone2 === null || this.state.phone3 === null){
-            alert('전화번호가 누락 되었습니다.')
-            return false
-        }else{
-            return true
-        }
-        
-    }
-
-    _kakaopayReadSetting=(data)=>{
-        const cartlist = this.state.orderItemsList
-        const { order } = this.props
-        console.log(cartlist.length,' size 확인')
-        console.log(cartlist[0],' 0번 확인 ')
-        var itemName =''
-        if(cartlist.length ==1){
-            itemName= cartlist[0].cartProductName;
-        }else{
-            itemName=cartlist[0].cartProductName+'외 '+cartlist.length
-        }
-        const orderSend={
-            
-            item_name:itemName,
-            partner_order_id:data.orderNum,
-            partner_user_id:this.state.userNum,
-            quantity:cartlist.length,
-            total_amount:this.state.orderTotalPrice,
-            tax_free_amount:this.state.orderTotalPrice/1.1
         }
 
-        console.log(orderSend,'여기 부터 확인 ')
-        return orderSend;
+
     }
-    _kakaopayStart=(data)=>{
-        const orderSend = this._kakaopayReadSetting(data);
+
+
+    // 주문시 order를 생성 하기 위한 function
+    _createOrder=()=>{
+
+        //order에 필요한 정보를 불러 와야 한다.
+        const order ={
+            userid:'tester01',
+            quantity:'수량',
+            total:'1'
+        }
+
+    }
+
+
+    _kakaoPayStart = () => {
+        console.log('kakopay test', this.props)
         const { kakaoPayReady } = this.props;
-        const { history } = this.props;
-        console.log(history,' history ')        
-        kakaoPayReady(orderSend).then(response =>{
-            if(response.payload !== null && response.payload !== undefined){
-                const{ data } = response.payload;
-                var nextUrl  = data.next_redirect_pc_url;
-                window.open(nextUrl, 'Review  작성', 'width=430,height=500,location=no,status=no,scrollbars=yes')
-            }
-        }).then(response =>{
-            if(response !== null && response !== undefined){
-                const { data } = response.payload;
-                console.log(history,' hitstory 찍어 보기 ')
-                console.log('url test ', data)
-                window.open.console.log(' 여기 확인 해 봄')
-            }
-        }).then(response=>{
-             console.log('')
-        });
+        kakaoPayReady();
     }
 
-    
-    _paymentCheck(event){
-        let obj ={}
-        obj[event.target.value] = event.target.checked
-        console.log('paymentCheck  : ',this.state)
-        this.setState({
-            paymentMethod:obj
-        })
+    _checkoutOrder=(e)=>{
+        
+        const{ checkoutOrder } = this.props;
+        
+        const orderModel ={
+            userNum:'1',
+            paymentMethod:'kakaopay',
+            orderTotalPrice: 100000,
+            orderMemo:'빠른 배송 부탁 드립니다.',
+            deleveryAddress:'서울시 강서구',
+            shippngMethod:'택배',
+            shippngPrice:2500,
+            shippingReciever:'김상우',
+            shippingrecieverPhone:'010-7777-5465',
+            shippingMemo:'빠른 배송 부탁 드립니다.!',
+            orderItemsList:[
+                {
+                productCode:2,
+                orderItemPrice:50000,
+                orderCount:1,
+                orderShippingMemo:'빠른 배송 부탁 드립니다.'
+                },
+                {
+                    productCode:3,
+                    orderItemPrice:25000,
+                    orderCount:2,
+                    orderShippingMemo:'빠른 배송 부탁 드립니다.'
+                        
+                }
+            ]
+        }
+        
+        checkoutOrder(orderModel);
+        
     }
 
 
-    // _checkoutOrder = (event) => {
-    //     event.preventdefault()
-    //     console.log('submit 정보 수집', event.target)
-    //     const { orderItems } = this.props;
-
-    //     const orderModel = {
-    //         userNum: this.state.userNum,
-    //         paymentMethod: 'kakaopay',
-    //         orderTotalPrice: 100000,
-    //         orderMemo: '빠른 배송 부탁 드립니다.',
-    //         deleveryAddress: '서울시 강서구',
-    //         shippngMethod: '택배',
-    //         shippngPrice: 2500,
-    //         shippingReciever: '김상우',
-    //         shippingrecieverPhone: '010-7777-5465',
-    //         shippingMemo: '빠른 배송 부탁 드립니다.!',
-    //         orderItemsList: [
-    //             {
-    //                 productCode: 2,
-    //                 orderItemPrice: 50000,
-    //                 orderCount: 1,
-    //                 orderShippingMemo: '빠른 배송 부탁 드립니다.'
-    //             },
-    //             {
-    //                 productCode: 3,
-    //                 orderItemPrice: 25000,
-    //                 orderCount: 2,
-    //                 orderShippingMemo: '빠른 배송 부탁 드립니다.'
-
-    //             }
-    //         ]
-    //     }
-
-    //     // checkoutOrder(orderModel);
-
-    // }
-
-
-    _redirect(aa){
-        // const { history } = this.props
-        // history.push("/")
-        console.log(aa,'----------------------------');
-    }
 
     render() {
-        const userDetails = this.state.userDetails
-        var emailArray = this._email(userDetails.userEmail);
-        var phoneArray = this._phoneNumber(userDetails.position.customerPhone)
+        console.log('결제 실행 함니다.')
         return (
             <div>
-                {/*  기존 회원정보를 불러서 수정은 불가능 */}
                 <h4><b> 회원정보</b> </h4>
-                <form action={this._checkoutOrder} >
+                <form action={this._checkoutOrder}>
                     <table className="tg" width="100%">
-                        <tbody>
-                            <tr>
-                                <td className="tg-833v" colSpan="4" width="10%">
-                                    이름
-                                </td>
-                                <td className="tg-gt6j" colSpan="16" width="90%">
-                                    &nbsp;&nbsp;&nbsp;{userDetails.username}
-                                </td>
-                            </tr>
+                        <tr>
+                            <th className="tg-833v" colSpan="4" width="10%">  이름</th>
+                            <th className="tg-gt6j" colSpan="16" width="90%"><input type="text" value="이름을 넣으세요" /></th>
+                        </tr>
 
-                            <tr>
-                                <td className="tg-wymk" colSpan="4" rowSpan="2" width="10px">
-                                    E-mail
+                        <tr>
+                            <td className="tg-wymk" colSpan="4" rowSpan="2" width="10px">  E-mail</td>
+                            <td className="tg-m9fq" colSpan="7" width="40px">
+                                <input type="text" size="20" /> @ <br/>
+                                <br/>
+                                <input type="text" size="10" />&nbsp;&nbsp; <input type="text" size="10" />
                                 </td>
-                                <td className="tg-m9fq" colSpan="7" width="40px">
-
-                                    <input type="text" size="10" value={emailArray[0]} />&nbsp;
-                                    @&nbsp;
-                                    <input type="text" size="10" value={emailArray[1]} />&nbsp;&nbsp;
-
-                                </td>
-                                <td className="tg-vsa0" colSpan="3" rowSpan="2" width="10%">
-                                    연락처
-                                </td>
-                                <td className="tg-d44j" colSpan="6" rowSpan="2" width="40%">
-                                    <input type="text" size="3" value={phoneArray[0]} />-
-                                    <input type="text" size="4" value={phoneArray[1]} />-
-                                    <input type="text" size="4" value={phoneArray[2]} />
-                                </td>
-                            </tr>
-                            <tr >
-                                <td className="tg-d44j" colSpan="7" width="40%">
-                                    <intput type="text" />
-                                </td>
-                            </tr>
-                            <tr height="50px">
-                                <td className="tg-default" colSpan="20">
-
-                                </td>
-                            </tr>
-                        </tbody>
+                            <td className="tg-vsa0" colSpan="3" rowSpan="2" width="10%">연락처</td>
+                            <td className="tg-d44j" colSpan="6" rowSpan="2" width="40%">
+                                <input type="text" size="3" value="010" />-
+                                <input type="text" size="4" value="7777" />-
+                                <input type="text" size="4" value="5465" /></td>
+                        </tr>
+                        <tr >
+                            <td className="tg-d44j" colSpan="7" width="40%"><intput type="text" /></td>
+                        </tr>
+                        <tr height="50px">
+                            <td className="tg-default" colSpan="20"></td>
+                        </tr>
                     </table>
                     <div>
                         <br />
                         <br />
                     </div>
                     <div>
-                        {/* 여기 부터 배송지 입력란 */}
                         <h4><b>배송지 정보</b></h4>
                     </div>
                     <table className="tg" width="100%">
-                        <tbody>
-                            <tr>
-                                <th className="tg-g4tm" colSpan="3">이름</th>
-                                <th className="tg-gt6j" colSpan="17">
-                                    <input type="text" name="shippingReceiver"
-                                        onChange={this._onChangeInputText} />
-                                </th>
-                            </tr>
-                            <tr>
-                                <td className="tg-g4tm" colSpan="3">
-                                    연락처(휴대폰)
+                        <tr>
+                            <th className="tg-g4tm" colSpan="3">이름</th>
+                            <th className="tg-gt6j" colSpan="17">
+                                <input type="text" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <td className="tg-g4tm" colSpan="3">
+                                연락처(휴대폰)
                             </td>
-                                <td className="tg-d44j" colSpan="7">
-                                    <select name="phone1" onChange={this._onChangePhoneNumber}>
-                                        <option value="" selected>선택하세요</option>
-                                        <option value="010">010</option>
-                                        <option value="011">011</option>
-                                        <option value="017">017</option>
-                                        <option value="016">016</option>
-                                        <option value="019">019</option>
+                            <td className="tg-d44j" colSpan="7">
+                                <select name="telno1">
+                                    <option value="010">010</option>
+                                    <option value="011">011</option>
+                                    <option value="017">017</option>
+                                    <option value="016">016</option>
+                                    <option value="019">019</option>
 
-                                    </select>
-                                    -
-                                <input type="text" name="phone2" maxLength="4" size="4"
-                                        onChange={this._onChangePhoneNumber} />
-                                    -
-                                <input type="text" name="phone3" maxLength="4" size="4"
-                                        onChange={this._onChangePhoneNumber} />
-                                </td>
-                                <td className="tg-g4tm" colSpan="3">
-                                    연락처2(자택)
+                                </select>
+                                -
+                                <input type="text" size="4" />
+                                -
+                                <input type="text" size="4" />
                             </td>
-                                <td className="tg-d44j" colSpan="7">
-                                    <select name="phone4" onChange={this._onChangePhoneNumber}>
-                                        <option selected >선택하세요</option>
-                                        <option value="002">02</option>
-                                        <option value="031">031</option>
-                                        <option value="032">032</option>
-                                        <option value="033">033</option>
-                                        <option value="041">041</option>
-                                        <option value="042">042</option>
-                                        <option value="043">043</option>
-                                        <option value="051">051</option>
-                                        <option value="052">052</option>
-                                        <option value="053">053</option>
-                                        <option value="054">054</option>
-                                        <option value="055">055</option>
-                                        <option value="061">061</option>
-                                        <option value="062">062</option>
-                                        <option value="063">063</option>
-                                        <option value="064">064</option>
-                                        <option value="0502">0502</option>
-                                    </select>
-                                    -
-                                <input type="text" name="phone5"
-                                        onChange={this._onChangePhoneNumber} maxLength="4" size="4" />
-                                    -
-                                <input type="text" name="phone6"
-                                        onChange={this._onChangePhoneNumber} maxLength="4" size="4" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="tg-g4tm" colSpan="3">
-                                    수령 방법
+                            <td className="tg-g4tm" colSpan="3">
+                                연락처2(자택)
                             </td>
-                                <td className="tg-d44j" colSpan="17">
-
-                                    <input type="radio" name="shippigMethod"
-                                        value="delivery" onClick={this._onChangeInputText} />택배
-                                <input type="radio" name="shippigMethod"
-                                        value="selfpickup" onClick={this._onChangeInputText} />방문수령
+                            <td className="tg-d44j" colSpan="7">
+                                <select name="telno2">
+                                    <option value="0002" selected>02</option>
+                                    <option value="0031">031</option>
+                                    <option value="0032">032</option>
+                                    <option value="0033">033</option>
+                                    <option value="0041">041</option>
+                                    <option value="0042">042</option>
+                                    <option value="0043">043</option>
+                                    <option value="0051" >051</option>
+                                    <option value="0052">052</option>
+                                    <option value="0053">053</option>
+                                    <option value="0054">054</option>
+                                    <option value="0055">055</option>
+                                    <option value="0061">061</option>
+                                    <option value="0062">062</option>
+                                    <option value="0063">063</option>
+                                    <option value="0064">064</option>
+                                    <option value="0502">0502</option>
+                                </select>
+                                -
+                                <input type="text" size="4" />
+                                -
+                                <input type="text" size="4" />
                             </td>
-                            </tr>
-                            <tr>
-                                <td className="tg-g4tm" colSpan="3" rowSpan="2">
-                                    주소
+                        </tr>
+                        <tr>
+                            <td className="tg-g4tm" colSpan="3">
+                                배송지 선택
                             </td>
-                                <td className="tg-de2y" colSpan="17">
-                                    <input type="text" name="deliveryAddress"
-                                        onChange={this._onChangeInputText} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="tg-d44j" colSpan="17">
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="tg-g4tm" colSpan="3" rowSpan="2">
-                                    주문메세지<br />(100자내외)
+                            <td className="tg-d44j" colSpan="17">
+                                <input type="radio" name="chk_info" value="자택" />자택
+                                <input type="radio" name="chk_info" value="자택" />최근배송지
+                                <input type="radio" name="chk_info" value="자택" />신규배송지
                             </td>
-                                <td className="tg-d44j" colSpan="17" rowSpan="2">
-                                    <input type="textarea" name="orderMemo"
-                                        onChange={this._onChangeInputText} size="100" />
-                                </td>
-                            </tr>
-                            <tr>
-                            </tr>
-                            <tr>
-                                <td className="tg-g4tm" colSpan="3">
-                                    무통장 입금자명
+                        </tr>
+                        <tr>
+                            <td className="tg-g4tm" colSpan="3" rowSpan="2">
+                                주소
                             </td>
-                                <td className="tg-d44j" colSpan="17">
-                                    <input type="text" name="bankDepositName"
-                                        onChange={this._onChangeInputText} />
-                                </td>
-                            </tr>
-                            <tr height="50px">
-                                <td className="tg-default" colSpan="20"></td>
-                            </tr>
-                        </tbody>
+                            <td className="tg-de2y" colSpan="17">
+                                <input type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="tg-d44j" colSpan="17"></td>
+                        </tr>
+                        <tr>
+                            <td className="tg-g4tm" colSpan="3" rowSpan="2">
+                                주문메세지<br />(100자내외)
+                            </td>
+                            <td className="tg-d44j" colSpan="17" rowSpan="2">
+                                <input type="textarea" size="100" />
+                            </td>
+                        </tr>
+                        <tr>
+                        </tr>
+                        <tr>
+                            <td className="tg-g4tm" colSpan="3">
+                                무통장 입금자명
+                            </td>
+                            <td className="tg-d44j" colSpan="17">
+                                <input type="text" />
+                            </td>
+                        </tr>
+                        <tr height="50px">
+                            <td className="tg-default" colSpan="20"></td>
+                        </tr>
                     </table>
                     <div>
                         &nbsp;
@@ -500,135 +275,133 @@ class order extends React.Component {
                     </div>
 
                     <table className="tg" width="1170px">
-                        <tbody>
-                            <tr>
-                                <th className="tg-cly1" colSpan="20">
-                                    주문상품 할인적용
+                        <tr>
+                            <th className="tg-cly1" colSpan="20">
+                                주문상품 할인적용
                             </th>
-                            </tr>
-                            <tr>
-                                <td className="tg-nrix" colSpan="3">
-                                    상품금액
+                        </tr>
+                        <tr>
+                            <td className="tg-nrix" colSpan="3">
+                                상품금액
                             </td>
-                                <td className="tg-nrix">
-                                    &nbsp;
+                            <td className="tg-nrix">
+                                &nbsp;
                             </td>
-                                <td className="tg-nrix" colSpan="4">
-                                    배송비
+                            <td className="tg-nrix" colSpan="4">
+                                배송비
                             </td>
-                                <td className="tg-nrix" colSpan="4">
-                                    할인금액
+                            <td className="tg-nrix" colSpan="4">
+                                할인금액
                             </td>
-                        
-                                <td className="tg-nrix" colSpan="4">
-                                <a>&nbsp;&nbsp;&nbsp;</a>결제 예정금액
+                            <td className="tg-nrix" colSpan="4">
+                                추가금액
                             </td>
-                            </tr>
-                            <tr>
-                                <td className="tg-nrit" colSpan="3">
-                                    {this.state.SubPrice}
+                            <td className="tg-nrix" colSpan="4">
+                                결제 예정금액
                             </td>
-                                <td className="tg-nrit" colSpan="2">
-                                    +
+                        </tr>
+                        <tr>
+                            <td className="tg-nrit" colSpan="3">
+                                100,000
                             </td>
-                                <td className="tg-nrit" colSpan="2">
-                                    {this.state.shippingPrice}
+                            <td className="tg-nrit" colSpan="2">
+                                +
                             </td>
-                                <td className="tg-nrit" colSpan="2">
-                                    -
+                            <td className="tg-nrit" colSpan="2">
+                                3,000
                             </td>
-                                <td className="tg-nrit" colSpan="2">
-                                    0
+                            <td className="tg-nrit" colSpan="2">
+                                -
                             </td>
-                         
-                                <td className="tg-nrit" colSpan="2">
-                                    =
+                            <td className="tg-nrit" colSpan="2">
+                                10000
                             </td>
-                                <td className="tg-nrit" colSpan="3">
-                                {this.state.orderTotalPrice}
+                            <td className="tg-nrit" colSpan="2">
+                                +
                             </td>
-                            </tr>
-                            <tr height="50px">
-                                <td className="tg-default" colSpan="20"></td>
-                            </tr>
-                        </tbody>
+                            <td className="tg-nrit" colSpan="2">
+                                0
+                            </td>
+                            <td className="tg-nrit" colSpan="2">
+                                =
+                            </td>
+                            <td className="tg-nrit" colSpan="3">
+                                8
+                            </td>
+                        </tr>
+                        <tr height="50px">
+                            <td className="tg-default" colSpan="20"></td>
+                        </tr>
                     </table>
                     <div>
                         &nbsp;
                     </div>
                     <table className="tg">
-                        <tbody>
-                            <tr>
-                                <th className="tg-cly1" colSpan="20">
-                                    결제 서비스
+                        <tr>
+                            <th className="tg-cly1" colSpan="20">
+                                결제 서비스
                             </th>
-                            </tr>
-                            <tr>
-                                <td className="tg-cly1" colSpan="4" width="10px" >
-                                    결제 방법
+                        </tr>
+                        <tr>
+                            <td className="tg-cly1" colSpan="4" width="10px" >
+                                결제 방법
                             </td>
-                                <td className="tg-payCheck" colSpan="16">
+                            <td className="tg-payCheck" colSpan="16">
 
-                                    &nbsp;<input type="radio" name="paymentMethod" value="bankDeposit" 
-                                    checked={this.state.paymentMethod === "bankDeposit"} onChange={this._paymentCheck}/>무통장입금 <br /><br />
-                                    &nbsp;<input type="radio" name="paymentMethod" value="kakaopay" 
-                                    checked={this.state.paymentMethod === "kakaopay"} onChange={this._paymentCheck}/>카카오페이 <br /><br />
-                                    &nbsp;<input type="radio" name="paymentMethod" value="creaditcart" 
-                                    checked={this.state.paymentMethod === "creaditcart"} onChange={this._paymentCheck}/>신용카드 <br /><br />
-                                    &nbsp;<input type="radio" name="paymentMethod" value="naverpay" 
-                                    checked={this.state.paymentMethod === "naverpay"} onChange={this._paymentCheck}/>네이버페이 <br /><br />
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="tg-nrix" colSpan="20">
-                                    Radio 선택에 따라<br />
-                                    결제 내용이 나옵니다.
+                                <input type="radio" name="clickPay" value="bankDeposit" />무통장입금 <br/><br/>
+                                <input type="radio" name="clickPay" value="kakaopay" />카카오페이 <br/><br/>
+                                <input type="radio" name="clickPay" value="creaditcart" />신용카드 <br/><br/>
+                                <input type="radio" name="clickPay" value="naverpay" />네이버페이 <br/><br/>
                             </td>
-                            </tr>
-                        </tbody>
+                        </tr>
+                        <tr>
+                            <td className="tg-nrix" colSpan="20">
+                                Radio 선택에 따라<br />
+                                결제 내용이 나옵니다.
+                            </td>
+                        </tr>
                     </table>
                     <div>
                         <br />&nbsp;<br />
                     </div>
                     <h4>주문자 동의</h4>
                     <table className="tg">
-                        <tbody>
-                            <tr>
-                                <td className="tg-cly1" colSpan="4">
-                                    주문동의
+                        <tr>
+                            <td className="tg-cly1" colSpan="4">
+                                주문동의
                             </td>
-                                <td className="tg-lastCheck" colSpan="16">
-                                    <input type="radio" name="check" value="true" /> 상기 결제정보를 확인하였으며, 구매진행에 동의합니다.
+                            <td className="tg-lastCheck" colSpan="16">
+                                <input type="radio" name="check" value="true"/> 상기 결제정보를 확인하였으며, 구매진행에 동의합니다.
                             </td>
-                            </tr>
-                            <tr>
-                                <td className="tg-cly1" colSpan="4">
-                                    최종 결제금액
-                            </td>
-                                <td className="tg-lastCheck" colSpan="16">
-                                    <h4><b> 100000000000 원</b></h4>
-                                    얼마가 나와야 하는지 표시 하면 된다용
-                            </td>
-                            </tr>
-                            <tr height="40px">
-                                &nbsp;
                         </tr>
-                        </tbody>
+                        <tr>
+                            <td className="tg-cly1" colSpan="4">
+                                최종 결제금액
+                            </td>
+                            <td className="tg-lastCheck" colSpan="16">
+                                <h4><b> 100000000000 원</b></h4>
+                               얼마가 나와야 하는지 표시 하면 된다용 
+                            </td>
+                        </tr>
+                        <tr height ="40px">
+                            &nbsp;
+                        </tr>
                     </table>
 
                     <table width="1170px">
-                        <tbody>
-                            <tr >
-                                <td className="orderClick" colSpan="20">
-                                    <button type="sumbit" value="주문하기" className="submitButton">주문하기</button>
-                                    &nbsp;&nbsp;
-                                <button type="reset" value="취소" className="submitcancel" onClick={this._checkOut}>취소</button>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tr >
+                            <td className="orderClick"colSpan="20">
+                                <button type="sumbit" value="주문하기" className="submitButton">주문하기</button>
+                                &nbsp;&nbsp;
+                                <button type="reset" value="취소" className="submitcancel" onClick={this._checkoutOrder}>취소</button>
+                            </td>
+                        </tr>
                     </table>
-                    <br /><br /><br /><br /><br />
+                    <br/>
+                    <input type="button" value="카카오페이 테스트" onClick={this._kakaoPayStart} />
+                    <input type="text" />
+                    <input tyep="text" />
+                    <input tyep="text" />
                 </form>
 
 
@@ -637,20 +410,17 @@ class order extends React.Component {
     }
 }
 const mapStateToProps = (state) => {
-    console.log(state, 'ddddddddddddddd')
 
     const { auth } = state;
     const { userDetails } = auth;
-    const { order } = state;
     return {
-        userDetails,
-        order
+        userDetails
     }
 
 }
 const mapDispatchToProps = dispatch => ({
-    kakaoPayReady: (orderSend) => dispatch(Actions.kakaoPayReady(orderSend)),
+    kakaoPayReady: () => dispatch(Actions.kakaoPayReady()),
     checkoutOrder: (orders) => dispatch(Actions.checkoutOrder(orders))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(order);
+export default connect(mapStateToProps, mapDispatchToProps)(kakaoPay);
