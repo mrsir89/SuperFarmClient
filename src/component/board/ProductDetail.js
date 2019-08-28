@@ -152,36 +152,39 @@ class ProductDetail extends React.Component {
 
    }
 
-   _loadProductDetail() {
-
+   componentWillMount() {
+      //this._loadProductDetail();
       const productBoardNum = this.props.match.params.id;
-      console.log(productBoardNum, ' productBoardNum!!')
       const { loadProductDetails } = this.props;
-
-      loadProductDetails(productBoardNum);
-
+      loadProductDetails(productBoardNum)
+      .then(response => {
+         if(response.type=="LOAD_PRODUCTDETAIL_SUCCESS"){
+            this.setState({
+               ProductDetail : response.payload.data
+            })
+         } 
+      });
+     
    }
+
+   // _loadProductDetail() {
+   //    const productBoardNum = this.props.match.params.id;
+   //    console.log(productBoardNum, ' productBoardNum!!')
+   //    const { loadProductDetails } = this.props;
+   //    loadProductDetails(productBoardNum);
+   // }
 
    // 컴포넌트가 props를 새로 받았을 때 실행된다. 
-   componentWillReceiveProps(nextProps){
-      console.log("componentWillReceiveProps 실행됨  >> rerender")
-      this.setState({
-         ProductDetail : nextProps.productBoardDetail,
-         productList : ProductDetail.productList
+   // componentWillReceiveProps(nextProps){
+   //    console.log("componentWillReceiveProps 실행됨  >> rerender")
+   //    this.setState({
+   //       ProductDetail : nextProps.productBoardDetail,
+   //       productList : ProductDetail.productList
 
-      })
-  }
+   //    })
+   // }
 
-   componentWillMount() {
-      console.log(this.productBoard, ' will mount')
-      this._loadProductDetail();
-      //this._renderProduct();
-   }
-
-   componentDidMount() {
-      console.log('componentDidMount')
-   }
-
+  
    shouldComponentUpdate(nextProps, nextState) {
       console.log('shouldComponentUpdate')
       return (JSON.stringify(nextState) != JSON.stringify(this.state));
@@ -189,13 +192,14 @@ class ProductDetail extends React.Component {
 
    // TODO : userDetails가 없을 경우 에러 처리해줘야함 
    render() {
-      console.log('r e n d e r 시작', this.props)
-      console.log(' render state 확인!!!!!!!', this.state)
+      // console.log('r e n d e r 시작', this.props)
+      // console.log(' render state 확인!!!!!!!', this.state)
       // const productInfo = this.props.ProductDetail;
       // const productList = this.props.productList;
       // console.log('시작 이다!!!!!', productList)
 
-      const { productBoardDetail } = this.props;
+      //const { productBoardDetail } = this.props;
+      const { productBoardDetail } = this.state;
       const { productList } = productBoardDetail;
       console.log("product Board Detail >>", productBoardDetail)
       console.log("productList >>", productList)
