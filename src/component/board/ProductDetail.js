@@ -19,12 +19,14 @@ import ListReview from './reviewBoard/ListReview'
 // 테스트 
 class ProductDetail extends React.Component {
 
+
    constructor(props) {    // props 굳이 안써줘도 넘어 옴
       super(props);
       // const { userNum } = this.props.userDetails;
       const { productBoardDetail } = this.props;
       const { productList } = productBoardDetail;
       this.state = {
+         productBoardNum : this.props.match.params.id, 
          ProductDetail: productBoardDetail,
          productList: productList,
          productInfo: '',
@@ -71,9 +73,9 @@ class ProductDetail extends React.Component {
    _option1Check(productList) {
 
       var optionList = [];
-      this.setState({
-         tmpOption2: null
-      })
+      // this.setState({
+      //    tmpOption2: null
+      // })
 
       if (productList !== undefined && productList !== null) {
          optionList = productList.map(productList => {
@@ -125,7 +127,7 @@ class ProductDetail extends React.Component {
 
    _quantityChange = (event) => {
       console.log('수량 변경 전 확인', this.state)
-      // if (this.state.tmpOption1 !== null && this.state.tmpOption2 !== null) {
+      if (this.state.tmpOption1 !== null ) {
       console.log(' 금액 확인 ', this.state)
       let quantity = 0;
       let price = 0;
@@ -140,34 +142,45 @@ class ProductDetail extends React.Component {
       // }else{
       //    alert('옵션을 먼저 선택하세요')
       // }
-
+   }
    }
 
    _loadProductDetail() {
 
-      const productBoardNum = this.props.match.params.id;
+      const productBoardNum = this.state.productBoardNum;
       console.log(productBoardNum, ' productBoardNum!!')
       const { loadProductDetails } = this.props;
 
-      loadProductDetails(productBoardNum);
+      loadProductDetails(productBoardNum)
+      // .then(response=>{
+      //    const{ productDetail } = this.props;
+      //    this.setState({
+      //       productDetail:productDetail
+      //    })
+      // });;
 
    }
-
 
    componentWillMount() {
       console.log(this.productBoard, ' will mount')
-      this._loadProductDetail();
-      //this._renderProduct();
+      this._loadProductDetail()
    }
 
-   componentDidMount() {
-      console.log('componentDidMount')
-   }
 
-   shouldComponentUpdate(nextProps, nextState) {
-      console.log('shouldComponentUpdate')
-      return (JSON.stringify(nextState) != JSON.stringify(this.state));
-   }
+   // shouldComponentUpdate(nextProps, nextState) {
+   //    console.log('shouldComponentUpdate')
+   //    if (this.props.productBoardDetail!==nextProps.productBoardDetail){
+   //          return true
+   //       }else{
+   //          return false
+   //       }
+   // }
+
+   // componentWillUpdate(nextProps, nextState){
+   //    this._loadProductDetail();
+
+   // }
+
 
    _checkout=()=>{
       const { userDetails } = this.props
@@ -185,7 +198,8 @@ class ProductDetail extends React.Component {
    render() {
       console.log('r e n d e r 시작', this.props)
       console.log(' render state 확인!!!!!!!', this.state)
-      const productInfo = this.state.ProductDetail;
+      const { productBoardDetail } = this.props
+      // const productDetail = this.state.ProductDetail;
       const productList = this.state.productList;
       console.log('시작 이다!!!!!', productList)
       return (
@@ -196,8 +210,8 @@ class ProductDetail extends React.Component {
                   {/* ------------------------------------------------------------------------------------------------ */}
                   <div className="col-md-6 col-sm-6">
                      <div className="product-main-image" style={{ position: 'relative', overflow: 'hidden' }}>
-                        <img src="../../images/rice.jpg" alt="Cool green dress with red bell" className="img-responsive" data-bigimgsrc="../../images/rice.jpg" />
-                        <img src="../../images/rice.jpg" className="zoomImg" style={{ position: 'absolute', top: '-290.619px', left: '-180.201px', opacity: '0', width: '600px', height: '800px', border: 'none', maxWidth: 'none' }} />
+                        <img src={productBoardDetail.productBoardThumbnail} alt="Cool green dress with red bell" className="img-responsive" data-bigimgsrc={productBoardDetail.productBoardThumbnail}/>
+                        <img src={productBoardDetail.productBoardThumbnail} className="zoomImg" style={{ position: 'absolute', top: '-290.619px', left: '-180.201px', opacity: '0', width: '600px', height: '800px', border: 'none', maxWidth: 'none' }} />
                      </div>
                   </div>
                   {/* ------------------------------------------------------------------------------------------------ */}
@@ -205,15 +219,15 @@ class ProductDetail extends React.Component {
                   <form onSubmit={this.handleSubmit}>
                      <div className="col-md-6 col-sm-6">
                         <h2><bold>상품정보 목록</bold></h2>
-                        <table summary="">
+                        <table summary="" className="tg" >
                            <tbody>
                               <tr>
-                                 <th scope="row">상품 이름</th>
-                                 <td>{productInfo.productBoardTitle}</td>
+                                 <th scope="">상품 이름</th>
+                                 <td>{productBoardDetail.productBoardTitle}</td>
                               </tr>
                               <tr>
                                  <th scope="row">상품 소분류</th>
-                                 <td>{productInfo.lowerCode}</td>
+                                 <td>{productBoardDetail.lowerCode}</td>
                               </tr>
                               {/* {/* <tr>
                                  <th scope="row">상품 가격(옵션에 따라 달라질 예정)</th>
@@ -222,7 +236,7 @@ class ProductDetail extends React.Component {
 
                               <tr>
                                  <th scope="row">배송비</th>
-                                 <td>{productInfo.productBoardDeliveryPrice}</td>
+                                 <td>{productBoardDetail.productBoardDeliveryPrice}</td>
                               </tr>
 
                               <tr>
@@ -252,39 +266,50 @@ class ProductDetail extends React.Component {
                      </div>
 
                      <div className="col-md-6 col-sm-6">
-                        <table>
+                        <table className="tg">
                            <tbody>
                               <tr>
-                                 <th>개수</th>
-                                 <tr> &nbsp; <input type="number" min="1" max="100" value={this.state.quantity}
-                                    step="1" onChange={this._quantityChange}></input></tr>
+                                 <th scope="row">개수</th>
+                                 <td className="tdset">  
+                                 <input type="number" min="1" max="100" 
+                                    value={this.state.quantity}
+                                    step="1" onChange={this._quantityChange}></input></td>
                               </tr>
                               <tr>
-                                 <th>가격</th>
-                                 <tr> &nbsp;{this.state.totalPrice}</tr>
+                                 <th scope="row">가격</th>
+                                 <td><strong> 
+                                 {/* {(this.state.tmpOption1 !==null && this.state.tmpOption2 !==null)? */}
+                                    {this.state.totalPrice} 
+                                    {/* : 0} */}
+                                 </strong></td>
                               </tr>
                            </tbody>
                         </table>
                      </div>
-
-                     <div className="col-md-6" >
-                        <div className="btn-prd">
+                     <br/>
+                     <div>
+                     <div className="col-md-6" align="right">
+                        <div className="col-lg-12" align="right">
                            <button><a href="#" className="btn-buy">구매</a></button>
                            <a href="/cart" className="btn-cart">장바구니</a>
                            <button type="submit" class="btn-cart2">카트담기</button>
                         </div>
                      </div>
-
+                     </div>
                   </form>
                </div>
+               <table className="tg">
+                  <tr height="100px">
+                  </tr>
+               </table>
             </div>
-            <ProductView />
+            <ProductView productDetail={productBoardDetail}/>
             <div>
 
             </div>
-               <ListReview />
-            
-             <QnABoard />
+               <ListReview productBoardNum={productBoardDetail.productBoardNum}/>
+               <br/><br/><br/><br/>
+               <QnABoard productBoardNum={productBoardDetail.productBoardNum} />
              
          </div>
 

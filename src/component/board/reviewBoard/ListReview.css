@@ -1,0 +1,10 @@
+.tg{
+    width:100%;
+}
+.div1{
+    display:flex;
+    flex:column;
+}
+.divButton{
+    margin-left:auto;
+}

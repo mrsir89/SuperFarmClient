@@ -103,7 +103,8 @@ class AddReview extends React.Component {
     console.log('render에서 props 찍어보기', this.props)
     return (
       
-      <div className="container" role="main">
+      <div  width="500px" role="main">
+        
         <h2>Review 게시판</h2>
         <form onSubmit={this._onClickAction}>
           <div className="mb-3">
@@ -115,7 +116,6 @@ class AddReview extends React.Component {
           <div className="mb-3">
             <label >작성자</label>
             <div>
-              <img src ="http://localhost:8080/storage/files/0ed289c878d0d08a018e1602369e8adf4bc707206bcc40b95ee48fe37a70ea4d"/>
               <b>{this.state.customerId} </b>
             </div>
           </div>

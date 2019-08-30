@@ -3,22 +3,24 @@ import { connect } from 'react-redux';
 import Accordion from "./Accordion";
 import { bindActionCreators } from 'redux';
 import { Actions } from '../../../actions/index';
-
+import './ListReview.css';
 
 
 class ListReview extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log(' 여기 확인 ',this.props)
     this.state = {
-      reviewBoards: []
+      reviewBoards: [],
+      productBoardNum :props.productBoardNum
     }
     console.log(this.props,'  props 확인 ')
   }
   // 시작시 reviewBoards를 가져 온다.
   componentWillMount() {
 
-    this._getreviewBoards('productBoard',5,10,1);
+    this._getreviewBoards('productBoard',this.props.productBoardNum,10,1);
   }
   // getreviewBoards Action 여기서 리뷰보드 리스트 가져오는거 실행
   // type product 일때는 Type =productBoard  id= productBoard 번호
@@ -35,11 +37,18 @@ class ListReview extends React.Component {
     var reviewItems = [];
 
     if (items !== undefined && items !== null) {
+      return(
       reviewItems = items.map(review =>
         <Accordion key={review.reviewBoardsNum} review={review} />
-      )
+      ))
+    }else{
+      return(
+        <div>
+          <br/> 현재 작성된 리뷰 게시물이 없습니다.
+        </div>
+      ) 
+
     }
-    return reviewItems
   }
   _addReview(){
     window.open('/review/write', 'Review  작성', 'width=430,height=500,location=no,status=no,scrollbars=yes')
@@ -47,15 +56,15 @@ class ListReview extends React.Component {
   // 다음 페이지 
   _nextPage = () =>{
     console.log('Next Page 작동')
-    const { reviewBoards } = this.props;
-    console.log('NextPage ',reviewBoards)
+    const { reviewBoard } = this.props;
+    console.log('NextPage ',reviewBoard)
     
-    let hasNextPage = reviewBoards.hasNext;
+    let hasNextPage = reviewBoard.hasNext;
     console.log('hasNext',hasNextPage, )
 
-    var page = reviewBoards.page
-    var size = reviewBoards.size
-    let productBoardNum = reviewBoards.boardNum
+    var page = reviewBoard.page
+    var size = reviewBoard.size
+    let productBoardNum = reviewBoard.boardNum
 
     if(hasNextPage === true){
       page = page +1;
@@ -69,19 +78,21 @@ class ListReview extends React.Component {
   _prevPage = () =>{
     
     console.log('Prev Page 작동')
-    const { reviewBoards } = this.props;
-    console.log('NextPage ',reviewBoards)
+    const { reviewBoard } = this.props;
+    console.log('NextPage ',reviewBoard)
     
-    let hasNextPage = reviewBoards.hasNext;
+    let hasNextPage = reviewBoard.hasNext;
     console.log('hasNext',hasNextPage, )
-    var page = reviewBoards.page
-    var size = reviewBoards.size
-    let productBoardNum = reviewBoards.boardNum
+    var page = reviewBoard.page
+    var size = reviewBoard.size
+    let productBoardNum = reviewBoard.boardNum
 
     if(page > 1 ){
       page = page - 1;
       console.log( page, '실제 다음페이지가 있을떄 작동');
       this._getreviewBoards('productBoard',productBoardNum,size,page)
+    }else{
+      alert('첫 페이지 입니다.')
     }    
 
   }
@@ -91,10 +102,22 @@ class ListReview extends React.Component {
     console.log("this.props!=>>", this.props)
     return (
       <div className="content">
+        <h2> 리뷰 게시판</h2>
+        <table className="tg" >
         {this._renderAllReviews()}
-        <input type="button" value="이전" onClick={this._prevPage} />        
-        <input type="button" value="다음" onClick={this._nextPage} />
-        <input type="button" value="작성" onClick={this._addReview}/>
+        </table>
+        <div className="div1">
+          <div >
+            <button type="button" className="btn btn-light" onClick={this._prevPage} >이전 </button>
+            <button type="button" className="btn btn-light" onClick={this._nextPage} >다음 </button>
+          </div>
+          <div className="divButton">
+            <button type="button" className="btn btn-light" onClick={this._addReview} >작성 </button>
+          </div>
+        </div>
+        <table>
+          <tr height="50px"></tr>
+        </table>
       </div>
     );
   }

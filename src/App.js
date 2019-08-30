@@ -62,10 +62,13 @@ class App extends React.Component {
     console.log("<<this.props in App >> ", this.props)
   }
 
-
-
+  _hiddenBar(){
+    return(
+      <Header />
+    )
+  }
   render() { // 화면에 html 뷰를 생성.\
-      return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
+    return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
       <div className="container">
         <PreHeader/>
         <Header /> 

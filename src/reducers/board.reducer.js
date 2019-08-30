@@ -28,6 +28,15 @@ const boardReducer = (state = initialStateBoard, action) => {
             else
                 return state;
 
+        case ActionTypes.LOAD_QNABOARDLIST_FAIL:
+            console.log('ActionType LOAD QNABOARDLIST_FAIL 실행')
+            return {
+                    ...state,
+                    qnaBoard:{
+                        items:[]
+                    }
+                };
+    
         case ActionTypes.WRITE_QNABOARD_SUCCESS:
 
             if (payload !== undefined && payload !== null) {
@@ -35,7 +44,6 @@ const boardReducer = (state = initialStateBoard, action) => {
                 console.log(data, 'ActionTypes.WRITE_QNABOARD_SUCCESS')
                 return {
                     ...state,
-                    data
                 }
             }
             else
@@ -135,6 +143,13 @@ const boardReducer = (state = initialStateBoard, action) => {
             }
             
             return state;
+
+        case ActionTypes.LOAD_REVIEWS_FAIL:
+
+                return {
+                            ...state,
+                            reviewBoard:[],
+                        };
 
         case ActionTypes.UPLOADFILEREVIEW_SUCCESS:
             if(payload !== undefined && payload !== null){

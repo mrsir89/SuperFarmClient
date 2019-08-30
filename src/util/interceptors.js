@@ -9,6 +9,7 @@ import { Actions } from'../actions/index';
 const requestInterceptor = ({ getState }, req) => {
     const { auth } = getState();
     const { token } = auth;
+    const { userDeatils } = auth;
     let { headers, url } = req;
 
     
@@ -20,7 +21,7 @@ const requestInterceptor = ({ getState }, req) => {
             // 여기서 토큰을 갱신해도 안전함.
             headers = { ...headers, 'Authorization': `Bearer ${access_token}` };
         }
-    } 
+    }
     console.log('requestInterceptor  headers', headers)
     console.log('requestInterceptor  ...req ', req)
     return { ...req, headers }

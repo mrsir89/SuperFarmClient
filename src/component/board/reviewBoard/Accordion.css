@@ -5,6 +5,7 @@
  
   display: flex;
   flex-direction: column;
+  align-content: center;
   
   
 
@@ -82,3 +83,6 @@
  
 
 }  
+.width{
+  width:20px;
+}

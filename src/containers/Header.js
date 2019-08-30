@@ -13,6 +13,7 @@ class Header extends React.Component{
 //   console.log('categories >>>>>',getCategories);
   constructor(props){
     super(props)
+    const { category } = this.props
     this.state = {
       category : [],
       cartlist : []
@@ -21,21 +22,21 @@ class Header extends React.Component{
   
 
   componentWillMount(){
+    
     const{ getCategories } = this.props;
-    getCategories()
-    .then( response => {
-      console.log("Header에서 getCategories 실행 >>", response)
-      this.setState ({
-        // category : response.payload.data
-      })
-    }) ;
+    const{ category } =this.props;
+    
+      getCategories()
+    // if(category !== thisCategory ){
+    //   getCategories();
+    // }
+    
+    
   }
   render(){
     //const{ category } = this.state
     const{ category } = this.props
     const{ cartlist } = this.props
-    console.log('render 의',category)
-    console.log('render의 props',this.props)
     return (
       <div className="header">
         
@@ -80,11 +81,8 @@ class Header extends React.Component{
 
 const mapStateToProps = (state) =>{
   
-  console.log('mapStateToProps Header에서 확인 ', state);
-  const{ location, matcher ,history } =state;
   const { cartlist } =  state.cart;
   const { category } = state.product;
-  console.log(cartlist, ' 카트 리스트 확인 ')
 
   return{
     cartlist,

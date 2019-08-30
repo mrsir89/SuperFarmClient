@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { Actions } from '../../actions/index';
 import './order.css';
 import { ActionTypes } from '../../contants';
-import { exportDefaultSpecifier } from '@babel/types';
-import orderSuccess from './orderSuccess';
-import orderItem from './orderItem';
+import { Redirect}  from 'react-router-dom';
 
 
 // 1순서
@@ -85,7 +83,7 @@ class order extends React.Component {
         console.log(props, ' constructor props')
         if (userDetails === null || userDetails === undefined) {
             alert('잘못된 접근입니다')
-            history.push("/")
+            
         }
         super(props)
         this.state = {
@@ -94,7 +92,13 @@ class order extends React.Component {
             userId: userDetails.userId,
             shippingReceiver: '',
             deliveryAddress: '',
-            paymentMethod: 'kakaopay',
+            paymentMethod: {
+                kakaoPay:true,
+                bank:false,
+                creditCard:false,
+                naverPay:false
+            },
+            finalCheck:false,
             productCode: '',
             SubPrice: orderList.SubPrice,
             orderTotalPrice: orderList.TotalPrice,
@@ -107,6 +111,7 @@ class order extends React.Component {
             phone4: '', phone5: '', phone6: '',
             orderItemsList: orderList.cartlist
         }
+        this._paymentCheck = this._paymentCheck.bind(this);
     }
 
     _email(email) {
@@ -266,12 +271,21 @@ class order extends React.Component {
 
 
     _paymentCheck(event) {
-        let obj = {}
-        obj[event.target.value] = event.target.checked
+        console.log(event.target)
+        var name = event.target.value
+        // obj[event.target.value] = event.target.checked
         console.log('paymentCheck  : ', this.state)
         this.setState({
-            paymentMethod: obj
+            paymentMethod:{
+                [name] : event.target.checked
+            }
+            
         })
+    }
+    __finalCheck=(event)=>{
+        console.log(' 체크 박스 확인 ')
+        const { target: { checked } } = event;
+        this.setState({ checked });
     }
 
 
@@ -589,21 +603,25 @@ class order extends React.Component {
                             </td>
                                 <td className="tg-payCheck" colSpan="16">
 
-                                    &nbsp;<input type="radio" name="paymentMethod" value="bankDeposit"
-                                        checked={this.state.paymentMethod === "bankDeposit"} onChange={this._paymentCheck} />무통장입금 <br /><br />
-                                    &nbsp;<input type="radio" name="paymentMethod" value="kakaopay"
-                                        checked={this.state.paymentMethod === "kakaopay"} onChange={this._paymentCheck} />카카오페이 <br /><br />
-                                    &nbsp;<input type="radio" name="paymentMethod" value="creaditcart"
-                                        checked={this.state.paymentMethod === "creaditcart"} onChange={this._paymentCheck} />신용카드 <br /><br />
-                                    &nbsp;<input type="radio" name="paymentMethod" value="naverpay"
-                                        checked={this.state.paymentMethod === "naverpay"} onChange={this._paymentCheck} />네이버페이 <br /><br />
+                                    &nbsp;<input type="radio" value="bank" name="paymentMethod"
+                                        checked= {this.state.paymentMethod['bank']} 
+                                        onChange={this._paymentCheck} />무통장입금 <br /><br />
+                                    &nbsp;<input type="radio"  name="paymentMethod" value="kakaopay"
+                                        checked={this.state.paymentMethod['kakaoPay']} 
+                                        onChange={this._paymentCheck} />카카오페이 <br /><br />
+                                    &nbsp;<input type="radio" name="paymentMethod" value="creditCard" 
+                                        checked={this.state.paymentMethod['creditCard']} 
+                                        onChange={this._paymentCheck} />신용카드 <br /><br />
+                                    &nbsp;<input type="radio" name="paymentMethod" value="naverPay" 
+                                        checked={this.state.paymentMethod['naverPay']} 
+                                        onChange={this._paymentCheck} />네이버페이 <br /><br />
 
                                 </td>
                             </tr>
                             <tr>
                                 <td className="tg-nrix" colSpan="20">
-                                    Radio 선택에 따라<br />
-                                    결제 내용이 나옵니다.
+                                    {this.state.paymentMethod.kakaoPay===true?'카카오페이':''}
+
                             </td>
                             </tr>
                         </tbody>
@@ -619,7 +637,9 @@ class order extends React.Component {
                                     주문동의
                             </td>
                                 <td className="tg-lastCheck" colSpan="16">
-                                    <input type="radio" name="check" value="true" /> 상기 결제정보를 확인하였으며, 구매진행에 동의합니다.
+                                    <input type="checkbox" name="finalCheck"
+                                     checked={this.state.finalCheck}
+                                     onChange={this._finalCheck} /> 상기 결제정보를 확인하였으며, 구매진행에 동의합니다.
                             </td>
                             </tr>
                             <tr>
@@ -662,9 +682,11 @@ const mapStateToProps = (state) => {
     const { auth } = state;
     const { userDetails } = auth;
     const { order } = state;
+     
     return {
         userDetails,
         order
+        
     }
 
 }

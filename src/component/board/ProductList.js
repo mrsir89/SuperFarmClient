@@ -18,7 +18,7 @@ class ProductList extends React.Component {
   }
 
 
-  componentWillMount() {
+  componentDidMount() {
     const { loadProductList } = this.props;
     //loadProductList();
     const lowerId = this.props.match.params.id;
@@ -92,7 +92,7 @@ class ProductList extends React.Component {
     return productItems
 
   }// _renderAllproducts end
-
+  
   render() {
     const {category, productBoard}= this.props;
 

@@ -2,81 +2,172 @@ import React from 'react';
 import { Actions } from '../../actions/index';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
+import Qnacontent from './QnaContent';
+import './QnaContent.css';
+import { tsParenthesizedType } from '@babel/types';
+import { ActionTypes } from '../../contants';
 
 class QnABoard extends React.Component {
 
   constructor(props) {
     super(props)
+    const{ qnaBoard } = this.props;
     this.state = {
-      productBoardNum:this.props
+      productBoardNum: this.props.productBoardNum,
+      qnaBoard:qnaBoard
     }
     // this.handleClick=this.handleClick.bind(this);
     console.log('여기 실행 되나?', this.state)
   }
 
 
-  
+
   componentWillMount() {
+
+   this._loadqnaBoardList();
+    
+  }
+  componentDidMount(){
+    
+    this._loadqnaBoardList();
+  }
+  
+  shouldComponentUpdate(nextState, nextProps){
+    console.log('shouldComponentUpdate')
+    const { qnaBoard } = this.props;
+    if(JSON.stringify(this.qnaBoard) !== JSON.stringify(nextState)){
+      console.log(' 여기는 false')
+      return true
+    }else{
+      console.log('여기는 true')
+      return false
+    }
+  }
+
+
+  _loadqnaBoardList(){
+
     const { loadqnaboardList } = this.props;
     console.log(this.state, ' <<<<< willMount')
-    let productNum = 5
     let size = 10
     let page = 1
     console.log(loadqnaboardList, ' qnaboardList 실행')
-    loadqnaboardList(productNum, size, page);
+
+    loadqnaboardList(this.state.productBoardNum, size, page).then(response=>{
+      if(response.type===ActionTypes.LOAD_QNABOARDLIST_SUCCESS){
+
+        const{ data } = response.payload;
+        console.log(data,'dAta 찍어 보는 중ㅇ 오는건가?')        
+
+        this.setState({
+          qnaBoard:data
+
+          })
+    }else{
+      this.setState({
+        qnaBoard:{
+          items:[]
+        }
+      })
+    }
+    });
   }
+  
 
   _onClickPopUp() {
-    window.open('qnaboardWrite', 'window_name', 'width=430,height=500,location=no,status=no,scrollbars=yes');
+    window.open('/qnaboardWrite', 'window_name', 'width=430,height=500,location=no,status=no,scrollbars=yes');
+  }
+  _renderQnaBoard(qnaBoard){
+    console.log(qnaBoard,'  안의 값 확인 -----------------------------------')
+    if(qnaBoard !== null && qnaBoard !== undefined ){
+    return( 
+      (qnaBoard.items.map((item, index) => (<Qnacontent {...item} index={index} key={index} />)))
+    )
+    }else{
+      return(
+        <div>
+          <br/>
+            현재 게시된 게시물이 없습니다.
+        </div>
+      )
+    }
   }
 
   render() {
     console.log(this.props, '<----- props')
     const { qnaBoard } = this.props;
-    const { items } = qnaBoard;
-    console.log(items, ' <------- ')
+    console.log('qnaBoard Render ~!~!~!~!~!~!~!~!~!',qnaBoard)
     return (
-      <div>
-        <div className="row">
-          <div className="col">답변상태</div>
-          <div className="col-7">제목</div>
-          <div className="col-1">작성자</div>
-          <div className="col-2">작성일</div>
-        </div>
-        {items.map((item) => (
-          <div>
-            <div className="row">
-              <div className="col">{item.questionBoardStatus}</div>
-              <div className="col-7">
-                <details>
-                  <summary>{item.questionBoardContent}</summary>
-                  {item.questionAnswer.map((answer) => (
-                    <div className="row" hidden={item.isExpanded}>
-                      <div className="col-2">{answer.answerWriter}</div>
-                      <div className="col-10">{answer.answerContent}</div>
-                    </div>
-                  ))}
-                  <input type="button" value="삭제"></input>
-                </details>
-              </div>
-              <div>
 
-              </div>
-              <div className="col-1">{item.userId}</div>
-              <div className="col-2">{item.questionBoardRegdate}</div>
-            </div>
+      <div>
+        <h2><strong>QnA 게시판 </strong></h2>
+        
+        <table className="tg">
+          <tbody>
+          <br/>
+          <div className="row">
+            <div className="col-lg-2" align="center"><h4>답변상태</h4></div>
+            <div className="col-lg-8" align="center"><h4>제목</h4></div>
+            <div className="col-lg-2" align="center"><h4>작성자</h4></div>
           </div>
-        ))}
+
+          <br/>
+          <div className="col-lg-12">
+            {this._renderQnaBoard(qnaBoard)}
+            {/* {
+            (qnaBoard !== null || qnaBoard !== undefined )?
+            (qnaBoard.items.map((item, index) => (<Qnacontent {...item} index={index} key={index} />))):
+            `아직 작성된 QnA 목록이 없습니다.`
+          } */}
+          </div>
+          <br/>
+          </tbody>
+        </table>
+
+
         <div>
-          <input type="button" value="작성" onClick={this._onClickPopUp}></input>
+          <table>
+            <tbody>
+            <tr height="20px"></tr>
+            </tbody>
+          </table>
+
+
         </div>
+        <div className="row" align="center">
+          <div className="col-lg-10" align="left">
+            <button type="button" className="btn btn-light" >이전</button>
+              <button type="button" className="btn btn-light">작성</button>
+            
+          </div>
+          <div className="col-lg-2" align="right">
+            <button type="button" className="btn btn-light" onClick={this._onClickPopUp}>작성</button>
+          </div>
+        </div>
+
+
+        {/* <table>
+          <tr height="100px">
+
+          </tr>
+        </table>
+      <div>
+        <table width="100%">
+          <tr>
+            <td>
+
+            </td>
+          </tr>
+        </table>
+      </div> */}
       </div>
+
+
     );
   }
 }
 
-const mapStateToProps=(state)=> {
+const mapStateToProps = (state) => {
   console.log(state)
   const { board } = state;
   const { qnaBoard } = board;

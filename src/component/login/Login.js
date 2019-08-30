@@ -17,50 +17,50 @@ const loginAsync = (customerId, password, history) => (dispatch) => {
   history.push('/');
   return dispatch(Actions.login(customerId, password))
     .then(response => {
-      
+
       if (response === undefined || response === null) {
         alert(' 아이디 또는 비밀 번호가 잘못 되었습니다.')
-      
+
         return history.push("/login")
-      
+
       } else {
         if (response.type === ActionTypes.LOGIN_SUCCESS) {
-      
+
           return dispatch(Actions.getUserMe())
-      
+
         } else {
-      
+
           return alert('아이디 또는 비밀 번호가 잘못 되었습니다.');
-      
+
         }
       }
     }).then(response => {
-     
+
       if (response === undefined || response === null) {
         alert(' 유저 정보를 가져 오는데 실패 하였습니다. ')
-        
+
         return Actions.logout
-      
+
       } else {
-        if (response.type === ActionTypes.GET_USERME_SUCCESS){
-        let userNum = response.payload.data.userNum;
-        
-        return dispatch(Actions.getCartByUser(userNum));
-        
-      }else{
+        if (response.type === ActionTypes.GET_USERME_SUCCESS) {
+          let userNum = response.payload.data.userNum;
+
+          return dispatch(Actions.getCartByUser(userNum));
+
+        } else {
           return alert(' cart 에서 회원 정보를 가져 오는데 실패 하였습니다. \n\n다시 시도해 주세요')
         }
       }
     }).then(response => {
-      
+
       if (response.type === ActionTypes.GET_CART_SUCCESS) {
         alert(`${customerId} 님 접속을 환영 합니다.`)
         return history.push("/")
-      
+
       } else {
         alert('회원 정보를 가져 오는데 실패 하였습니다. \n\n다시 시도해 주세요');
         return dispatch(Actions.logout())
-      
+
       }
     }).catch(error => {
       return console.log(' login Error', error)
@@ -121,11 +121,14 @@ class Login extends React.Component {
 
   render() {
     return (
+
+
+
       <div className="Login">
         <div className="LoginForm">
           <div className="top">
             Log in
-          </div>
+                 </div>
           <form onSubmit={e => this.onSubmit(e)}>
             <input type="text" name="customerId" value={this.state.userId} onChange={this._onchange} placeholder="Username" />
             <input type="password" name="password" value={this.state.password} onChange={this._onchange} placeholder="Password" />

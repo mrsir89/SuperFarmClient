@@ -7,7 +7,7 @@ function ProductItem(props) {
         <li className="product-best-item product-bot-item">
                 <a href="#none">
                   <div className="product-best-item--thumb">
-                    <img src="../../images/rice.jpg" />
+                    <img src={props.item.productBoardThumbnail} />
                   </div>
                   <div className="product-best-item--info product-bot-info">
                     <div className="product-best-item--icon">
@@ -22,8 +22,6 @@ function ProductItem(props) {
                   </div>
                 </a>
         </li>
-
-
     )
 }
 

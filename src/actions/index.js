@@ -250,12 +250,13 @@ const writeQnABoard = (writeQnA) => {
 
 //QnABoard productBoardNum에 맞게 불러 오기
 const loadqnaboardList = (productNum, size, page) => {
+  console.log(productNum,' loadQnaBoard Action')
   const formdata = new FormData();
-  formdata.append('productNum', 5);
+  formdata.append('productNum', productNum);
   formdata.append('size', size);
   formdata.append('page', page);
   console.log('Action loadQnABoard 실행')
-  console.log('size', size, ' page ', page)
+  console.log('size', size, ' page ', page, 'productNum : ',productNum)
   return ({
     type: ActionTypes.LOAD_QNABOARDLIST,
     payload: {
@@ -409,11 +410,11 @@ const getReviews = (type, id, size = initBoardListsize,
   var url = '/review/product';
   formData.append('size', size)
   formData.append('page', page)
-  formData.append('productBoardNum', 5)
+  formData.append('productBoardNum', id)
   console.log('Action LOAD_REVIEWS')
 
   if (type == 'productBoard') {
-    formData.append('productBoardNum', 5)
+    formData.append('productBoardNum', id)
     url = '/review/product';
   }
   if (type == 'user') {
@@ -550,23 +551,10 @@ const removeCartById = (cartNum) => {
 
 // 0810 DB에 있는 상품 데이터 가져오는 action => axios 타입 action으로 변경 
 const loadProductList = (type, id) => {
-
+  console.log('Action loadProductList')
   const formData = new FormData();
   let url = '/product/lower'
-
-  if (type === 'lower') {
-    console.log('lower 확인 ,', type, id)
-    console.log('[[[[[[[lowerid 확인 type]]]]]]]]]]]] ,', typeof id)
-    url = '/product/lower';
-    formData.append('lower', id);
-
-  } else if (type === 'search') {
-    url = '/product/search'
-    formData.append('search', id)
-
-  }
-  console.log('loadProductList')
-
+  formData.append('lower',id)
   return ({
     type: ActionTypes.LOAD_PRODUCTLIST,
     payload: {
