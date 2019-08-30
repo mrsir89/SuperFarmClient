@@ -14,7 +14,8 @@ import Cart from './component/board/Cart';
 import ProductDetail from './component/board/ProductDetail';
 import ProductList from './component/board/ProductList';
 import MyPage from './component/board/MyPage';
-import {Header, PreHeader , Home, Footer, PreFooter} from './containers';
+import { Header, PreHeader, Footer, PreFooter } from './containers';
+import Home from './Home';
 import ListReview from './component/board/reviewBoard/ListReview'
 import AddReview from './component/board/reviewBoard/AddReview';
 import userEdit from './component/board/UserEdit';
@@ -53,25 +54,25 @@ class App extends React.Component {
 
   }
 
-  componentWillMount(){
-    const { auth,getClientToken  } = this.props;
+  componentWillMount() {
+    const { auth, getClientToken } = this.props;
     const { token } = auth;
-    if (token === undefined || token === null ) {
+    if (token === undefined || token === null) {
       return getClientToken();
     }
     console.log("<<this.props in App >> ", this.props)
   }
 
-  _hiddenBar(){
-    return(
+  _hiddenBar() {
+    return (
       <Header />
     )
   }
   render() { // 화면에 html 뷰를 생성.\
     return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
       <div className="container">
-        <PreHeader/>
-        <Header /> 
+        <PreHeader />
+        <Header />
         <Switch>
           <Route exact path="/" component={Home} />
           {/* <Route exact path="/product" component={ProductList} /> */}
@@ -88,17 +89,17 @@ class App extends React.Component {
           {/* <Route path="/orderSheet" component={OrderSheet} /> */}
           <Route path="/order" component={Order} />
           <Route path="/orderSuccess" component={OrderSuccess} />
-          <Route path="/qnaboardWrite" component={QnABoardWrite}/>
+          <Route path="/qnaboardWrite" component={QnABoardWrite} />
           <Route path="/useredit" component={userEdit} />
-          <Route path="/usereditlogin" component={userEditlogin}/>
-          <Route path="/notice/:noticeNum" component={NoticeDetail}/>
-          <Route exact path="/notice" component={Notice}/>
+          <Route path="/usereditlogin" component={userEditlogin} />
+          <Route path="/notice/:noticeNum" component={NoticeDetail} />
+          <Route path="/notice" component={Notice} />
           <Route path="/faqboard" component={Faq} />
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
 
         </Switch>
         {/* <PreFooter/> */}
-        <Footer/>
+        <Footer />
       </div>
     );
   }
@@ -106,8 +107,8 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
   const { auth } = state;
-  const {token , userDetails} = auth
-  
+  const { token, userDetails } = auth
+
   return {
     auth
   };
@@ -117,5 +118,5 @@ const mapDispatchToProps = (dispatch) => ({
   getClientToken: () => dispatch(Actions.getClientToken())
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
