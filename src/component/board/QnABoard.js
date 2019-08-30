@@ -93,6 +93,50 @@ class QnABoard extends React.Component {
     }
   }
 
+//  // 다음 페이지 
+//  _nextPage = () =>{
+//   console.log('Next Page 작동')
+//   const { reviewBoard } = this.props;
+//   console.log('NextPage ',reviewBoard)
+  
+//   let hasNextPage = reviewBoard.hasNext;
+//   console.log('hasNext',hasNextPage, )
+
+//   var page = reviewBoard.page
+//   var size = reviewBoard.size
+//   let productBoardNum = reviewBoard.boardNum
+
+//   if(hasNextPage === true){
+//     page = page +1;
+//     console.log( page, '실제 다음페이지가 있을떄 작동');
+//     this._getreviewBoards('productBoard',productBoardNum,size,page)
+//   }else{
+//     alert('마지막 페이지 입니다.')
+//   }    
+// }
+//   // 이전 페이지
+//   _prevPage = () =>{
+    
+//     console.log('Prev Page 작동')
+//     var qnaBoad = this.state.qnaBoard
+//     console.log('NextPage ',qnaBoad)
+    
+//     let hasNextPage = qnaBoad.hasNext;
+//     console.log('hasNext',hasNextPage, )
+//     var page = reviewBoard.page
+//     var size = reviewBoard.size
+//     let productBoardNum = qnaBoad.boardNum
+
+//     if(page > 1 ){
+//       page = page - 1;
+//       console.log( page, '실제 다음페이지가 있을떄 작동');
+//       this.__loadqnaBoardList();
+//     }else{
+//       alert('첫 페이지 입니다.')
+//     }    
+//   }
+
+
   render() {
     console.log(this.props, '<----- props')
     const { qnaBoard } = this.props;

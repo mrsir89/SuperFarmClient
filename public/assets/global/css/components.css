@@ -26,7 +26,7 @@ li {
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
 }
-
+button { border: none; }
 /* except below bootstrap elements */
 .img-circle {
   border-radius: 50% !important;
@@ -13702,3 +13702,4 @@ Transparent Button
   background: transparent;
   color: #888;
 }
+

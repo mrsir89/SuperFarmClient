@@ -20,11 +20,13 @@
 .gnb > ul > li > ul > li > a { display: inline-block; height: 20px; font-size: 14px; color: #666;}
 .gnb > ul > li > ul > li > a:hover,.gnb > ul > li > ul > li > a:focus { color: #275dc7; border-bottom: 1px solid #275dc7;}
 
-.prod-info {  width: 1200px; margin: 0 auto; overflow: hidden;  }
-.prod-info .prd-img { float: left; width: 550px; }
-.prod-info .prd-info { float: right; width: 600px; }
 
 .btn-prd { margin-top: 15px; }
 .btn-prd a { display: inline-block; font-size: 16px; color: #fff; height: 55px; line-height: 55px; text-align: center;  }
 .btn-prd a.btn-buy {width: 250px; background: #ff600f; }
 .btn-prd a.btn-cart { margin-left: 5px; width: 130px; background: #282828; }
+
+
+.prd-info { overflow: hidden; }
+.prd-info .prd-img { width: 550px; float: left: }
+.prd-info .prd-info2 { width: 550px; float: right; }

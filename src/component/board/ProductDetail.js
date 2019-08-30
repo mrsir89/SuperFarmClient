@@ -205,103 +205,91 @@ class ProductDetail extends React.Component {
       return (
 
          <div className="product-item">
+            <div className="product-name">{productBoardDetail.productBoardTitle}</div>
             <div className="prod-info">
                <div className="prd-info">
-                  {/* ------------------------------------------------------------------------------------------------ */}
-                  <div className="col-md-6 col-sm-6">
+                  <div className="prd-img">
                      <div className="product-main-image" style={{ position: 'relative', overflow: 'hidden' }}>
                         <img src={productBoardDetail.productBoardThumbnail} alt="Cool green dress with red bell" className="img-responsive" data-bigimgsrc={productBoardDetail.productBoardThumbnail}/>
                         <img src={productBoardDetail.productBoardThumbnail} className="zoomImg" style={{ position: 'absolute', top: '-290.619px', left: '-180.201px', opacity: '0', width: '600px', height: '800px', border: 'none', maxWidth: 'none' }} />
                      </div>
                   </div>
-                  {/* ------------------------------------------------------------------------------------------------ */}
+                  <div className="prd-info2">
+                     <form onSubmit={this.handleSubmit}>
+                        <div className="table-opt">
+                           <table summary="상품정보 목록">
+                              <tbody>
+                                 <tr>
+                                    <th scope="row">상품 소분류</th>
+                                    <td>{productBoardDetail.lowerCode}</td>
+                                 </tr>
+                                 {/* {/* <tr>
+                                    <th scope="row">상품 가격(옵션에 따라 달라질 예정)</th>
+                                    {/* <td>{productList.productTaxprice}</td> */}
+                                 {/*</tr> */}
 
-                  <form onSubmit={this.handleSubmit}>
-                     <div className="col-md-6 col-sm-6">
-                        <h2><bold>상품정보 목록</bold></h2>
-                        <table summary="" className="tg" >
-                           <tbody>
-                              <tr>
-                                 <th scope="">상품 이름</th>
-                                 <td>{productBoardDetail.productBoardTitle}</td>
-                              </tr>
-                              <tr>
-                                 <th scope="row">상품 소분류</th>
-                                 <td>{productBoardDetail.lowerCode}</td>
-                              </tr>
-                              {/* {/* <tr>
-                                 <th scope="row">상품 가격(옵션에 따라 달라질 예정)</th>
-                                 {/* <td>{productList.productTaxprice}</td> */}
-                              {/*</tr> */}
+                                 <tr>
+                                    <th scope="row">배송비</th>
+                                    <td>{productBoardDetail.productBoardDeliveryPrice}</td>
+                                 </tr>
 
-                              <tr>
-                                 <th scope="row">배송비</th>
-                                 <td>{productBoardDetail.productBoardDeliveryPrice}</td>
-                              </tr>
+                                 <tr>
+                                    <th scope="row"> 옵션1 선택</th>
+                                    <td>
+                                       <select name="option1" onChange={this._option1Change}>
+                                          <option value='defaultValue' selected="selected">옵션을 선택하세요</option>
+                                          {this._option1Check(productList).map((productList) => (
+                                             <option value={productList.productOption1} >
+                                                {productList.productOption1}</option>
+                                          ))}
+                                       </select>
+                                    </td>
+                                 </tr>
 
-                              <tr>
-                                 <th scope="row"> 옵션1 선택</th> &nbsp; &nbsp;
-                                   < select name="option1" onChange={this._option1Change}>
-                                    <option value='defaultValue' selected="selected">옵션을 선택하세요</option>
-                                    {this._option1Check(productList).map((productList) => (
-                                       <option value={productList.productOption1} >
-                                          {productList.productOption1}</option>
-                                    ))}
-                                 </select>
-                              </tr>
-
-                              <tr>
-                                 <th scope="row"> 옵션2 선택</th> &nbsp;&nbsp;
-                                 < select name="option2" onChange={this._option2Change}>
-                                    <option value="default" selected="selected">
-                                       옵션을 선택하세요</option>
-                                    {this._option2Check(productList).map((productList) => (
-                                       <option value={productList.productCode} >
-                                          {productList.productOption2}</option>
-                                    ))}
-                                 </select>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-
-                     <div className="col-md-6 col-sm-6">
-                        <table className="tg">
-                           <tbody>
-                              <tr>
-                                 <th scope="row">개수</th>
-                                 <td className="tdset">  
-                                 <input type="number" min="1" max="100" 
-                                    value={this.state.quantity}
-                                    step="1" onChange={this._quantityChange}></input></td>
-                              </tr>
-                              <tr>
-                                 <th scope="row">가격</th>
-                                 <td><strong> 
-                                 {/* {(this.state.tmpOption1 !==null && this.state.tmpOption2 !==null)? */}
-                                    {this.state.totalPrice} 
-                                    {/* : 0} */}
-                                 </strong></td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                     <br/>
-                     <div>
-                     <div className="col-md-6" align="right">
-                        <div className="col-lg-12" align="right">
-                           <button><a href="#" className="btn-buy">구매</a></button>
+                                 <tr>
+                                    <th scope="row"> 옵션2 선택</th>
+                                    <td>
+                                       <select name="option2" onChange={this._option2Change}>
+                                          <option value="default" selected="selected">
+                                             옵션을 선택하세요</option>
+                                          {this._option2Check(productList).map((productList) => (
+                                             <option value={productList.productCode} >
+                                                {productList.productOption2}</option>
+                                          ))}
+                                       </select>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                        <div className="table-opt">
+                           <table summary="">
+                              <tbody>
+                                 <tr>
+                                    <th scope="row">개수</th>
+                                    <td>  
+                                       <input type="number" min="1" max="100" value={this.state.quantity} step="1" onChange={this._quantityChange}></input>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <th scope="row">가격</th>
+                                    <td><strong> 
+                                    {/* {(this.state.tmpOption1 !==null && this.state.tmpOption2 !==null)? */}
+                                       {this.state.totalPrice} 
+                                       {/* : 0} */}
+                                    </strong></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                        <div className="prd-btn">
+                           <button type="button" className="btn-buy">바로구매</button>
                            <a href="/cart" className="btn-cart">장바구니</a>
                            <button type="submit" class="btn-cart2">카트담기</button>
                         </div>
-                     </div>
-                     </div>
-                  </form>
+                     </form>
+                  </div>
                </div>
-               <table className="tg">
-                  <tr height="100px">
-                  </tr>
-               </table>
             </div>
             <ProductView productDetail={productBoardDetail}/>
             <div>

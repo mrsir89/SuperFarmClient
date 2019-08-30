@@ -1,88 +1,6 @@
-.btn-buy{
-  background-color: rgb(255, 96, 15);
-  border-collapse: collapse;
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-  display: inline-block;
-  font-family: "Nanum Gothic", "Noto Sans KR", "malgun gothic",  sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  height: 50px;
-  line-height: 50px;
-  margin-left: 0px;
-  overflow-wrap: break-word;
-  text-align: center;
-  text-decoration-color: rgb(255, 255, 255);
-  text-decoration-line: none;
-  text-decoration-style: solid;
-  vertical-align: middle;
-  width: 170px;
-}
 
-.btn-cart{
-  background-color: rgb(130, 130, 130);
-border-collapse: collapse;
-color: rgb(255, 255, 255);
-cursor: pointer;
-display: inline-block;
-font-family: "Nanum Gothic", "Noto Sans KR", "malgun gothic", 덩Б����, Dotum, AppleGothic, sans-serif;
-font-size: 13px;
-font-weight: 600;
-height: 50px;
-line-height: 50px;
-margin-left: 5px;
-overflow-wrap: break-word;
-text-align: center;
-text-decoration-color: rgb(255, 255, 255);
-text-decoration-line: none;
-text-decoration-style: solid;
-vertical-align: middle;
-width: 100px;
-}
 .tg-1{
   width:110px;
-}
-.btn-cart2 {
-  background-attachment: scroll;
-  background-clip: border-box;
-  background-color: rgb(255, 255, 255);
-  background-origin: padding-box;
-  background-position-x: 17px;
-  background-position-y: 50%;
-  background-size: auto;
-  border-bottom-color: rgb(130, 130, 130);
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-collapse: collapse;
-  border-left-color: rgb(130, 130, 130);
-  border-left-style: solid;
-  border-left-width: 1px;
-  border-right-color: rgb(130, 130, 130);
-  border-right-style: solid;
-  border-right-width: 1px;
-  border-top-color: rgb(130, 130, 130);
-  border-top-style: solid;
-  border-top-width: 1px;
-  
-  color: rgb(102, 102, 102);
-  cursor: pointer;
-  display: inline-block;
-  font-family: "Nanum Gothic", "Noto Sans KR", "malgun gothic",  sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  height: 50px;
-  line-height: 50px;
-  margin-left: 5px;
-  overflow-wrap: break-word;
-
-  text-align:left ;
-  text-decoration-color: rgb(102, 102, 102);
-  text-decoration-line: none;
-  text-decoration-style: solid;
-  text-indent: 39px;
-  vertical-align: middle;
-  width: 120px;
- 
 }
 .tg{
   text-align:center;
@@ -116,3 +34,20 @@ width: 100px;
 }
 
 
+.product-item {  width: 1100px; margin: 0 auto; padding: 0px; }
+.product-item .product-name { margin-bottom: 15px; font-size: 18px; line-height: 20px; fotn-weight: 600; color: #333; }
+.prod-info { overflow: hidden;  border-top: 1px solid #333;  border-bottom: 1px solid #d3d3d3; }
+.prod-info .prd-img { width: 548px; padding: 20px 70px 20px; float: left;  }
+.prod-info .prd-info2 { float: right; width: 551px; padding-bottom: 50px; border-left: solid 1px #d3d3d3;}
+
+.table-opt { margin-top: 20px; }
+.table-opt table { width: 100%; border-top: none; border-bottom: none;  }
+.table-opt tr { border: none; }
+.table-opt th { width: 205px; font-size: 13px; color: #444; text-align: left; text-indent: 29px; font-weight: normal; background: none; border: none; }
+.table-opt td { font-size: 13px; color: #444; }
+
+.prd-btn { padding: 20px 15px; border-top: 2px solid #ff600f;}
+.prd-btn a,.prd-btn button {font-size: 16px; font-weight: 600; color: #fff; }
+.btn-buy { width: 251px; height: 55px; line-height: 55px; text-align: center; background-color: #ff600f;}
+.btn-cart { display: inline-block; margin-left: 5px; width: 130px; height: 55px; line-height: 55px; text-align: center; background-color: #828282;}
+.btn-cart2 { margin-left: 5px;width: 129px; height: 53px; line-height: 53px; text-align: center; color: #666; text-align: center; }

@@ -332,7 +332,7 @@ Header and header elements
 	margin-right: 10px;
 }
 .product-item:hover {
-	box-shadow: 5px 5px rgba(234, 234, 234, 0.9);
+	/* box-shadow: 5px 5px rgba(234, 234, 234, 0.9); 상품 상세 화면 오버시 그림자 생기는 현상 삭제 */
 }
 .product-item:after {
 	content: ".";
@@ -1141,3 +1141,4 @@ Shop Stype Buttons
 .btn {
 	text-transform: uppercase;
 }
+
