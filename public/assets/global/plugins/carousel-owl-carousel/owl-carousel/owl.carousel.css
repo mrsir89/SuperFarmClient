@@ -39,6 +39,7 @@
 	
 .owl-carousel .owl-item{
 	float: left;
+
 }
 .owl-controls .owl-page,
 .owl-controls .owl-buttons div{
@@ -61,6 +62,7 @@
 /* fix */
 .owl-carousel  .owl-wrapper,
 .owl-carousel  .owl-item{
+	
 	-webkit-backface-visibility: hidden;
 	-moz-backface-visibility:    hidden;
 	-ms-backface-visibility:     hidden;
@@ -68,4 +70,11 @@
   -moz-transform: translate3d(0,0,0);
   -ms-transform: translate3d(0,0,0);
 }
+
+
+.owl-carousel, .owl-carousel .active { background: #fff !important; }
+.product-item2 { position: relative; padding: 10px; }
+.index_prd_itemname { padding: 10px 0px; text-align: center; }
+.product-item2 .add2cart { position: absolute; right: 10px; bottom: 10px; }
+.product-item2 .pi-price { float: none; width: 100%; text-align: left; line-height: 34px; }
 

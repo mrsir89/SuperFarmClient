@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Actions } from '../../actions/index';
+import resultTable from './resultTable';
+import './orderSuccess.css';
 
 class orderSuccess extends React.Component{
 
@@ -31,19 +33,47 @@ class orderSuccess extends React.Component{
         }
         console.log(kakaopayResult,' kakaopayResult ')
         kakaoPaySuccess(kakaopayResult).then(response=>{
+            const { data } = response.payload;
+            console.log(response,' 확인~!~!!!!!!!!!!!1')
+            console.log(data,'data 확인~!!!!!!!!!!!!!!!!!')
+            window.opener.location.replace("/")
+
+            window.close();
+
+        });
             // window.opener._redirect('adsdd')
             // window.close();
-        });
         // window.location.href='_redirect()';
         
     }
 
     render(){
         console.log(this.props,' 여기는 render')
-        return(
-            <div>
-                asdasdads
-               <input type="button" value="확인" onClick={this._orderCheck} />
+        const{ order } = this.props
+        const{ orderList } = this.props
+        console.log('orderlist',orderList)
+          return(
+            <div className="payment">
+                <div className="payFont" align="center">
+               <button type="button" className="btn btn-outline-secondary" onClick={this._orderCheck}><h1>결제</h1></button>
+               <br/>
+               </div>
+                <div className="paytable">
+                <table className="tg">
+                    <tbody>
+                        <tr height="50px">
+                            <td> 품목 : </td>
+                            <td>{orderList.cartlist[0].productBoardTitle}
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>결제금액 : </td>
+                            <td>{orderList.Totalprice}</td>
+                        </tr>
+                    </tbody>
+                </table>
+               </div>
             </div>
         )
     }
@@ -53,9 +83,12 @@ const mapStateToProps = (state) => {
     console.log(state, 'ddddddddddddddd')
     const { order } = state
     const { kakaoPay } = order
+    const { orderList } = order
     return {
         kakaoPay,
-        order
+        order,
+        orderList
+
     }
 
 }

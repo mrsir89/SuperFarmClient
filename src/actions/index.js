@@ -546,6 +546,20 @@ const removeCartById = (cartNum) => {
   });
 };
 
+const removeCartAll= (userNum) =>{
+  const formData = new FormData();
+  formData.append('userNum',userNum)
+  return({
+    type:ActionTypes.REMOVE_CART_ALL,
+    payload:{
+      request:{
+        mehtod:'DELETE',
+        url:'/cart/deleteAll',
+        data:formData,
+      }
+    }
+  })
+}
 /////////////////////////////////////////////////////////////////
 ///////////   productBoard   ////////////////////////////////////
 
@@ -696,7 +710,7 @@ export const Actions = {
   writeQnABoard,
   addCart,
   loadProductList, loadProductDetails,
-  getCategories, getCartByUser,removeCartById,editCartQty,
+  getCategories, getCartByUser,removeCartById,editCartQty, removeCartAll,
   loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,
   loadNoticeBoard,
   loadFrequentlyAskedQuestionBoard,

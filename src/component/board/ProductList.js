@@ -68,6 +68,22 @@ class ProductList extends React.Component {
 
   }
 
+  _returnBestProduct =() =>{
+    const { productBoard } = this.props;
+    console.log(productBoard,' map 들어가기전')
+    var bestProduct = []
+    if(productBoard !== null && productBoard !== undefined){
+        bestProduct = productBoard.map(productBoard => {
+        if(productBoard.productBoardBest >0){
+            return productBoard;
+        }
+        })
+    }else{
+        return null
+    }
+    console.log('best 상품 보자',bestProduct)
+  }
+
   _renderAllProducts = () => {
     const { productBoard } = this.props;
     var productItems = [];
@@ -98,7 +114,6 @@ class ProductList extends React.Component {
 
     // const upper =  productBoard[0].upperCode ;
     // const upperCategories = category[upper-1];
-
 
     return (
       <div className="product">

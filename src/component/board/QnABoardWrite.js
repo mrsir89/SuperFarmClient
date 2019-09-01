@@ -3,7 +3,7 @@ import { Actions } from '../../actions/index';
 import { ActionTypes } from '../../contants';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
+import './WriteCss.css';
 
 
 class QnABoardWrite extends React.Component {
@@ -12,9 +12,11 @@ class QnABoardWrite extends React.Component {
         super(props)
         const { userDetails } = this.props;
         const { data } = this.props
+
+        console.log('construcoor',this.props)
         this.state = {
             userId: userDetails.userId,
-            productBoardNum: data.boardNum,
+            productBoardNum: this.props.match.params.boardNum,
             questionBoardPassword: '',
             questionBoardTitle: '',
             questionBoardContent: ''
@@ -57,7 +59,7 @@ class QnABoardWrite extends React.Component {
     render() {
         return (
 
-            <div className="container" role="main">
+            <div className="writeInput" >
                 <h2>상품 QnA 게시판</h2>
                 <form onSubmit={this._onClickAction}>
                     <div className="mb-3">
@@ -98,16 +100,12 @@ const mapStateToProps = (state) => {
 
     const { userDetails } = state.auth;
     const { qnaBoard } = state.product;
-    const { data } = qnaBoard;
 
 
     console.log(qnaBoard, ' qnaAnswerWrite Board  <--- MapStateToProps')
-    console.log(data, ' <-------- data')
-    console.log(data.boardNum, ' <------- boardNum')
     console.log(userDetails, ' <----------- userDetails')
     console.log(userDetails.userId, ' <----------- userId')
     return {
-        data,
         userDetails
     };
 }

@@ -170,6 +170,8 @@ class order extends React.Component {
             return 
         }
         const { checkoutOrder } = this.props
+        const { removeCartAll } = this.props
+        const { history } = this.props;
         console.log('checkout sssssss', this.state)
         const itemlist = this.state.orderItemsList
         const orderModel = {
@@ -187,7 +189,7 @@ class order extends React.Component {
             orderItemsList: this.state.orderItemsList
         }
         console.log(orderModel, ' order 들어가기전 확인 ')
-        if (this.state.paymentMethod === 'kakaopay') {
+        if (true) {
             checkoutOrder(orderModel).then(response => {
                 if (response.type === ActionTypes.CHECKOUTORDERS_SUCCESS) {
                     const { data } = response.payload
@@ -248,6 +250,7 @@ class order extends React.Component {
     }
     _kakaopayStart = (data) => {
         const orderSend = this._kakaopayReadSetting(data);
+        const { removeCartAll } = this.props;
         const { kakaoPayReady } = this.props;
         const { history } = this.props;
         console.log(history, ' history ')
@@ -255,17 +258,12 @@ class order extends React.Component {
             if (response.payload !== null && response.payload !== undefined) {
                 const { data } = response.payload;
                 var nextUrl = data.next_redirect_pc_url;
-                window.open(nextUrl, 'Review  작성', 'width=430,height=500,location=no,status=no,scrollbars=yes')
+                window.open(nextUrl, 'Review  작성', 'width=500,height=800,location=no,status=no,scrollbars=yes')
             }
         }).then(response => {
             if (response !== null && response !== undefined) {
-                const { data } = response.payload;
-                console.log(history, ' hitstory 찍어 보기 ')
-                console.log('url test ', data)
-                window.open.console.log(' 여기 확인 해 봄')
+                removeCartAll(this.state.userNum) 
             }
-        }).then(response => {
-            console.log('')
         });
     }
 
@@ -692,7 +690,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = dispatch => ({
     kakaoPayReady: (orderSend) => dispatch(Actions.kakaoPayReady(orderSend)),
-    checkoutOrder: (orders) => dispatch(Actions.checkoutOrder(orders))
+    checkoutOrder: (orders) => dispatch(Actions.checkoutOrder(orders)),
+    removeCartAll: (userNum) => dispatch(Actions.removeCartAll(userNum))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(order);

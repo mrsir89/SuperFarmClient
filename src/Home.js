@@ -2,6 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import  Carousel  from './containers/Carousel';
 import { RevSlider, Slide, Caption } from  'react-rev-slider';
+import './App.css';
+
 
 const bestProduct = [
     {
@@ -102,7 +104,7 @@ const bestProduct = [
       isNew: false,
       isDiscount: true,
       imageUrl: '../imgresource/p4.png',
-  
+   
       productTax: 0.1,
       productStock: 0,
       productTotalSales: 0,
@@ -158,8 +160,6 @@ const config = {
 function Home() {
   return (
     <div>
-     
-      
    <RevSlider config={config}>
         <Slide
           src="../imgresource/1.png"
@@ -272,13 +272,13 @@ function Home() {
 
           </Slide>
       </RevSlider>
-
-      <div className="main">
+<div className="App">
+      <div className="main" >
       <div className="container margin-bottom-40">
         <div className="row margin-bottom-40 margin-top-70">
           <Carousel className={'col-md-12 col-sm-8'} carouselName={'owl-carousel owl-carousel3 margin-top-70'}
               srbtitle={'SUPER FARM'} title={'BEST PRODUCT'} items={bestProduct} />
-        
+        </div>
 {/*         
   Carousel className={'col-md-12 sale-product'} carouselName={'owl-carousel owl-carousel3 margin-top-70'}
               srbtitle={'SUPER FARM'} title={'BEST PRODUCT'} items={bestProduct} />
@@ -295,3 +295,5 @@ function Home() {
 }
 
 export default withRouter(Home);
+
+

@@ -25,9 +25,11 @@ class ProductDetail extends React.Component {
       // const { userNum } = this.props.userDetails;
       const { productBoardDetail } = this.props;
       const { productList } = productBoardDetail;
+      const { userDetails } = this.props;
       this.state = {
          productBoardNum : this.props.match.params.id, 
          ProductDetail: productBoardDetail,
+         userDetails: '',
          productList: productList,
          productInfo: '',
          userNumber: '',
@@ -39,21 +41,20 @@ class ProductDetail extends React.Component {
          totalPrice: 0
       };
 
-
-      //this._renderProduct = this._renderProduct.bind(this);
-      // this._renderProduct = this._renderProduct.bind(this);
       this._option1Change = this._option1Change.bind(this);
       this._option2Change = this._option2Change.bind(this);
    }
 
    // 장바구니 추가 -> action으로 갈 cartModel 
    handleSubmit = (e) => {
-      //const  productChoice  = this.state.productChoice;
+      const { userDetails } = this.props;
+      
+      if(userDetails !== null && userDetails !== undefined){
       const { productChoice, userNumber, ProductDetail, quantity } = this.state
-      e.preventDefault();
       console.log("productChoice >>>>>>", productChoice)
+
       const cartModel = {
-         userNum: userNumber,
+         userNum: userDetails.userNum,
          productBoardNum: productChoice.productBoardNum,
          productBoardTitle: ProductDetail.productBoardTitle,
          cartProductName: productChoice.productName,
@@ -67,7 +68,12 @@ class ProductDetail extends React.Component {
 
       const { addCart } = this.props;
       console.log("장바구니 추가>>>", cartModel)
-      addCart(cartModel);
+      addCart(cartModel).then(response=>{
+
+      });
+      }else{
+         alert('로그인이 필요한 페이지입니다. ')
+      }
    }
 
    _option1Check(productList) {
@@ -152,12 +158,12 @@ class ProductDetail extends React.Component {
       const { loadProductDetails } = this.props;
 
       loadProductDetails(productBoardNum)
-      // .then(response=>{
-      //    const{ productDetail } = this.props;
-      //    this.setState({
-      //       productDetail:productDetail
-      //    })
-      // });;
+      .then(response=>{
+         const{ productDetail } = this.props;
+         this.setState({
+            productDetail:productDetail
+         })
+      });;
 
    }
 
@@ -165,21 +171,6 @@ class ProductDetail extends React.Component {
       console.log(this.productBoard, ' will mount')
       this._loadProductDetail()
    }
-
-
-   // shouldComponentUpdate(nextProps, nextState) {
-   //    console.log('shouldComponentUpdate')
-   //    if (this.props.productBoardDetail!==nextProps.productBoardDetail){
-   //          return true
-   //       }else{
-   //          return false
-   //       }
-   // }
-
-   // componentWillUpdate(nextProps, nextState){
-   //    this._loadProductDetail();
-
-   // }
 
 
    _checkout=()=>{
@@ -193,6 +184,7 @@ class ProductDetail extends React.Component {
       }
       
    }
+   
 
    // TODO : userDetails가 없을 경우 에러 처리해줘야함 
    render() {
@@ -205,7 +197,7 @@ class ProductDetail extends React.Component {
       return (
 
          <div className="product-item">
-            <div className="product-name">{productBoardDetail.productBoardTitle}</div>
+            <div className="product-name"><h2><strong>{productBoardDetail.productBoardTitle}</strong></h2></div>
             <div className="prod-info">
                <div className="prd-info">
                   <div className="prd-img">
@@ -285,7 +277,8 @@ class ProductDetail extends React.Component {
                         <div className="prd-btn">
                            <button type="button" className="btn-buy">바로구매</button>
                            <a href="/cart" className="btn-cart">장바구니</a>
-                           <button type="submit" class="btn-cart2">카트담기</button>
+                           <button type="button" class="btn-cart2" 
+                           onClick={this.handleSubmit}>카트담기</button>
                         </div>
                      </form>
                   </div>
@@ -295,7 +288,7 @@ class ProductDetail extends React.Component {
             <div>
 
             </div>
-               <ListReview productBoardNum={productBoardDetail.productBoardNum}/>
+               <ListReview productBoardNum={productBoardDetail.productBoardNum} />
                <br/><br/><br/><br/>
                <QnABoard productBoardNum={productBoardDetail.productBoardNum} />
              

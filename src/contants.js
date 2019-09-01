@@ -153,6 +153,10 @@ export const ActionTypes={
     REMOVE_CART_ID : 'REMOVE_CART_ID',
     REMOVE_CART_ID_FAIL: 'REMOVE_CART_ID_FAIL',
     REMOVE_CART_ID_SUCCESS: 'REMOVE_CART_ID_SUCCESS',
+
+    REMOVE_CART_ALL : 'REMOVE_CART_ALL',
+    REMOVE_CART_ALL_FAUL:'REMOVE_CART_ALL_FAIL',
+    REMOVE_CART_ALL_SUCCESS:'REMOVE_CART_ALL_SUCCESS',
     
 
     ///////////////////////////////////////////////////////

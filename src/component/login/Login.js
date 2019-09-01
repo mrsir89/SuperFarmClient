@@ -55,7 +55,8 @@ const loginAsync = (customerId, password, history) => (dispatch) => {
 
       if (response.type === ActionTypes.GET_CART_SUCCESS) {
         alert(`${customerId} 님 접속을 환영 합니다.`)
-        return history.push("/")
+        
+        return history.push("/");
 
       } else {
         alert('회원 정보를 가져 오는데 실패 하였습니다. \n\n다시 시도해 주세요');
@@ -77,12 +78,15 @@ class Login extends React.Component {
       password: ''
     }
     this._onchange = this._onchange.bind(this);
-
     this.routeChange = this.routeChange.bind(this);
+    this._goBack = this._goBack.bind(this);
   }
 
 
-
+  _goBack(){
+    const { history } = this.props;
+    history.goBack();
+  }
   // Change endpoint after Login (with some error)
   routeChange() {
     let path = '/';

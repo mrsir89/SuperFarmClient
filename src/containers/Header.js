@@ -19,19 +19,11 @@ class Header extends React.Component{
       cartlist : []
     }
   }
-  
 
-  componentWillMount(){
+  componentDidMount(){
     
     const{ getCategories } = this.props;
-    const{ category } =this.props;
-    
       getCategories()
-    // if(category !== thisCategory ){
-    //   getCategories();
-    // }
-    
-    
   }
   render(){
     //const{ category } = this.state
@@ -39,9 +31,8 @@ class Header extends React.Component{
     const{ cartlist } = this.props
     return (
       <div className="header">
-        
         <div className="container">
-          <a className="site-logo" href="/"><img src="/images/logo.jpg" alt="Metronic Shop UI" /></a>
+          <a className="site-logo" href="/"><img src="../image/logo.png" alt="Metronic Shop UI" /></a>
           <a href="javascript:void(0);" className="mobi-toggler"><i className="fa fa-bars" /></a>
           {/* BEGIN CART */}
             <HeaderCart items={cartlist} />

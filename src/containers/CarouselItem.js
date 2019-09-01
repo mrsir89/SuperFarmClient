@@ -5,16 +5,12 @@ function CarouselItem(props) {
   const { imageUrl, isDiscount, isNew, productId, productName, productPrice } = props;
 
   return (
-    <div>
-      <div className="product-item">
-        <div className="pi-img-wrapper">
-          <img src={imageUrl} className="img-responsive" alt="Berry Lace Dress" />
-          <div>
-            <a href={imageUrl} className="btn btn-default fancybox-button">Zoom</a>
-            <a href="#product-pop-up" className="btn btn-default fancybox-fast-view">View</a>
-          </div>
-        </div>
-        <h3><a href="shop-item.html">{productName}</a></h3>
+    <div className="product-item2">
+      <div className="pi-img-wrapper">
+        <p className="m_index_item_img"><img src={imageUrl} className="img-responsive" alt="Berry Lace Dress" /></p>
+      </div>
+      <div className="index_prd_info">
+        <p className="index_prd_itemname"><a href="shop-item.html">{productName}</a></p>
         <div className="pi-price">{productPrice}</div>
         <a href="javascript:;" className="btn btn-default add2cart">Add to cart</a>
         {isDiscount !== undefined && isDiscount !== null && isDiscount

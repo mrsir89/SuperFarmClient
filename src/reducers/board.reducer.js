@@ -28,14 +28,11 @@ const boardReducer = (state = initialStateBoard, action) => {
             else
                 return state;
 
-        case ActionTypes.LOAD_QNABOARDLIST_FAIL:
-            console.log('ActionType LOAD QNABOARDLIST_FAIL 실행')
-            return {
-                    ...state,
-                    qnaBoard:{
-                        items:[]
-                    }
-                };
+        // case ActionTypes.LOAD_QNABOARDLIST_FAIL:
+            
+        //     console.log('ActionType LOAD QNABOARDLIST_FAIL 실행')
+            
+        //     return state
     
         case ActionTypes.WRITE_QNABOARD_SUCCESS:
 

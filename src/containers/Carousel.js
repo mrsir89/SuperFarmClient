@@ -8,7 +8,7 @@ function Carousel(props) {
   return (
     <div className={className} >
       
-      <h1>
+      <h1 >
       {srbtitle}
         <br/>
         <strong>{title}</strong>

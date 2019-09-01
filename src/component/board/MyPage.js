@@ -6,11 +6,11 @@ import Login from '../login/Login';
 class MyPage extends React.Component {
 
 //  추후에 로그인 후 로그아웃으로 스위치
-// logout() {
-//     localStorage.clear();
-//     window.location.href = '/';
+logout() {
+    localStorage.clear();
+    window.location.href = '/';
     
-// }
+}
 
     render() {
         const { userDetails } = this.props;

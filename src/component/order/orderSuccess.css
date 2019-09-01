@@ -1,0 +1,25 @@
+.payment{
+    /* background-color: yellow; */
+    background-image: url(http://localhost:3000/image/카카오페이결제.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width:600px;
+    height:800px;
+    
+}
+.payFont{
+    position: relative;
+    top:550px;
+}
+.paytable{
+    border: none;
+    background-color: currentColor;
+    position: relative;
+    top:580px;
+}
+.tg{
+    border:none;
+    background-color:unset;
+
+}

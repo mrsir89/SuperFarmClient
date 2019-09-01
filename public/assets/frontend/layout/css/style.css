@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+
+
 /*   
 Template Name: Metronic - Responsive Website Template build with Twitter Bootstrap 3.1.1
 */
@@ -18,10 +21,11 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 10px;
 }
 h1 {
-	margin-bottom: 15px;
+	margin-bottom: 10px;
+
 }
 .main h1 {
-	margin-top: -6px;
+	margin-top: 10px;
 }
 
 /***
@@ -137,6 +141,9 @@ Misc tools
 
 .margin-top-10 {
 	margin-top: 10px !important;
+}
+.margin-top-70 {
+	margin-top: 70px !important;
 }
 
 .margin-left-0 {
@@ -422,14 +429,15 @@ Pre-Header and pre-header elements
 Header and header elements
 ***/
 .header {
-	box-shadow: 0 1px 3px #ddd;		
-	background: #fff;
-	border-radius: 0;
-	margin-bottom: 23px;
-	z-index: 999;
-	position: relative;
+	box-shadow: 0 1px 3px #ddd;
+    border-radius: 0;
+    margin-bottom: 23px;
+    z-index: 999;
+    position: fixed;
+    width: 100%;
 }
-
+.header.scroll { background: #fff; }
+.header.scroll .header-navigation li.menu-search i { color: #333;}
 /* FIX styles BEGIN */
 .page-header-fixed .header {
 	position: fixed !important;
@@ -454,11 +462,11 @@ body.page-header-fixed {
   float: left;
   font-size: 23px;
   font-weight: 400;
-
   margin-right: 67px;
-  padding-top: 22px;
-  padding-bottom: 22px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
+.site-logo img { width: 130px; }
 
 .header .mobi-toggler {
   float: right;
@@ -496,12 +504,19 @@ body.page-header-fixed {
 }
 .header-navigation > ul > li {
 	float: left;
+	margin-left: 20px;
 }
+.header-navigation > ul > li:first-child { margin-left: 0px; }
 .header-navigation > ul > li > a {
-	color: #333;
-	display: block;	
-	padding: 29px 12px 30px;
+	font-weight: bold;
+    color: #fff;
+    display: block;
+    line-height: 85px;
+    padding: 0px 15px;
+    font-size: 18px;
 }
+.header.scroll .header-navigation > ul > li > a { color: #333; }
+
 .header-navigation ul > li.active > a,
 .header-navigation ul > li > a:hover,
 .header-navigation ul > li > a:focus,
@@ -691,23 +706,23 @@ body.page-header-fixed {
 /* Top Search */
 .header-navigation li.menu-search {
 	position: relative;
-	top: 26px;
+	top: 35px;
 }
 .header-navigation li.menu-search span.sep {
 	top: 0;
 	width: 1px;
-	height: 26px;
+	height: 16px;
 	background: #eaeaea;
 	position: relative;
 	margin: 0 18px 0 16px;
 	display: inline-block;
 }
 .header-navigation li.menu-search i {
-	color: #333;
+	color: #fff;
 	font-size: 16px;
 	cursor: pointer;
 	position: relative;
-	top: -6px;
+	top: -3px;
 	/*background: url(../img/icons/top-search-icon.png) no-repeat;*/
 	width: 15px;
 	height: 15px;
@@ -721,8 +736,8 @@ body.page-header-fixed {
 	content: none;
 }*/
 .header-navigation .search-box {
-	right: -7px;
-	top: 100%;
+	right: -10px;
+    top: 30px;
 	padding: 15px;
 	display: none;
 	background: #fcfafb;
@@ -760,7 +775,7 @@ body.page-header-fixed {
 	-ms-transition: all 0.1s ease;
 	-moz-transition: all 0.1s ease;
 	-webkit-transition: all 0.1s ease;
-}*/
+}
 .reduce-header .site-logo {
 	padding-top: 9px;
 	padding-bottom: 11px;
@@ -782,6 +797,7 @@ body.page-header-fixed {
 .reduce-header .mobi-toggler {
 	margin-top: 12px;
 }
+*/
 .page-header-fixed .header .mobi-toggler {
  	transition: margin 0.3s ease;
 	-o-transition: margin 0.3s ease;

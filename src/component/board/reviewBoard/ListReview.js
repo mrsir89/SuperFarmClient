@@ -4,30 +4,34 @@ import Accordion from "./Accordion";
 import { bindActionCreators } from 'redux';
 import { Actions } from '../../../actions/index';
 import './ListReview.css';
+import { findRepos } from 'jest-changed-files';
 
 
 class ListReview extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(' 여기 확인 ',this.props)
+    console.log(' 여기 확인 ', this.props)
+    const { userDetails } = this.props
     this.state = {
+      userDetails: userDetails,
       reviewBoards: [],
-      productBoardNum :props.productBoardNum
+      productBoardNum: this.props.productBoardNum
     }
-    console.log(this.props,'  props 확인 ')
+    console.log(this.props, '  props 확인 ')
   }
+
   // 시작시 reviewBoards를 가져 온다.
   componentWillMount() {
-
-    this._getreviewBoards('productBoard',this.props.productBoardNum,10,1);
+    this._getreviewBoards('productBoard', this.props.productBoardNum, 10, 1);
   }
+  
   // getreviewBoards Action 여기서 리뷰보드 리스트 가져오는거 실행
   // type product 일때는 Type =productBoard  id= productBoard 번호
   // size 는 기본값 10 page 는 기본값 1
-  _getreviewBoards(type, id, size,page){
+  _getreviewBoards(type, id, size, page) {
     const { getReviews } = this.props;
-    getReviews(type,id,size,page);
+    getReviews(type, id, size, page);
     console.log("this.props>>>>>>>>>>>>>>>>>>>", this.props)
   }
   _renderAllReviews = () => {
@@ -37,63 +41,73 @@ class ListReview extends React.Component {
     var reviewItems = [];
 
     if (items !== undefined && items !== null) {
-      return(
-      reviewItems = items.map(review =>
-        <Accordion key={review.reviewBoardsNum} review={review} />
-      ))
-    }else{
-      return(
+      return (
+        reviewItems = items.map(review =>
+          <Accordion key={review.reviewBoardsNum} review={review} />
+        ))
+    } else {
+      return (
         <div>
-          <br/> 현재 작성된 리뷰 게시물이 없습니다.
+          <br /> 현재 작성된 리뷰 게시물이 없습니다.
         </div>
-      ) 
+      )
 
     }
   }
-  _addReview(){
-    window.open('/review/write', 'Review  작성', 'width=430,height=500,location=no,status=no,scrollbars=yes')
+
+  _addReview=() => {
+
+    const { userDetails } = this.props
+    const isLogin = userDetails;
+
+    if (isLogin !== null && isLogin !== undefined) {
+      window.open(`/review/write/${this.state.productBoardNum}`, 'Review  작성', 'width=400,height=500,location=no,status=no,scrollbars=yes')
+    }else{
+      return alert(' 로그인 후 이용해 주세요')
+    }
   }
   // 다음 페이지 
-  _nextPage = () =>{
+  _nextPage = () => {
     console.log('Next Page 작동')
     const { reviewBoard } = this.props;
-    console.log('NextPage ',reviewBoard)
-    
+    console.log('NextPage ', reviewBoard)
+
     let hasNextPage = reviewBoard.hasNext;
-    console.log('hasNext',hasNextPage, )
+    console.log('hasNext', hasNextPage)
 
     var page = reviewBoard.page
     var size = reviewBoard.size
     let productBoardNum = reviewBoard.boardNum
 
-    if(hasNextPage === true){
-      page = page +1;
-      console.log( page, '실제 다음페이지가 있을떄 작동');
-      this._getreviewBoards('productBoard',productBoardNum,size,page)
-    }else{
+    if (hasNextPage === true) {
+      page = page + 1;
+      console.log(page, '실제 다음페이지가 있을떄 작동');
+      this._getreviewBoards('productBoard', productBoardNum, size, page)
+    } else {
       alert('마지막 페이지 입니다.')
-    }    
+    }
   }
+
   // 이전 페이지
-  _prevPage = () =>{
-    
+  _prevPage = () => {
+
     console.log('Prev Page 작동')
     const { reviewBoard } = this.props;
-    console.log('NextPage ',reviewBoard)
-    
+    console.log('NextPage ', reviewBoard)
+
     let hasNextPage = reviewBoard.hasNext;
-    console.log('hasNext',hasNextPage, )
+    console.log('hasNext', hasNextPage)
     var page = reviewBoard.page
     var size = reviewBoard.size
     let productBoardNum = reviewBoard.boardNum
 
-    if(page > 1 ){
+    if (page > 1) {
       page = page - 1;
-      console.log( page, '실제 다음페이지가 있을떄 작동');
-      this._getreviewBoards('productBoard',productBoardNum,size,page)
-    }else{
+      console.log(page, '실제 다음페이지가 있을떄 작동');
+      this._getreviewBoards('productBoard', productBoardNum, size, page)
+    } else {
       alert('첫 페이지 입니다.')
-    }    
+    }
 
   }
 
@@ -104,7 +118,7 @@ class ListReview extends React.Component {
       <div className="content">
         <h2> 리뷰 게시판</h2>
         <table className="tg" >
-        {this._renderAllReviews()}
+          {this._renderAllReviews()}
         </table>
         <div className="div1">
           <div >
@@ -131,15 +145,17 @@ function mapStateToProps(state) {
   console.log(state, ' mapStateToProps state')
   const { board } = state;
   const { reviewBoard } = board
+  const { userDetails } = state.auth
   // const {items} = reviewBoards
   console.log('mpaStateToProps', reviewBoard)
-    return {
-      reviewBoard
+  return {
+    reviewBoard,
+    userDetails
   };
 }
 
-const mapDispatchToProps=(dispatch)=>({
-    getReviews: (product,id,size,page ) => dispatch(Actions.getReviews(product,id,size,page)),
-    removeReview:() => dispatch(Actions.removeReview())
+const mapDispatchToProps = (dispatch) => ({
+  getReviews: (product, id, size, page) => dispatch(Actions.getReviews(product, id, size, page)),
+  removeReview: () => dispatch(Actions.removeReview())
 })
 export default connect(mapStateToProps, mapDispatchToProps)(ListReview);
