@@ -13,7 +13,7 @@ function ProductItem(props) {
   return (
 
     <li className="product-best-item product-bot-item">
-      <a href="#none">
+      <a href={`/product/${props.productBoardNum}`}>
         <div className="product-best-item--thumb">
           <img src={props.item.productBoardThumbnail} />
         </div>
@@ -25,7 +25,7 @@ function ProductItem(props) {
             {props.item.productBoardTitle}
           </div>
           <div className="product-best-item--price">
-            <span className="price">{numberWithCommas(props.item.productList[0].productPrice)}</span>원
+            <span className="price">{numberWithCommas(props.item.productPrice)}</span>원
                   </div>
         </div>
       </a>

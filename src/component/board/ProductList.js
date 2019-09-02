@@ -14,7 +14,7 @@ class ProductList extends React.Component {
     super(props);
     this.state = {
       productBoard: [],
-      
+
     }
   }
 
@@ -25,9 +25,9 @@ class ProductList extends React.Component {
     const lowerId = this.props.match.params.id;
     console.log("lowerId >>>>>>>>>>>", lowerId);
     loadProductList('lower', lowerId)
-    .then (response => {
-      console.log("=======response========", response)
-    });
+      .then(response => {
+        console.log("=======response========", response)
+      });
 
   }
 
@@ -61,7 +61,7 @@ class ProductList extends React.Component {
             알 수 없음
           </dt>
           <dd className="sidebar-menu">
-           알 수 없음 
+            알 수 없음
           </dd>
         </dl>
       )
@@ -69,20 +69,20 @@ class ProductList extends React.Component {
 
   }
 
-  _returnBestProduct =() =>{
+  _returnBestProduct = () => {
     const { productBoard } = this.props;
-    console.log(productBoard,' map 들어가기전')
+    console.log(productBoard, ' map 들어가기전')
     var bestProduct = []
-    if(productBoard !== null && productBoard !== undefined){
-        bestProduct = productBoard.map(productBoard => {
-        if(productBoard.productBoardBest >0){
-            return productBoard;
+    if (productBoard !== null && productBoard !== undefined) {
+      bestProduct = productBoard.map(productBoard => {
+        if (productBoard.productBoardBest > 0) {
+          return productBoard;
         }
-        })
-    }else{
-        return null
+      })
+    } else {
+      return null
     }
-    console.log('best 상품 보자',bestProduct)
+    console.log('best 상품 보자', bestProduct)
   }
 
   _renderAllProducts = () => {
@@ -109,20 +109,20 @@ class ProductList extends React.Component {
     return productItems
 
   }// _renderAllproducts end
-  _bestOneProduct=()=>{
+  _bestOneProduct = () => {
     const { mainBest } = this.props;
-    
-  }  
+
+  }
   render() {
-    const {category, productBoard}= this.props;
-    
+    const { category, productBoard } = this.props;
+
     // const upper =  productBoard[0].upperCode ;
     // const upperCategories = category[upper-1];
-    
+
     return (
       <div className="product">
         {/* best 상품 */}
-         <div className="product-top">
+        <div className="product-top">
           <ul className="product-best">
 
 
@@ -132,9 +132,9 @@ class ProductList extends React.Component {
                   best1
                 </div>
                 <div className="product-best-item--thumb">
-                <img src="https://placeimg.com/280/280/nature/sepia" />
-                
-              </div>
+                  <img src="https://placeimg.com/280/280/nature/sepia" />
+
+                </div>
                 <div className="product-best-item--info">
                   <div className="product-best-item--icon">
                     <p className="icon">아이콘</p>
@@ -164,8 +164,8 @@ class ProductList extends React.Component {
             {/* 필터 */}
             <div className="product-total">
               <div className="product-total-bar">
-                <span className="total-item">현재 </span> 
-                    카테고리 내 
+                <span className="total-item">현재 </span>
+                카테고리 내
                 <span className="total-count"> {productBoard.length}</span>개의 상품이 있습니다.
               </div>
               <div className="product-filter">

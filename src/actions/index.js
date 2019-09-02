@@ -572,7 +572,7 @@ const loadMainBestProduct =() =>{
     payload:{
       request :{
         method:'POST',
-        url:'/product/main'
+        url:'/productBoard/main'
       }
     }
   })
@@ -582,8 +582,24 @@ const loadMainBestProduct =() =>{
 const loadProductList = (type, id) => {
   console.log('Action loadProductList')
   const formData = new FormData();
-  let url = '/product/lower'
-  formData.append('lower',id)
+  let url = '/productBoard'
+  if(type==='lower'){
+    formData.append('lower',id)
+    formData.append('upper',null)
+    formData.append('search',null)
+  }else if(type==='upper'){
+    formData.append('lower',null)
+    formData.append('upper',id)
+    formData.append('search',null)
+  }else if(type==='search'){
+    formData.append('lower',null)
+    formData.append('upper',null)
+    formData.append('search',id)
+  }else if(type==='all'){
+    formData.append('lower',null)
+    formData.append('upper',null)
+    formData.append('search',null)
+  }
   return ({
     type: ActionTypes.LOAD_PRODUCTLIST,
     payload: {
@@ -606,7 +622,7 @@ const loadProductDetails = (productBoardNum) => {
     payload: {
       request: {
         method: 'POST',
-        url: '/product/productDetail',
+        url: '/productBoard/detail',
         data: formData
       }
     }

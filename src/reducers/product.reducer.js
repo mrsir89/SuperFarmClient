@@ -40,7 +40,16 @@ const productReducer = (state = initialStateProduct, action) => {
             return state;
 
         case ActionTypes.LOAD_LOWER_PRODUCTLIST_SUCCESS:
-
+            console.log('ActionType.Load_Lower_productLIst')
+            if(payload !== undefined && payload !== null){
+                const { data } = payload;
+                if(data !== undefined && data !== null){
+                    return{
+                        ...state,
+                        productBoard:data
+                    }
+                }
+            }
 
         // 카테고리 불러오기 
         case ActionTypes.GET_CATEGORIES_SUCCESS:
