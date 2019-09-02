@@ -8,13 +8,15 @@ import { ActionTypes } from '../contants';
 const initialStateProduct = {
     productBoardDetail:{},
     productBoard: [],
-    category: []
+    category: [],
+    mainBest:[],
+
 };
 
 
 // 추후 authentication reducer와 같은 방식(axios middleware)으로 바꿀 예정
 const productReducer = (state = initialStateProduct, action) => {
-    const { productBoard, cartlist } = state;
+    const { productBoard, cartlist,category, mainBest} = state;
     const { payload } = action;
     console.log('productReducer',state)
     switch (action.type) {
@@ -53,41 +55,7 @@ const productReducer = (state = initialStateProduct, action) => {
                 }
             }
             return state;
-        // case ActionTypes.GET_CATEGORIES:
-        //     console.log('ActionType.CategorySuccess')
-
-        //     return {
-        //         ...state,
-        //         category : 
-        //     }
-
-
-        // case ActionTypes.LOAD_QNABOARDLIST_SUCCESS:
-        //     if (payload !== undefined && payload !== null) {
-        //         const { data } = payload
-        //         console.log(data, 'ActionTypes.LOAD_QNABOARDLIST_SUCCESS')
-        //         return {
-        //             qnaBoard: {
-        //                 data
-        //             }
-        //         }
-        //     }
-        //     else
-        //         return state;
-        // case ActionTypes.WRITE_QNABOARD_SUCCESS:
-        //     if (payload !== undefined && payload !== null) {
-        //         const { data } = payload
-        //         console.log(data, 'ActionTypes.WRITE_QNABOARD_SUCCESS')
-        //         return {
-        //             ...state,
-        //             qnaBoard: {
-        //                 data
-        //             }
-        //         }
-        //     }
-        //     else
-        //         return state;
-
+  
         case ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS:
             console.log('ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS',payload.data)
             if(payload !== undefined && payload !== null){
@@ -100,6 +68,22 @@ const productReducer = (state = initialStateProduct, action) => {
                 }
             }
             return state;  
+        
+        case ActionTypes.LOAD_MAINBESTPRODUCT_SUCCESS:
+            console.log('ActionTypes LOAD_MAINBESTPRODUCT_SUCCESS')
+            if(payload !== undefined && payload !== null){
+                const { data } = payload;
+                if( data !== undefined && data !== null){
+                    return{
+                        ...state,
+                        mainBest:data
+                    }
+                }else{
+                    return{
+                        ...state
+                    }
+                }
+            }
         default:
             return state;           
     }

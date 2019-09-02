@@ -46,7 +46,9 @@ class orderSuccess extends React.Component{
         // window.location.href='_redirect()';
         
     }
-
+    _numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
     render(){
         console.log(this.props,' 여기는 render')
         const{ order } = this.props
@@ -55,7 +57,7 @@ class orderSuccess extends React.Component{
           return(
             <div className="payment">
                 <div className="payFont" align="center">
-               <button type="button" className="btn btn-outline-secondary" onClick={this._orderCheck}><h1>결제</h1></button>
+               <button type="button" className="btn btn-warning" onClick={this._orderCheck}><h1>결제</h1></button>
                <br/>
                </div>
                 <div className="paytable">
@@ -69,7 +71,7 @@ class orderSuccess extends React.Component{
                         </tr>
                         <tr>
                             <td>결제금액 : </td>
-                            <td>{orderList.Totalprice}</td>
+                            <td>{this._numberWithCommas(orderList.TotalPrice)}원</td>
                         </tr>
                     </tbody>
                 </table>

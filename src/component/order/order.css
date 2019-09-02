@@ -205,3 +205,6 @@
     -moz-appearance: none;
     appearance: none;
 }
+.mainDiv{
+    width:1200px;
+}

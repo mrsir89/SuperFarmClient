@@ -31,7 +31,7 @@ a:hover {
 .product-best {
     display: flex;
     justify-content: space-evenly;
-    padding: 30px 0;
+    padding: 80px 0;
 }
 
 .product-best-item {
@@ -48,7 +48,7 @@ a:hover {
     font-weight: 600;
     color: #fff;
     background: #000;
-    background: orange;
+    background: red;
 
 }
 

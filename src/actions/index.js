@@ -563,6 +563,21 @@ const removeCartAll= (userNum) =>{
 /////////////////////////////////////////////////////////////////
 ///////////   productBoard   ////////////////////////////////////
 
+
+//Main 화면 Best 상품만 가져오기
+
+const loadMainBestProduct =() =>{
+  return({
+    type:ActionTypes.LOAD_MAINBESTPRODUCT,
+    payload:{
+      request :{
+        method:'POST',
+        url:'/product/main'
+      }
+    }
+  })
+}
+
 // 0810 DB에 있는 상품 데이터 가져오는 action => axios 타입 action으로 변경 
 const loadProductList = (type, id) => {
   console.log('Action loadProductList')
@@ -581,7 +596,7 @@ const loadProductList = (type, id) => {
   })
 };
 
-
+// 상품 상세 정보 가져오기
 const loadProductDetails = (productBoardNum) => {
 
   const formData = new FormData();
@@ -597,6 +612,8 @@ const loadProductDetails = (productBoardNum) => {
     }
   });
 };
+
+
 
 /////////////////////////////////////////////////////////////////
 ///////////   Category       ////////////////////////////////////
@@ -681,11 +698,6 @@ const orderList =(orderList) =>{
 }
 
 
-// const getCategories = () => {
-//   return ({
-//     type: ActionTypes.GET_CATEGORIES
-//   })
-// }
 
 //////////////////////////////////////////////////////////
 ///        비동기 처리를 위한 Action
@@ -709,7 +721,7 @@ export const Actions = {
   login, logout, getClientToken,refreshToken,
   writeQnABoard,
   addCart,
-  loadProductList, loadProductDetails,
+  loadProductList, loadProductDetails, loadMainBestProduct,
   getCategories, getCartByUser,removeCartById,editCartQty, removeCartAll,
   loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,
   loadNoticeBoard,

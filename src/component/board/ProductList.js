@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Actions } from '../../actions/index';
 import { connect } from 'react-redux';
 import './ProductList.css';
+import { Z_FILTERED } from 'zlib';
 
 
 // 제품 전체 리스트 페이지 
@@ -108,18 +109,20 @@ class ProductList extends React.Component {
     return productItems
 
   }// _renderAllproducts end
-  
+  _bestOneProduct=()=>{
+    const { mainBest } = this.props;
+    
+  }  
   render() {
     const {category, productBoard}= this.props;
-
+    
     // const upper =  productBoard[0].upperCode ;
     // const upperCategories = category[upper-1];
-
+    
     return (
       <div className="product">
-
         {/* best 상품 */}
-        <div className="product-top">
+         <div className="product-top">
           <ul className="product-best">
 
 
@@ -129,14 +132,15 @@ class ProductList extends React.Component {
                   best1
                 </div>
                 <div className="product-best-item--thumb">
-                  <img src="https://placeimg.com/280/280/nature/sepia" />
-                </div>
+                <img src="https://placeimg.com/280/280/nature/sepia" />
+                
+              </div>
                 <div className="product-best-item--info">
                   <div className="product-best-item--icon">
                     <p className="icon">아이콘</p>
                   </div>
                   <div className="product-best-item--title">
-                    내용입력
+                    여기
                   </div>
                   <div className="product-best-item--price">
                     <span className="price">30,000</span> 원
@@ -148,7 +152,6 @@ class ProductList extends React.Component {
 
           </ul>
         </div>
-
 
         {/* Sidebar */}
         <div className="product-bot">
@@ -194,9 +197,11 @@ class ProductList extends React.Component {
 function mapStateToProps(state) {
   const { product } = state;
   const { productBoard, category } = product;
+  const { mainBest } = product;
   return {
     productBoard,
-    category
+    category,
+    mainBest
   };
 }
 

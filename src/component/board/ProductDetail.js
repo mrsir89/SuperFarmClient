@@ -185,7 +185,11 @@ class ProductDetail extends React.Component {
       
    }
    
-
+//숫자 통화 표시
+_numberWithCommas(x) {
+   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+ }
+ 
    // TODO : userDetails가 없을 경우 에러 처리해줘야함 
    render() {
       console.log('r e n d e r 시작', this.props)
@@ -267,7 +271,7 @@ class ProductDetail extends React.Component {
                                     <th scope="row">가격</th>
                                     <td><strong> 
                                     {/* {(this.state.tmpOption1 !==null && this.state.tmpOption2 !==null)? */}
-                                       {this.state.totalPrice} 
+                                       {this._numberWithCommas(this.state.totalPrice)}원
                                        {/* : 0} */}
                                     </strong></td>
                                  </tr>

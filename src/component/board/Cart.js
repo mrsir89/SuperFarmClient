@@ -177,6 +177,10 @@ class Cart extends React.Component {
       TotalPrice: TotalPrice
     })
   }
+  //숫자 통화 표시
+  _numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   render() {
     const { cartlist } = this.props;
@@ -252,12 +256,12 @@ class Cart extends React.Component {
 
                                 {/* 단가 */}
                                 <td className="goods-page-price">
-                                  <strong>{cartProductPrice}</strong>
+                                  <strong>{this._numberWithCommas(cartProductPrice)}</strong>원
                                 </td>
 
                                 {/* 가격 */}
                                 <td className="goods-page-total">
-                                  <strong>{cartProductPrice * (cartProductCount)}</strong>
+                                  <strong>{this._numberWithCommas(cartProductPrice * (cartProductCount))}</strong>원
                                 </td>
 
                                 {/* 삭제 */}
@@ -276,16 +280,16 @@ class Cart extends React.Component {
                   <div className="shopping-total">
                     <ul>
                       <li>
-                        <em>Sub total</em>
-                        <strong className="price">{this.state.SubPrice}<span>원</span></strong>
+                        <em>상품금액</em>
+                        <strong className="price">{this._numberWithCommas(this.state.SubPrice)}<span>원</span></strong>
                       </li>
                       <li>
-                        <em>Shipping cost</em>
-                        <strong className="price">{this.state.shippingPrice}<span>원</span></strong>
+                        <em>배송비</em>
+                        <strong className="price">{this._numberWithCommas(this.state.shippingPrice)}<span>원</span></strong>
                       </li>
                       <li className="shopping-total-price">
-                        <em>Total</em>
-                        <strong className="price" onChange={this._test}>{this.state.TotalPrice}<span>원</span></strong>
+                        <em>총금액</em>
+                        <strong className="price" onChange={this._test}>{this._numberWithCommas(this.state.TotalPrice)}<span>원</span></strong>
                       </li>
                     </ul>
                   </div>

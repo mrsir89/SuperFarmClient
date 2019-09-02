@@ -43,8 +43,6 @@ const onErrorHandler = ({ action, next, error, getState, dispatch }, options) =>
                 // .then(response => <Redirect to='/login' />);
                 //<Redirect to='/login' />
             
-            
-            
         } else {
             console.log("onErrorHandler에서 action")
             return dispatch(Actions.refreshToken(token.refresh_token))

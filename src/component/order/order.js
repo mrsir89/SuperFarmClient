@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Actions } from '../../actions/index';
 import './order.css';
 import { ActionTypes } from '../../contants';
-import { Redirect}  from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 
 // 1순서
@@ -83,7 +83,7 @@ class order extends React.Component {
         console.log(props, ' constructor props')
         if (userDetails === null || userDetails === undefined) {
             alert('잘못된 접근입니다')
-            
+
         }
         super(props)
         this.state = {
@@ -93,12 +93,12 @@ class order extends React.Component {
             shippingReceiver: '',
             deliveryAddress: '',
             paymentMethod: {
-                kakaoPay:true,
-                bank:false,
-                creditCard:false,
-                naverPay:false
+                kakaoPay: true,
+                bank: false,
+                creditCard: false,
+                naverPay: false
             },
-            finalCheck:false,
+            finalCheck: false,
             productCode: '',
             SubPrice: orderList.SubPrice,
             orderTotalPrice: orderList.TotalPrice,
@@ -166,8 +166,8 @@ class order extends React.Component {
 
     _checkOut = () => {
 
-        if(!this._inputCheck() ){
-            return 
+        if (!this._inputCheck()) {
+            return
         }
         const { checkoutOrder } = this.props
         const { removeCartAll } = this.props
@@ -208,15 +208,18 @@ class order extends React.Component {
     _inputCheck() {
 
         if (this.state.shippingReceiver === null || this.state.shippingReceiver === undefined ||
-            this.state.shippingReceiver ==='') {
+            this.state.shippingReceiver === '') {
             alert('받으실 분이 누락 되었습니다.')
             return false
         } else if (this.state.deliveryAddress === null || this.state.deliveryAddress === undefined ||
-            this.state.deliveryAddress==='') {
+            this.state.deliveryAddress === '') {
             alert('주소가 누락 되었습니다.')
             return false
         } else if (this.state.phone1 === null || this.state.phone2 === null || this.state.phone3 === null) {
             alert('전화번호가 누락 되었습니다.')
+            return false
+        } else if(this.state.finalCheck === false){
+            alert('결제 정보 확인을 체크해주세요')
             return false
         } else {
             return true
@@ -262,7 +265,7 @@ class order extends React.Component {
             }
         }).then(response => {
             if (response !== null && response !== undefined) {
-                removeCartAll(this.state.userNum) 
+                removeCartAll(this.state.userNum)
             }
         });
     }
@@ -274,16 +277,23 @@ class order extends React.Component {
         // obj[event.target.value] = event.target.checked
         console.log('paymentCheck  : ', this.state)
         this.setState({
-            paymentMethod:{
-                [name] : event.target.checked
+            paymentMethod: {
+                [name]: event.target.checked
             }
-            
+
         })
     }
-    __finalCheck=(event)=>{
+    _finalCheck = (event) => {
         console.log(' 체크 박스 확인 ')
         const { target: { checked } } = event;
-        this.setState({ checked });
+        this.setState({ 
+            finalCheck:!(this.state.finalCheck)
+        });
+        console.log(this.state.finalCheck,'finalCheck')
+    }
+    //숫자 통화 표시
+    _numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
 
@@ -294,17 +304,17 @@ class order extends React.Component {
         var phoneArray = this._phoneNumber(userDetails.position.customerPhone)
 
         return (
-            <div>
+            <div className="mainDiv">
                 {/* 구매하려는 상품 목록 표시  */}
                 <table className="tg" >
                     <tbody>
                         <tr height="50px"></tr>
                         <tr>
-                            <th className="goods-page-image" width="20%">제품</th>
-                            <th className="goods-page-description" width="20%">제품 목록</th>
-                            <th className="goods-page-quantity" width="20%">수량</th>
-                            <th className="goods-page-price" width="20%">단가</th>
-                            <th className="goods-page-total" width="20%">가격 </th>
+                            <th className="goods-page-image" width="20%"><center>제품</center></th>
+                            <th className="goods-page-description" width="20%"><center>제품 목록</center></th>
+                            <th className="goods-page-quantity" width="20%"><center>수량</center></th>
+                            <th className="goods-page-price" width="20%"><center>단가</center></th>
+                            <th className="goods-page-total" width="20%" ><center>가격</center> </th>
                         </tr>
 
                         {/* --------------------------------------------------------------------------------------------------------------------------- */}
@@ -338,13 +348,13 @@ class order extends React.Component {
 
                                         {/* 단가 */}
                                         <td className="goods-page-price" width="20%">
-                                            <strong>{cartProductPrice}</strong>
-                                        </td>
+                                            <strong>{this._numberWithCommas(cartProductPrice)}</strong>원
+                                    </td>
 
                                         {/* 가격 */}
-                                        <td className="goods-page-total" width="20%">
-                                            <strong>{cartProductPrice * (cartProductCount)}</strong>
-                                        </td>
+                                        <td className="goods-page-total" width="20%" align='center'>
+                                            <strong>{this._numberWithCommas(cartProductPrice * (cartProductCount))}</strong>원
+                                    </td>
                                     </tr>
                                 );
                             })}
@@ -373,7 +383,7 @@ class order extends React.Component {
                                 </td>
                                 <td className="tg-m9fq" colSpan="7" >
 
-                                    <input  type="text" size="10" value={emailArray[0]} />&nbsp;
+                                    <input type="text" size="10" value={emailArray[0]} />&nbsp;
                                     @&nbsp;&nbsp;&nbsp;
                                     <input type="text" size="10" value={emailArray[1]} />&nbsp;&nbsp;
 
@@ -389,7 +399,7 @@ class order extends React.Component {
                                     <input type="text" size="4" value={phoneArray[2]} />
                                 </td>
                             </tr>
-                      
+
                             <tr className="tg-default" height="40px">
                                 <td className="tg-default" colSpan="20">
 
@@ -558,27 +568,27 @@ class order extends React.Component {
                             </tr>
                             <tr>
                                 <td className="tg-nrit" colSpan="3">
-                                    {this.state.SubPrice}
+                                    {this._numberWithCommas(this.state.SubPrice)}원
                                 </td>
                                 <td className="tg-nrit" colSpan="2">
                                     +
                             </td>
                                 <td className="tg-nrit" colSpan="4">
-                                    {this.state.shippingPrice}
+                                    {this._numberWithCommas(this.state.shippingPrice)}원
                                 </td>
                                 <td className="tg-nrit" colSpan="3">
                                     -
                             </td>
                                 <td className="tg-nrit" colSpan="2">
-                                    0
+                                    0원
                             </td>
 
                                 <td className="tg-nrit" colSpan="2">
                                     =
                             </td>
                                 <td className="tg-nrit" colSpan="4">
-                                    {this.state.orderTotalPrice}
-                                </td>
+                                    {this._numberWithCommas(this.state.orderTotalPrice)}원
+                            </td>
                             </tr>
                             <tr height="50px">
                                 <td className="tg-default" colSpan="20"></td>
@@ -602,25 +612,25 @@ class order extends React.Component {
                                 <td className="tg-payCheck" colSpan="16">
 
                                     &nbsp;<input type="radio" value="bank" name="paymentMethod"
-                                        checked= {this.state.paymentMethod['bank']} 
+                                        checked={this.state.paymentMethod['bank']}
                                         onChange={this._paymentCheck} />무통장입금 <br /><br />
-                                    &nbsp;<input type="radio"  name="paymentMethod" value="kakaopay"
-                                        checked={this.state.paymentMethod['kakaoPay']} 
+                                    &nbsp;<input type="radio" name="paymentMethod" value="kakaopay"
+                                        checked={this.state.paymentMethod['kakaoPay']}
                                         onChange={this._paymentCheck} />카카오페이 <br /><br />
-                                    &nbsp;<input type="radio" name="paymentMethod" value="creditCard" 
-                                        checked={this.state.paymentMethod['creditCard']} 
+                                    &nbsp;<input type="radio" name="paymentMethod" value="creditCard"
+                                        checked={this.state.paymentMethod['creditCard']}
                                         onChange={this._paymentCheck} />신용카드 <br /><br />
-                                    &nbsp;<input type="radio" name="paymentMethod" value="naverPay" 
-                                        checked={this.state.paymentMethod['naverPay']} 
+                                    &nbsp;<input type="radio" name="paymentMethod" value="naverPay"
+                                        checked={this.state.paymentMethod['naverPay']}
                                         onChange={this._paymentCheck} />네이버페이 <br /><br />
 
                                 </td>
                             </tr>
                             <tr>
                                 <td className="tg-nrix" colSpan="20">
-                                    {this.state.paymentMethod.kakaoPay===true?'카카오페이':''}
+                                    {this.state.paymentMethod.kakaoPay === true ? '카카오페이' : ''}
 
-                            </td>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -636,8 +646,8 @@ class order extends React.Component {
                             </td>
                                 <td className="tg-lastCheck" colSpan="16">
                                     <input type="checkbox" name="finalCheck"
-                                     checked={this.state.finalCheck}
-                                     onChange={this._finalCheck} /> 상기 결제정보를 확인하였으며, 구매진행에 동의합니다.
+                                        checked={this.state.finalCheck}
+                                        onClick={this._finalCheck} /> 상기 결제정보를 확인하였으며, 구매진행에 동의합니다.
                             </td>
                             </tr>
                             <tr>
@@ -645,9 +655,9 @@ class order extends React.Component {
                                     최종 결제금액
                             </td>
                                 <td className="tg-lastCheck" colSpan="16">
-                                    <h3><b> {this.state.orderTotalPrice} 원</b></h3>
-                                    
-                            </td>
+                                    <h3><b> {this._numberWithCommas(this.state.orderTotalPrice)} 원</b></h3>
+
+                                </td>
                             </tr>
                             <tr height="40px">
 
@@ -659,7 +669,7 @@ class order extends React.Component {
                         <tbody>
                             <tr className="orderClick">
                                 <td className="orderClick">
-                                    <input type="button"  value="주문하기" onClick={this._checkOut} className="submitButton" />
+                                    <input type="button" value="주문하기" onClick={this._checkOut} className="submitButton" />
                                     &nbsp;&nbsp;
                                 <button type="reset" value="취소" className="submitcancel" onClick={this._checkOut}>취소</button>
                                 </td>
@@ -680,11 +690,11 @@ const mapStateToProps = (state) => {
     const { auth } = state;
     const { userDetails } = auth;
     const { order } = state;
-     
+
     return {
         userDetails,
         order
-        
+
     }
 
 }

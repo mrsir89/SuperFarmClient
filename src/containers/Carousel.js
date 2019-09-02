@@ -3,7 +3,7 @@ import CarouselItem from './CarouselItem';
 
 function Carousel(props) {
   const { className, carouselName, title, items,srbtitle } = props;
-  console.log('props >>>>>>>>>>>>>>>>>>>>>>>>>', props);
+  console.log('props >>>>>>>>>>>>>>>>>>>>>>>>> CAROUSEl', props);
 
   return (
     <div className={className} >
