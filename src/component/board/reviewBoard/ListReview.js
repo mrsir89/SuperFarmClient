@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Accordion from "./Accordion";
-import { bindActionCreators } from 'redux';
 import { Actions } from '../../../actions/index';
 import './ListReview.css';
-import { findRepos } from 'jest-changed-files';
+import AddReview from './AddReview';
 
 
 class ListReview extends React.Component {
@@ -22,10 +21,10 @@ class ListReview extends React.Component {
   }
 
   // 시작시 reviewBoards를 가져 온다.
-  componentWillMount() {
-    this._getreviewBoards('productBoard', this.props.productBoardNum, 10, 1);
-  }
-  
+  // componentWillMount() {
+  //   this._getreviewBoards('productBoard', this.props.productBoardNum, 10, 1);
+  // }
+
   // getreviewBoards Action 여기서 리뷰보드 리스트 가져오는거 실행
   // type product 일때는 Type =productBoard  id= productBoard 번호
   // size 는 기본값 10 page 는 기본값 1
@@ -55,14 +54,15 @@ class ListReview extends React.Component {
     }
   }
 
-  _addReview=() => {
+  _addReview = () => {
 
     const { userDetails } = this.props
     const isLogin = userDetails;
 
     if (isLogin !== null && isLogin !== undefined) {
-      window.open(`/review/write/${this.state.productBoardNum}`, 'Review  작성', 'width=400,height=500,location=no,status=no,scrollbars=yes')
-    }else{
+
+      window.open(`/review/write/${this.state.productBoardNum}`, 'Review  작성', 'width=500,height=700,location=no,status=no,scrollbars=yes')
+    } else {
       return alert(' 로그인 후 이용해 주세요')
     }
   }

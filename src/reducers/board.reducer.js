@@ -9,15 +9,13 @@ const initialStateBoard = {
 
 
 const boardReducer = (state = initialStateBoard, action) => {
-    const { qnaBoard, reviewBoard,noticeBoard, frequentlyBoard } = state;
+    const { qnaBoard, reviewBoard, noticeBoard, frequentlyBoard } = state;
     const { payload } = action;
 
     switch (action.type) {
 
         case ActionTypes.LOAD_QNABOARDLIST_SUCCESS:
-
             if (payload !== undefined && payload !== null) {
-
                 const { data } = payload
                 console.log(data, 'ActionTypes.LOAD_QNABOARDLIST_SUCCESS')
                 return {
@@ -28,12 +26,20 @@ const boardReducer = (state = initialStateBoard, action) => {
             else
                 return state;
 
+        case ActionTypes.LOAD_QNABOARDLIST_FAIL:
+            console.log( 'ActionTypes.LOAD_QNABOARDLIST_FAIL')
+            return {
+                ...state,
+                qnaBoard: []
+            }
+
+
         // case ActionTypes.LOAD_QNABOARDLIST_FAIL:
-            
+
         //     console.log('ActionType LOAD QNABOARDLIST_FAIL 실행')
-            
+
         //     return state
-    
+
         case ActionTypes.WRITE_QNABOARD_SUCCESS:
 
             if (payload !== undefined && payload !== null) {
@@ -54,8 +60,8 @@ const boardReducer = (state = initialStateBoard, action) => {
                 return {
                     ...state
                 }
-            }else
-                
+            } else
+
                 return state;
 
         case ActionTypes.DELETE_QNABOARD_SUCCESS:
@@ -63,12 +69,12 @@ const boardReducer = (state = initialStateBoard, action) => {
             if (payload !== undefined && payload !== null) {
                 const { data } = payload
                 console.log(data, 'ActionTypes.DELETE_QNABOARD_SUCCESS')
-                return{
+                return {
                     ...state,
-                    qnaBoard:data
+                    qnaBoard: data
                 }
-            }else
-                
+            } else
+
                 return state
 
         case ActionTypes.WRITE_QNABOARDANSWER_SUCCESS:
@@ -76,12 +82,12 @@ const boardReducer = (state = initialStateBoard, action) => {
             if (payload !== undefined && payload !== null) {
                 const { data } = payload
                 console.log(data, 'ActionTypes.WRITE_QNABOARDANSWER_SUCCESS')
-                return{
+                return {
                     ...state,
-                    qnaBoard:data
+                    qnaBoard: data
                 }
-            }else
-                
+            } else
+
                 return state
 
         case ActionTypes.DELETE_QNABOARDANSWER_SUCCESS:
@@ -89,12 +95,12 @@ const boardReducer = (state = initialStateBoard, action) => {
             if (payload !== undefined && payload !== null) {
                 const { data } = payload
                 console.log(data, 'ActionTypes.DELETE_QNABOARDANSWER_SUCCESS')
-                return{
+                return {
                     ...state,
-                    qnaBoard:data
+                    qnaBoard: data
                 }
-            }else
-            
+            } else
+
                 return state;
 
         ////////////////////////////////////////////////
@@ -102,35 +108,32 @@ const boardReducer = (state = initialStateBoard, action) => {
 
         case ActionTypes.ADD_REVIEW_SUCCESS:
             console.log("addreview 성공!!!!!")
-
             if (payload !== undefined && payload !== null) {
                 const { data } = payload;
-                console.log('Actiontypes.ADD_REVIEW_SUCCESS',data)
-                return{
-                    ...state,
-                    reviewBoard:data
-                }
-            }else
-            
-            return state;
-
-        case ActionTypes.REMOVE_REVIEW_SUCCESS:
-
-            if (payload !== undefined && payload !== null) {
-                const { data } = payload;
-                console.log('ActionTypes.REMOVE_REVIEW_SUCCESS',data)
+                console.log('Actiontypes.ADD_REVIEW_SUCCESS', data)
                 return {
                     ...state,
-                    reviewBoard:data
+                    reviewBoard: data
+                }
+            } else
+
+                return state;
+
+        case ActionTypes.REMOVE_REVIEW_SUCCESS:
+            if (payload !== undefined && payload !== null) {
+                const { data } = payload;
+                console.log('ActionTypes.REMOVE_REVIEW_SUCCESS', data)
+                return {
+                    ...state,
+                    reviewBoard: data
                 }
             }
             return state
-            
-        case ActionTypes.LOAD_REVIEWS_SUCCESS:
 
+        case ActionTypes.LOAD_REVIEWS_SUCCESS:
             if (payload !== undefined && payload !== null) {
                 const { data } = payload;
-                console.log('ActionTypes.LOAD_REVIEWS_SUCCESS',data)
+                console.log('ActionTypes.LOAD_REVIEWS_SUCCESS', data)
                 if (data !== undefined && data !== null) {
                     return {
                         ...state,
@@ -138,22 +141,20 @@ const boardReducer = (state = initialStateBoard, action) => {
                     };
                 }
             }
-            
             return state;
 
         case ActionTypes.LOAD_REVIEWS_FAIL:
-
-                return {
-                            ...state,
-                            reviewBoard:[],
-                        };
+            return {
+                ...state,
+                reviewBoard: [],
+            };
 
         case ActionTypes.UPLOADFILEREVIEW_SUCCESS:
-            if(payload !== undefined && payload !== null){
-                const{ data } =payload;
-                console.log('ActionTypes.UPLOADFILEREVIEW_SUCCESS',data);
-                if( data !== undefined && data !== null){
-                    return{
+            if (payload !== undefined && payload !== null) {
+                const { data } = payload;
+                console.log('ActionTypes.UPLOADFILEREVIEW_SUCCESS', data);
+                if (data !== undefined && data !== null) {
+                    return {
                         ...state,
                         reviewBoard: data,
                     };
@@ -165,33 +166,33 @@ const boardReducer = (state = initialStateBoard, action) => {
         ///////////    noticeBoard
 
         case ActionTypes.LOAD_NOTICEBOARD_SUCCESS:
-        
-        console.log('ActionTypes.LOAD_NOTICEBOARD_SUCCESS')
-        if(payload !== undefined && payload !== null){
-            const { data } = payload
-            return({
-                ...state,
-                noticeBoard:data
-            })
-            
-        }
-        else
-            return state;
-        
-        case ActionTypes.LOAD_FREQUENTLYASKEDBOARD_SUCCESS:
-        
-            console.log('ActionTypes.LOAD_FREQUENTLYASKEDBOARD_SUCCESS')
-            if(payload !== undefined && payload !== null){
+
+            console.log('ActionTypes.LOAD_NOTICEBOARD_SUCCESS')
+            if (payload !== undefined && payload !== null) {
                 const { data } = payload
-                return({
+                return ({
                     ...state,
-                    frequentlyBoard:data
+                    noticeBoard: data
                 })
-                    
-                }
+
+            }
             else
                 return state;
-                
+
+        case ActionTypes.LOAD_FREQUENTLYASKEDBOARD_SUCCESS:
+
+            console.log('ActionTypes.LOAD_FREQUENTLYASKEDBOARD_SUCCESS')
+            if (payload !== undefined && payload !== null) {
+                const { data } = payload
+                return ({
+                    ...state,
+                    frequentlyBoard: data
+                })
+
+            }
+            else
+                return state;
+
         default:
             return state;
     }

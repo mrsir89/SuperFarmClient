@@ -9,6 +9,8 @@ import { Actions } from '../../actions';
 import './ProductDetail.css';
 import QnABoard from './QnABoard';
 import ListReview from './reviewBoard/ListReview'
+import { bindActionCreators } from 'C:/Users/DELL/AppData/Local/Microsoft/TypeScript/3.5/node_modules/redux';
+import { ActionTypes } from '../../contants';
 
 // import { thisTypeAnnotation } from '@babel/types';
 
@@ -27,8 +29,10 @@ class ProductDetail extends React.Component {
       const { productList } = productBoardDetail;
       const { userDetails } = this.props;
       this.state = {
-         productBoardNum : this.props.match.params.id, 
          ProductDetail: productBoardDetail,
+         qnaBoard:[],
+         reviewBoard:[],
+         productBoardNum: this.props.match.params.id,
          userDetails: '',
          productList: productList,
          productInfo: '',
@@ -48,30 +52,30 @@ class ProductDetail extends React.Component {
    // 장바구니 추가 -> action으로 갈 cartModel 
    handleSubmit = (e) => {
       const { userDetails } = this.props;
-      
-      if(userDetails !== null && userDetails !== undefined){
-      const { productChoice, userNumber, ProductDetail, quantity } = this.state
-      console.log("productChoice >>>>>>", productChoice)
 
-      const cartModel = {
-         userNum: userDetails.userNum,
-         productBoardNum: productChoice.productBoardNum,
-         productBoardTitle: ProductDetail.productBoardTitle,
-         cartProductName: productChoice.productName,
-         cartProductOption1: productChoice.productOption1,
-         cartProductOption2: productChoice.productOption2,
-         cartProductPrice: productChoice.productPrice,
-         cartProductCount: Number.parseInt(quantity),
-         cartProductImg: ProductDetail.productBoardCommon,
-         productCode: productChoice.productCode
-      };
+      if (userDetails !== null && userDetails !== undefined) {
+         const { productChoice, userNumber, ProductDetail, quantity } = this.state
+         console.log("productChoice >>>>>>", productChoice)
 
-      const { addCart } = this.props;
-      console.log("장바구니 추가>>>", cartModel)
-      addCart(cartModel).then(response=>{
+         const cartModel = {
+            userNum: userDetails.userNum,
+            productBoardNum: productChoice.productBoardNum,
+            productBoardTitle: ProductDetail.productBoardTitle,
+            cartProductName: productChoice.productName,
+            cartProductOption1: productChoice.productOption1,
+            cartProductOption2: productChoice.productOption2,
+            cartProductPrice: productChoice.productPrice,
+            cartProductCount: Number.parseInt(quantity),
+            cartProductImg: ProductDetail.productBoardCommon,
+            productCode: productChoice.productCode
+         };
 
-      });
-      }else{
+         const { addCart } = this.props;
+         console.log("장바구니 추가>>>", cartModel)
+         addCart(cartModel).then(response => {
+
+         });
+      } else {
          alert('로그인이 필요한 페이지입니다. ')
       }
    }
@@ -133,63 +137,98 @@ class ProductDetail extends React.Component {
 
    _quantityChange = (event) => {
       console.log('수량 변경 전 확인', this.state)
-      if (this.state.tmpOption1 !== null ) {
-      console.log(' 금액 확인 ', this.state)
-      let quantity = 0;
-      let price = 0;
-      quantity = event.target.value;
-      price = this.state.productChoice.productPrice;
-      console.log(event.target.value, ' 수량 확인')
-      var calcPrice = quantity * price
-      this.setState({
-         quantity: quantity,
-         totalPrice: calcPrice
-      })
-      // }else{
-      //    alert('옵션을 먼저 선택하세요')
-      // }
-   }
+      if (this.state.tmpOption1 !== null) {
+         console.log(' 금액 확인 ', this.state)
+         let quantity = 0;
+         let price = 0;
+         quantity = event.target.value;
+         price = this.state.productChoice.productPrice;
+         console.log(event.target.value, ' 수량 확인')
+         var calcPrice = quantity * price
+         this.setState({
+            quantity: quantity,
+            totalPrice: calcPrice
+         })
+         // }else{
+         //    alert('옵션을 먼저 선택하세요')
+         // }
+      }
    }
 
+   // 여기서 detail qnaBoard reviewBoard를 불러 state에 저장 
    _loadProductDetail() {
 
       const productBoardNum = this.state.productBoardNum;
       console.log(productBoardNum, ' productBoardNum!!')
       const { loadProductDetails } = this.props;
-
+      const { loadqnaboardList } = this.props;
+      const { getReviews } = this.props;
+      var size = 10;
+      var page = 1;
       loadProductDetails(productBoardNum)
-      .then(response=>{
-         const{ productDetail } = this.props;
-         this.setState({
-            productDetail:productDetail
-         })
-      });;
+         .then(response => {
+            console.log(response, ' 여기서 확인 ~~~~~~~!!!!')
+            if (response.type === ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS) {
+               this.setState({
+                  productDetail: response.payload.data
+               })
+            }
+         }).catch(error =>{
+            console.log(' error 발생 ')
+         });
+         
+      getReviews('productBoard',productBoardNum ,10,1)
+         .then(response =>{
+            console.log('loadqnaBoardList response',response)
+            if(response.type===ActionTypes.LOAD_REVIEWS_SUCCESS){
+               this.setState({
+                  qnaBoard:response.payload.data
+               })
+            }
+         }).catch(error =>{
+            console.log(' error 발생 ')
+         });
 
+      loadqnaboardList('productBoard',productBoardNum,10,1)
+         .then(response=>{
+            console.log('action getreviewBoard 실행 ',response)
+            if(response.type===ActionTypes.LOAD_QNABOARDLIST_SUCCESS){
+               this.setState({
+                  reviewBoard:response.payload.data
+               })
+            }
+         }).catch(error =>{
+            console.log(' error 발생 ')
+         })
+   
    }
 
    componentWillMount() {
       console.log(this.productBoard, ' will mount')
       this._loadProductDetail()
    }
+   componentDidMount() {
+
+   }
 
 
-   _checkout=()=>{
+   _checkout = () => {
       const { userDetails } = this.props
       const { history } = this.props
-      if(userDetails === undefined || userDetails === null){
+      if (userDetails === undefined || userDetails === null) {
          alert('login이 필요한 페이지 입니다.')
          return history.push("/login")
-      }else{
+      } else {
 
       }
-      
+
    }
-   
-//숫자 통화 표시
-_numberWithCommas(x) {
-   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
- }
- 
+
+   //숫자 통화 표시
+   _numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+   }
+
    // TODO : userDetails가 없을 경우 에러 처리해줘야함 
    render() {
       console.log('r e n d e r 시작', this.props)
@@ -206,7 +245,7 @@ _numberWithCommas(x) {
                <div className="prd-info">
                   <div className="prd-img">
                      <div className="product-main-image" style={{ position: 'relative', overflow: 'hidden' }}>
-                        <img src={productBoardDetail.productBoardThumbnail} alt="Cool green dress with red bell" className="img-responsive" data-bigimgsrc={productBoardDetail.productBoardThumbnail}/>
+                        <img src={productBoardDetail.productBoardThumbnail} alt="Cool green dress with red bell" className="img-responsive" data-bigimgsrc={productBoardDetail.productBoardThumbnail} />
                         <img src={productBoardDetail.productBoardThumbnail} className="zoomImg" style={{ position: 'absolute', top: '-290.619px', left: '-180.201px', opacity: '0', width: '600px', height: '800px', border: 'none', maxWidth: 'none' }} />
                      </div>
                   </div>
@@ -263,14 +302,14 @@ _numberWithCommas(x) {
                               <tbody>
                                  <tr>
                                     <th scope="row">개수</th>
-                                    <td>  
+                                    <td>
                                        <input type="number" min="1" max="100" value={this.state.quantity} step="1" onChange={this._quantityChange}></input>
                                     </td>
                                  </tr>
                                  <tr>
                                     <th scope="row">가격</th>
-                                    <td><strong> 
-                                    {/* {(this.state.tmpOption1 !==null && this.state.tmpOption2 !==null)? */}
+                                    <td><strong>
+                                       {/* {(this.state.tmpOption1 !==null && this.state.tmpOption2 !==null)? */}
                                        {this._numberWithCommas(this.state.totalPrice)}원
                                        {/* : 0} */}
                                     </strong></td>
@@ -281,21 +320,23 @@ _numberWithCommas(x) {
                         <div className="prd-btn">
                            <button type="button" className="btn-buy">바로구매</button>
                            <a href="/cart" className="btn-cart">장바구니</a>
-                           <button type="button" class="btn-cart2" 
-                           onClick={this.handleSubmit}>카트담기</button>
+                           <button type="button" class="btn-cart2"
+                              onClick={this.handleSubmit}>카트담기</button>
                         </div>
                      </form>
                   </div>
                </div>
             </div>
-            <ProductView productDetail={productBoardDetail}/>
+            <ProductView productDetail={productBoardDetail} />
             <div>
 
             </div>
-               <ListReview productBoardNum={productBoardDetail.productBoardNum} />
-               <br/><br/><br/><br/>
-               <QnABoard productBoardNum={productBoardDetail.productBoardNum} />
-             
+            <ListReview productBoardNum={productBoardDetail.productBoardNum}
+                        reviewBoard ={this.state.reviewBoard} />
+            <br /><br /><br /><br />
+            <QnABoard productBoardNum={productBoardDetail.productBoardNum}
+                      qnaBoard={this.state.qnaBoard} />
+
          </div>
 
       );
@@ -320,7 +361,9 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => ({
    addCart: (cartModel) => dispatch(Actions.addCart(cartModel)),
-   loadProductDetails: (productNum) => dispatch(Actions.loadProductDetails(productNum))
+   loadProductDetails: (productNum) => dispatch(Actions.loadProductDetails(productNum)),
+   loadqnaboardList: (type,productNum,size,page) => dispatch(Actions.loadqnaboardList(type,productNum,size,page)),
+   getReviews: (type, productNum, size, page) => dispatch(Actions.getReviews(type, productNum, size, page))
 });
 
 

@@ -37,7 +37,12 @@ class QnABoardWrite extends React.Component {
         console.log(this.props)
         console.log('onSubmit 실행 되어라')
         const{ writeQnABoard }=this.props
-        writeQnABoard(questionBoard);
+        writeQnABoard(questionBoard).then(response =>{
+            if(response.type===ActionTypes.WRITE_QNABOARDANSWER_SUCCESS){
+                return alert('작성이 완료 되었습니다.')
+            }
+        });
+        window.opener.location.reload();
         window.close()
         
     }

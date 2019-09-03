@@ -26,21 +26,21 @@ class QnABoard extends React.Component {
     this._loadqnaBoardList();
 
   }
-  componentDidMount() {
+  // componentDidMount() {
 
-    this._loadqnaBoardList();
-  }
+  //   this._loadqnaBoardList();
+  // }
 
-  shouldComponentUpdate(nextState, nextProps) {
-    console.log('shouldComponentUpdate')
-    if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
-      console.log(' 여기는 false')
-      return true
-    } else {
-      console.log('여기는 true')
-      return false
-    }
-  }
+  // shouldComponentUpdate(nextState, nextProps) {
+  //   console.log('shouldComponentUpdate')
+  //   if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
+  //     console.log(' 여기는 false')
+  //     return true
+  //   } else {
+  //     console.log('여기는 true')
+  //     return false
+  //   }
+  // }
 
 
   _loadqnaBoardList(size, page) {
@@ -50,28 +50,32 @@ class QnABoard extends React.Component {
 
     console.log(this.state.productBoardNum, ' productBoardNum 실행')
 
-    loadqnaboardList(this.state.productBoardNum, size, page);
+    loadqnaboardList('productBoard', this.state.productBoardNum, size, page)
+      .then(response => {
+        if (response.type === ActionTypes.LOAD_QNABOARDLIST_SUCCESS) {
+          this.setState({
+            qnaBoard: response.payload.data
+          })
+        }
+      }).catch(error => {
+        console.log(error);
+      });
   }
 
 
-  _onClickPopUp =()=> {
+  _onClickPopUp = () => {
     window.open(`/qnaboardWrite/${this.state.productBoardNum}`, ' 질문 작성', 'width=430,height=500,location=no,status=no,scrollbars=yes')
   }
 
-  _renderQnaBoard = (qnaBoard) => {
-    console.log(qnaBoard, '  안의 값 확인 -----------------------------------')
-    if (qnaBoard === undefined || qnaBoard === null) {
-      return (
-        <div>
-          현재 게시된 게시물이 없습니다.
-        </div>
-      )
-    } else {
-      if (qnaBoard.length !== 0) {
+  _renderQnaBoard = () => {
+    console.log()
+
+    if (this.state.qnaBoard !== undefined && this.state.qnaBoard !== null) {
+      if (this.state.qnaBoard.length !== 0) {
         console.log(' length!=0')
-        if (qnaBoard.totalcount !== 0) {
+        if (this.state.qnaBoard.totalcount !== 0) {
           return (
-            (qnaBoard.items.map((item, index) => (<Qnacontent {...item} index={index} key={index} />)))
+            (this.state.qnaBoard.items.map((item, index) => (<Qnacontent {...item} index={index} key={index} />)))
           )
         } else {
           console.log()
@@ -88,13 +92,19 @@ class QnABoard extends React.Component {
         </div>
         )
       }
+    } else {
+      return (
+        <div>
+          현재 게시된 게시물이 없습니다.
+      </div>
+      )
     }
   }
 
   // 다음 페이지 
   _nextPage = () => {
     const { qnaBoard } = this.props;
-    const { loadqnaBoardList} = this.props;
+    const { loadqnaBoardList } = this.props;
     let hasNextPage = qnaBoard.hasNext;
 
     var page = qnaBoard.page
@@ -105,7 +115,7 @@ class QnABoard extends React.Component {
     if (hasNextPage === true) {
       page = page + 1;
       console.log(page, '실제 다음페이지가 있을떄 작동');
-      loadqnaBoardList( productBoardNum, size, page)
+      loadqnaBoardList('productBoard', productBoardNum, size, page)
     } else {
       alert('마지막 페이지 입니다.')
     }
@@ -115,14 +125,13 @@ class QnABoard extends React.Component {
 
     console.log('Prev Page 작동')
     var qnaBoard = this.state.qnaBoard
-    let hasNextPage = qnaBoard.hasNext;
     var page = qnaBoard.page
     var size = qnaBoard.size
     let productBoardNum = qnaBoard.boardNum
     const { loadqnaBoardList } = this.props
     if (page > 1) {
       page = page - 1;
-      loadqnaBoardList(productBoardNum, size, page);
+      loadqnaBoardList('productBoard', productBoardNum, size, page);
     } else {
       alert('첫 페이지 입니다.')
     }
@@ -205,10 +214,9 @@ const mapStateToProps = (state) => {
   console.log(state)
   const { board } = state;
   const { qnaBoard } = board;
-  // const { data } = qnaBoard;
+
   console.log(qnaBoard, '<--------- qnaBoad')
   console.log(board, ' <--------- product')
-  // console.log(data, '<------------ data')
   return {
     qnaBoard
   };
@@ -217,8 +225,8 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch) => ({
-  loadqnaboardList: (productNum, size, page) => dispatch(Actions.loadqnaboardList(productNum, size, page))
-  //writeQnABoard: (qnaContent) => dispatch(writeQnABoard(qnaContent))
+  loadqnaboardList: (productNum, size, page) => dispatch(Actions.loadqnaboardList(productNum, size, page)),
+  writeQnABoard: (qnaContent) => dispatch(Actions.writeQnABoard(qnaContent))
 });
 
 

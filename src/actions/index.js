@@ -249,22 +249,30 @@ const writeQnABoard = (writeQnA) => {
 
 
 //QnABoard productBoardNum에 맞게 불러 오기
-const loadqnaboardList = (productNum, size, page) => {
-  console.log(productNum,' loadQnaBoard Action')
-  const formdata = new FormData();
-  formdata.append('productNum', productNum);
-  formdata.append('size', size);
-  formdata.append('page', page);
-  console.log('Action loadQnABoard 실행')
-  console.log('size', size, ' page ', page, 'productNum : ',productNum)
+const loadqnaboardList = (type, id, size = initBoardListsize, 
+  page = initBoardListPage) => {
+  console.log(id,' loadQnaBoard Action')
+  const formData = new FormData();
+  type='productBoard'
+  var url = '/question/product '
+  formData.append('size', size);
+  formData.append('page', page);
+
+  if (type === 'productBoard') {
+    formData.append('productBoardNum', id)
+    url = '/question/product' ;
+  }else if (type === 'user') {
+    formData.append('userId', id)
+    url = '/question/userId'
+  }
   return ({
     type: ActionTypes.LOAD_QNABOARDLIST,
     payload: {
       request: {
         method: 'POST',
-        url: '/question/product',
-        data: formdata
-      }
+        url: url,
+        data: formData,
+      },
     }
   })
 }
@@ -406,22 +414,19 @@ const removeReview = (reviewBoardNum) => {
 const getReviews = (type, id, size = initBoardListsize,
   page = initBoardListPage) => {
   const formData = new FormData();
+  // 현재 productBoard만 사용중
   type = 'productBoard'
   var url = '/review/product';
   formData.append('size', size)
   formData.append('page', page)
-  formData.append('productBoardNum', id)
-  console.log('Action LOAD_REVIEWS')
 
-  if (type == 'productBoard') {
+  if (type === 'productBoard') {
     formData.append('productBoardNum', id)
     url = '/review/product';
-  }
-  if (type == 'user') {
+  }else if (type === 'user') {
     formData.append('userId', id)
     url = '/review/userId'
   }
-  console.log('size', size, 'page', page, 'id', id)
   return ({
     type: ActionTypes.LOAD_REVIEWS,
     payload: {
@@ -430,7 +435,6 @@ const getReviews = (type, id, size = initBoardListsize,
         url: url,
         data: formData,
       },
-
     }
   })
 };
@@ -735,7 +739,6 @@ export const Actions = {
 
   signup, emailCheck, idCheck, getUserMe,
   login, logout, getClientToken,refreshToken,
-  writeQnABoard,
   addCart,
   loadProductList, loadProductDetails, loadMainBestProduct,
   getCategories, getCartByUser,removeCartById,editCartQty, removeCartAll,
