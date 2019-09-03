@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Actions } from '../../actions/index';
 import { connect } from 'react-redux';
 import './ProductList.css';
-import { Z_FILTERED } from 'zlib';
 
 
 // 제품 전체 리스트 페이지 
@@ -19,8 +18,9 @@ class ProductList extends React.Component {
   }
 
 
-  componentDidMount() {
+  componentWillMount() {
     const { loadProductList } = this.props;
+    console.log('확인 작업',this.props)
     //loadProductList();
     const lowerId = this.props.match.params.id;
     console.log("lowerId >>>>>>>>>>>", lowerId);

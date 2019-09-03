@@ -1,10 +1,8 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { Actions } from '../../actions/index';
 import { connect } from 'react-redux';
 import { ActionTypes } from '../../contants';
 import './Signup.css';
-import { async } from 'q';
 // Store가 가진 state를 어떻게 props에 엮을 지 정한다.
 //   (이 동작을 정의하는 함수는 mapStateToProps라고 불립니다)
 // Reducer에 action을 알리는 함수 dispatch를 어떻게 props에 엮을 지 정한다. 
@@ -12,26 +10,20 @@ import { async } from 'q';
 // 위에 두가지가 적용된 props를 받을 Component를 정한다
 // Store와 Reducer를 연결시킬 수 있도록 만들어진 Component가 반환값이 된다.
 
-const onChangeRoute = ({ props }) => {
-  console.log(props, "tesdfsefefsaef");
-  let path = '/';
-  props.history.push(path);
-}
 
-
-const signupAsync = (signupCustomer,history) => dispatch => {
+const signupAsync = (signupCustomer, history) => dispatch => {
   return dispatch(Actions.getClientToken())
     .then(response => {
       if (response.type === ActionTypes.GET_TOKEN_SUCCESS) {
         console.log('dispatch signupAsync ActionTypes.GET_TOKEN_SUCCESS ')
-        return dispatch(Actions.signup(signupCustomer,history)).then(response=>{
-          
+        return dispatch(Actions.signup(signupCustomer, history)).then(response => {
           history.push("/")
+          alert('회원가입에 성공 하였습니다.')
         })
       } else {
         return Promise.reject(response);
       }
-    }).catch(error=>{
+    }).catch(error => {
       alert('서버와의 통신중 오류가 생겼습니다. 다시 시도해 주세요')
       return history.push("/login")
     });
@@ -48,11 +40,11 @@ class Signup extends React.Component {
       passwordCheck: '',
       passwordComent: '비밀번호를 입력해 주세요',
       name: '',
-      birthday:'' ,
-      gender:'' ,
-      email:'',
-      address:'' ,
-      phone:'' ,
+      birthday: '',
+      gender: '',
+      email: '',
+      address: '',
+      phone: '',
       emailComent: 'email을 입력하세요',
       idCheck: false,
       passwordCheck: false,
@@ -69,12 +61,12 @@ class Signup extends React.Component {
   }
 
 
-    // Change endpoint after Login (with some error)
-    routeChange() {
-      let path = '/';
-      this.props.history.push(path);
-    }
-  
+  // Change endpoint after Login (with some error)
+  routeChange() {
+    let path = '/';
+    this.props.history.push(path);
+  }
+
 
 
 
@@ -228,7 +220,7 @@ class Signup extends React.Component {
         })
       } else {
         this.setState({
-          email:'',
+          email: '',
           emailCheck: false,
           emailComent: '사용 불가능한 email입니다.'
         })
@@ -269,11 +261,11 @@ class Signup extends React.Component {
     let checkpwd = this.state.idCheck;
     let checkId = this.state.passwordCheck;
     let checkemail = this.state.emailCheck;
-    console.log('sumbit의 state.',this.state)
+    console.log('sumbit의 state.', this.state)
     if (checkpwd !== false && checkId !== false && checkemail !== false) {
-      if (this.state.userId !== null && this.state.userId !==''
-          &&this.state.name !=='' && this.state.birthday !=='' 
-          &&this.state.address !=='' && this.state.phone !=='') {
+      if (this.state.userId !== null && this.state.userId !== ''
+        && this.state.name !== '' && this.state.birthday !== ''
+        && this.state.address !== '' && this.state.phone !== '') {
 
         const signupCustomer = {
           userId: this.state.id,
@@ -286,14 +278,14 @@ class Signup extends React.Component {
           customerAddr: this.state.address
         }
         const { signup } = this.props;
-        const { history }= this.props;
-        signup(signupCustomer,history);
+        const { history } = this.props;
+        signup(signupCustomer, history);
 
-      
-      }else{
+
+      } else {
         alert('누락된 곳이 있습니다.')
       }
-    }else {
+    } else {
       alert(' 입력하지 않은 곳이 있습니다.')
     }
   };
@@ -301,71 +293,85 @@ class Signup extends React.Component {
   render() {
 
     return (
-      <div className="Signup">
-        <div className="SignupForm">
-          <div className="top">
-            회원가입
-        </div>
+      <div className="Signup" align="center">
+        <div className="SignupBox">
+          <header class="jumbotron">
+            <h1 class="text-center display-3" id="title"><strong>회원가입</strong></h1>
+          </header>
           <form onSubmit={this._signupSubmit}>
 
-            <li> ID <input type="text" name="id"
-              onChange={this._idCheckChange} placeholder="아이디" />
-              {this.state.idCheckStatus}{/** 여기는 아이디 중복 체크 결과가 나옴 */}
-            </li>
+            <div class="container">
+              <form id="survey-form" width="500px">
+                <h2 class="display-5">회원가입 정보</h2>
+                <div class="form-group d-flex">
+                  <input class="form-controlID" type="text" name="id" placeholder="아이디"
+                    onChange={this._idCheckChange} />
+                </div>
+                <div class="form-group d-flex">
+                <li>{this.state.idCheckStatus}</li>
+                </div>
+                <div class="form-group d-flex">
+                  <input class="form-controlPWD" type="password" name="password" placeholder="비밀번호"
+                    onChange={this._passwordOrigin} />
+                </div>
 
-            <li>Password <input type="password" name="password"
-              onChange={this._passwordOrigin}
-              placeholder="비밀번호" /> </li>
+                <div class="form-group d-flex">
+                  <input class="form-controlPWD" type="password" name="passwordCheck" placeholder="비밀번호확인"
+                    onChange={this._passwordCheck} />
+                </div>
+                <li>{this.state.passwordComent}</li>
+                <div class="form-group d-flex">
+                  <input class="form-controlID" type="text" name="name" placeholder="이름"
+                    value={this.state.name} onChange={this._handleInputChange} />
+                </div>
 
-            <li>Password확인 <input type="password" name="passwordCheck"
-              onChange={this._passwordCheck} 
-              placeholder="비밀번호확인" /> </li>
+                <div class="form-group d-flex">
+                  <input class="form-controlID" type="email" name="email" placeholder="Email"
+                    value={this.state.email} onChange={this._emailCheck} />
+                    {this.state.emailComent}
+                </div>
 
-            <li>{this.state.passwordComent}</li>
+                <div class="form-group d-flexID">
+                  <input class="form-controlID" type="Date" name="birthday" placeholder="생일"
+                    value={this.state.birthday.value} onChange={this._handleInputChange} />
+                </div>
 
-            <li> 이름 <input type="text" name="name"
-              value={this.state.name} onChange={this._handleInputChange}
-              placeholder="이름" /> 1</li>
+                <div class="form-group d-flex">
+                  <input class="form-control" type="text" name="address" placeholder="주소"
+                    value={this.state.address.value} onChange={this._handleInputChange} />
+                </div>
 
-            <li> email <input type="email" name="email"
-              onChange={this._emailCheck}
-              placeholder="eamil" />{this.state.emailComent}</li>
+                <div class="form-group d-flex">
+                  <input class="form-controlID" type="text" name="phone" placeholder="phone"
+                    value={this.state.phone.value} onChange={this._handleInputChange} />
+                </div>
 
-            <li> 생일 <input type="Date" name="birthday"
-              value={this.state.birthday.value} onChange={this._handleInputChange}
-              placeholder="birthday" /> </li>
 
-            {/* <li> 남 <input type="radio" name="gender"
-                value='남' onChange={this.handleRadio}
-                placeholder="gender" /> 
-                여 <input type="radio"name="gender" 
-                value='여' onChange={this.handleRadio}
-                placeholder="gender" /> </li> */}
+                <button class="btn btn-primary mb-5" id="submit">
+                  가입
+          </button>
+              </form>
 
-            <li>주소 <input type="text" name="address"
-              value={this.state.address.value} onChange={this._handleInputChange}
-              placeholder="address" /> </li>
+              <div className="form">
+                <a href="/login">Already have account?</a>
+              </div>
 
-            <li> 연락처 <input type="text" name="phone"
-              value={this.state.phone.value} onChange={this._handleInputChange}
-              placeholder="phone" />  </li>
-            {/* <input type="submit" id="submit" name="submit" value="회원가입" /> */}
-            <input type="submit" id="submit" name="submit" value="회원가입"/>
+            </div>
           </form>
-
-          <div className="footer">
-            <a href="/login">Already have account?</a>
-          </div>
-
         </div>
       </div>
+
+
+
+
+
     )
   }
 }
 
 const mapDispatchToProps = (dispatch) => (console.log('mapDispatchToProps', dispatch), {
 
-  signup: (signupCustomer,history) => dispatch(signupAsync(signupCustomer,history)),
+  signup: (signupCustomer, history) => dispatch(signupAsync(signupCustomer, history)),
   idCheck: (id) => dispatch(Actions.idCheck(id)),
   emailCheck: (email) => dispatch(Actions.emailCheck(email)),
   asynAction: () => dispatch(Actions.asynAction())

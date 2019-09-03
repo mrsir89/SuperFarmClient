@@ -18,8 +18,9 @@ class Notice extends React.Component {
 
   componentWillMount() {
     const { loadNoticeBoard } = this.props;
-    loadNoticeBoard()
-    .then(response => {
+    
+    loadNoticeBoard().then(response => {
+      console.log(response , '  response!!!!!!!!!!!!!!!!')
       const { payload } = response;
       const { data } = payload;
       console.log("notice의 data",data)

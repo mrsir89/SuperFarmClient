@@ -5,14 +5,14 @@ const initialStateAuth = {
     token: null,
     userDetails: null,
     signupCustomer: {}
-    
+
 };
 
 const authentication = (state = initialStateAuth, action) => {
     const { payload } = action;
     const { retryCount } = state;
-    console.log('authentication.reducer  의 state 시작 ',state)
-    console.log('authentication.reducer  의 action 시작 ',action)
+    console.log('authentication.reducer  의 state 시작 ', state)
+    console.log('authentication.reducer  의 action 시작 ', action)
     switch (action.type) {
         case ActionTypes.GET_TOKEN_SUCCESS:
         case ActionTypes.LOGIN_SUCCESS:
@@ -27,8 +27,12 @@ const authentication = (state = initialStateAuth, action) => {
                 ...state,
                 retryCount: retryCount + 1
             };
+
         case ActionTypes.LOGOUT:
-            return initialStateAuth;
+            console.log('logout======================')
+            return {
+                initialStateAuth
+            };
 
         case ActionTypes.SIGNUP:
             return {
@@ -40,12 +44,12 @@ const authentication = (state = initialStateAuth, action) => {
                 ...state
             };
         case ActionTypes.GET_USERME_SUCCESS:
-            return{
+            return {
                 ...state,
                 userDetails: payload.data
             }
         case ActionTypes.ASNYCACTION:
-            return{
+            return {
                 ...state
             };
 

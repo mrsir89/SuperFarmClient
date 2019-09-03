@@ -151,9 +151,11 @@ const getUserMe = () => {
   });
 };
 
-const logout = () => ({
+const logout = () => {
+  return({
   type: ActionTypes.LOGOUT
-})
+  })
+}
 
 
 
@@ -576,7 +578,7 @@ const loadMainBestProduct =() =>{
     payload:{
       request :{
         method:'POST',
-        url:'/productBoard/main'
+        url:'/productBoard/best'
       }
     }
   })

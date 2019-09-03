@@ -1,18 +1,12 @@
 import React from 'react';
-//import productDummy from './productDummy'
-// import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import ProductView from './ProductView';
-//import { addCart } from '../actions/action';
 import { Actions } from '../../actions';
 import './ProductDetail.css';
 import QnABoard from './QnABoard';
 import ListReview from './reviewBoard/ListReview'
-import { bindActionCreators } from 'C:/Users/DELL/AppData/Local/Microsoft/TypeScript/3.5/node_modules/redux';
 import { ActionTypes } from '../../contants';
 
-// import { thisTypeAnnotation } from '@babel/types';
 
 
 
@@ -27,7 +21,6 @@ class ProductDetail extends React.Component {
       // const { userNum } = this.props.userDetails;
       const { productBoardDetail } = this.props;
       const { productList } = productBoardDetail;
-      const { userDetails } = this.props;
       this.state = {
          ProductDetail: productBoardDetail,
          qnaBoard:[],
@@ -59,7 +52,7 @@ class ProductDetail extends React.Component {
 
          const cartModel = {
             userNum: userDetails.userNum,
-            productBoardNum: productChoice.productBoardNum,
+            productBoardNum:   productChoice.productBoardNum,
             productBoardTitle: ProductDetail.productBoardTitle,
             cartProductName: productChoice.productName,
             cartProductOption1: productChoice.productOption1,
@@ -232,7 +225,6 @@ class ProductDetail extends React.Component {
    // TODO : userDetails가 없을 경우 에러 처리해줘야함 
    render() {
       console.log('r e n d e r 시작', this.props)
-      console.log(' render state 확인!!!!!!!', this.state)
       const { productBoardDetail } = this.props
       // const productDetail = this.state.ProductDetail;
       const productList = this.state.productList;

@@ -5,6 +5,7 @@ import { RevSlider, Slide, Caption } from 'react-rev-slider';
 import './App.css';
 import { Actions } from './actions/index';
 import { connect } from 'react-redux';
+import { ActionTypes } from './contants';
 
 const config = {
   delay: 9000,
@@ -17,20 +18,53 @@ const config = {
 
 class Home extends React.Component {
 
+  constructor(props){
+    super(props)
+    this.state={
+      mainBest:'',
+      config : {
+        delay: 9000,
+        startwidth: 1100,
+        startheight: 600,
+        hideThumbs: 10,
+        fullWidth: "on",
+        forceFullWidth: "on"
+      }
+    } 
+  }
 
   componentWillMount() {
-    const { mainBest } = this.props;
     const { loadMainBestProduct } = this.props;
-    if (mainBest === null || mainBest === undefined) {
-      loadMainBestProduct();
-    }
+      loadMainBestProduct()
+      .then(response=>{
+        if(response.type===ActionTypes.LOAD_MAINBESTPRODUCT_SUCCESS){
+          this.setState({
+            mainBest:response.payload.data
+          })
+        }
+      });
+  }
+
+  componentDidMount(){
+    const { mainBest } =this.props
+    const { loadMainBestProduct } = this.props;
+      loadMainBestProduct()
+      .then(response=>{
+        if(response.type===ActionTypes.LOAD_MAINBESTPRODUCT_SUCCESS){
+          this.setState({
+            mainBest:response.payload.data
+          })
+        }
+      });
   }
 
 
+
   render() {
+
     return (
       <div>
-        <RevSlider config={config}>
+        <RevSlider config={this.state.config}>
           <Slide
             src="../imgresource/1.png"
             alt="slidebg1"

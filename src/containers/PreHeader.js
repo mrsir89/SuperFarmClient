@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { Actions } from '../actions/index';
 
 
-const logout =() =>  {
-  localStorage.clear();
-  window.location.href = '/';
-  
-}
+function PreHeader({ userDetails, logout, history }) {
 
-function PreHeader( { userDetails } ) {
+  const _logout = (e) => {
+    e.preventDefault();
+    logout();
+    // window.location.href ='http://localhost:3000/';
+    history.push("/")
 
-
-  console.log('PreHeader userDetails =====>',userDetails)
+  }
+  console.log('PreHeader userDetails =====>', userDetails)
   return (
     <div className="pre-header">
       <div className="container">
@@ -25,15 +26,12 @@ function PreHeader( { userDetails } ) {
             </ul>
           </div>
           {/* END TOP BAR LEFT PART */}
-          {/* BEGIN TOP BAR MENU */}
           <div className="col-md-5 col-sm-6 additional-nav">
             <ul className="list-unstyled list-inline pull-right">
               <li><a href="/mypage">회원정보</a></li>
-              {/* <li><a href="shop-wishlist.html">My Wishlist</a></li> */}
-              {/* <li><a href="shop-checkout.html">Checkout</a></li> */}
               <li>
-                {((userDetails === undefined || userDetails ===null))?(<a href="/login">로그인</a>)
-                      :(<a onClick={logout}>로그아웃 </a>)}
+                {((userDetails === undefined || userDetails === null)) ? (<a href="/login">로그인</a>)
+                  : (<a onClick={_logout}>로그아웃 </a>)}
               </li>
               <li><a href="/signup">회원가입</a></li>
             </ul>
@@ -48,4 +46,7 @@ function PreHeader( { userDetails } ) {
 const mapStateToProps = (state) => ({
   userDetails: state.auth.userDetails
 });
-export default withRouter(connect(mapStateToProps)(PreHeader));
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(Actions.logout())
+})
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PreHeader));
