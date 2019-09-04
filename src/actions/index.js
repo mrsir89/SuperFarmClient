@@ -401,7 +401,7 @@ const removeReview = (reviewBoardNum) => {
     type: ActionTypes.REMOVE_REVIEW,
     payload: {
       request: {
-        method: 'PATCH',
+        method: 'DELETE',
         url: `/review/delete`,
         headers: {
           'Content-Type': 'application/json; charset: utf-8'
@@ -583,6 +583,20 @@ const loadMainBestProduct =() =>{
     }
   })
 }
+const loadBestProductList =(lower) =>{
+  const formData = new FormData();
+  formData.append('lower',lower)
+  return({
+    type:ActionTypes.LOAD_BESTPRODUCTLIST,
+    payload:{
+      request :{
+        method:'POST',
+        url:'/productBoard/bestLower',
+        data:formData
+      }
+    }
+  })
+}
 
 // 0810 DB에 있는 상품 데이터 가져오는 action => axios 타입 action으로 변경 
 const loadProductList = (type, id) => {
@@ -742,7 +756,8 @@ export const Actions = {
   signup, emailCheck, idCheck, getUserMe,
   login, logout, getClientToken,refreshToken,
   addCart,
-  loadProductList, loadProductDetails, loadMainBestProduct,
+  
+  loadProductList, loadProductDetails, loadMainBestProduct,loadBestProductList,
   getCategories, getCartByUser,removeCartById,editCartQty, removeCartAll,
   loadqnaboardList, writeQnABoard, editQnABoard, deleteQnABoard,
   loadNoticeBoard,

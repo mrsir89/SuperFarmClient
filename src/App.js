@@ -77,6 +77,7 @@ class App extends React.Component {
           <MainLayout >
           <Route exact path="/" component={Home} />
           {/* <Route exact path="/product" component={ProductList} /> */}
+          <Route path="/productlist/:id/:search" component={ProductList} />
           <Route path="/productlist/:id" component={ProductList} />
           <Route exact path="/product" component={ProductList} />
           <Route path="/qnaboard" component={qnaboard} />

@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { Actions } from '../../actions/index';
 import { connect } from 'react-redux';
 import './ProductList.css';
+import { ActionTypes } from '../../contants';
+import Carousel from '../../containers/Carousel';
 
 
 // 제품 전체 리스트 페이지 
@@ -13,23 +15,60 @@ class ProductList extends React.Component {
     super(props);
     this.state = {
       productBoard: [],
-
+      productBest: [],
+      lowerId:props.match.params.id
     }
   }
 
 
   componentWillMount() {
     const { loadProductList } = this.props;
-    console.log('확인 작업',this.props)
+    const { loadBestProductList } = this.props;
+    // const { }
+    console.log('확인 작업', this.props)
     //loadProductList();
     const lowerId = this.props.match.params.id;
     console.log("lowerId >>>>>>>>>>>", lowerId);
     loadProductList('lower', lowerId)
       .then(response => {
-        console.log("=======response========", response)
+        if (response.type === ActionTypes.LOAD_PRODUCTLIST_SUCCESS) {
+          console.log(response,'response1')
+          this.setState({
+            productBoard: response.payload.data
+          })
+          return loadBestProductList(lowerId)
+        }
+      }).then(response => {
+        if (response.type === ActionTypes.LOAD_BESTPRODUCTLIST_SUCCESS) {
+          console.log(response,'response2')
+          this.setState({
+            productBest: response.payload.data
+          })
+        }
       });
-
   }
+
+ 
+  // componentDidMount() {
+  //   console.log('componentDid', this.state)
+  //   const { loadBestProductList } = this.props
+  //   loadBestProductList(this.state.lowerId)
+  //   .then(response => {
+  //     if (response.type === ActionTypes.LOAD_BESTPRODUCTLIST_SUCCESS) {
+  //       console.log(response,'response2')
+  //       this.setState({
+  //         productBest: response.payload.data
+  //       })
+  //     }
+
+  //   });
+  // }
+
+  // shouldComponentUpdate(nextProps, nextState){
+  //   console.log("shouldComponentUpdate: " + JSON.stringify(nextProps) + " " + JSON.stringify(nextState));
+  //   return true;
+  // }
+
 
   _renderSideBar = () => {
     const { category, productBoard } = this.props;
@@ -108,21 +147,21 @@ class ProductList extends React.Component {
     }
     return productItems
 
-  }// _renderAllproducts end
-  _bestOneProduct = () => {
-    const { mainBest } = this.props;
-
   }
+  // _renderAllproducts end
+  
   render() {
-    const { category, productBoard } = this.props;
+    console.log('render222222222222222',this.state)
+    const { category, productBoard,mainBest,bestList } = this.props;
+    
 
     // const upper =  productBoard[0].upperCode ;
     // const upperCategories = category[upper-1];
-
     return (
       <div className="product">
+        <br/><br/><br/>
         {/* best 상품 */}
-        <div className="product-top">
+        {/* <div className="product-top">
           <ul className="product-best">
 
 
@@ -151,9 +190,28 @@ class ProductList extends React.Component {
 
 
           </ul>
+        </div> */}
+        <div className="App" >
+          <div className="main" >
+            <div className="container margin-bottom-40">
+              <div className="row margin-bottom-40 margin-top-70 " >
+                <Carousel className={'col-md-12 col-sm-8'} carouselName={'owl-carousel owl-carousel3 margin-top-70'}
+                  srbtitle={'SUPER FARM'} title={'BEST PRODUCT'} items={bestList} />
+              </div>
+              {/*         
+               Carousel className={'col-md-12 sale-product'} carouselName={'owl-carousel owl-carousel3 margin-top-70'}
+              srbtitle={'SUPER FARM'} title={'BEST PRODUCT'} items={bestProduct} />
+          <Carousel className={'col-md-9 col-sm-8'} carouselName={'owl-carousel owl-carousel3'}
+              title={'Three items'} items={productItems} />
+       
+          <Carousel className={'col-md-6 two-items-bottom-items'} carouselName={'owl-carousel owl-carousel2'}
+              title={'Three items'} items={productItems} /> */}
+            </div>
+          </div>
         </div>
 
-        {/* Sidebar */}
+
+        // {/* Sidebar */}
         <div className="product-bot">
 
           <div className="product-bot-left">
@@ -196,18 +254,19 @@ class ProductList extends React.Component {
 
 function mapStateToProps(state) {
   const { product } = state;
-  const { productBoard, category } = product;
-  const { mainBest } = product;
+  const { productBoard, category,bestList,mainBest } = product;
   return {
     productBoard,
     category,
-    mainBest
+    mainBest,
+    bestList
   };
 }
 
 
 const mapDispatchToProps = (dispatch) => ({
-  loadProductList: (type, id) => dispatch(Actions.loadProductList(type, id))
+  loadProductList: (type, id) => dispatch(Actions.loadProductList(type, id)),
+  loadBestProductList: (num) => dispatch(Actions.loadBestProductList(num))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

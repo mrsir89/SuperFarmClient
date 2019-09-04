@@ -1,4 +1,5 @@
 import { ActionTypes } from '../contants';
+import { Actions } from '../actions';
 
 
 const initialStateCart = {
@@ -66,7 +67,11 @@ const cartReducer = (state = initialStateCart, action) => {
                 }
             }
             return state;
-
+            
+        case ActionTypes.LOGOUT:
+            return{
+                cartlist:[]
+            }
         default:
             return state;
 

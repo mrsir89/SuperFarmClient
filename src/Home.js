@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import Carousel from './containers/Carousel';
 import { RevSlider, Slide, Caption } from 'react-rev-slider';
 import './App.css';
@@ -184,7 +183,7 @@ class Home extends React.Component {
                   srbtitle={'SUPER FARM'} title={'BEST PRODUCT'} items={this.props.mainBest} />
               </div>
               {/*         
-  Carousel className={'col-md-12 sale-product'} carouselName={'owl-carousel owl-carousel3 margin-top-70'}
+              Carousel className={'col-md-12 sale-product'} carouselName={'owl-carousel owl-carousel3 margin-top-70'}
               srbtitle={'SUPER FARM'} title={'BEST PRODUCT'} items={bestProduct} />
           <Carousel className={'col-md-9 col-sm-8'} carouselName={'owl-carousel owl-carousel3'}
               title={'Three items'} items={productItems} />

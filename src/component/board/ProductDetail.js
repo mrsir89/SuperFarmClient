@@ -22,7 +22,7 @@ class ProductDetail extends React.Component {
       const { productBoardDetail } = this.props;
       const { productList } = productBoardDetail;
       this.state = {
-         ProductDetail: productBoardDetail,
+         ProductDetail:[],
          qnaBoard:[],
          reviewBoard:[],
          productBoardNum: this.props.match.params.id,
@@ -37,7 +37,6 @@ class ProductDetail extends React.Component {
          stock: '',
          totalPrice: 0
       };
-
       this._option1Change = this._option1Change.bind(this);
       this._option2Change = this._option2Change.bind(this);
    }
@@ -62,7 +61,6 @@ class ProductDetail extends React.Component {
             cartProductImg: ProductDetail.productBoardCommon,
             productCode: productChoice.productCode
          };
-
          const { addCart } = this.props;
          console.log("장바구니 추가>>>", cartModel)
          addCart(cartModel).then(response => {
@@ -201,7 +199,8 @@ class ProductDetail extends React.Component {
       this._loadProductDetail()
    }
    componentDidMount() {
-
+      console.log(this.productBoard, ' Did mount')
+      this._loadProductDetail()
    }
 
 
@@ -224,14 +223,13 @@ class ProductDetail extends React.Component {
 
    // TODO : userDetails가 없을 경우 에러 처리해줘야함 
    render() {
-      console.log('r e n d e r 시작', this.props)
       const { productBoardDetail } = this.props
       // const productDetail = this.state.ProductDetail;
       const productList = this.state.productList;
-      console.log('시작 이다!!!!!', productList)
       return (
-
+        
          <div className="product-item">
+             <br/><br/><br/> <br/><br/><br/> <br/>
             <div className="product-name"><h2><strong>{productBoardDetail.productBoardTitle}</strong></h2></div>
             <div className="prod-info">
                <div className="prd-info">

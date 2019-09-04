@@ -64,38 +64,46 @@ class QnABoardWrite extends React.Component {
     render() {
         return (
 
-            <div className="writeInput" >
-                <h2>상품 QnA 게시판</h2>
-                <form onSubmit={this._onClickAction}>
-                    <div className="mb-3">
-                        <label >제목</label>
-                        <input type="text" className="form-control" name="questionBoardTitle"
-                            onChange={this._onChangeInput} placeholder="제목을 입력해 주세요" />
-                    </div>
-                    <div className="mb-3">
-                        <label >작성자</label>
-                        <div>
-                            <b>{this.state.userId} </b>
-                        </div>
-                    </div>
-                    <div>
+                  <div id="form-main">
+                    <div id="form-div">
+                        <h3><strong>이용후기</strong> </h3>
+                        <br></br>
+                    <form class="form" id="form1" onSubmit={this._onClickAction}>
+
+                    <p class="title">
+                    <label><h4><strong>제목</strong> </h4></label>
+                    <input type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" id="title" name="questionBoardTitle"
+                     onChange={this._onChangeInput} placeholder="제목을 입력해 주세요" />
+                    </p>
+
+                    <p className="name">
+                    <label><h4><strong>작성자</strong> </h4></label>
+                        <input class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" value={this.state.userId} id="name" />
+                    </p>
+                    {/* <div>
                         <label>비밀번호</label>
                         <div>
                             <input type="password" maxLength="4" name="questionBoardPassword"
                                 onChange={this._onChangeInput} placeholder="4자리"></input>
                         </div>
-                    </div>
-                    <div className="mb-3">
-                        <label >내용</label>
-                        <textarea className="form-control" rows="5" name="questionBoardContent" id="content"
+                    </div> */}
+                    <p class="name">
+                    <label><h4><strong>비밀번호</strong> </h4></label>
+                        <input  type="password" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" 
+                         onChange={this._onChangeInput} maxLength="4" name="questionBoardPassword" placeholder="4자리" id="name" />
+                    </p>
+
+                    <p class="text">
+                    <label><h4><strong>내용</strong> </h4></label>
+                        <textarea  name="questionBoardContent" class="validate[required,length[6,300]] feedback-input"  id="content"
                             onChange={this._onChangeInput} placeholder="내용을 입력해 주세요" ></textarea>
-                    </div>
+                    </p>
                 
                 <div >
-                    <input type="submit" className="btn btn-sm btn-primary" name="submit" value="저장"/>
-                    <button type="reset" className="btn btn-sm btn-primary" >목록</button>
+                    <input type="submit" className="btn btn-sm btn-primary" id="button-blue" name="submit" value="저장"/>
                 </div>
                 </form>
+                </div>
             </div>
         )
     }

@@ -33,6 +33,9 @@ class ListReview extends React.Component {
     getReviews(type, id, size, page);
     console.log("this.props>>>>>>>>>>>>>>>>>>>", this.props)
   }
+
+
+  
   _renderAllReviews = () => {
     console.log('renderAllREviews ', this.props)
     const { reviewBoard } = this.props;
@@ -50,7 +53,6 @@ class ListReview extends React.Component {
           <br /> 현재 작성된 리뷰 게시물이 없습니다.
         </div>
       )
-
     }
   }
 

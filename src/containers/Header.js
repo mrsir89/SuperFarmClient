@@ -16,14 +16,32 @@ class Header extends React.Component{
     const { category } = this.props
     this.state = {
       category : [],
-      cartlist : []
+      cartlist : [],
+      search:''
     }
+    this._searchChange = this._searchChange.bind(this)
   }
 
   componentDidMount(){
     
     const{ getCategories } = this.props;
       getCategories()
+  }
+  _searchChange(e){
+    console.log(e.target.value)
+    this.setState({
+      search:e.target.value
+    })
+  }
+  _submit(e){
+    e.preventDefault()
+    console.log('category search',e.target.name)
+    const { search } = e.target.search.value
+    console.log(search ,' target.name.value')
+    console.log(this.state)
+    const { history } = this.props
+    console.log(history, '음 히스토리 확인')
+    window.location.href='http://localhost:3000/productlist/search/'+this.state.search;
   }
   render(){
     //const{ category } = this.state
@@ -49,9 +67,10 @@ class Header extends React.Component{
                 <span className="sep" />
                 <i className="fa fa-search search-btn" />
                 <div className="search-box">
-                  <form action="#">
+                  <form onSubmit={e=>this._submit(e)}>
                     <div className="input-group">
-                      <input type="text" placeholder="Search" className="form-control" />
+                      <input type="text" placeholder="Search" name="search" className="form-control" 
+                        value={this.state.search} onChange={this._searchChange} />
                       <span className="input-group-btn">
                         <button className="btn btn-primary" type="submit">Search</button>
                       </span>
@@ -74,10 +93,12 @@ const mapStateToProps = (state) =>{
   
   const { cartlist } =  state.cart;
   const { category } = state.product;
+  const { history } = state;
 
   return{
     cartlist,
     category,
+    history
 
   }
 };

@@ -509,7 +509,7 @@ body.page-header-fixed {
 .header-navigation > ul > li:first-child { margin-left: 0px; }
 .header-navigation > ul > li > a {
 	font-weight: bold;
-    color: #fff;
+    color:black;
     display: block;
     line-height: 85px;
     padding: 0px 15px;

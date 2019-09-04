@@ -125,7 +125,8 @@ const boardReducer = (state = initialStateBoard, action) => {
                 console.log('ActionTypes.REMOVE_REVIEW_SUCCESS', data)
                 return {
                     ...state,
-                    reviewBoard: data
+                    reviewBoard: reviewBoard.items.filter(item => item.reviewBoardNum != data.number)
+                    
                 }
             }
             return state

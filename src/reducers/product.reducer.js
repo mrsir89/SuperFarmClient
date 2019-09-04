@@ -10,13 +10,14 @@ const initialStateProduct = {
     productBoard: [],
     category: [],
     mainBest:[],
+    bestList:[]
 
 };
 
 
 // 추후 authentication reducer와 같은 방식(axios middleware)으로 바꿀 예정
 const productReducer = (state = initialStateProduct, action) => {
-    const { productBoard, cartlist,category, mainBest} = state;
+    const { productBoard, cartlist,category, mainBest,bestList} = state;
     const { payload } = action;
     console.log('productReducer',state)
     switch (action.type) {
@@ -93,9 +94,26 @@ const productReducer = (state = initialStateProduct, action) => {
                     }
                 }
             }
+
+        case ActionTypes.LOAD_BESTPRODUCTLIST_SUCCESS:
+            console.log('ActionsTypes LOAD_BESTPRODUCTLIST' ,payload)
+            if(payload !== undefined && payload !== null){
+                const { data } = payload;
+                if( data !== undefined && data !== null){
+                    return{
+                        ...state,
+                        bestList:data
+                    }
+                }else{
+                    return{
+                        ...state
+                    }
+                }
+            }
+
         default:
             return state;           
     }
 }
 
-export default productReducer;
+export default productReducer

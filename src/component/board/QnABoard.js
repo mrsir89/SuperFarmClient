@@ -64,7 +64,7 @@ class QnABoard extends React.Component {
 
 
   _onClickPopUp = () => {
-    window.open(`/qnaboardWrite/${this.state.productBoardNum}`, ' 질문 작성', 'width=430,height=500,location=no,status=no,scrollbars=yes')
+    window.open(`/qnaboardWrite/${this.state.productBoardNum}`, ' 질문 작성', 'width=500,height=650,location=no,status=no,scrollbars=yes')
   }
 
   _renderQnaBoard = () => {

@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 
 // index 링크 
 function LowerTitleHref(props) {
-  console.log("props 1 >>>>>>>>>>", props)
   const { lowerTitle, index,lowerCode } = props;
   return (
     <li><a href={'http://localhost:3000/productlist/'+lowerCode}>{lowerTitle}</a></li>
@@ -15,14 +14,8 @@ function LowerTitleHref(props) {
 
 function Menu(props) {
   const category = props;
-  console.log('Menu 의 props ', category)
-  // const { lowerCategory, upperTitle } = props;
   const upperTitle = category.upperTitle;
   const{ lowerCategory } = category;
-  console.log('upperTitle', upperTitle)
-  console.log('lowercategory',lowerCategory)
-  console.log("props >>>>>>>>>>>>", props)
-  // console.log('lowerCategory   ',lowercategory)
 
   return (
     <li className="dropdown ">

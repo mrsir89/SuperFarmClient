@@ -33,14 +33,14 @@ function Accordion(props) {
   const _convertStart = (startNum) => {
     console.log(startNum,' 여기 확인 해 봅시다.')
     switch (startNum) {
-      case Number.startNum === 2:
+      case 2:
         return (
         <div>
           <img src="/image/star.jpg" width="40px" />
           <img src="/image/star.jpg" width="40px" />
         </div>
         )
-      case Number.startNum === 3:
+      case 3:
         return (
         <div>
           <img src="/image/star.jpg" width="40px" />
@@ -48,7 +48,7 @@ function Accordion(props) {
           <img src="/image/star.jpg" width="40px" />
         </div>
         )
-      case Number.startNum == 4:
+      case 4:
         return (
         <div>
           <img src="/image/star.jpg" width="40px" />
@@ -57,7 +57,7 @@ function Accordion(props) {
           <img src="/image/star.jpg" width="40px" />
         </div>
         )
-      case Number.startNum == 5:
+      case 5:
         return (
         <div>
           <img src="/image/star.jpg" width="40px" />
@@ -78,6 +78,7 @@ function Accordion(props) {
   const removeHandler = (e, reviewBoardNum) => {
     e.stopPropagation();
     removeReview(reviewBoardNum);
+    window.location.reload()
   };
 
   return (
@@ -106,11 +107,9 @@ function Accordion(props) {
         </div>
         </div>
         <div className="col">
-
-
           <p className="accordion__text">
             <div ref={rating} style={{ maxHeight: `${setHeight}` }} className="rating">
-            <img src={"http://localhost:3000" + props.review.reviewBoardImg} width="500px"/>
+            <img src={props.review.reviewBoardImg} width="500px"/>
               <div className="accordion__text" dangerouslySetInnerHTML={{ __html: props.review.reviewBoardContent }} />
               <strong>별점</strong> {_convertStart(props.review.reviewBoardRating)}
               <div align="right">

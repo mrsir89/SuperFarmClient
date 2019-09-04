@@ -36,6 +36,7 @@ class Signup extends React.Component {
     super(props);
     this.state = {
       id: '',
+      idCheckStatus:'아이디를 입력해주세요',
       passwordOrigin: '',
       passwordCheck: '',
       passwordComent: '비밀번호를 입력해 주세요',
@@ -293,7 +294,7 @@ class Signup extends React.Component {
   render() {
 
     return (
-      <div className="Signup" align="center">
+      <div className="loginBackground" >
         <div className="SignupBox">
           <header class="jumbotron">
             <h1 class="text-center display-3" id="title"><strong>회원가입</strong></h1>
@@ -304,35 +305,40 @@ class Signup extends React.Component {
               <form id="survey-form" width="500px">
                 <h2 class="display-5">회원가입 정보</h2>
                 <div class="form-group d-flex">
-                  <input class="form-controlID" type="text" name="id" placeholder="아이디"
+                  <input class="form-control" type="text" name="id" placeholder="아이디"
                     onChange={this._idCheckChange} />
                 </div>
                 <div class="form-group d-flex">
                 <li>{this.state.idCheckStatus}</li>
+                <br/>
                 </div>
                 <div class="form-group d-flex">
-                  <input class="form-controlPWD" type="password" name="password" placeholder="비밀번호"
+                  <input class="form-control" type="password" name="password" placeholder="비밀번호"
                     onChange={this._passwordOrigin} />
                 </div>
 
                 <div class="form-group d-flex">
-                  <input class="form-controlPWD" type="password" name="passwordCheck" placeholder="비밀번호확인"
+                  <input class="form-control" type="password" name="passwordCheck" placeholder="비밀번호확인"
                     onChange={this._passwordCheck} />
                 </div>
-                <li>{this.state.passwordComent}</li>
                 <div class="form-group d-flex">
-                  <input class="form-controlID" type="text" name="name" placeholder="이름"
+                <li>{this.state.passwordComent}</li>
+                <br/>
+                </div>
+                <div class="form-group d-flex">
+                  <input class="form-control" type="text" name="name" placeholder="이름"
                     value={this.state.name} onChange={this._handleInputChange} />
                 </div>
 
                 <div class="form-group d-flex">
-                  <input class="form-controlID" type="email" name="email" placeholder="Email"
+                  <input class="form-control" id="exampleInputEmail1" type="email" name="email" placeholder="Email"
                     value={this.state.email} onChange={this._emailCheck} />
-                    {this.state.emailComent}
                 </div>
-
+                <div class="form-group d-flex">
+                <li>{this.state.emailComent}</li><br/>
+                </div>                 
                 <div class="form-group d-flexID">
-                  <input class="form-controlID" type="Date" name="birthday" placeholder="생일"
+                  <input class="form-control" type="Date" name="birthday" placeholder="생일"
                     value={this.state.birthday.value} onChange={this._handleInputChange} />
                 </div>
 
@@ -342,7 +348,7 @@ class Signup extends React.Component {
                 </div>
 
                 <div class="form-group d-flex">
-                  <input class="form-controlID" type="text" name="phone" placeholder="phone"
+                  <input class="form-control" type="text" name="phone" placeholder="phone"
                     value={this.state.phone.value} onChange={this._handleInputChange} />
                 </div>
 

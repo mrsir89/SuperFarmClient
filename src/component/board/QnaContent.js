@@ -1,6 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
+import { connect } from 'react-redux';
+import { Actions } from '../../actions/index';
 import './QnaContent.css';
 
 
@@ -48,4 +50,8 @@ function QnaContent(props) {
       </div>
   );
 }
-export default withRouter(QnaContent);
+const mapDispatchToProps = (dispatch) => ({
+  writeQnABoard: (writeQnA) => dispatch(Actions.writeQnABoard(writeQnA))
+})
+
+export default withRouter(connect(null, mapDispatchToProps)(QnaContent));

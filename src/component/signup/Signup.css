@@ -27,7 +27,6 @@
   text-align: center;
   font-weight: bold;
 }
-
 .LoginForm .bottom {
   background-color: #e6e6e6;
   border-top: 1px solid #dce8f1;
@@ -37,13 +36,11 @@
   text-align: center;
   font-weight: bold;
 }
-
 .LoginForm form {
   display: white;
   padding: 16px;
   text-align: center;
 }
-
 .LoginForm input[type=text] {
   background-color: #e6e6e6;
   border: none;
@@ -54,7 +51,6 @@
   padding: 8px;
   width: 70%;
 }
-
 .LoginForm input[type=password] {
   background-color: #e6e6e6;
   border: none;
@@ -65,7 +61,6 @@
   padding: 8px;
   width: 85%;
 }
-
 .LoginForm input[type=submit] {
   background-color: #56baed;
   border: none;
@@ -98,7 +93,6 @@
   transform: translate(-50%, -50%);
   min-width: 460px;
 }
-
 .SignupForm {
   background-color: white;
   -webkit-border-radius: 8px 8px 8px 8px;
@@ -106,7 +100,6 @@
   -webkit-box-shadow: 0px 30px 60px 0 rgba(0, 0, 0, 3);
   box-shadow: 0px 30px 60px 0 rgba(0, 0, 0, 3);
 }
-
 .SignupForm .header {
   background-color: #f6f6f6;
   border-bottom: 1px solid #dce8f1;
@@ -116,7 +109,6 @@
   text-align: center;
   font-weight: bold;
 }
-
 .SignupForm .footer {
   background-color: #e6e6e6;
   border-top: 1px solid #dce8f1;
@@ -126,13 +118,11 @@
   text-align: center;
   font-weight: bold;
 }
-
 .SignupForm form {
   display: block;
   margin: 16px;
   padding: 16px;
 }
-
 .SignupForm button[type] {
   width: 100%;
 }  */
@@ -145,7 +135,6 @@ body{
   padding:0;
   background-color:whitesmoke;
 }
-
 .SignupBox{
  margin:1% auto 0% auto;
  padding:1px 60px 20px 60px;
@@ -154,7 +143,6 @@ body{
  box-sizing:border-box;
  background: silver
 }
-
 h2{
   margin:0;
   padding:0 0 20px;
@@ -162,21 +150,17 @@ h2{
   color:white;
  
  }
-
-
 .SignupBox p{
  margin:0;
  padding:0;
  font-weight:bold;
  color:#fff;
 }
-
 .SignupBox input{
  width:100%;
  height:20px;
  margin:0 0 20px 0;
 }
-
 .SignupBox input[type="text"],
 .SignupBox input[type="password"],
 .SignupBox input[type="email"],
@@ -189,36 +173,27 @@ h2{
  font-size:14px;
  text-align:center;
 }
-
 ::placeholder{
  color: white;
  opacity:0.1;
  text-align:center;
 }
-
 .SignupBox input[type="submit"]{
  border:1px solid;
  height:40px;
  color:white;
  background-color:transparent;
 }
-
 .SignupBox input[type="submit"]:hover{
  color:pink;
  border:2px solid;
 }
-
 form a{
   color:whitesmoke;
   text-decoration:none;
  } */
 
- body {
 
-  /* background-image: url('./image/검은콩.jpg'); */
-  /* background-color: white; */
-  
-}
 
 form {
   padding-left: 1em;
@@ -251,7 +226,7 @@ form {
  }
  .form-controlID{
   display: block;
-  width: auto;
+  width: 40%;
   height: 34px;
   padding: 6px 12px;
   font-size: 16px;
@@ -269,7 +244,7 @@ form {
  }
  .form-controlPWD{
   display: block;
-  width: 250px;
+  width: 40%;
   height: 34px;
   padding: 6px 12px;
   font-size: 16px;
@@ -285,5 +260,6 @@ form {
   -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
  }
-
- 
+ .background{
+  background-image:url(http://localhost:3000/image/loginBackground.png)
+ }
