@@ -6,12 +6,12 @@ import moment from 'moment';
 
 
 function NoticeItem(props) {
-  const { noticeNum, noticeWriteDate, noticeTitle, noticeWriterName, noticeViews} = props;
+  const { noticeNum, noticeWriteDate, noticeTitle, noticeWriterName, noticeViews } = props;
 
 
   var date = new Date(noticeWriteDate);
   const current = moment(date).format('YYYY-MM-DD');
-  
+
 
   return (
     <tr>
@@ -19,20 +19,20 @@ function NoticeItem(props) {
         {noticeNum}
       </td>
       <td className="goods-page-description">
-      <a href={"/notice/" + noticeNum}>{noticeTitle}</a>         
+        <a href={"/notice/" + noticeNum}>{noticeTitle}</a>
         {/* <h3></h3> */}
         {/* <p><strong>Item 1</strong> - Color: Green; Size: S</p>
         <em>More info is here</em> */}
       </td>
 
       <td className="goods-page-stock">
-       {noticeWriterName}
+        {noticeWriterName}
       </td>
       <td className="goods-page-date">
-      &emsp;{current}
+        &emsp;{current}
       </td>
       <td className="goods-page-price">
-      &emsp;&emsp;{noticeViews}
+        &emsp;&emsp;{noticeViews}
       </td>
     </tr>
   );

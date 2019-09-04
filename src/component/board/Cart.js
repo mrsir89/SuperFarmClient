@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Actions } from '../../actions/index';
-import { Redirect } from 'react-router-dom' ;
+import { Redirect } from 'react-router-dom';
 import Order from '../order/order';
 
 /**
@@ -135,9 +135,9 @@ class Cart extends React.Component {
   // 주문 하기
   // 주문 하기 위해 현재 리스트에 담겨 있는 제품들을 리듀서를 통해 store 에 저장해 준다.
   _checkout = () => {
-    const{ userDetails } = this.props;
-    if(userDetails === null || userDetails ===undefined){
-      
+    const { userDetails } = this.props;
+    if (userDetails === null || userDetails === undefined) {
+
       return alert(' 로그인이 필요한 작업니다.')
     }
     const { cartlist } = this.props
@@ -179,7 +179,7 @@ class Cart extends React.Component {
   }
   //숫자 통화 표시
   _numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
   render() {
@@ -296,7 +296,7 @@ class Cart extends React.Component {
                 </div>
                 <button className="btn btn-default" type="submit">Continue shopping <i className="fa fa-shopping-cart"></i></button>
 
-                <input className="btn btn-primary" type="button" onClick={this._checkout}value="구매하기" />
+                <input className="btn btn-primary" type="button" onClick={this._checkout} value="구매하기" />
                 <i className="fa fa-check"></i>
               </div>
 

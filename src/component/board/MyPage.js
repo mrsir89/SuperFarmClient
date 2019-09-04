@@ -5,12 +5,11 @@ import Login from '../login/Login';
 
 class MyPage extends React.Component {
 
-//  추후에 로그인 후 로그아웃으로 스위치
-logout() {
-    localStorage.clear();
-    window.location.href = '/';
-    
-}
+    //  추후에 로그인 후 로그아웃으로 스위치
+    logout() {
+        localStorage.clear();
+        window.location.href = '/'; 
+    }
 
     render() {
         const { userDetails } = this.props;
@@ -44,7 +43,7 @@ logout() {
                                         반갑습니다!
                                     </div>
                                     <a href="/usereditlogin" class="user_btn">회원정보 수정</a>
-                                    
+
                                 </dt>
                                 <dd>
                                     <h3>적립 포인트</h3>
@@ -92,18 +91,18 @@ logout() {
     }
 }
 
-function getFormatDate(date){
-    console.log("function date ====> ",date);
-     var year = date.getFullYear();	//yyyy 
-     var month = (1 + date.getMonth());	//M 
-     month = month >= 10 ? month : '0' + month;	//month 두자리로 저장 
-     var day = date.getDate();	//d 
-     day = day >= 10 ? day : '0' + day;	//day 두자리로 저장 
-     var hour = date.getHours();
-     var min = date.getMinutes();
-     var sec = date.getSeconds();
-     
-     return year + '.' + month + '.' + day + '.' + hour + ':' + min + ':' + sec; 
+function getFormatDate(date) {
+    console.log("function date ====> ", date);
+    var year = date.getFullYear();	//yyyy 
+    var month = (1 + date.getMonth());	//M 
+    month = month >= 10 ? month : '0' + month;	//month 두자리로 저장 
+    var day = date.getDate();	//d 
+    day = day >= 10 ? day : '0' + day;	//day 두자리로 저장 
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds();
+
+    return year + '.' + month + '.' + day + '.' + hour + ':' + min + ':' + sec;
 }
 
 

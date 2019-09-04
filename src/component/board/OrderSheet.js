@@ -9,19 +9,19 @@ class OrderSheet extends React.Component {
 
   constructor(props) {    // props 굳이 안써줘도 넘어 옴
     super(props)
-    const {cartlist} = props;
-    this.state ={
-        items : cartlist
+    const { cartlist } = props;
+    this.state = {
+      items: cartlist
     }
   }
 
 
-  render(){
-    return(
-        <div>
-            
-        </div>
-    ) 
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
 
   }
 
@@ -29,15 +29,15 @@ class OrderSheet extends React.Component {
 
 
 function mapStateToProps(state) {
-    console.log('mapStateToProps--------', state)
-    const { cart, auth } = state;
-    const { userDetails } = auth;
-    const { cartlist } = cart;
-    return {
-      cartlist,  // 배열 
-      userDetails
-    };
-  }
+  console.log('mapStateToProps--------', state)
+  const { cart, auth } = state;
+  const { userDetails } = auth;
+  const { cartlist } = cart;
+  return {
+    cartlist,  // 배열 
+    userDetails
+  };
+}
 
 
 export default connect(mapStateToProps)(OrderSheet);

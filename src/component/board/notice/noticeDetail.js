@@ -12,7 +12,7 @@ function NoticeDetail(props) {
   const { items } = noticeBoard;
 
 
-  console.log("NoticeDetail props:111111111111111111111111111111111111111111111 ",props);
+  console.log("NoticeDetail props:111111111111111111111111111111111111111111111 ", props);
   //props(notice에서 받아온 것)에 match에 params안에서 noticeNum을 가져와서 쓰려고하는것 
 
   const noticelist = items.filter(item => (item.noticeNum == noticeNum));
@@ -20,8 +20,8 @@ function NoticeDetail(props) {
   //json 파일에서 noticeItems배열에서 items=[{item}조건맞는거 하나의 객체를 찾음], 
   //item.noticeNum은 json더미 파일안의 것이고 noticeNum은 props를 match로 가져온거 
   //그걸 비교해서 items에 넣은 것
-  
-  const { noticeTitle, noticeWriterName, noticeContent,noticeImg } = noticelist[0];
+
+  const { noticeTitle, noticeWriterName, noticeContent, noticeImg } = noticelist[0];
   // 배열에는 어차피 하나의 객체가 있던거라 조건에 맞는 배열items에 0번째 객체의 쓸것들을 가져옴 
 
   var date = new Date(noticelist[0].noticeWriteDate);
@@ -36,7 +36,7 @@ function NoticeDetail(props) {
   return (
     <div className="main">
       <div className="container">
-        
+
         {/* <div className="row">
           <div className="col">column 1</div>
           <div className="col">column 1</div>
@@ -70,19 +70,19 @@ function NoticeDetail(props) {
 
                       <tr><div> &emsp; </div></tr>
                       <tr clssName="subject">
-                         <div className="row"> 
+                        <div className="row">
                           {/* <td> */}
                           {/* <div className="col-md-3" style={{ textAlign: 'center' }}>Item 1</div> */}
-                          <div className="col-md-2"  style={{ textAlign: 'left' }}>작성자 : {noticeWriterName}</div>
+                          <div className="col-md-2" style={{ textAlign: 'left' }}>작성자 : {noticeWriterName}</div>
                           {/* <div className="col-md-4" style={{ textAlign: 'left' }}>작성일 : {getFormtDate(noticeWriteDate)}</div> */}
                           <div className="col-md-4" style={{ textAlign: 'left' }}>작성일 : {current}
-                          {/* </td> */}
-                         </div> 
-                         </div>
+                            {/* </td> */}
+                          </div>
+                        </div>
                       </tr>
 
                       <tr >
-                      <div className="col-md-12" style={{ textAlign: 'right' }}>문의전화 : 123-4567</div>
+                        <div className="col-md-12" style={{ textAlign: 'right' }}>문의전화 : 123-4567</div>
                       </tr>
 
                       <tr>
@@ -90,7 +90,7 @@ function NoticeDetail(props) {
                           <div className="photo_area clearfix">
                           </div>
                           <div id="bbs_ntt_cn_con">
-                            <img src="/images/rice.jpg" width="300px"  />
+                            <img src="/images/rice.jpg" width="300px" />
                             <br />
                             <br />
                             <br />{ReactHtmlParser(noticeContent)}<br />
@@ -110,27 +110,13 @@ function NoticeDetail(props) {
   );
 }
 
-// function getFormatDate(date){
-//   console.log("function date ====> ",date);
-//    var year = date.getFullYear();   //yyyy 
-//    var month = (1 + date.getMonth());   //M 
-//    month = month >= 10 ? month : '0' + month;   //month 두자리로 저장 
-//    var day = date.getDate();   //d 
-//    day = day >= 10 ? day : '0' + day;   //day 두자리로 저장 
-//    var hour = date.getHours();
-//    var min = date.getMinutes();
-//    var sec = date.getSeconds();
-   
-//    return year + '.' + month + '.' + day; 
-// }
-
-const mapStateToProps = (state)=>{
-  console.log('notice mapStateToProps----------',state);
+const mapStateToProps = (state) => {
+  console.log('notice mapStateToProps----------', state);
   const { board } = state;
   const { noticeBoard } = board;
-  console.log(noticeBoard,' 000000000 00000000000000000000')
-  return{
+  console.log(noticeBoard, ' 000000000 00000000000000000000')
+  return {
     noticeBoard
   }
 }
-export default connect(mapStateToProps,null)(NoticeDetail);
+export default connect(mapStateToProps, null)(NoticeDetail);

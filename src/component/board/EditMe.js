@@ -4,23 +4,23 @@ import { ActionTypes } from '../../contants';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
 
-const userEditAsync=(changeUserInfo) => (dispatch) => {
+const userEditAsync = (changeUserInfo) => (dispatch) => {
     console.log("userEdit 시작", changeUserInfo);
     return dispatch(Actions.userEdit(changeUserInfo))
-    .then(response => {
-        if(response.Type===ActionTypes.USER_EDIT_SUCCESS){
-            return dispatch(Actions.getUserMe());
-        }else {
-            console.log('실패ㅋㅋㅋㅋㅋㅋ')
-            return Promise.reject(response);
-        }
-    }).then(response => {
-        if(response.Type===ActionTypes.GET_USERME_SUCCESS){
-            return <Redirect to="/" />
-        } else{
-            return Promise.reject(response);
-        }
-    });
+        .then(response => {
+            if (response.Type === ActionTypes.USER_EDIT_SUCCESS) {
+                return dispatch(Actions.getUserMe());
+            } else {
+                console.log('실패ㅋㅋㅋㅋㅋㅋ')
+                return Promise.reject(response);
+            }
+        }).then(response => {
+            if (response.Type === ActionTypes.GET_USERME_SUCCESS) {
+                return <Redirect to="/" />
+            } else {
+                return Promise.reject(response);
+            }
+        });
 }
 
 class userEdit extends React.Component {
@@ -29,40 +29,40 @@ class userEdit extends React.Component {
         super(props)
         const { userDetails } = this.props
 
-        this.state = {     
-                userId: userDetails.userId,
-                userPassword: userDetails.userPassword,
-                userEmail: userDetails.userEmail,
-                userNum: userDetails.userNum,
-                userRegday: userDetails.userRegday,
-                userType: userDetails.userType,
-                username: userDetails.username,
-                userLastConnect: userDetails.userLastConnect,
-                customer_gender: userDetails.position.customer_gender,
-                customerGrade: userDetails.position.customerGrade,
-                customer_birth: userDetails.position.customer_birth,
-                customerAddr: userDetails.position.customerAddr,
-                customerPhone: userDetails.position.customerPhone,       
+        this.state = {
+            userId: userDetails.userId,
+            userPassword: userDetails.userPassword,
+            userEmail: userDetails.userEmail,
+            userNum: userDetails.userNum,
+            userRegday: userDetails.userRegday,
+            userType: userDetails.userType,
+            username: userDetails.username,
+            userLastConnect: userDetails.userLastConnect,
+            customer_gender: userDetails.position.customer_gender,
+            customerGrade: userDetails.position.customerGrade,
+            customer_birth: userDetails.position.customer_birth,
+            customerAddr: userDetails.position.customerAddr,
+            customerPhone: userDetails.position.customerPhone,
         }
         this.onChange = this.onChange.bind(this);
     }
 
     onSubmit() {
-        const {userEdit} = this.props
+        const { userEdit } = this.props
         const changeUserInfo = {
-                userEmail: this.state.userEmail,
-                userId: this.state.userId,
-                userLastConnect: this.state.userLastConnect,
-                userNum: this.state.userNum,
-                userPassword: this.state.userPassword,
-                userRegday: this.state.userRegday,
-                userType: this.state.userType,
-                username: this.state.username,
-                customerAddr:this.state.customerPhone,
-                customerGrade:this.state.customerGrade,
-                customerPhone:this.state.customerPhone,
-                customer_birth:this.state.customer_birth,
-                customer_gender:this.state.customer_gender
+            userEmail: this.state.userEmail,
+            userId: this.state.userId,
+            userLastConnect: this.state.userLastConnect,
+            userNum: this.state.userNum,
+            userPassword: this.state.userPassword,
+            userRegday: this.state.userRegday,
+            userType: this.state.userType,
+            username: this.state.username,
+            customerAddr: this.state.customerPhone,
+            customerGrade: this.state.customerGrade,
+            customerPhone: this.state.customerPhone,
+            customer_birth: this.state.customer_birth,
+            customer_gender: this.state.customer_gender
         };
         console.log("submit 후", changeUserInfo)
         userEdit(changeUserInfo);
@@ -72,7 +72,7 @@ class userEdit extends React.Component {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-     
+
         console.log(value, '========value');
         console.log(name, '=========name');
         this.setState({
@@ -159,7 +159,7 @@ function mapStateToProps(state) {
     };
 }//mapStateToProps
 
-const mapDispatchToProps=(dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
     userEdit: (changeUserInfo) => dispatch(userEditAsync(changeUserInfo))
 });
 

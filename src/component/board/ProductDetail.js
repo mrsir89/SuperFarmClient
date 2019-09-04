@@ -9,7 +9,7 @@ import { Actions } from '../../actions';
 import './ProductDetail.css';
 import QnABoard from './QnABoard';
 import ListReview from './reviewBoard/ListReview'
-import { bindActionCreators } from 'C:/Users/DELL/AppData/Local/Microsoft/TypeScript/3.5/node_modules/redux';
+// import { bindActionCreators } from 'C:/Users/DELL/AppData/Local/Microsoft/TypeScript/3.5/node_modules/redux';
 import { ActionTypes } from '../../contants';
 
 // import { thisTypeAnnotation } from '@babel/types';
@@ -204,9 +204,11 @@ class ProductDetail extends React.Component {
    }
 
    componentWillMount() {
-      console.log(this.productBoard, ' will mount')
-      this._loadProductDetail()
+      console.log(this.productBoard, ' will mount');
+      this._loadProductDetail();
    }
+   
+   
    componentDidMount() {
 
    }

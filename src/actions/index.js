@@ -576,7 +576,7 @@ const loadMainBestProduct =() =>{
     payload:{
       request :{
         method:'POST',
-        url:'/productBoard/main'
+        url:'/productBoard/best'// 9/3
       }
     }
   })

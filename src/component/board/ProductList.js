@@ -183,13 +183,7 @@ class ProductList extends React.Component {
 
         </div>
       </div>
-      // <div className="main">
-      //   <div className="container" style={{ backgroundColor: 'white', display: 'flex', justifyContent: 'center' }}>
-      //     <div className="col-md-9 col-sm-7">
-      //       {this._renderAllProducts()}
-      //     </div>
-      //   </div>
-      // </div>
+
     );
   }
 }

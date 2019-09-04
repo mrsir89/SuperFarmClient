@@ -2,19 +2,19 @@ import React from 'react';
 import CarouselItem from './CarouselItem';
 
 function Carousel(props) {
-  const { className, carouselName, title, items,srbtitle } = props;
+  const { className, carouselName, title, items, srbtitle } = props;
   console.log('props >>>>>>>>>>>>>>>>>>>>>>>>> CAROUSEl', props);
 
   return (
     <div className={className} >
-      
+
       <h1 >
-      {srbtitle}
-        <br/>
+        {srbtitle}
+        <br />
         <strong>{title}</strong>
-        </h1>
+      </h1>
       <div className={carouselName}>
-        {items.map((item, index, array) => (<CarouselItem {...item} key={index}/>))}        
+        {items.map((item, index, array) => (<CarouselItem {...item} key={index} />))}
       </div>
     </div>
   );

@@ -10,8 +10,8 @@ class Notice extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state ={
-      noticeBoard : [],
+    this.state = {
+      noticeBoard: [],
       items: props.items
     }
   }
@@ -19,14 +19,14 @@ class Notice extends React.Component {
   componentWillMount() {
     const { loadNoticeBoard } = this.props;
     loadNoticeBoard()
-    .then(response => {
-      const { payload } = response;
-      const { data } = payload;
-      console.log("notice의 data",data)
-      this.setState({     // state가 바뀌면 rerender 
-        noticeBoard: data.items
+      .then(response => {
+        const { payload } = response;
+        const { data } = payload;
+        console.log("notice의 data", data)
+        this.setState({     // state가 바뀌면 rerender 
+          noticeBoard: data.items
+        })
       })
-    })
   }
 
   render() {
@@ -56,10 +56,9 @@ class Notice extends React.Component {
                     </tr>
 
                       {
-                        ((items !== undefined && items !== null ) ? 
+                        ((items !== undefined && items !== null) ?
                           items.map((item, index) => (<NoticeItem {...item} NoticeNum={index} key={index} />))
-                          : [] )
-                        
+                          : [])
                       }
 
                     </tbody></table>

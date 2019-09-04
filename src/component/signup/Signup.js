@@ -19,19 +19,19 @@ const onChangeRoute = ({ props }) => {
 }
 
 
-const signupAsync = (signupCustomer,history) => dispatch => {
+const signupAsync = (signupCustomer, history) => dispatch => {
   return dispatch(Actions.getClientToken())
     .then(response => {
       if (response.type === ActionTypes.GET_TOKEN_SUCCESS) {
         console.log('dispatch signupAsync ActionTypes.GET_TOKEN_SUCCESS ')
-        return dispatch(Actions.signup(signupCustomer,history)).then(response=>{
-          
+        return dispatch(Actions.signup(signupCustomer, history)).then(response => {
+
           history.push("/")
         })
       } else {
         return Promise.reject(response);
       }
-    }).catch(error=>{
+    }).catch(error => {
       alert('서버와의 통신중 오류가 생겼습니다. 다시 시도해 주세요')
       return history.push("/login")
     });
@@ -48,11 +48,11 @@ class Signup extends React.Component {
       passwordCheck: '',
       passwordComent: '비밀번호를 입력해 주세요',
       name: '',
-      birthday:'' ,
-      gender:'' ,
-      email:'',
-      address:'' ,
-      phone:'' ,
+      birthday: '',
+      gender: '',
+      email: '',
+      address: '',
+      phone: '',
       emailComent: 'email을 입력하세요',
       idCheck: false,
       passwordCheck: false,
@@ -69,12 +69,12 @@ class Signup extends React.Component {
   }
 
 
-    // Change endpoint after Login (with some error)
-    routeChange() {
-      let path = '/';
-      this.props.history.push(path);
-    }
-  
+  // Change endpoint after Login (with some error)
+  routeChange() {
+    let path = '/';
+    this.props.history.push(path);
+  }
+
 
 
 
@@ -228,7 +228,7 @@ class Signup extends React.Component {
         })
       } else {
         this.setState({
-          email:'',
+          email: '',
           emailCheck: false,
           emailComent: '사용 불가능한 email입니다.'
         })
@@ -269,11 +269,11 @@ class Signup extends React.Component {
     let checkpwd = this.state.idCheck;
     let checkId = this.state.passwordCheck;
     let checkemail = this.state.emailCheck;
-    console.log('sumbit의 state.',this.state)
+    console.log('sumbit의 state.', this.state)
     if (checkpwd !== false && checkId !== false && checkemail !== false) {
-      if (this.state.userId !== null && this.state.userId !==''
-          &&this.state.name !=='' && this.state.birthday !=='' 
-          &&this.state.address !=='' && this.state.phone !=='') {
+      if (this.state.userId !== null && this.state.userId !== ''
+        && this.state.name !== '' && this.state.birthday !== ''
+        && this.state.address !== '' && this.state.phone !== '') {
 
         const signupCustomer = {
           userId: this.state.id,
@@ -286,14 +286,14 @@ class Signup extends React.Component {
           customerAddr: this.state.address
         }
         const { signup } = this.props;
-        const { history }= this.props;
-        signup(signupCustomer,history);
+        const { history } = this.props;
+        signup(signupCustomer, history);
 
-      
-      }else{
+
+      } else {
         alert('누락된 곳이 있습니다.')
       }
-    }else {
+    } else {
       alert(' 입력하지 않은 곳이 있습니다.')
     }
   };
@@ -308,25 +308,33 @@ class Signup extends React.Component {
         </div>
           <form onSubmit={this._signupSubmit}>
 
-            <li> ID <input type="text" name="id"
+
+            <label for="Id"><b>ID</b></label>
+            <li> <input type="text" name="id"
               onChange={this._idCheckChange} placeholder="아이디" />
               {this.state.idCheckStatus}{/** 여기는 아이디 중복 체크 결과가 나옴 */}
             </li>
 
-            <li>Password <input type="password" name="password"
+
+            <label for="psw"><b>Password</b></label>
+            <li> <input type="password" name="password"
               onChange={this._passwordOrigin}
               placeholder="비밀번호" /> </li>
 
-            <li>Password확인 <input type="password" name="passwordCheck"
-              onChange={this._passwordCheck} 
+            <label for="psw"><b>Repeat Password</b></label>
+            <li><input type="password" name="passwordCheck"
+              onChange={this._passwordCheck}
               placeholder="비밀번호확인" /> </li>
 
             <li>{this.state.passwordComent}</li>
 
-            <li> 이름 <input type="text" name="name"
+            <label for="name"><b>Name</b></label>
+            <li><input type="text" name="name"
               value={this.state.name} onChange={this._handleInputChange}
               placeholder="이름" /> 1</li>
 
+
+            <label for="email"><b>Email</b></label>
             <li> email <input type="email" name="email"
               onChange={this._emailCheck}
               placeholder="eamil" />{this.state.emailComent}</li>
@@ -350,7 +358,7 @@ class Signup extends React.Component {
               value={this.state.phone.value} onChange={this._handleInputChange}
               placeholder="phone" />  </li>
             {/* <input type="submit" id="submit" name="submit" value="회원가입" /> */}
-            <input type="submit" id="submit" name="submit" value="회원가입"/>
+            <input type="submit" id="submit" name="submit" value="회원가입" />
           </form>
 
           <div className="footer">
@@ -365,7 +373,7 @@ class Signup extends React.Component {
 
 const mapDispatchToProps = (dispatch) => (console.log('mapDispatchToProps', dispatch), {
 
-  signup: (signupCustomer,history) => dispatch(signupAsync(signupCustomer,history)),
+  signup: (signupCustomer, history) => dispatch(signupAsync(signupCustomer, history)),
   idCheck: (id) => dispatch(Actions.idCheck(id)),
   emailCheck: (email) => dispatch(Actions.emailCheck(email)),
   asynAction: () => dispatch(Actions.asynAction())

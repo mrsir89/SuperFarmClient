@@ -3,46 +3,46 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import HeaderCart from './Headercart'
 import Menu from './Menu';
-import  { Actions }  from '../actions/index';
+import { Actions } from '../actions/index';
 
 
-class Header extends React.Component{
+class Header extends React.Component {
 
-// ({ history, location, matcher, cartlist, getCategories}) 
-//   console.log('cartList >>>>>',cartlist);
-//   console.log('categories >>>>>',getCategories);
-  constructor(props){
-    super(props)
-    const { category } = this.props
+  // ({ history, location, matcher, cartlist, getCategories}) 
+  //   console.log('cartList >>>>>',cartlist);
+  //   console.log('categories >>>>>',getCategories);
+  constructor(props) {
+    super(props);
+    const { category } = this.props;
     this.state = {
-      category : [],
-      cartlist : []
-    }
+      category: [],
+      cartlist: []
+    };
   }
 
-  componentDidMount(){
-    
-    const{ getCategories } = this.props;
-      getCategories()
+  componentDidMount() {
+    const { getCategories } = this.props;
+    getCategories()
   }
-  render(){
-    //const{ category } = this.state
-    const{ category } = this.props
-    const{ cartlist } = this.props
+
+  render() {
+    // const{ category } = this.state
+    const { category } = this.props
+    const { cartlist } = this.props
     return (
       <div className="header">
         <div className="container">
           <a className="site-logo" href="/"><img src="../image/logo.png" alt="Metronic Shop UI" /></a>
           <a href="javascript:void(0);" className="mobi-toggler"><i className="fa fa-bars" /></a>
           {/* BEGIN CART */}
-            <HeaderCart items={cartlist} />
+          <HeaderCart items={cartlist} />
           {/*END CART */}
           {/* BEGIN NAVIGATION */}
           <div className="header-navigation">
+
             <ul>
-              
-             {/* 여기에 map 형식으로 뿌려준다 menu에게 전달 한다.*/}
-            {category.map((items,index) => <Menu {...items} key={index}/>)}
+              {/* 여기에 map 형식으로 뿌려준다 menu에게 전달 한다.*/}
+              {category.map((items, index) => <Menu {...items} key={index} />)}
               <li><a href="/notice">공지사항</a></li>
               {/* BEGIN TOP SEARCH */}
               <li className="menu-search">
@@ -61,21 +61,23 @@ class Header extends React.Component{
               </li>
               {/* END TOP SEARCH */}
             </ul>
+
+
           </div>
           {/* END NAVIGATION */}
         </div>
       </div>
     );
-  } 
+  }
 }
 
 
-const mapStateToProps = (state) =>{
-  
-  const { cartlist } =  state.cart;
+const mapStateToProps = (state) => {
+
+  const { cartlist } = state.cart;
   const { category } = state.product;
 
-  return{
+  return {
     cartlist,
     category,
 
@@ -86,5 +88,5 @@ const mapDispatchToProps = (dispatch) => ({
   getCategories: () => dispatch(Actions.getCategories())
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
 //export default withRouter(Header);
