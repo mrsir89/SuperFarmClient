@@ -25,6 +25,7 @@ componentWillMount(){
     console.log('1111111111111111111111111111111',frequentlyBoard)
   return(
     <div className="main">
+      <br/><br/><br/><br/><br/><br/>
     <div className="container">
       {/* BEGIN SIDEBAR & CONTENT */}
       <div className="row margin-bottom-40">

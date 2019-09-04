@@ -537,6 +537,7 @@ const editCartQty = (newCartList) => {
 const removeCartById = (cartNum) => {
   const formData = new FormData();
   formData.append('cartNum', cartNum)
+  console.log('cartdeleteNum',cartNum)
   return ({
     type: ActionTypes.REMOVE_CART_ID,
     payload: {
@@ -555,6 +556,7 @@ const removeCartById = (cartNum) => {
 const removeCartAll= (userNum) =>{
   const formData = new FormData();
   formData.append('userNum',userNum)
+  console.log(' cartAlldelete',userNum)
   return({
     type:ActionTypes.REMOVE_CART_ALL,
     payload:{

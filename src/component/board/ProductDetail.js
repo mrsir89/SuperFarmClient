@@ -52,13 +52,13 @@ class ProductDetail extends React.Component {
          const cartModel = {
             userNum: userDetails.userNum,
             productBoardNum:   productChoice.productBoardNum,
-            productBoardTitle: ProductDetail.productBoardTitle,
+            productBoardTitle: this.state.ProductDetail.productBoardTitle,
             cartProductName: productChoice.productName,
             cartProductOption1: productChoice.productOption1,
             cartProductOption2: productChoice.productOption2,
             cartProductPrice: productChoice.productPrice,
             cartProductCount: Number.parseInt(quantity),
-            cartProductImg: ProductDetail.productBoardCommon,
+            cartProductImg: this.state.ProductDetail.productBoardCommon,
             productCode: productChoice.productCode
          };
          const { addCart } = this.props;
@@ -128,7 +128,7 @@ class ProductDetail extends React.Component {
 
    _quantityChange = (event) => {
       console.log('수량 변경 전 확인', this.state)
-      if (this.state.tmpOption1 !== null) {
+      if (this.state.tmpOption2 !== null && this.state.tmpOption1 !== null) {
          console.log(' 금액 확인 ', this.state)
          let quantity = 0;
          let price = 0;
@@ -140,10 +140,9 @@ class ProductDetail extends React.Component {
             quantity: quantity,
             totalPrice: calcPrice
          })
-         // }else{
-         //    alert('옵션을 먼저 선택하세요')
-         // }
-      }
+         }else{
+            alert('옵션을 먼저 선택하세요')
+         }
    }
 
    // 여기서 detail qnaBoard reviewBoard를 불러 state에 저장 
@@ -161,7 +160,7 @@ class ProductDetail extends React.Component {
             console.log(response, ' 여기서 확인 ~~~~~~~!!!!')
             if (response.type === ActionTypes.LOAD_PRODUCTDETAIL_SUCCESS) {
                this.setState({
-                  productDetail: response.payload.data
+                  ProductDetail: response.payload.data
                })
             }
          }).catch(error =>{

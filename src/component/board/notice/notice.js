@@ -36,6 +36,7 @@ class Notice extends React.Component {
     console.log('00000000000000000000000000000000000000', noticeBoard)
     return (
       <div className="main">
+        <br/><br/><br/><br/><br/><br/>
         <div className="container">
 
           {/* BEGIN SIDEBAR & CONTENT */}
