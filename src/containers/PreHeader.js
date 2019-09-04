@@ -15,9 +15,9 @@ function PreHeader({ userDetails, logout, history }) {
     alert('로그아웃 되었습니다.')
 
   }
-  const _login =(e) =>{
-    window.open('/login','로그인','width=500,height=300,location=no,status=no,scrollbars=yes')
-  }
+  // const _login =(e) =>{
+  //   window.open('/login','로그인','width=500,height=300,location=no,status=no,scrollbars=yes')
+  // }
   const _signup =(e) => {
     window.open("/signup" ,'회원가입  작성', 'width=500,height=700,location=no,status=no,scrollbars=yes')
   }
@@ -38,7 +38,7 @@ function PreHeader({ userDetails, logout, history }) {
             <ul className="list-unstyled list-inline pull-right">
               <li><a href="/mypage">회원정보</a></li>
               <li>
-                {((userDetails === undefined || userDetails === null)) ? (<a onClick={_login}>로그인</a>)
+                {((userDetails === undefined || userDetails === null)) ? (<a href='/login'>로그인</a>)
                   : (<a onClick={_logout}>로그아웃 </a>)}
               </li>
               <li><a onClick={_signup}>회원가입</a></li>

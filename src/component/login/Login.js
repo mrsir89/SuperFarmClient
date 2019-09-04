@@ -14,7 +14,7 @@ const loginAsync = (customerId, password, history) => (dispatch) => {
     .then(response => {
       if (response === undefined || response === null) {
         alert(' 아이디 또는 비밀 번호가 잘못 되었습니다.')
-        return 
+        return
 
       } else {
         if (response.type === ActionTypes.LOGIN_SUCCESS) {
@@ -68,7 +68,6 @@ class Login extends React.Component {
     this._goBack = this._goBack.bind(this);
   }
 
-
   _goBack() {
     const { history } = this.props;
     history.goBack();
@@ -78,8 +77,6 @@ class Login extends React.Component {
     let path = '/';
     this.props.history.push(path);
   }
-
-
 
   _onchange(event) {
     const target = event.target;
@@ -91,8 +88,8 @@ class Login extends React.Component {
     console.log(this.state)
   }
 
-  onSubmit(event) {
-    event.preventDefault();
+  onSubmit=(e)=> {
+    // e.preventDefault();
     const { login } = this.props
     let customerId = this.state.customerId
     let password = this.state.password
@@ -103,25 +100,29 @@ class Login extends React.Component {
 
   render() {
     return (
-      
-      <div className="back">
-        {/* <meta name="viewport" content="width=device-width, initial-scale=1" /> */}
-        <style dangerouslySetInnerHTML={{ __html: "\nbody {font-family: Arial, Helvetica, sans-serif;}\nform {border: 3px solid #f1f1f1;}\n\ninput[type=text], input[type=password] {\n  width: 100%;\n  padding: 12px 20px;\n  margin: 8px 0;\n  display: inline-block;\n  border: 1px solid #ccc;\n  box-sizing: border-box;\n}\n\nbutton {\n  background-color: #4CAF50;\n  color: white;\n  padding: 14px 20px;\n  margin: 8px 0;\n  border: none;\n  cursor: pointer;\n  width: 100%;\n}\n\nbutton:hover {\n  opacity: 0.8;\n}\n\n.cancelbtn {\n  width: auto;\n  padding: 10px 18px;\n  background-color: #f44336;\n}\n\n.imgcontainer {\n  text-align: center;\n  margin: 24px 0 12px 0;\n}\n\nimg.avatar {\n  width: 40%;\n  border-radius: 50%;\n}\n\n.container {\n  padding: 16px;\n}\n\nspan.psw {\n  float: right;\n  padding-top: 16px;\n}\n\n/* Change styles for span and cancel button on extra small screens */\n@media screen and (max-width: 300px) {\n  span.psw {\n     display: block;\n     float: none;\n  }\n  .cancelbtn {\n     width: 100%;\n  }\n}\n" }} />
-        <div className="login-page">
-          <div className="LoginForm">
-            <div className="top">
-              Log in
-                 </div>
-            <form onSubmit={e => this.onSubmit(e)}>
-              <input class="form-control"  type="text" name="customerId"  value={this.state.userId} onChange={this._onchange} placeholder="Username" />
-              <input class="form-control"  type="password" name="password" value={this.state.password} onChange={this._onchange} placeholder="Password" />
-              <input class="form-control"  type="submit" name="submit" value="Log In" />
-            </form>
-            <div className="bottom">
+
+      <div id="backgroud">
+        <div className="loginGroup">
+          <form onSubmit={e => this.handleOnSubmit(e)}>
+            <div className="logo"><img src="./image/logo.png"></img></div>
+            <div className="loginNotice">
+              <h4><strong> 로그인 </strong></h4>
             </div>
-          </div>
+            <div className='form-group row'>
+              <input className='input' type='text' name="customerId"
+                value={this.state.userId} onChange={this._onchange} placeholder='ID' />
+            </div>
+            <div className='form-group row'>
+              <input className='input' type='password' placeholder='비밀번호'
+                name="password" value={this.state.password} onChange={this._onchange} />
+            </div>
+            <div className='form-group row'>
+              <input type="button" className='btn' value="Log in " onClick={this.onSubmit} />
+            </div>
+            {/* </div> */}
+          </form>
         </div>
-        </div>
+      </div>
 
     )
   }

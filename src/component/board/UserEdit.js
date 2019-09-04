@@ -129,6 +129,7 @@ class userEdit extends React.Component {
         console.log("render userDetails->>>>>", userDetails);
         return (
             <div className="edituser" class="mt_30">
+                <br/><br/><br/><br/><br/><br/>
                 <div style={{display:'flex',justifyContent:'center'}}>
                     <h3>회원정보 수정</h3><br/>
                 </div>

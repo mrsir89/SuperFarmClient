@@ -29,6 +29,7 @@ logout() {
 
             return (
                 <div id="contentWrap">
+                    
                     <div id="content">
                         <div class="navi w1100">
                             <a href="/">HOME</a>

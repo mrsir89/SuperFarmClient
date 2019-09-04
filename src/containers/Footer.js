@@ -10,6 +10,7 @@ function Footer({ history, location, matcher }) {
   else {
     return (
       <div className="footer">
+        <br/>
         <div className="container">
           <div className="row">
             {/* BEGIN COPYRIGHT */}

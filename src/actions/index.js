@@ -735,6 +735,22 @@ const orderList =(orderList) =>{
   })
 }
 
+const loadUserOrder =(userNum) =>{
+  console.log('loadUserOrder',userNum)
+  const formData = new FormData()
+  return({
+    type:ActionTypes.LOAD_USERORDER,
+    payload:{
+      request:{
+        method:'POST',
+        url:'/orders/user',
+        data:formData
+      }
+    }
+  })
+}
+
+
 
 
 //////////////////////////////////////////////////////////
@@ -771,5 +787,5 @@ export const Actions = {
 
   userEdit,
   kakaoPayReady,kakaoPaySuccess,
-  checkoutOrder,orderList
+  checkoutOrder,orderList,loadUserOrder
 };

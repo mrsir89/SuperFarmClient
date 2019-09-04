@@ -304,11 +304,13 @@ class order extends React.Component {
         var phoneArray = this._phoneNumber(userDetails.position.customerPhone)
 
         return (
-            <div className="mainDiv">
+            <div className="mainDiv" align="center">
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 {/* 구매하려는 상품 목록 표시  */}
                 <table className="tg" >
+                    <h2>주문서 작성</h2>
                     <tbody>
-                        <tr height="50px"></tr>
+                        <tr height="10px"></tr>
                         <tr>
                             <th className="goods-page-image" width="20%"><center>제품</center></th>
                             <th className="goods-page-description" width="20%"><center>제품 목록</center></th>

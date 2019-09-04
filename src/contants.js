@@ -194,6 +194,9 @@ export const ActionTypes={
     SAVEORDERLIST_SUCCESS:'SAVEORDERLIST_SUCCESS',
     SAVEORDERLIST_FAIL:'SAVEORDERLIST_FAIL',
 
+    LOAD_USERORDER:'LOAD_USERORDER',
+    LOAD_USERORDER_SUCCESS:'LOAD_USERORDER_SUCCESS',
+
     ///////////////////////////////////////////////////
     ////////// 비동기 처리
     ASNYCACTION:'ASNYCACTION',

@@ -11,7 +11,8 @@ class MainLayout extends React.Component{
             <div id="wrap">
                 <PreHeader />
                 <Header/>
-                {this.props.children}     
+                {this.props.children} 
+                <br/><br/><br/><br/>    
                 <Footer />
             </div>
         )

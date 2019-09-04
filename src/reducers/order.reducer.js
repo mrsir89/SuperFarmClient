@@ -106,8 +106,18 @@ const orderReducer = (state=initialStateOrder,action) =>{
         }else{
             alert('주문 도중 오류가 발생 하였습니다. \n 다시 시도해 주세요')
         }
-
-        
+    
+    case ActionTypes.LOAD_USERORDER_SUCCESS:
+        console.log('actiontype LOAD_USERORDER_SUCCESS')
+        if(action !== undefined && action !== null){
+            const { data } = action.payload
+            if(data !== null && data !== undefined){
+                return{
+                    ...state,
+                    myOrderedList:data
+                }
+            }
+        }
     default:
         return state;
     }
