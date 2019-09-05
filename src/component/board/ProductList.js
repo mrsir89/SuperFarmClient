@@ -208,7 +208,7 @@ class ProductList extends React.Component {
           </div>
 
 
-        // {/* Sidebar */}
+         {/* Sidebar */}
         <div className="product-bot">
 
           <div className="product-bot-left">
