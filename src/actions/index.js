@@ -736,7 +736,7 @@ const orderList =(orderList) =>{
 }
 
 const loadUserOrder =(userNum) =>{
-  console.log('loadUserOrder',userNum)
+  console.log('num',userNum)
   const formData = new FormData()
   return({
     type:ActionTypes.LOAD_USERORDER,

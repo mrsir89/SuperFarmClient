@@ -309,7 +309,7 @@ class ProductDetail extends React.Component {
                         <div className="prd-btn">
                            <button type="button" className="btn-buy">바로구매</button>
                            <a href="/cart" className="btn-cart">장바구니</a>
-                           <button type="button" class="btn-cart2"
+                           <button type="button" className="btn-cart2"
                               onClick={this.handleSubmit}>카트담기</button>
                         </div>
                      </form>
@@ -331,7 +331,7 @@ class ProductDetail extends React.Component {
       );
    }
 }
-//옵션 select 에서 class="form-control" id="exampleFormControlSelect1"
+//옵션 select 에서 className="form-control" id="exampleFormControlSelect1"
 
 // store에서 state를 복사해서 컨테이너의 props에 붙여넣기 
 function mapStateToProps(state) {

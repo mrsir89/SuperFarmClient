@@ -27,6 +27,7 @@ import Faq from './component/board/faq/faq';
 import Order from './component/order/order'
 import OrderSuccess from './component/order/orderSuccess';
 import MainLayout from './MainLayout';
+import MyOrder from './component/order/MyOrder';
 
 // 08/28 update
 // import Main from './Main';
@@ -77,7 +78,6 @@ class App extends React.Component {
           <MainLayout >
           <Route exact path="/" component={Home} />
           {/* <Route exact path="/product" component={ProductList} /> */}
-          <Route path="/productlist/:id/:search" component={ProductList} />
           <Route path="/productlist/:id" component={ProductList} />
           <Route exact path="/product" component={ProductList} />
           <Route path="/qnaboard" component={qnaboard} />
@@ -85,6 +85,7 @@ class App extends React.Component {
           <Route path="/mypage" component={MyPage} />
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/review/all" component={ListReview} />
+          <Route path="/mypage/order" component={MyOrder} />
           {/* <Route path="/orderSheet" component={OrderSheet} /> */}
           <Route path="/order" component={Order} />
           

@@ -1,40 +1,24 @@
 import React from 'react';
-
+import { Actions } from '../../actions/index';
+import { connect } from 'react-redux';
 
 class MyOrder extends React.Component{
 
     constructor(props) {    // props 굳이 안써줘도 넘어 옴
         super(props)
-        const { cartlist, userDetails } = this.props;
-    
-    
+
         this.state = {
-          items: [],
-          selectedProduct: [],
-          SubPrice: 0,
-          shippingPrice: 0,
-          TotalPrice: 0
+
         }
       }
+
       componentWillMount() {
-        const { getCartByUser } = this.props;
-        const { userDetails } = this.props;
-        if (userDetails !== null && userDetails !== undefined) {
-          getCartByUser(userDetails.userNum)
-            .then(response => {
-              this._changeTotalPrice();
-            });
-        } else {
-          alert('로그인이 필요한 페이지 입니다.')
-          history.push("/login")
-        }
+        const { userDetails } = this.props
+        const { loadUserOrder } = this.props;
+        var userNum = userDetails.userNum
+        loadUserOrder(userNum);
       }
     
-      // 장바구니에 담긴 상품 갯수 구하기 
-      _getCartCount(items) {
-        return (items === undefined || items === null || items.length === 0 ? 0 : items.length);
-    
-      }
     
       _getSubTotalPrice(items) {
         return (items === undefined || items === null || items.length === 0 ? 0 : items.reduce((prevItem, item) => {
@@ -46,7 +30,6 @@ class MyOrder extends React.Component{
           } else {
             totalPrice = Number.parseFloat(prevItem);
           }
-          //console.log('>>>>', (totalPrice + itemPrice).toFixed(0));
           return (totalPrice + itemPrice).toFixed(0);
         }));
       }
@@ -54,9 +37,11 @@ class MyOrder extends React.Component{
     
       // 장바구니에 담긴 상품이 1개일 경우 가격 구하기 
       _getOnePrice(items) {
+
         const price = Number.parseFloat(items[0].cartProductPrice) * Number.parseFloat(items[0].cartProductCount);
         return price.toFixed(0);
-      }
+
+    }
     
     
       _changeTotalPrice() {
@@ -74,53 +59,7 @@ class MyOrder extends React.Component{
           TotalPrice: TotalPrice
         })
       }
-    
-      // 주문 하기
-      // 주문 하기 위해 현재 리스트에 담겨 있는 제품들을 리듀서를 통해 store 에 저장해 준다.
-      _checkout = () => {
-        const{ userDetails } = this.props;
-        if(userDetails === null || userDetails ===undefined){
-          
-          return alert(' 로그인이 필요한 작업니다.')
-        }
-        const { cartlist } = this.props
-        const { history } = this.props
-        const { orderList } = this.props
-        console.log(cartlist, ' cart List 임니다.')
-        var SubPrice = this.state.SubPrice;
-        var shippingPrice = this.state.shippingPrice;
-        var TotalPrice = this.state.TotalPrice;
-    
-        const orderItems = {
-          cartlist,
-          SubPrice,
-          shippingPrice,
-          TotalPrice
-        }
-        if (cartlist.size !== 0) {
-          orderList(orderItems)
-          history.push("/order");
-        } else {
-          alert('제품에 담긴 물품이 없습니다.')
-        }
-      }
-    
-      _changeTotalPrice() {
-        console.log('작동~!!!!!!!!!!!!!!!')
-        const { cartlist } = this.props;
-        const SubPrice = this._getCartCount(cartlist) > 1 ? this._getSubTotalPrice(cartlist)
-          : this._getCartCount(cartlist) == 1 ? this._getOnePrice(cartlist) : 0;
-    
-        const shippingPrice = (cartlist.length > 0 ? 3000 : 0);
-        const TotalPrice = Number.parseFloat(SubPrice) + Number.parseFloat(shippingPrice);
-    
-        this.setState({
-          SubPrice: SubPrice,
-          shippingPrice: shippingPrice,
-          TotalPrice: TotalPrice
-        })
-      }
-      //숫자 통화 표시
+    //숫자 통화 표시
       _numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
@@ -207,11 +146,6 @@ class MyOrder extends React.Component{
                                       <strong>{this._numberWithCommas(cartProductPrice * (cartProductCount))}</strong>원
                                     </td>
     
-                                    {/* 삭제 */}
-                                    <td className="del-goods-col">
-                                      {/* <a className="del-goods" href="javascript:;">&nbsp;</a> */}
-                                      <button className="del-goods" onClick={e => this._delectCartById(e, cartNum)} />
-                                    </td>
                                   </tr>
                                 );
                               })}
@@ -261,31 +195,20 @@ class MyOrder extends React.Component{
     }
     
     function mapStateToProps(state) {
-      const { cart, auth } = state;
+      const { auth } = state;
       const { userDetails } = auth;
-      const { cartlist } = cart;
       if (userDetails !== null || userDetails !== undefined) {
         return {
-          cartlist,  // 배열 
-          userDetails
+            userDetails
         }
       } else {
         alert('로그인이 필요 합니다.')
-        return (
-          <Redirect to="/" />
-        )
+        window.location.href='/'
       }
     }
     const mapDispatchToProps = (dispatch) => ({
-      getCartByUser: (userNum) => dispatch(Actions.getCartByUser(userNum)),
-      editCartQty: (newCart) => dispatch(Actions.editCartQty(newCart)),
-      removeCartById: (cartNum) => dispatch(Actions.removeCartById(cartNum)),
-      orderList: (cartlist) => dispatch(Actions.orderList(cartlist))
+        loadUserOrder:() => dispatch(Actions.loadUserOrder())
     });
     
-    export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+    export default connect(mapStateToProps, mapDispatchToProps)(MyOrder);
     
-
-
-
-}

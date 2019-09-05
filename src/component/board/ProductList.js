@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import './ProductList.css';
 import { ActionTypes } from '../../contants';
 import Carousel from '../../containers/Carousel';
+import { reject } from 'q';
 
 
 // 제품 전체 리스트 페이지 
@@ -22,6 +23,17 @@ class ProductList extends React.Component {
 
 
   componentWillMount() {
+    setTimeout(()=>{
+      return(
+        <div>
+          로딩중
+        </div>
+      )
+    },3000)
+    this._loadProductList();
+   }
+
+   _loadProductList=()=>{
     const { loadProductList } = this.props;
     const { loadBestProductList } = this.props;
     // const { }
@@ -33,12 +45,13 @@ class ProductList extends React.Component {
       .then(response => {
         if (response.type === ActionTypes.LOAD_PRODUCTLIST_SUCCESS) {
           console.log(response,'response1')
-          this.setState({
-            productBoard: response.payload.data
-          })
-          return loadBestProductList(lowerId)
+            this.setState({
+              productBoard: response.payload.data
+            })
         }
-      }).then(response => {
+      })
+      loadBestProductList(lowerId)
+      .then(response => {
         if (response.type === ActionTypes.LOAD_BESTPRODUCTLIST_SUCCESS) {
           console.log(response,'response2')
           this.setState({
@@ -46,7 +59,7 @@ class ProductList extends React.Component {
           })
         }
       });
-  }
+   }
 
  
   // componentDidMount() {
@@ -62,11 +75,6 @@ class ProductList extends React.Component {
   //     }
 
   //   });
-  // }
-
-  // shouldComponentUpdate(nextProps, nextState){
-  //   console.log("shouldComponentUpdate: " + JSON.stringify(nextProps) + " " + JSON.stringify(nextState));
-  //   return true;
   // }
 
 
@@ -152,8 +160,7 @@ class ProductList extends React.Component {
   
   render() {
     console.log('render222222222222222',this.state)
-    const { category, productBoard,mainBest,bestList } = this.props;
-    
+    const {  productBoard,mainBest,bestList } = this.props;
 
     // const upper =  productBoard[0].upperCode ;
     // const upperCategories = category[upper-1];
@@ -191,24 +198,14 @@ class ProductList extends React.Component {
 
           </ul>
         </div> */}
-        <div className="App" >
           <div className="main" >
             <div className="container margin-bottom-40">
               <div className="row margin-bottom-40 margin-top-70 " >
                 <Carousel className={'col-md-12 col-sm-8'} carouselName={'owl-carousel owl-carousel3 margin-top-70'}
                   srbtitle={'SUPER FARM'} title={'BEST PRODUCT'} items={bestList} />
               </div>
-              {/*         
-               Carousel className={'col-md-12 sale-product'} carouselName={'owl-carousel owl-carousel3 margin-top-70'}
-              srbtitle={'SUPER FARM'} title={'BEST PRODUCT'} items={bestProduct} />
-          <Carousel className={'col-md-9 col-sm-8'} carouselName={'owl-carousel owl-carousel3'}
-              title={'Three items'} items={productItems} />
-       
-          <Carousel className={'col-md-6 two-items-bottom-items'} carouselName={'owl-carousel owl-carousel2'}
-              title={'Three items'} items={productItems} /> */}
             </div>
           </div>
-        </div>
 
 
         // {/* Sidebar */}

@@ -26,6 +26,9 @@ class QnABoard extends React.Component {
     this._loadqnaBoardList();
 
   }
+  componentDidMount(){
+    this._loadqnaBoardList();
+  }
   // componentDidMount() {
 
   //   this._loadqnaBoardList();

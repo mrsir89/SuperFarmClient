@@ -100,30 +100,34 @@ class Login extends React.Component {
 
   render() {
     return (
-
-      <div id="backgroud">
+      <div className="logo">
+      <div id="backgroud" >
         <div className="loginGroup">
           <form onSubmit={e => this.handleOnSubmit(e)}>
-            <div className="logo"><img src="./image/logo.png"></img></div>
+            <div className="logo"><a href='/'>
+              <img src="./image/logo.png" ></img>
+              </a>
+              <br/><br/><br/></div>
+{/*             
             <div className="loginNotice">
               <h4><strong> 로그인 </strong></h4>
-            </div>
-            <div className='form-group row'>
+            </div> */}
+            <div className='form-group row3'>
               <input className='input' type='text' name="customerId"
                 value={this.state.userId} onChange={this._onchange} placeholder='ID' />
             </div>
-            <div className='form-group row'>
+            <div className='form-group row3'>
               <input className='input' type='password' placeholder='비밀번호'
                 name="password" value={this.state.password} onChange={this._onchange} />
             </div>
-            <div className='form-group row'>
-              <input type="button" className='btn' value="Log in " onClick={this.onSubmit} />
+            <div className='form-group row3'>
+              <input type="button" className='btn3' value="Log in " onClick={this.onSubmit} />
             </div>
             {/* </div> */}
           </form>
         </div>
       </div>
-
+      </div>
     )
   }
 }

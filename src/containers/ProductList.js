@@ -20,43 +20,53 @@ class ProductList extends React.Component {
     //loadProductList();
     const lowerId = this.props.match.params.id;
     console.log("lowerId >>>>>>>>>>>", lowerId);
-    loadProductList('lower', lowerId);
+    setTimeout( ()=>{
+      loadProductList('lower', lowerId).then(response=>{
+        if(response !== null && response !== undefined){
+          this.setState({
+            productBoard:response.payload.data
+          })
+        }
+      });
+    },3000)
 
   }
-  componentDidMount(){
+  componentDidMount() {
     const { loadProductList } = this.props;
     //loadProductList();
     const lowerId = this.props.match.params.id;
 
     console.log("lowerId >>>>>>>>>>>", lowerId);
-    loadProductList('lower', lowerId);
+    await loadProductList('lower', lowerId);
 
   }
 
   _renderAllProducts = () => {
     const { productBoard } = this.props;
     var productItems = [];
-    console.log(productBoard , ' _renderAllProduct')
-    if (productBoard !== undefined && productBoard !== null && productBoard.length !== 0) {
+    console.log(productBoard, ' _renderAllProduct')
+    if (productBoard !== undefined && productBoard !== null
+      && productBoard.length !== 0) {
       productItems = productBoard.map(item => {
         return <Link to={`/product/${item.productBoardNum}`}>
           <ProductItem key={item.productBoardNum} item={item} />
         </Link>
       })
-    }else{
-      return(
+    } else {
+      return (
         <div>
           찾으시는 물품이 없습니다.
         </div>
         // 여기에 물품이 없을 경우 페이지 만들기 
         // 찾으시는 물품이 없습니다가 잘 나오게 
-        
+
 
       )
     }
     return productItems
 
-  }// _renderAllproducts end
+  }
+  // _renderAllproducts end
 
   render() {
     return (
