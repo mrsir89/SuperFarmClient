@@ -7,9 +7,9 @@ class MyOrder extends React.Component{
     constructor(props) {    // props 굳이 안써줘도 넘어 옴
         super(props)
 
-        this.state = {
-
-        }
+        // this.state = {
+        //     orderlist = 
+        // }
       }
 
       componentWillMount() {
@@ -65,23 +65,23 @@ class MyOrder extends React.Component{
       }
     
       render() {
-        const { cartlist } = this.props;
+        
         // const SubPrice = this._getCartCount(cartlist) > 1 ? this._getSubTotalPrice(cartlist)
         //   : this._getCartCount(cartlist) == 1 ? this._getOnePrice(cartlist) : 0;
     
         // const shippingPrice = (cartlist.length > 0 ? 3000 : 0);
         // const TotalPrice = Number.parseFloat(SubPrice) + Number.parseFloat(shippingPrice);
     
-        console.log("===========selected product===========", this.state.selectedProduct)
         return (
     
           <div className="main">
+            
             <div className="container">
               {/* <!-- BEGIN SIDEBAR & CONTENT --> */}
               <div className="row margin-bottom-40">
                 {/* <!-- BEGIN CONTENT --> */}
                 <div className="col-md-12 col-sm-12">
-                  <h1>장바구니</h1>
+                  <h1>구매내역</h1>
     
                   <div className="goods-page">
                     <div className="goods-data clearfix">
@@ -101,12 +101,12 @@ class MyOrder extends React.Component{
     
                             {/* --------------------------------------------------------------------------------------------------------------------------- */}
     
-                            {cartlist === undefined || cartlist === null ? ''
+                            {/* {cartlist === undefined || cartlist === null ? ''
                               : cartlist.map((item, index) => {
                                 console.log("item !!!!!!!!!!!!!!!!!!!!!!!!!", item)
                                 const { cartProductCount, cartNum, productBoardTitle, cartProductPrice,
                                   cartProductName, productBoardNum, cartProductImg,
-                                  cartProductOption1, cartProductOption2 } = item;
+                                  cartProductOption1, cartProductOption2 } = item; */}
     
                                 return (
                                   <tr>
@@ -114,15 +114,15 @@ class MyOrder extends React.Component{
                                       <input type="checkbox" name="check" checked />
                                     </td>
                                     <td className="goods-page-image">
-                                      <a href={`/product/${productBoardNum}`}><img src={cartProductImg} alt="Berry Lace Dress" /></a>
+                                      {/* <a href={`/product/${productBoardNum}`}><img src={cartProductImg} alt="Berry Lace Dress" /></a> */}
                                     </td>
     
                                     {/* 상품 이름 & 옵션 */}
-                                    <td className="goods-page-description">
+                                    {/* <td className="goods-page-description">
                                       <h3><a href={`/product/${cartProductName}`}>{cartProductName}</a></h3>
                                       <p><strong>{cartProductOption1 == null ? '' : '옵션1 '} </strong> {cartProductOption1 == null ? '' : cartProductOption1} </p>
                                       <p><strong>{cartProductOption2 == null ? '' : '옵션2 '} </strong> {cartProductOption2 == null ? '' : cartProductOption2} </p>
-                                    </td>
+                                    </td> */}
     
                                     {/* 제품코드 */}
                                     {/* <td className="goods-page-ref-no">
@@ -131,19 +131,19 @@ class MyOrder extends React.Component{
     
                                     {/* 수량 */}
                                     <td >
-                                      <input type="number" value={cartProductCount} min="1" max="20" name={cartNum} onChange={e => this._changeQuantity(e, index)} size="4"></input>
+                                      {/* <input type="number" value={cartProductCount} min="1" max="20" name={cartNum} onChange={e => this._changeQuantity(e, index)} size="4"></input> */}
                                       {/* <input type="button" value="적용" onClick={e => this._editCartDB(e, cartNum)} /> */}
     
                                     </td>
     
                                     {/* 단가 */}
                                     <td className="goods-page-price">
-                                      <strong>{this._numberWithCommas(cartProductPrice)}</strong>원
+                                      {/* <strong>{this._numberWithCommas(cartProductPrice)}</strong>원 */}
                                     </td>
     
                                     {/* 가격 */}
                                     <td className="goods-page-total">
-                                      <strong>{this._numberWithCommas(cartProductPrice * (cartProductCount))}</strong>원
+                                      {/* <strong>{this._numberWithCommas(cartProductPrice * (cartProductCount))}</strong>원 */}
                                     </td>
     
                                   </tr>
@@ -158,15 +158,15 @@ class MyOrder extends React.Component{
                         <ul>
                           <li>
                             <em>상품금액</em>
-                            <strong className="price">{this._numberWithCommas(this.state.SubPrice)}<span>원</span></strong>
+                            {/* <strong className="price">{this._numberWithCommas(this.state.SubPrice)}<span>원</span></strong> */}
                           </li>
                           <li>
                             <em>배송비</em>
-                            <strong className="price">{this._numberWithCommas(this.state.shippingPrice)}<span>원</span></strong>
+                            {/* <strong className="price">{this._numberWithCommas(this.state.shippingPrice)}<span>원</span></strong> */}
                           </li>
                           <li className="shopping-total-price">
                             <em>총금액</em>
-                            <strong className="price" onChange={this._test}>{this._numberWithCommas(this.state.TotalPrice)}<span>원</span></strong>
+                            {/* <strong className="price" onChange={this._test}>{this._numberWithCommas(this.state.TotalPrice)}<span>원</span></strong> */}
                           </li>
                         </ul>
                       </div>

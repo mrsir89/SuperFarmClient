@@ -705,7 +705,6 @@ const kakaoPaySuccess =(kakaopayResult) =>{
       }
     }
   })
-
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -738,6 +737,7 @@ const orderList =(orderList) =>{
 const loadUserOrder =(userNum) =>{
   console.log('num',userNum)
   const formData = new FormData()
+  formData.append('num',userNum)
   return({
     type:ActionTypes.LOAD_USERORDER,
     payload:{
