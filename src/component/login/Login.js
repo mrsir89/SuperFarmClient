@@ -104,7 +104,7 @@ class Login extends React.Component {
       <div id="backgroud" >
         <div className="loginGroup">
           <form onSubmit={e => this.handleOnSubmit(e)}>
-            <div className="logo"><a href='/'>
+            <div className="logoimg"><a href='/'>
               <img src="./image/logo.png" ></img>
               </a>
               <br/><br/><br/></div>

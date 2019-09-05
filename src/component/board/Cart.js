@@ -84,6 +84,7 @@ class Cart extends React.Component {
     e.stopPropagation();
     const { removeCartById } = this.props;
     removeCartById(cartNum);
+    window.location.reload();
 
   }
 
@@ -194,6 +195,7 @@ class Cart extends React.Component {
     return (
 
       <div className="main">
+        <br/><br/><br/><br/><br/>
         <div className="container">
           {/* <!-- BEGIN SIDEBAR & CONTENT --> */}
           <div className="row margin-bottom-40">

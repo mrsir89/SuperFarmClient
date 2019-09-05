@@ -281,7 +281,8 @@ class Signup extends React.Component {
         const { signup } = this.props;
         const { history } = this.props;
         signup(signupCustomer, history);
-
+        window.opener.location.reload();
+        window.close();
 
       } else {
         alert('누락된 곳이 있습니다.')

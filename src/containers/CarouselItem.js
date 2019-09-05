@@ -16,13 +16,13 @@ function CarouselItem(props) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  if (productBoardBest > 4) {
-    return
-  }
+  // if (productBoardBest > 4) {
+  //   return
+  // }
   return (
     <div className="product-item2">
       <div className="pi-img-wrapper"><a href={`/product/${productBoardNum}`}>
-        <p className="m_index_item_img"><img src={productBoardThumbnail}  className="img-responsive" alt="Berry Lace Dress" />
+        <p className="m_index_item_img"><img src={productBoardThumbnail} width="400px" className="img-responsive" alt="Berry Lace Dress" />
         </p>
         </a>
       </div>

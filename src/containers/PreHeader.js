@@ -10,16 +10,20 @@ function PreHeader({ userDetails, logout, history }) {
     e.preventDefault();
     logout();
     
-    // window.location.href ='http://localhost:3000/';
-    history.push("/")
     alert('로그아웃 되었습니다.')
-
+    window.location.href ='http://localhost:3000/';
+    
   }
   // const _login =(e) =>{
   //   window.open('/login','로그인','width=500,height=300,location=no,status=no,scrollbars=yes')
   // }
   const _signup =(e) => {
-    window.open("/signup" ,'회원가입  작성', 'width=500,height=700,location=no,status=no,scrollbars=yes')
+    if(userDetails === null && userDetails ===undefined){
+    window.open("/signup" ,'회원가입  작성', 'width=600,height=750,location=no,status=no,scrollbars=yes')
+    }else{
+      alert('로그아웃 후 이용해 주세요')
+    }
+
   }
   console.log('PreHeader userDetails =====>', userDetails)
   return (

@@ -7,6 +7,7 @@ import './ProductList.css';
 import { ActionTypes } from '../../contants';
 import Carousel from '../../containers/Carousel';
 import { reject } from 'q';
+import { thisTypeAnnotation } from '@babel/types';
 
 
 // 제품 전체 리스트 페이지 
@@ -23,22 +24,20 @@ class ProductList extends React.Component {
 
 
   componentWillMount() {
-    setTimeout(()=>{
-      return(
-        <div>
-          로딩중
-        </div>
-      )
-    },3000)
     this._loadProductList();
    }
+
+  //  shouldComponentUpdate(nextProps, nextState){
+  //    const { productBoard } = this.props
+  //    if(JSON.stringify(this.state) !== JSON.stringify(nextState)){
+  //     //  window.location.reload();
+  //      return true
+  //    }
+  //  }
 
    _loadProductList=()=>{
     const { loadProductList } = this.props;
     const { loadBestProductList } = this.props;
-    // const { }
-    console.log('확인 작업', this.props)
-    //loadProductList();
     const lowerId = this.props.match.params.id;
     console.log("lowerId >>>>>>>>>>>", lowerId);
     loadProductList('lower', lowerId)
@@ -48,10 +47,9 @@ class ProductList extends React.Component {
             this.setState({
               productBoard: response.payload.data
             })
+            return loadBestProductList(lowerId)
         }
-      })
-      loadBestProductList(lowerId)
-      .then(response => {
+      }).then(response => {
         if (response.type === ActionTypes.LOAD_BESTPRODUCTLIST_SUCCESS) {
           console.log(response,'response2')
           this.setState({
@@ -62,20 +60,14 @@ class ProductList extends React.Component {
    }
 
  
-  // componentDidMount() {
-  //   console.log('componentDid', this.state)
-  //   const { loadBestProductList } = this.props
-  //   loadBestProductList(this.state.lowerId)
-  //   .then(response => {
-  //     if (response.type === ActionTypes.LOAD_BESTPRODUCTLIST_SUCCESS) {
-  //       console.log(response,'response2')
-  //       this.setState({
-  //         productBest: response.payload.data
-  //       })
-  //     }
-
-  //   });
-  // }
+  componentDidMount() {
+    this._loadProductList();
+    setTimeout(()=>{
+      this.setState({
+         isReadyComplete:true
+      })
+   },2000)
+  }
 
 
   _renderSideBar = () => {
@@ -116,21 +108,21 @@ class ProductList extends React.Component {
 
   }
 
-  _returnBestProduct = () => {
-    const { productBoard } = this.props;
-    console.log(productBoard, ' map 들어가기전')
-    var bestProduct = []
-    if (productBoard !== null && productBoard !== undefined) {
-      bestProduct = productBoard.map(productBoard => {
-        if (productBoard.productBoardBest > 0) {
-          return productBoard;
-        }
-      })
-    } else {
-      return null
-    }
-    console.log('best 상품 보자', bestProduct)
-  }
+  // _returnBestProduct = () => {
+  //   const { productBoard } = this.props;
+  //   console.log(productBoard, ' map 들어가기전')
+  //   var bestProduct = []
+  //   if (productBoard !== null && productBoard !== undefined) {
+  //     bestProduct = productBoard.map(productBoard => {
+  //       if (productBoard.productBoardBest > 0) {
+  //         return productBoard;
+  //       }
+  //     })
+  //   } else {
+  //     return null
+  //   }
+  //   console.log('best 상품 보자', bestProduct)
+  // }
 
   _renderAllProducts = () => {
     const { productBoard } = this.props;
@@ -159,45 +151,17 @@ class ProductList extends React.Component {
   // _renderAllproducts end
   
   render() {
-    console.log('render222222222222222',this.state)
     const {  productBoard,mainBest,bestList } = this.props;
-
+    // var bestList = this.state.productBest;
+    // var productBoard = this.state.productBoard;
+    
     // const upper =  productBoard[0].upperCode ;
     // const upperCategories = category[upper-1];
+    
     return (
       <div className="product">
         <br/><br/><br/>
-        {/* best 상품 */}
-        {/* <div className="product-top">
-          <ul className="product-best">
 
-
-            <li className="product-best-item">
-              <a href="#none">
-                <div className="product-best-item--rank">
-                  best1
-                </div>
-                <div className="product-best-item--thumb">
-                  <img src="https://placeimg.com/280/280/nature/sepia" />
-
-                </div>
-                <div className="product-best-item--info">
-                  <div className="product-best-item--icon">
-                    <p className="icon">아이콘</p>
-                  </div>
-                  <div className="product-best-item--title">
-                    여기
-                  </div>
-                  <div className="product-best-item--price">
-                    <span className="price">30,000</span> 원
-                  </div>
-                </div>
-              </a>
-            </li>
-
-
-          </ul>
-        </div> */}
           <div className="main" >
             <div className="container margin-bottom-40">
               <div className="row margin-bottom-40 margin-top-70 " >
@@ -206,8 +170,6 @@ class ProductList extends React.Component {
               </div>
             </div>
           </div>
-
-
         // {/* Sidebar */}
         <div className="product-bot">
 
@@ -227,24 +189,13 @@ class ProductList extends React.Component {
                 필터
               </div>
             </div>
-
-
             {/* 상품 리스트 */}
             <ul className="product-best product-bot-list">
               {this._renderAllProducts()}
             </ul>
           </div>
-
-
         </div>
       </div>
-      // <div className="main">
-      //   <div className="container" style={{ backgroundColor: 'white', display: 'flex', justifyContent: 'center' }}>
-      //     <div className="col-md-9 col-sm-7">
-      //       {this._renderAllProducts()}
-      //     </div>
-      //   </div>
-      // </div>
     );
   }
 }

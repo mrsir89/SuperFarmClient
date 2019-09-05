@@ -11,9 +11,11 @@ class QnABoard extends React.Component {
   constructor(props) {
     super(props)
     const { qnaBoard } = this.props;
+    const { userDetails } = this.props;
     this.state = {
       productBoardNum: this.props.productBoardNum,
-      qnaBoard: qnaBoard
+      qnaBoard: qnaBoard,
+      userDetails:userDetails
     }
     // this.handleClick=this.handleClick.bind(this);
     console.log('여기 실행 되나?', this.state)
@@ -29,10 +31,10 @@ class QnABoard extends React.Component {
   componentDidMount(){
     this._loadqnaBoardList();
   }
-  // componentDidMount() {
+  componentDidMount() {
 
-  //   this._loadqnaBoardList();
-  // }
+    this._loadqnaBoardList();
+  }
 
   // shouldComponentUpdate(nextState, nextProps) {
   //   console.log('shouldComponentUpdate')
@@ -49,10 +51,6 @@ class QnABoard extends React.Component {
   _loadqnaBoardList(size, page) {
 
     const { loadqnaboardList } = this.props;
-    console.log(this.state, ' <<<<< willMount')
-
-    console.log(this.state.productBoardNum, ' productBoardNum 실행')
-
     loadqnaboardList('productBoard', this.state.productBoardNum, size, page)
       .then(response => {
         if (response.type === ActionTypes.LOAD_QNABOARDLIST_SUCCESS) {
@@ -67,7 +65,11 @@ class QnABoard extends React.Component {
 
 
   _onClickPopUp = () => {
+    if(this.state.userDetails !== null && this.state.userDetails !== undefined){
     window.open(`/qnaboardWrite/${this.state.productBoardNum}`, ' 질문 작성', 'width=500,height=650,location=no,status=no,scrollbars=yes')
+    }else{
+      alert('로그인 후 이용해 주세요')
+    }
   }
 
   _renderQnaBoard = () => {
@@ -75,7 +77,6 @@ class QnABoard extends React.Component {
 
     if (this.state.qnaBoard !== undefined && this.state.qnaBoard !== null) {
       if (this.state.qnaBoard.length !== 0) {
-        console.log(' length!=0')
         if (this.state.qnaBoard.totalcount !== 0) {
           return (
             (this.state.qnaBoard.items.map((item, index) => (<Qnacontent {...item} index={index} key={index} />)))
@@ -147,7 +148,6 @@ class QnABoard extends React.Component {
 
       <div>
         <h2><strong>QnA 게시판 </strong></h2>
-
         <table className="tg">
           <tbody>
             <br />
@@ -156,29 +156,19 @@ class QnABoard extends React.Component {
               <div className="col-lg-8" align="center"><h4>제목</h4></div>
               <div className="col-lg-2" align="center"><h4>작성자</h4></div>
             </div>
-
             <br />
             <div className="col-lg-12">
               {this._renderQnaBoard(qnaBoard)}
-              {/* {
-            (qnaBoard !== null || qnaBoard !== undefined )?
-            (qnaBoard.items.map((item, index) => (<Qnacontent {...item} index={index} key={index} />))):
-            `아직 작성된 QnA 목록이 없습니다.`
-          } */}
             </div>
             <br />
           </tbody>
         </table>
-
-
         <div>
           <table>
             <tbody>
               <tr height="20px"></tr>
             </tbody>
           </table>
-
-
         </div>
         <div className="row" align="center">
           <div className="col-lg-10" align="left">
@@ -190,22 +180,6 @@ class QnABoard extends React.Component {
             <button type="button" className="btn btn-light" onClick={this._onClickPopUp}>작성</button>
           </div>
         </div>
-
-
-        {/* <table>
-          <tr height="100px">
-
-          </tr>
-        </table>
-      <div>
-        <table width="100%">
-          <tr>
-            <td>
-
-            </td>
-          </tr>
-        </table>
-      </div> */}
       </div>
 
 
@@ -217,11 +191,13 @@ const mapStateToProps = (state) => {
   console.log(state)
   const { board } = state;
   const { qnaBoard } = board;
+  const { userDetails } = state.auth
 
   console.log(qnaBoard, '<--------- qnaBoad')
   console.log(board, ' <--------- product')
   return {
-    qnaBoard
+    qnaBoard,
+    userDetails
   };
 
 }

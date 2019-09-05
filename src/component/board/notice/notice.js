@@ -3,6 +3,7 @@ import NoticeItem from './noticeItem';
 // import Noticejson from './Notice.json';
 import { connect } from 'react-redux';
 import { Actions } from '../../../actions/index';
+import './notice.css';
 
 
 
@@ -43,7 +44,7 @@ class Notice extends React.Component {
 
           {/* END SIDEBAR */}
           {/* BEGIN CONTENT */}
-          <div className="col-md-9 col-sm-7">
+          <div className="col-md-9 col-sm-7 ">
             <h1>공지사항</h1>
             <div className="goods-page">
               <div className="goods-data clearfix">

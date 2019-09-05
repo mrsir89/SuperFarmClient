@@ -10,19 +10,32 @@ class Faq extends React.Component{
 
 constructor(props){
     super(props)
+    this.state={
+      frequentlyBoard:[]
+    }
 }
 
 componentWillMount(){
-    console.log('componentWillMount')
-    const { loadFrequentlyAskedQuestionBoard } = this.props;
-    loadFrequentlyAskedQuestionBoard();
+  this._loadFrequently();
 }
-    
+componentDidMount(){
+  this._loadFrequently();
+}
+
+_loadFrequently=()=>{
+  const { loadFrequentlyAskedQuestionBoard } = this.props;
+  loadFrequentlyAskedQuestionBoard().then(response=>{
+    if(response !== null && response !== undefined){
+      this.setState({
+        frequentlyBoard:response.payload.data
+      })
+    }
+  });
+}
   
   render(){
     const { frequentlyBoard } = this.props;
     const { items } = frequentlyBoard;
-    console.log('1111111111111111111111111111111',frequentlyBoard)
   return(
     <div className="main">
       <br/><br/><br/><br/><br/><br/>
@@ -30,16 +43,12 @@ componentWillMount(){
       {/* BEGIN SIDEBAR & CONTENT */}
       <div className="row margin-bottom-40">
         {/* BEGIN SIDEBAR */}
-        
         {/* END SIDEBAR */}
         {/* BEGIN CONTENT */}
         <div className="col-md-9 col-sm-9">
           <h1>자주 묻는 질문</h1>
           <div className="faq-page">
-            
              {items.map((item,index) => (<FaqItem {...item} index={index} key={index} />))}
-
-             
           </div>
         </div>
         {/* END CONTENT */}

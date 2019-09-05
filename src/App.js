@@ -28,6 +28,7 @@ import Order from './component/order/order'
 import OrderSuccess from './component/order/orderSuccess';
 import MainLayout from './MainLayout';
 import MyOrder from './component/order/MyOrder';
+import CircularDeterminate from './util/CircularDeterminate';
 
 // 08/28 update
 // import Main from './Main';
@@ -54,6 +55,9 @@ class App extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      isReadyComplete: false
+    }
 
   }
 
@@ -65,17 +69,23 @@ class App extends React.Component {
     }
     console.log("<<this.props in App >> ", this.props)
   }
-
+  componentDidMount() {
+    //   setTimeout(()=>{
+    //     this.setState({
+    //        isReadyComplete:true
+    //     })
+    //  },1000)
+  }
 
   render() { // 화면에 html 뷰를 생성.\
     return ( // return으로 받는 값들은 나중에 html코드로 바뀐다.  JSX에 변수 넣을 때 반드시 {}
-        <Switch>
-          <Route path="/review/write/:boardNum" component={AddReview} />
-          <Route path="/qnaboardWrite/:boardNum" component={QnABoardWrite} />
-          <Route path="/signup" component={signup} />
-          <Route path="/login" component={login} />
-          <Route path="/orderSuccess" component={OrderSuccess} />
-          <MainLayout >
+      <Switch>
+        <Route path="/review/write/:boardNum" component={AddReview} />
+        <Route path="/qnaboardWrite/:boardNum" component={QnABoardWrite} />
+        <Route path="/signup" component={signup} />
+        <Route path="/login" component={login} />
+        <Route path="/orderSuccess" component={OrderSuccess} />
+        <MainLayout >
           <Route exact path="/" component={Home} />
           {/* <Route exact path="/product" component={ProductList} /> */}
           <Route path="/productlist/:id" component={ProductList} />
@@ -88,15 +98,15 @@ class App extends React.Component {
           <Route path="/mypage/order" component={MyOrder} />
           {/* <Route path="/orderSheet" component={OrderSheet} /> */}
           <Route path="/order" component={Order} />
-          
+
           <Route path="/useredit" component={userEdit} />
           <Route path="/usereditlogin" component={userEditlogin} />
           <Route path="/notice/:noticeNum" component={NoticeDetail} />
           <Route path="/notice" component={Notice} />
           <Route path="/faqboard" component={Faq} />
           {/* <Route path="/findPassword" component={ProductDetail} /> */}
-          </MainLayout>
-        </Switch>
+        </MainLayout>
+      </Switch>
     );
   }
 }
