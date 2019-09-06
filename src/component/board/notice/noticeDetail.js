@@ -90,7 +90,7 @@ function NoticeDetail(props) {
                           <div className="photo_area clearfix">
                           </div>
                           <div id="bbs_ntt_cn_con">
-                            <img src="/images/rice.jpg" width="300px"  />
+                            <img src="/image/fruits.jpg" width="300px"  />
                             <br />
                             <br />
                             <br />{ReactHtmlParser(noticeContent)}<br />

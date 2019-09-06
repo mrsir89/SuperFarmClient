@@ -64,7 +64,7 @@ class ProductDetail extends React.Component {
          const { addCart } = this.props;
          console.log("장바구니 추가>>>", cartModel)
          addCart(cartModel).then(response => {
-
+            alert("해당 상품이 장바구니에 추가되었습니다")
          });
       } else {
          alert('로그인이 필요한 페이지입니다. ')
@@ -310,7 +310,7 @@ class ProductDetail extends React.Component {
                            <button type="button" className="btn-buy">바로구매</button>
                            <a href="/cart" className="btn-cart">장바구니</a>
                            <button type="button" className="btn-cart2"
-                              onClick={this.handleSubmit}>카트담기</button>
+                              onClick={this.handleSubmit} style={{fontcolor :'tomato'}}>카트담기</button>
                         </div>
                      </form>
                   </div>

@@ -46,8 +46,9 @@
 .table-opt th { width: 205px; font-size: 13px; color: #444; text-align: left; text-indent: 29px; font-weight: normal; background: none; border: none; }
 .table-opt td { font-size: 13px; color: #444; }
 
+
 .prd-btn { padding: 20px 15px; border-top: 2px solid #ff600f;}
 .prd-btn a,.prd-btn button {font-size: 16px; font-weight: 600; color: #fff; }
 .btn-buy { width: 251px; height: 55px; line-height: 55px; text-align: center; background-color: #ff600f;}
 .btn-cart { display: inline-block; margin-left: 5px; width: 130px; height: 55px; line-height: 55px; text-align: center; background-color: #828282;}
-.btn-cart2 { margin-left: 5px;width: 110px; height: 53px; line-height: 53px; text-align: center; color: #666; text-align: center; }
+.btn-cart2 { margin-left: 5px;width: 110px; height: 53px; line-height: 53px; text-align: center; color: #666; text-align: center; background-color : #666; }
